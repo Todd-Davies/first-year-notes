@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.8.26)  21 SEP 2013 18:56
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.8.26)  21 SEP 2013 19:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -211,10 +211,6 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Overfull \hbox (6.10303pt too wide) in paragraph at lines 38--38
-\OT1/cmr/bx/n/14.4 study-ing at The Uni-ver-sity of Manch-ester? 
- []
-
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 43.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -249,8 +245,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 59.
  (./doc.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 59.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 59.
-Package rerunfilecheck Info: File `doc.out' has not changed.
-(rerunfilecheck)             Checksum: A2BC5C6D67327139404F9A54A4028CDA;539.
+
+
+Package rerunfilecheck Warning: File `doc.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `doc.out':
+(rerunfilecheck)             Before: 8FA6AF19F8E60454A360B8F94CE2D78F;535
+(rerunfilecheck)             After:  71F23780ABE847E9321E8DF5F39F4EE9;531.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 59.
  ) 
 Here is how much of TeX's memory you used:
@@ -266,7 +269,7 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on doc.pdf (2 pages, 74831 bytes).
+Output written on doc.pdf (2 pages, 74448 bytes).
 PDF statistics:
  89 PDF objects out of 1000 (max. 8388607)
  79 compressed objects within 1 object stream
