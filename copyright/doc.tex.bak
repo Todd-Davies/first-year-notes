@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage[parfill]{parskip}
+
+\pagestyle{fancyplain}
+
+\author{Todd Davies}
+\title{COMP1012: Professional Issues - Intellectual Property}
+\date{\today}
+
+\begin{document}
+
+\rhead{COMP1012: Professional Issues - Intellectual Property}
+\lhead{\today}
+
+\maketitle
+
+\section{A1: Copyright}
+
+\subsection{What is Copyright?}
+Copyright is a legal concept that attempts to give the creators of a wide variety of material economic rights pertaining to the material they've created.
+
+\subsection{How is Copyright obtained?}
+In the UK, copyright protection is automatic; there's no official registration. When a creator produces an applicable work, the work is automatically protected by copyright.\cite{http://www.ipo.gov.uk/types/copy/c-about/c-about-faq/c-about-faq-automatic.htm}
+
+\subsection{What can Copyright be applied to?}
+There are lots of different types of 'material' that can be protected by copyright, including but not limited to music, art, literature, protographs and of course the source code of software. A specific piece of material that is protected by copyright is called a 'work'.
+
+\subsection{Where is Copyright valid?}
+
+\subsection{How is Copyright enforced?}
+
+\section{B3: Who owns and work that I do while I'm studying at The University of Manchester?}
+
+\end{document}
