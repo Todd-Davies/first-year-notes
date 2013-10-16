@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage[parfill]{parskip}
+\usepackage{amssymb,amsmath}
+
+\pagestyle{fancyplain}
+
+\author{Todd Davies}
+\title{Assignment 1 submission}
+\date{\today}
+
+\begin{document}
+
+\rhead{Assignment 1 submission}
+\lhead{\today}
+
+\maketitle
+
+\section*{Question 1}
+
+The binary operation $*$ is defined on the set $\mathbb{Q}$ of rational numbers by:
+
+\[
+    p * q = 2p + 2q - pq - 2
+\]
+
+\subsection*{Part a}
+
+Proof of commutativity:
+
+\[
+    \begin{split}
+    p * q &= 2p + 2q - pq -2\\
+          &= 2q + 2p - qp - 2\\
+          &= q * p
+    \end{split}
+\]
+
+\subsection*{Part b}
+
+Proof of associativity:
+
+\[
+    \begin{split}
+    (p * q) * r &= (2p + 2q - pq -2) * r\\
+                &= 4p + 4q - 2pq - 4 + 2r - 2pr - 2qr + rpq + 2r - 2\\
+                &= 4p + 4q - 2pq + 4r - 2pr - 2qr + rpq - 6\\
+                &= 4r + 4q - 2pq - 4 + 2p - 2qp - 2rp + pqr + 2p -2\\
+                &= (2r + 2q - rq - 2) * p\\
+                &= (r * q) * p
+    \end{split}
+\]
+
+\newpage
+
+\section*{Question 2}
+
+A small formal language {\it R} of expressions is defined by the following rules:
+\begin{itemize}
+
+    \item Each of the lower case letter symbols (from $a$ to $z$) is an expression.
+    \item If $A$ is an expression, then so is $A!$
+    \item If $A$ and $B$ are expressions then so are $AB\circledcirc$, $AB\circleddash$ and $AB\circledast$.
+
+\end{itemize}
+
+Some examples of expressions in this language may be:
+
+\begin{itemize}
+    \item $a$
+    \item $a!$
+    \item $ab\circledcirc$
+    \item $ab!\circleddash$
+    \item $abc\circledast\circledcirc$
+\end{itemize}
+
+See the attached sheet for the parse tree of the expression $np!q\circledcirc!rs\circleddash\circledast\circledcirc t\circleddash$:
+
+\newpage
+
+\section*{Question 3}
+
+FOr any two subsets $A$ and $B$ of some set $S$,
+
+\[
+    (A \cup B) - (A \cap B) = (A - B) \cup (B - A)
+\]
+
+Where $X - Y = X \cap Y'$
+
+\subsection*{Part a}
+
+See attached sheet.
+
+\subsection*{Part b}
+
+
+
+\end{document}
