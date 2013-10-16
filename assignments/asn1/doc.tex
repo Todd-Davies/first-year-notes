@@ -52,6 +52,8 @@ Proof of associativity:
     \end{split}
 \]
 
+\newpage
+
 \section*{Question 2}
 
 A small formal language {\it R} of expressions is defined by the following rules:
@@ -72,5 +74,39 @@ Some examples of expressions in this language may be:
     \item $ab!\circleddash$
     \item $abc\circledast\circledcirc$
 \end{itemize}
+
+See the attached sheet for the parse tree of the expression $np!q\circledcirc!rs\circleddash\circledast\circledcirc t\circleddash$:
+
+\newpage
+
+\section*{Question 3}
+
+For any two subsets $A$ and $B$ of some set $S$,
+
+\[
+    (A \cup B) - (A \cap B) = (A - B) \cup (B - A)
+\]
+
+Where $X - Y = X \cap Y'$
+
+\subsection*{Part a}
+
+See attached sheet.
+
+\subsection*{Part b}
+
+Algebraic proof:
+
+\[
+    \begin{split}
+    (A \cup B) - (A \cap B) &= (A \cup B) \cap (A \cap B)'\\
+                            &= (A \cup B) \cap (A' \cup B')\\
+                            &= ((A' \cup B') \cap A) \cup ((A' \cup B') \cap B)\\
+                            &= ((A \cap A') \cup (A \cap B')) \cup ((B \cap A') \cup (B \cap B'))\\
+                            &= (\emptyset \cup (A \cap B')) \cup ((B \cap A') \cup \emptyset)\\
+                            &= (A \cap B') \cup (B \cap A')\\
+                            &= (A - B) \cup (B - A)
+    \end{split}    
+\]
 
 \end{document}
