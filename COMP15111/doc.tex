@@ -1,19 +1,137 @@
 \documentclass{article}
-
-\usepackage{fancyhdr}
-\usepackage[parfill]{parskip}
-
-\pagestyle{fancyplain}
-
-\author{Todd Davies}
-\title{TITLE}
-\date{\today}
-
 \begin{document}
-
-\rhead{TITLE}
-\lhead{\today}
-
+\author{Chris Williamson}
+\title{COMP15111 Notes}
 \maketitle
+\tableofcontents
+\newpage
+\section{Lecture 1:Introduction}
+\subsection{A Computational Model}
+The simplest, earliest, commonest, most important model is the \textbf{Von-Neumann Imperative Procedural Computer Model}
+
+A computer can:
+\begin{enumerate}
+\item Store information
+\item Manipulate the stored information
+\item Make decisions depending on the stored information
+\end{enumerate}
+
+\subsection{Simple View Of A Computer}
+\[Memory \Leftrightarrow Bus \Leftrightarrow Processor\]
+
+\subsubsection{\textbf{Memory}} - A set of locations which can hold information, such as numbers(or programs)\\
+Each memory location has a unique (numerical) address\\
+Typically thousands of millions of different locations\\
+There are various ways of depicting memory; a common one is a 'hex dump':\\
+Each item has a unique address.
+
+\subsubsection{\textbf{Bus}} - Bidirectional communication path\\
+Transmits addresses and numbers
+
+\subsubsection{\textbf{Processor}} - Obeys a sequence of instructions = program (code)\\
+Historically the processor was often referred to as a CPU\\
+Nowadays this is inappropriate - typically several processing 'cores'
+
+\subsection{Three-address instructions}
+Every kind of processor has a different set of instructions, real world examples include: pentium, ARM....and others\\
+We will start with something simple\\
+Each 3-address instruction:
+\begin{enumerate}
+\item Copies the values from any two memory locations and sends them to the processor (source operands)
+\item Copies some operation e.g. adds the copied numbers together
+\item Copies the result back from the processor into a third memory location (destination operand)
+\end{enumerate}
+e.g. sum of two values 'a' and 'b'\\
+a holds 2, b holds 3 "source operands"\\
+2+ 3 is 5 "operation"\\
+Sum becomes 5 "destination operand"
+
+\subsection{Registers}
+Reduce accesses to main memory by using registers:
+\begin{enumerate}
+\item Very small, very fast memory within the processor
+\item Each register can hold a single value
+\end{enumerate}
+Processors contain up to a few dozen registers e.g. ARM: 16 registers - R0 to R15
+
+\subsection{Instruction Styles}
+Make instructions as simple as possible while allowing for the best use of registers\\
+One-address style (e.g. Intel Pentium):
+\begin{enumerate}
+\item Only use (at most) 1 memory location in each instruction
+\item Use registers for the other operands
+\end{enumerate}
+\[register \leftarrow register + memory location\]\\
+\textbf{Load-store} style (e.g. ARM): Use registers for all three operands\\
+\[register \leftarrow register + register\]\\
+So we need extra instructions to get at memory locations:
+\begin{enumerate}
+\item \textbf{Load} (from memory): register \(\leftarrow\) memory location
+\item \textbf{Store} (to memory): memory location \(\rightarrow\) register
+\end{enumerate}
+Sum = a + b + c;\\
+Becomes:\\
+Register1 \(\leftarrow\) a                      (i.e. load from a)\\
+Register2 \(\leftarrow\) b                      (i.e. load from b)\\
+Register3 \(\leftarrow\) register 1 + register2 (i.e. a+b)\\
+Register4 \(\leftarrow\) c                      (i.e. load from c)\\
+Register5 \(\leftarrow\) register3 + register4  (i.e. (a+b)+c)\\
+sum \(\rightarrow\) register5                   (i.e. store to sum)\\
+One load or store instruction per variable (a, b, c, sum)\\
+One arithmetic instruction per operation (+, +)\\
+Lots of very simple, very fast instructions
+
+\section{Lecture 2}
+Computers obey program which are sequences of instructions\\
+Instructions are coded as values in memory\\
+The sequences are held in memory adjacent memory locations\\
+Values in memory can be interpreted as:
+\begin{enumerate}
+\item Numbers (in several different ways)
+\item Instructions
+\item Text
+\item Colours
+\item Music
+\item Anything you want
+\end{enumerate}
+Values are often represented as numbers for convenience.
+\subsection{Assembly Language}
+Assembly language is a means of representing machine instructions in a human readable form.\\
+Each type of processor has its own assembly language but they typically have a lot in common:
+\begin{enumerate}
+\item A mnemonic – specifies the type of operation
+\item A destination – a register on this case
+\item And one or more sources – also registers
+\item Possibly with a comment too
+\end{enumerate}
+\subsection{ARM instructions}
+ARM has many instructions but we only need three categories:
+\begin{enumerate}
+\item Memory operations
+\item Processing operations
+\item Control flow
+\end{enumerate}
+Memory operation move data between the memory and the registers\\
+Processing operations perform calculations using value already in registers\\
+Control flow instructions are used to make decisions, repeat operations etc.
+
+\subsection{ARM memory instructions}
+Memory operations load a register from the memory or store a register value to the memory\\
+e.g. LDR R1, a – means: R1 \(\leftarrow\) a\\
+e.g. STR R5, sum – means: R5 \(\rightarrow\) sum (i.e. sum \(\leftarrow\) R5)\\
+a and sum are aliases for the addresses of memory locations
+\subsection{ARM processing instructions}
+Processing operations such as addition, subtraction, multiplication.\\
+e.g. ADD R3, R1, R2 – means: R3 \(\leftarrow\) R1 + R2
+\subsection{ARM control instructions}
+Fundamentally, these are branches to other code sequences.\\
+Often, branches are made conditional to allow decisions to be made.\\
+e.g. B somewhere – means: branch to ‘somewhere’\\
+e.g. BEQ elsewhere – means: branch to ‘elsewhere’ IF ‘previous result’ was ‘equals’\\
+e.g. BNE wherever – means: branch to ‘wherever’ IF ‘previous result’ was ‘not equal’\\
+\subsection{Stored programs and the Program Counter}
+A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions.\\
+How? First we need to see how the sequence of instructions is controlled.
 
 \end{document}
+
