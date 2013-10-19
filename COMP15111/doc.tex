@@ -131,7 +131,36 @@ e.g. BEQ elsewhere – means: branch to ‘elsewhere’ IF ‘previous result’
 e.g. BNE wherever – means: branch to ‘wherever’ IF ‘previous result’ was ‘not equal’\\
 \subsection{Stored programs and the Program Counter}
 A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions.\\
-How? First we need to see how the sequence of instructions is controlled.
+How? First we need to see how the sequence of instructions is controlled.\\
+Von-Neumann Model: memory holds both instructions and numbers - \textbf{stored program}\\
+\textbf{Program Counter} (PC) register: holds the address of the memory location containg the nect instruction to b obeyed (executed).\\
+ARM uses register 15 as its PC
+\subsection{Fetch-Execute Cycle}
+Start with PC containing the address of (the memory location holding) the first instruction of a program\\
+Repeatedly:
+\begin{enumerate}
+\item \textbf{Fetch}: copy the instruction, pointed to by the PC, from memory and set PC to point to the next instruction
+\item \textbf{Execute}:  obey the instruction (exactly as before)
+\end{enumerate}
+ARM:
+\begin{enumerate}
+\item 'Resets' to (starts at) address 00000000
+\item Instructions each occupy 4 memory locations, so PC increases by 4 in each fetch
+\end{enumerate}
+\subsection{Decision Making}
+Linear sequences of instructions are limiting.\\
+To make a decision, the computer must change (or not) to a
+different sequence of instructions\\
+e.g. a 1 pound discount on items worth 20 pounds or more.\\
+Decision: compare the total and 20 pounds to see if it is larger,
+then depending on result, either perform action or not.\\
+Action: subtract 1 pound from the total.\\
+Computers have no intelligence, so spell out details
+\textbf{Formalise}: if total \(\geq\) 20 pounds then subtract 1 pound from total\\
+\textbf{Rewrite}: if total \(\textless\) 20 pounds then don’t\\
+\textbf{subtract} 1 pound from total\\
+Encode: as ARM instructions
+\subsection{Compare And Branch}
 
 \end{document}
 
