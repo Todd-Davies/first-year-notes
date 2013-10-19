@@ -45,21 +45,27 @@ A bus is a bidirectional communication path. It is able to transmit addresses an
 
 \subsubsection{Processor}
 The processor obeys a sequence of instructions, commonly referred to as a program.
-Historically the processor was often referred to as a CPU, however, this is inappropriate nowerdays since typical processors connsist of several processing cores.
+Historically the processor was often referred to as a CPU, however, this is inappropriate nowadays since typical processors consist of several processing cores.
 
 \subsection{Three-address instructions}
 Every kind of processor has a different set of instructions, real world examples include: Pentium, ARM and others
 
-Each 3-address instruction:
+Each three-address instruction:
 \begin{enumerate}
-\item Copies the values from any two memory locations and sends them to the processor (source operands)
-\item Copies some operation e.g. adds the copied numbers together
-\item Copies the result back from the processor into a third memory location (destination operand)
+	\item Copies the values from any two memory locations and sends them to the processor (source operands)
+	\item Copies some operation e.g. adds the copied numbers together
+	\item Copies the result back from the processor into a third memory location (destination operand)
 \end{enumerate}
-e.g. sum of two values 'a' and 'b'\\
-a holds 2, b holds 3 "source operands"\\
-2+ 3 is 5 "operation"\\
-Sum becomes 5 "destination operand"
+
+For example, if we wanted to convert the Java code $sum = a + b;$ into a three-address instruction we would:
+\begin{enumerate}
+	\item Identify the two {\it source operands}: $a$ holds 2, $b$ holds 3
+	\item Perform the {\it operation}: 2 + 3 = 5
+	\item Let the variable $sum$ equal the answer 5. This is the {\it destination operand}
+\end{enumerate}
+
+% TODO: Put another example here with a diagram & the two box view
+% TODO: Discuss the memory bottleneck mentioned in Javier's notes.
 
 \subsection{Registers}
 Reduce accesses to main memory by using registers:
