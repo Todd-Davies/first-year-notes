@@ -76,22 +76,31 @@ Reduce accesses to main memory by using registers:
 Processors contain up to a few dozen registers e.g. ARM: 16 registers - R0 to R15
 
 \subsection{Instruction Styles}
-Make instructions as simple as possible while allowing for the best use of registers\\
-One-address style (e.g. Intel Pentium):
+Make instructions as simple as possible while allowing for the best use of registers. One-address style (e.g. Intel Pentium):
 \begin{enumerate}
-\item Only use (at most) 1 memory location in each instruction
-\item Use registers for the other operands
+	\item Only use (at most) 1 memory location in each instruction
+	\item Use registers for the other operands
 \end{enumerate}
-\[register \leftarrow register + memory location\]\\
-\textbf{Load-store} style (e.g. ARM): Use registers for all three operands\\
-\[register \leftarrow register + register\]\\
+
+\[
+	register \leftarrow register + memory location
+\]
+
+\textbf{Load-store} style (e.g. ARM): Use registers for all three operands
+
+\[
+	register \leftarrow register + register
+\]
+
 So we need extra instructions to get at memory locations:
 \begin{enumerate}
-\item \textbf{Load} (from memory): register \(\leftarrow\) memory location
-\item \textbf{Store} (to memory): memory location \(\rightarrow\) register
+	\item \textbf{Load} (from memory): register \(\leftarrow\) memory location
+	\item \textbf{Store} (to memory): memory location \(\rightarrow\) register
 \end{enumerate}
-Sum = a + b + c;\\
-Becomes:\\
+
+Sum = a + b + c;
+% TODO: Clean this into a table or something
+Becomes:
 Register1 \(\leftarrow\) a                      (i.e. load from a)\\
 Register2 \(\leftarrow\) b                      (i.e. load from b)\\
 Register3 \(\leftarrow\) register 1 + register2 (i.e. a+b)\\
@@ -103,84 +112,90 @@ One arithmetic instruction per operation (+, +)\\
 Lots of very simple, very fast instructions
 
 \section{Lecture 2}
-Computers obey program which are sequences of instructions\\
-Instructions are coded as values in memory\\
-The sequences are held in memory adjacent memory locations\\
-Values in memory can be interpreted as:
-\begin{enumerate}
-\item Numbers (in several different ways)
-\item Instructions
-\item Text
-\item Colours
-\item Music
-\item Anything you want
-\end{enumerate}
+Computers obey programs which are sequences of instructions. Instructions are coded as values in memory. The sequences are held in memory adjacent memory locations. Values in memory can be interpreted as:
+\begin{itemize}
+	\item Numbers (in several different ways)
+	\item Instructions
+	\item Text
+	\item Colours
+	\item Music
+	\item Anything you want
+\end{itemize}
 Values are often represented as numbers for convenience.
+
 \subsection{Assembly Language}
 Assembly language is a means of representing machine instructions in a human readable form.\\
 Each type of processor has its own assembly language but they typically have a lot in common:
-\begin{enumerate}
-\item A mnemonic – specifies the type of operation
-\item A destination – a register on this case
-\item And one or more sources – also registers
-\item Possibly with a comment too
-\end{enumerate}
+\begin{itemize}
+	\item A mnemonic – specifies the type of operation
+	\item A destination – a register on this case
+	\item And one or more sources – also registers
+	\item Possibly with a comment too
+\end{itemize}
+
 \subsection{ARM instructions}
 ARM has many instructions but we only need three categories:
-\begin{enumerate}
-\item Memory operations
-\item Processing operations
-\item Control flow
-\end{enumerate}
-Memory operation move data between the memory and the registers\\
-Processing operations perform calculations using value already in registers\\
-Control flow instructions are used to make decisions, repeat operations etc.
+\begin{itemize}
+	\item Memory operations
+	\item Processing operations
+	\item Control flow
+\end{itemize}
+Memory operation move data between the memory and the registers. Processing operations perform calculations using value already in registers. Control flow instructions are used to make decisions, repeat operations etc.
 
 \subsection{ARM memory instructions}
-Memory operations load a register from the memory or store a register value to the memory\\
+Memory operations load a register from the memory or store a register value to the memory.
+% TODO: Clean this into a math/code/tabular environment or something.
 e.g. LDR R1, a – means: R1 \(\leftarrow\) a\\
 e.g. STR R5, sum – means: R5 \(\rightarrow\) sum (i.e. sum \(\leftarrow\) R5)\\
-a and sum are aliases for the addresses of memory locations
+
+$a$ and $sum$ are aliases for the addresses of memory locations.
+
 \subsection{ARM processing instructions}
-Processing operations such as addition, subtraction, multiplication.\\
+Processing operations such as addition, subtraction, multiplication.
+
 e.g. ADD R3, R1, R2 – means: R3 \(\leftarrow\) R1 + R2
+
 \subsection{ARM control instructions}
-Fundamentally, these are branches to other code sequences.\\
-Often, branches are made conditional to allow decisions to be made.\\
+Fundamentally, these are branches to other code sequences. Often, branches are made conditional to allow decisions to be made.
+
+% TODO: Clean this into a math/code/tabular environment or something.
 e.g. B somewhere – means: branch to ‘somewhere’\\
 e.g. BEQ elsewhere – means: branch to ‘elsewhere’ IF ‘previous result’ was ‘equals’\\
 e.g. BNE wherever – means: branch to ‘wherever’ IF ‘previous result’ was ‘not equal’\\
+
 \subsection{Stored programs and the Program Counter}
-A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions.\\
-How? First we need to see how the sequence of instructions is controlled.\\
-Von-Neumann Model: memory holds both instructions and numbers - \textbf{stored program}\\
-\textbf{Program Counter} (PC) register: holds the address of the memory location containing the next instruction to b obeyed (executed).\\
+A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. How? First we need to see how the sequence of instructions is controlled. Von-Neumann Model: memory holds both instructions and numbers - \textbf{stored program} \textbf{Program Counter} (PC) register: holds the address of the memory location containing the next instruction to b obeyed (executed).
+
 ARM uses register 15 as its PC
+
 \subsection{Fetch-Execute Cycle}
-Start with PC containing the address of (the memory location holding) the first instruction of a program\\
+Start with PC containing the address of (the memory location holding) the first instruction of a program.
+
 Repeatedly:
 \begin{enumerate}
-\item \textbf{Fetch}: copy the instruction, pointed to by the PC, from memory and set PC to point to the next instruction
-\item \textbf{Execute}:  obey the instruction (exactly as before)
+	\item \textbf{Fetch}: copy the instruction, pointed to by the PC, from memory and set PC to point to the next instruction
+	\item \textbf{Execute}:  obey the instruction (exactly as before)
 \end{enumerate}
 ARM:
 \begin{enumerate}
-\item 'Resets' to (starts at) address 00000000
-\item Instructions each occupy 4 memory locations, so PC increases by 4 in each fetch
+	\item 'Resets' to (starts at) address 00000000
+	\item Instructions each occupy 4 memory locations, so PC increases by 4 in each fetch
 \end{enumerate}
+
 \subsection{Decision Making}
-Linear sequences of instructions are limiting.\\
-To make a decision, the computer must change (or not) to a
-different sequence of instructions\\
-e.g. a 1 pound discount on items worth 20 pounds or more.\\
-Decision: compare the total and 20 pounds to see if it is larger,
-then depending on result, either perform action or not.\\
+Linear sequences of instructions are limiting. To make a decision, the computer must change (or not) to a
+different sequence of instructions.
+
+e.g. a 1 pound discount on items worth 20 pounds or more.
+Decision: compare the total and 20 pounds to see if it is larger, then depending on result, either perform action or not.
 Action: subtract 1 pound from the total.\\
-Computers have no intelligence, so spell out details
+
+Computers have no intelligence, so spell out details.
 \textbf{Formalise}: if total \(\geq\) 20 pounds then subtract 1 pound from total\\
 \textbf{Rewrite}: if total \(\textless\) 20 pounds then don’t\\
 \textbf{subtract} 1 pound from total\\
 Encode: as ARM instructions
+
 \subsection{Compare And Branch}
 
 \end{document}
