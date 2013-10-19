@@ -28,21 +28,10 @@
 
 \card{The set $\mathbb{N}$ contains?}{The set of natural numbers (all non-negative integers).}
 
-\card{The set $\mathbb{R}$ contains?}{The set of real numbers (all finite and infinite decimal numbers).}
+\card{The set $\mathbb{R}$ contains?}{The set of real numbers (all finite and infinate decimal numbers).}
 
-\card{The set $\mathbb{Z}$ contains?}{The set of integers.}
+\card{The set $\mathbb{Z}$ contains?}{The set of integers).}
 
 \card{The set $\mathbb{Q}$ contains?}{The set of rational numbers.\\Contains all $m/n$ for $m, n in \mathbb{Z}$}
-
-\card{What does $X \subseteq Y$ mean?}{$X$ is a subset of $Y$\\
-$Y$ is a superset of $X$\\
-$X$ is included in $Y$\\
-$Y$ includes $X$}
-
-\card{What does $x \in X$ mean?}{$x$ is contained in / is a member of $X$}
-
-\card{What does $x \notin X$ mean?}{$x$ is not a member of $X$}
-
-\card{What is this?\\$\emptyset$}{The null set.}
 
 \end{document} 
