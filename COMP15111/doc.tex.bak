@@ -30,26 +30,25 @@ According to this model, a computer can:
 	Memory \Leftrightarrow Bus \Leftrightarrow Processor
 \]
 
-\subsubsection{Memory}
-Memory is a set of locations which can hold information, such as numbers(or programs). Each memory location has a unique (numerical) address, and there are typically thousands of millions of different locations. There are various ways of depicting memory; a common one is a 'hex dump' that often looks something like this: \marginpar{\raggedright Run the command {\it hexdump} to generate hexdumps.}
+\subsubsection{\textbf{Memory}}
+Memory is a set of locations which can hold information, such as numbers(or programs). Each memory location has a unique (numerical) address, and there are typically thousands of millions of different locations. There are various ways of depicting memory; a common one is a 'hex dump' that often looks like this:
+\verbatim{
+	0000000 6548 6c6c 206f 2749 206d 6f54 6464 202e
+	0000010 2049 6d61 6220 726f 6465 0a2e          
+	000001c
+}
+Each item has a unique address.
 
-\begin{tabular}{l l l}
-	Address     &	Values (8 bit numbers)	&	Characters\\
-	00000000	&	48 65 6c 6c 6f 0a		&	Hello.\\
-\end{tabular}
+\subsubsection{\textbf{Bus}} - Bidirectional communication path\\
+Transmits addresses and numbers
 
-Each item that is in the memory has a unique address.
-
-\subsubsection{Bus}
-A bus is a bidirectional communication path. It is able to transmit addresses and numbers between components inside the computer.
-
-\subsubsection{Processor}
-The processor obeys a sequence of instructions, commonly referred to as a program.
-Historically the processor was often referred to as a CPU, however, this is inappropriate nowerdays since typical processors connsist of several processing cores.
+\subsubsection{\textbf{Processor}} - Obeys a sequence of instructions = program (code)\\
+Historically the processor was often referred to as a CPU\\
+Nowadays this is inappropriate - typically several processing 'cores'
 
 \subsection{Three-address instructions}
-Every kind of processor has a different set of instructions, real world examples include: Pentium, ARM and others
-
+Every kind of processor has a different set of instructions, real world examples include: pentium, ARM....and others\\
+We will start with something simple\\
 Each 3-address instruction:
 \begin{enumerate}
 \item Copies the values from any two memory locations and sends them to the processor (source operands)
@@ -148,7 +147,7 @@ e.g. BNE wherever – means: branch to ‘wherever’ IF ‘previous result’ w
 A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions.\\
 How? First we need to see how the sequence of instructions is controlled.\\
 Von-Neumann Model: memory holds both instructions and numbers - \textbf{stored program}\\
-\textbf{Program Counter} (PC) register: holds the address of the memory location containing the next instruction to b obeyed (executed).\\
+\textbf{Program Counter} (PC) register: holds the address of the memory location containg the nect instruction to b obeyed (executed).\\
 ARM uses register 15 as its PC
 \subsection{Fetch-Execute Cycle}
 Start with PC containing the address of (the memory location holding) the first instruction of a program\\
