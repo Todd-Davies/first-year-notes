@@ -1,12 +1,16 @@
 \documentclass{article}
-
+% For the fancy header
 \usepackage{fancyhdr}
+% So we don't have to put \\ everywhere for new lines
 \usepackage[parfill]{parskip}
+% For sets e.g. \mathbb{Z}
 \usepackage{amsfonts}
+% For line brakes in tables
+\usepackage{tabularx}
 
 \pagestyle{fancyplain}
 
-\author{Todd Davies}
+\author{Todd Davies, Chris Williamson}
 \title{COMP11120 Notes}
 \date{\today}
 
@@ -27,12 +31,14 @@ A {\it structure} consists of certain {\it sets}. It also contains {\it elements
 
 The following carriers must be learnt:
 
-$\mathbb{N}$ The set of natural numbers (all whole numbers from $0$ to $\infty$)
+\begin{tabularx}{\textwidth}{l X}
+	$\mathbb{N}$ & The set of natural numbers (all whole numbers from $0$ to $\infty$)\\
 
-$\mathbb{Z}$ The set of integers (all whole numbers from $-\infty$ to $\infty$)
+	$\mathbb{Z}$ & The set of integers (all whole numbers from $-\infty$ to $\infty$)\\
 
-$\mathbb{Q}$ The set of rational numbers (any integer divided by any other integer - e.g. $\frac{5}{4}=1.25$)
+	$\mathbb{Q}$ & The set of rational numbers (any integer divided by any other integer e.g. $\frac{5}{4}=1.25$)\\
 
-$\mathbb{R}$ The set of real numbers (all finite and infinite decimal numbers)
+	$\mathbb{R}$ & The set of real numbers (all finite and infinite decimal numbers)\\
+\end{tabularx}
 
 \end{document}
