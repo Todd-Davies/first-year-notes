@@ -5,8 +5,12 @@
 \usepackage[parfill]{parskip}
 % For sets e.g. \mathbb{Z}
 \usepackage{amsfonts}
+% For the 'split' envirnoment
+\usepackage{amsmath}
 % For line brakes in tables
 \usepackage{tabularx}
+% For long division
+\usepackage{polynom}
 
 \pagestyle{fancyplain}
 
@@ -62,4 +66,92 @@ Sometimes however, it is convenient to count using different bases. Popular base
 	$n = 10$ & $\mathbb{Z}_{10} = \{0, 1, 2, 3, 4, 5, 6, 7\}$ & Decimal/Denary\\
 	$n = 16$ & $\mathbb{Z}_{16} = \{0, 1, 2, \ldots ,9, A, B, C, D, E, F\}$ & Hexadecimal\\
 \end{tabular}
+
+\subsubsection{How to read numbers in any given base}
+
+The formula for reading a number in a given base is as follows:
+
+\[
+	\sum_{i=0}^{k}a_{i}b^{i}
+\]
+
+Where the number you're trying to read takes the form $a_k, a_{k-1}, \ldots, a_2, a_1, a_0$ and $b$ is the base you're using.
+
+\paragraph{Example 1}
+
+Lets apply the formula to the base 10 number $27385$:
+
+\[
+	\begin{split}
+		27385 &= (5 \times 10^0) + (8 \times 10^1) + (3 \times 10^2) + (7 \times 10^3) + (2 \times 10^4)\\
+		      &= (5 \times 1) + (8 \times 10) + (3 \times 100) + (7 \times 1000) + (2 \times 10000)\\
+		      &= 5 + 80 + 300 + 7000 + 20000\\
+		      &= 27385
+	\end{split}
+\]
+
+\paragraph{Example 2}
+
+Lets apply the formula to the base 16 number $F00BA4$:
+
+\[
+	\begin{split}
+		F00BA4 &= (4 \times 16^0) + (A \times 16^1) + (B \times 16^2) + (0 \times 16^3) + (0 \times 16^4) + (F \times 16^5)\\
+		       &= (4 \times 16^0) + (10 \times 16) + (11 \times 256) + (0 \times 4096) + (0 \times 65536) + (15 \times 1048576)\\
+		       &= 4 + 160 + 2816 + 0 + 0 + 15728640\\
+		       &= 15731620
+	\end{split}
+\]
+
+\subsubsection{Changing from base 10 to base $n$}
+
+In order to change into base $n$ from base 10, we just repeatedly divide by $n$ and use the remainder as the value for base $n$. Here are a few examples:
+
+\paragraph{Example 1}
+Convert 893 into base 2.
+
+\begin{center}
+	\begin{tabular} {r l l l }
+		$893 \div 2$ & = & 446 & r1\\
+		$446 \div 2$ & = & 223 & r0\\
+		$223 \div 2$ & = & 111 & r1\\
+		$111 \div 2$ & = & 55 & r1\\
+		$55 \div 2$ & = & 27 & r1\\
+		$27 \div 2$ & = & 13 & r1\\
+		$13 \div 2$ & = & 6 & r1\\
+		$6 \div 2$ & = & 3 & r0\\
+		$3 \div 2$ & = & 1 & r1\\
+		$1 \div 2$ & = & 0 & r1\\
+	\end{tabular}
+\end{center}
+
+Reading up from the bottom, we can see that the binary (base 2) representation is $1101111101$.
+
+\paragraph{Example 2}
+Convert 893 into base 9.
+
+\begin{center}
+	\begin{tabular} {r l l l }
+		$893 \div 9$ & = & 99 & r2\\
+		$99 \div 9$ & = & 11 & r0\\
+		$11 \div 9$ & = & 1 & r2\\
+		$1 \div 9$ & = & 0 & r1\\
+	\end{tabular}
+\end{center}
+
+Reading up from the bottom, we can see that the nonal (base 9) representation is $1202$.
+
+\paragraph{Example 2}
+Convert 893 into base 16.
+
+\begin{center}
+	\begin{tabular} {r l l l }
+		$893 \div 16$ & = & 55 & r13\\
+		$55 \div 16$ & = & 3 & r7\\
+		$3 \div 16$ & = & 0 & r3\\
+	\end{tabular}
+\end{center}
+
+Reading up from the bottom, we can see that the hexadecimal (base 16) representation is $3,7,13$ or $37D$.
+
 \end{document}
