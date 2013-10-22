@@ -184,43 +184,45 @@ For example, the Java code {\it Sum = a + b + c;} would be run as:
 You can see that the load-store style favours lots of very simple, very fast instructions.
 
 \section{Lecture 2}
-Computers obey programs which are sequences of instructions. Instructions are coded as values in memory. The sequences are held in memory adjacent memory locations. Values in memory can be interpreted as:
-\begin{itemize}
-	\item Numbers (in several different ways)
-	\item Instructions
-	\item Text
-	\item Colours
-	\item Music
-	\item Anything you want
-\end{itemize}
-Values are often represented as numbers for convenience.
+Computers obey programs which are sequences of instructions. Instructions are coded as values in memory. The sequences are held in memory adjacent memory locations. Values in memory can be interpreted as you please, from numbers to text, to images or anything really!
+
+Any given set of binary digits can be read as a decimal number, but not always as text, so values in memory are often represented as numbers for convenience.
 
 \subsection{Assembly Language}
-Assembly language is a means of representing machine instructions in a human readable form.\\
-Each type of processor has its own assembly language but they typically have a lot in common:
+Assembly language is a means of representing machine instructions in a human readable form.
+
+Each type of processor has its own assembly language (since each language is specific to a partial architecture) but they typically have a lot in common:
+
 \begin{itemize}
-	\item A mnemonic – specifies the type of operation
-	\item A destination – a register on this case
-	\item And one or more sources – also registers
-	\item Possibly with a comment too
+	\item A mnemonic, that specifies the type of operation
+	\item A destination, such as a register or memory location
+	\item And one or more sources that may be registers or memory locations.
+	\item Possibly with a comment too which will help programmers understand what's happening and aren't interpreted by the assembler.
 \end{itemize}
+
+When a program has been written in assembler, it must be {\it assembled} by an {\it assembler} to run it.
 
 \subsection{ARM instructions}
+
 ARM has many instructions but we only need three categories:
+
 \begin{itemize}
-	\item Memory operations
-	\item Processing operations
-	\item Control flow
+	\item Memory operations that move data between the memory and the registers.
+	\item Processing operations that perform calculations using value already in registers.
+	\item Control flow instructions are used to make decisions, repeat operations etc.
 \end{itemize}
-Memory operation move data between the memory and the registers. Processing operations perform calculations using value already in registers. Control flow instructions are used to make decisions, repeat operations etc.
 
-\subsection{ARM memory instructions}
+\subsection{Transferring data between registers and memory}
+
 Memory operations load a register from the memory or store a register value to the memory.
-% TODO: Clean this into a math/code/tabular environment or something.
-e.g. LDR R1, a – means: R1 \(\leftarrow\) a\\
-e.g. STR R5, sum – means: R5 \(\rightarrow\) sum (i.e. sum \(\leftarrow\) R5)\\
 
-$a$ and $sum$ are aliases for the addresses of memory locations.
+For example, $a$ into register 1 ($R1 \leftarrow a$) we would write:
+{\tt LDR R1, a}
+
+Or to store the value in register 5 into $sum$ ($sum \leftarrow R5$):
+{\tt STR R5, sum}
+
+In these examples, $a$ and $sum$ are aliases for the addresses of memory locations.
 
 \subsection{ARM processing instructions}
 Processing operations such as addition, subtraction, multiplication.
