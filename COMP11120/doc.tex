@@ -55,9 +55,49 @@ However, you may be wondering why subtraction and division aren't included in th
 
 Different sets may have different operations available. For example, you can concentrate any two members of the set $\mathbb{S}tring$ and end up with another $\mathbb{S}tring$.
 
+\paragraph{Types of operation}
+
+Operations that have two operands either side of them are called {\it infix} operations. An example of an infix operation is addition. Infix operations are also referred to as {\it binary} operations since they have {\it two} operands.
+
+\paragraph{Commutativity}
+
+If an operation is commutative, the order of the operands doesn't matter. For example, addition is commutative since:
+
+\[
+	a + b = b + a
+\]
+
+Subtraction however, isn't commutative:
+
+\[
+	a - b \neq b - a
+\]
+
+\paragraph{Associativity}
+
+An operation is associative if inserting or changing brackets doesn't change the outcome of the operation. For example, multiplication is associative since:
+
+\[
+	(a \times b) \times c = a \times (b \times c)
+\]
+
+An operation may only be commutative or associative if it is commutative or associative for {\it all} elements of the set that the operation supports.
+
+\paragraph{Distinguished elements}
+
+A set may contain distinguished elements that have strange effects on certain operations in the set. An example is the number 1. If we multiply {\it something} by 1, then the result will always be the same {\it something}. The same goes for 0 with addition. Because of this, we refer to 1 and 0 as distinguished elements of the set $\mathbb{Z}$.
+
 \subsubsection{Relations}
 
-Each of the sets $\mathbb{N, Q, Q, R}$ carries binary comparison relations $\gte$ and $\gt$.
+Each of the sets $\mathbb{N, Q, Q, R}$ carries binary comparison relations $\leq$ and $<$. Different sets (such as $\mathbb{S}tring$) may have other relations, such as:
+
+\begin{itemize}
+	\item Is a section of
+	\item Is an initial section of
+	\item Occurs in
+\end{itemize}
+
+All relations return values in the set $\mathbb{B}ool$.
 
 \subsection{Bases}
 
