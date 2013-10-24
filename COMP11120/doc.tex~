@@ -204,9 +204,7 @@ Reading up from the bottom, we can see that the hexadecimal (base 16) representa
 
 \subsection{A structure for the intergers}
 \subsubsection{The basic data}
-The set $\mathbb{Z}$ of all integers: 
-
-$\ldots,-3,-2,-1,0,1,2,3,\ldots$
+The set $\mathbb{Z}$ of all integers: $\ldots,-3,-2,-1,0,1,2,3,\ldots$
 
 includes the subset $\mathbb{N}$ of all natural numbers together with the negative integers. We will be using three basic binary operations on the carrier set $\mathbb{Z}$: addition, multiplication and subtraction.
 
