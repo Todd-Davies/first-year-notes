@@ -5,8 +5,8 @@
 \usepackage[parfill]{parskip}
 % For sets e.g. \mathbb{Z}
 \usepackage{amsfonts}
-% For the 'split' envirnoment
-\usepackage{amsmath}
+% For the 'split' envirnoment and symbols
+\usepackage{amsmath,amssymb}
 % For line brakes in tables
 \usepackage{tabularx}
 % For long division
@@ -204,7 +204,9 @@ Reading up from the bottom, we can see that the hexadecimal (base 16) representa
 
 \subsection{A structure for the intergers}
 \subsubsection{The basic data}
-The set $\mathbb{Z}$ of all integers: $\ldots,-3,-2,-1,0,1,2,3,\ldots$
+The set $\mathbb{Z}$ of all integers: 
+
+$\ldots,-3,-2,-1,0,1,2,3,\ldots$
 
 includes the subset $\mathbb{N}$ of all natural numbers together with the negative integers. We will be using three basic binary operations on the carrier set $\mathbb{Z}$: addition, multiplication and subtraction.
 
@@ -212,15 +214,44 @@ The standard notation for there is +, x and - used as infix operations.
 
 It is conventional to write {\it xy} as an abbreviation for {\it x}x{\it y}
 
+
+
 Sometimes different notations are used, for example, in programming * is usually used.
 
-These operations illustrate two properties which an arbritart binary operation may or may not have. Both + and x are commutative but - is not.
+These operations illustrate two properties which an arbritart binary operation may or may not have.
+ 
+Both + and x are {\bf commutative} but - is not.
 
 \begin{enumerate}
 \item For all integers {\it x,y} both, $x + y = y + x$ and $xy = yx$
 \item There are integers {\it x,y} with $x - y \ne y - x$.
 \end{enumerate}
 
+Commutativity ensures that for most purposes the order in which the two arguments are consumed is irrelevant.
 
+Both + and x are {\bf associative} but - is not.
 
+\begin{enumerate}
+\item For all integers {\it x,y,z} both $(x + y) + z = x + (y + z)$ , $(xy)z = x(yz)$.
+\item There are integers {\it x,y,z} with $(x - y) - z \ne x - (y - z)$.
+\end{enumerate}
+
+Associativity ensures that for most purposes brackets are not needed to punctuate an expression. For instance, we can make sense of {\it x + y + z} and {\it xyz} since it doesn't matter where the brackets are, the resulting values are the same.
+
+Below are the definitions of commutativity and associativity.
+
+\begin{enumerate}
+  \item 
+    $\circledast$ is {\bf commutative} if and only if
+    \[
+	a1 \circledast a2 = a2 \circledast a1
+    \] 
+    for all $a1,a2,\in,A$
+  \item 
+    $\circledast$ is {\bf associative} if and only if
+    \[
+	(a1 \circledast a2) \circledast a3 = a1 \circledast (a2 \circledast a3)
+    \] 
+    for all $a1,a2,a3,\in,A$
+\end{enumerate}
 \end{document}
