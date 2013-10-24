@@ -335,7 +335,7 @@ These bits can be added or subtracted, for example:
     \end{tabular}
 \end{center}
 
-This provides a range of $\pm$ ~4 Kbytes around a 'base' register
+This provides a range of \pm ~4 Kbytes around a 'base' register
 
 In practice this method is adequate for most purposes. 
 \end{document}
