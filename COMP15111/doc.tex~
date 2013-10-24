@@ -6,8 +6,6 @@
 \usepackage[parfill]{parskip}
 % For including pictures
 \usepackage{graphicx}
-% For line brakes in tables
-\usepackage{tabularx}
 
 \begin{document}
 % Meta
@@ -31,7 +29,6 @@ According to this model, a computer can:
 \end{enumerate}
 
 \subsection{Simple View Of A Computer}
-
 \[
 	Memory \Leftrightarrow Bus \Leftrightarrow Processor
 \]
@@ -188,80 +185,56 @@ ARM has many different instructions to perform operations such as addition, subt
 
 The syntax for such operations is usually:
 
-\begin{verbatim}
-	[operand]	[destination register]	[register 1]	[register 2]
-\end{verbatim}
+\begin{center}
+	\begin{verbatim}
+	ADD	[destination register]	[register 1]	[register 2]
+	\end{verbatim}
+\end{center}
 
-For example, to add two numbers together, we might write:
-
-\begin{verbatim}
-	ADD R2, R0, R1
-\end{verbatim}
-
-This will add the value of R0 to the value of R1 and store it in R2.
+e.g. ADD R3, R1, R2 – means: R3 \(\leftarrow\) R1 + R2
 
 \subsection{ARM control instructions}
+Fundamentally, these are branches to other code sequences. Often, branches are made conditional to allow decisions to be made.
 
-The most common control instruction is the branch. Similar to \texttt{GOTO} in other languages, a branch will change the PC register (see section~\ref{subsec:pc}) to another value so the order of execution of the program is changed.
-
-% TODO: change (coming up later) to the actual section when it's written
-
-Branches can be made to be conditional by appending a conditional operator (coming up later) on to the command.
-
-The syntax is something like:
-
-\begin{verbatim}
-	B[conditional operator]	[branch name]
-\end{verbatim}
-
-Some examples of different conditional operators are:
-
-\begin{tabularx}{\textwidth}{l X}
-	{\bf Command} & {\bf Function}\\
-	\texttt{B} & Branches to a different location in the code.\\
-	\texttt{BNE} & Branches, but only if the previous condition was false.\\
-	\texttt{BEQ} & Branches, but only if the previous condition was true.\\
-\end{tabularx}
+% TODO: Clean this into a math/code/tabular environment or something.
+e.g. B somewhere – means: branch to ‘somewhere’\\
+e.g. BEQ elsewhere – means: branch to ‘elsewhere’ IF ‘previous result’ was ‘equals’\\
+e.g. BNE wherever – means: branch to ‘wherever’ IF ‘previous result’ was ‘not equal’\\
 
 \subsection{Stored programs and the Program Counter}
-\label{subsec:pc}
+A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. How? First we need to see how the sequence of instructions is controlled. Von-Neumann Model: memory holds both instructions and numbers - \textbf{stored program} \textbf{Program Counter} (PC) register: holds the address of the memory location containing the next instruction to b obeyed (executed).
 
-A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. A {\bf Program Counter} (PC) register is used to hold the memory address of the next instruction to be excecuted. ARM uses register 15 as its PC.
+ARM uses register 15 as its PC
 
 \subsection{Fetch-Execute Cycle}
+Start with PC containing the address of (the memory location holding) the first instruction of a program.
 
-The processor must first fetch instructions from memory before it can excecute them. This is called the fetch-execute cycle, and it involves:
-
+Repeatedly:
 \begin{enumerate}
 	\item \textbf{Fetch}: copy the instruction, pointed to by the PC, from memory and set PC to point to the next instruction
 	\item \textbf{Execute}:  obey the instruction (exactly as before)
-	\item Repeat.
+\end{enumerate}
+ARM:
+\begin{enumerate}
+	\item 'Resets' to (starts at) address 00000000
+	\item Instructions each occupy 4 memory locations, so PC increases by 4 in each fetch
 \end{enumerate}
 
-In ARM, the PC starts with a values of \texttt{0x00000000} when the program is initially run. On each cycle of the Fetch-Execute cycle, the PC is incremented by 4, since instructions each occupy 4 memory locations.
-
 \subsection{Decision Making}
+Linear sequences of instructions are limiting. To make a decision, the computer must change (or not) to a
+different sequence of instructions.
 
-In order to make decisions, the computer musn't just execute instructions one after the other in a linear manner. Instead, branches must be used to change the sequence of instructions to be excecuted.
+e.g. a 1 pound discount on items worth 20 pounds or more.
+Decision: compare the total and 20 pounds to see if it is larger, then depending on result, either perform action or not.
+Action: subtract 1 pound from the total.\\
 
-In order to perform a conditional branch, we must first perform a compare command to perform the comparison before we do the branch.
+Computers have no intelligence, so spell out details.
+\textbf{Formalise}: if total \(\geq\) 20 pounds then subtract 1 pound from total\\
+\textbf{Rewrite}: if total \(\textless\) 20 pounds then don’t\\
+\textbf{subtract} 1 pound from total\\
+Encode: as ARM instructions
 
-\subsubsection{An example}
-
-If we wanted to do a $£1$ discount on a shopping list if the price was over $£20$, we would do the following:
-
-\begin{verbatim}
-		LDR	R0, total	; Load the total price into R0
-	
-		CMP	R0, #20		; Compare R0 and 20 (the literal)
-		BLT	nodiscount	; If the price is too low, then don't discount
-		SUB	R0, #1		; Deduct £1
-		STR	R0, total	; Store the result back into memory
-
-nodiscount	SVC	2		; Finish
-
-total 		DEFW	25		; Lets say the total is $25
-\end{verbatim}
+\subsection{Compare And Branch}
 
 \section{Lecture 7: Addresses and Addressing}
 When a processor references memory it needs to produce an address.
@@ -362,7 +335,7 @@ These bits can be added or subtracted, for example:
     \end{tabular}
 \end{center}
 
-This provides a range of $\pm$ ~4 Kbytes around a 'base' register
+This provides a range of \pm ~4 Kbytes around a 'base' register
 
 In practice this method is adequate for most purposes. 
 \end{document}
