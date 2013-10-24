@@ -6,8 +6,6 @@
 \usepackage[parfill]{parskip}
 % For including pictures
 \usepackage{graphicx}
-% For line brakes in tables
-\usepackage{tabularx}
 
 \begin{document}
 % Meta
@@ -31,7 +29,6 @@ According to this model, a computer can:
 \end{enumerate}
 
 \subsection{Simple View Of A Computer}
-
 \[
 	Memory \Leftrightarrow Bus \Leftrightarrow Processor
 \]
@@ -188,38 +185,21 @@ ARM has many different instructions to perform operations such as addition, subt
 
 The syntax for such operations is usually:
 
-\begin{verbatim}
-	[operand]	[destination register]	[register 1]	[register 2]
-\end{verbatim}
+\begin{center}
+	\begin{verbatim}
+	ADD	[destination register]	[register 1]	[register 2]
+	\end{verbatim}
+\end{center}
 
-For example, to add two numbers together, we might write:
-
-\begin{verbatim}
-	ADD R2, R0, R1
-\end{verbatim}
-
-This will add the value of R0 to the value of R1 and store it in R2.
+e.g. ADD R3, R1, R2 – means: R3 \(\leftarrow\) R1 + R2
 
 \subsection{ARM control instructions}
+Fundamentally, these are branches to other code sequences. Often, branches are made conditional to allow decisions to be made.
 
-The most common control instruction is the branch. Similar to \texttt{GOTO} in other languages, a branch will change the PC register to another value so the order of execution of the program is changed.
-
-% TODO: change (coming up later) to the actual section when it's written
-
-Branches can be made to be conditional by appending a conditional operator (coming up later) on to the command.
-
-The syntax is something like:
-
-\begin{verbatim}
-	B[conditional operator]	[branch name]
-\end{verbatim}
-
-\begin{tabularx}{\textwidth}{l X}
-	{\bf Command} & {\bf Function}\\
-	\texttt{B} & Branches to a different location in the code.\\
-	\texttt{BNE} & Branches, but only if the previous condition was false.\\
-	\texttt{BEQ} & Branches, but only if the previous condition was true.\\
-\end{tabularx}
+% TODO: Clean this into a math/code/tabular environment or something.
+e.g. B somewhere – means: branch to ‘somewhere’\\
+e.g. BEQ elsewhere – means: branch to ‘elsewhere’ IF ‘previous result’ was ‘equals’\\
+e.g. BNE wherever – means: branch to ‘wherever’ IF ‘previous result’ was ‘not equal’\\
 
 \subsection{Stored programs and the Program Counter}
 A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. How? First we need to see how the sequence of instructions is controlled. Von-Neumann Model: memory holds both instructions and numbers - \textbf{stored program} \textbf{Program Counter} (PC) register: holds the address of the memory location containing the next instruction to b obeyed (executed).

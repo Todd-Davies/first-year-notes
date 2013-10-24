@@ -214,7 +214,7 @@ The syntax is something like:
 	B[conditional operator]	[branch name]
 \end{verbatim}
 
-\begin{tabularx}{\textwidth}{l X}
+\begin{tabularx}{l X}
 	{\bf Command} & {\bf Function}\\
 	\texttt{B} & Branches to a different location in the code.\\
 	\texttt{BNE} & Branches, but only if the previous condition was false.\\

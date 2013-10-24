@@ -6,8 +6,6 @@
 \usepackage[parfill]{parskip}
 % For including pictures
 \usepackage{graphicx}
-% For line brakes in tables
-\usepackage{tabularx}
 
 \begin{document}
 % Meta
@@ -31,7 +29,6 @@ According to this model, a computer can:
 \end{enumerate}
 
 \subsection{Simple View Of A Computer}
-
 \[
 	Memory \Leftrightarrow Bus \Leftrightarrow Processor
 \]
@@ -214,7 +211,7 @@ The syntax is something like:
 	B[conditional operator]	[branch name]
 \end{verbatim}
 
-\begin{tabularx}{\textwidth}{l X}
+\begin{tabularx}{l X}
 	{\bf Command} & {\bf Function}\\
 	\texttt{B} & Branches to a different location in the code.\\
 	\texttt{BNE} & Branches, but only if the previous condition was false.\\
