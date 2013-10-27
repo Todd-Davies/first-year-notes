@@ -1,7 +1,11 @@
 % So the image fits the page
-\documentclass[class=minimal,border=0pt]{standalone}
+\documentclass{article}
+\usepackage[paperwidth=\maxdimen,paperheight=\maxdimen]{geometry}
 % Include tikz
 \usepackage{tikz}
+% For making the page fit the image (without standalone)
+\usepackage[tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
 \usetikzlibrary{shapes, patterns}
 % Define some lovely colours
 \definecolor{light-gray}{gray}{0.95}

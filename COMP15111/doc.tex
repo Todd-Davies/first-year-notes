@@ -226,11 +226,11 @@ Some examples of different conditional operators are:
 \subsection{Stored programs and the Program Counter}
 \label{subsec:pc}
 
-A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. A {\bf Program Counter} (PC) register is used to hold the memory address of the next instruction to be excecuted. ARM uses register 15 as its PC.
+A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. A {\bf Program Counter} (PC) register is used to hold the memory address of the next instruction to be executed. ARM uses register 15 as its PC.
 
 \subsection{Fetch-Execute Cycle}
 
-The processor must first fetch instructions from memory before it can excecute them. This is called the fetch-execute cycle, and it involves:
+The processor must first fetch instructions from memory before it can execute them. This is called the fetch-execute cycle, and it involves:
 
 \begin{enumerate}
 	\item \textbf{Fetch}: copy the instruction, pointed to by the PC, from memory and set PC to point to the next instruction
@@ -242,7 +242,7 @@ In ARM, the PC starts with a values of \texttt{0x00000000} when the program is i
 
 \subsection{Decision Making}
 
-In order to make decisions, the computer musn't just execute instructions one after the other in a linear manner. Instead, branches must be used to change the sequence of instructions to be excecuted.
+In order to make decisions, the computer mustn't just execute instructions one after the other in a linear manner. Instead, branches must be used to change the sequence of instructions to be executed.
 
 In order to perform a conditional branch, we must first perform a compare command to perform the comparison before we do the branch.
 
@@ -362,7 +362,7 @@ These bits can be added or subtracted, for example:
     \end{tabular}
 \end{center}
 
-This provides a range of $\pm$ ~4 Kbytes around a 'base' register
+This provides a range of $\pm$ ~4 kilobytes around a 'base' register
 
 In practice this method is adequate for most purposes. 
 \end{document}
