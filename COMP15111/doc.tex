@@ -303,6 +303,38 @@ ARM processors require that memory locations are aligned. This means that values
 
 This means that after a {\tt DEFW} statement, the {\tt ALIGN} command must be called.
 
+\subsection{Loading and storing values in memory}
+
+The commands {\tt LDR} and {\tt STR} are used to move values between memory and registers. The commands are detailed in full below:
+
+\begin{tabularx}{\textwidth}{l X}
+	{\bf Command} & {\bf Function}\\
+	{\tt STR} & Copies the whole (32 bit) register into memory.\\
+	{\tt LDR} & Loads a 32 bit word from memory into a register.\\
+	{\tt STRB} & Stores a single 8 bit byte into memory from a register.\\
+	{\tt LDRB} & Loads a byte from memory into a register. The upper 24 bits of the register are zeroed.\\
+\end{tabularx}
+
+\subsection{Endianness}
+
+Endianness is a property of a memory location that defines the order of the bits. There are two types of endianness, {\bf little endian} and {\bf big endian}.
+
+In the word {\tt 0x12345678} there are four bytes:
+\begin{itemize}
+	\item {\tt 0x12}
+	\item {\tt 0x34}
+	\item {\tt 0x56}
+	\item {\tt 0x78}
+\end{itemize}
+
+In little endian, the first byte would be {\tt 0x12} since bits are read from left to right in little endian.
+
+In big endian, the first byte would by {\tt 0x78} since bits are read from right to left in big endian.
+
+This is important when we deciding what the most and least significant bits in a word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit is the smallest address.}
+
+In this course, little endian is used, though ARM can use either.
+
 \section{Lecture 5: Arithmetic}
 \section{Lecture 6: If and While}
 
