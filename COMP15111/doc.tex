@@ -8,6 +8,8 @@
 \usepackage{graphicx}
 % For line brakes in tables
 \usepackage{tabularx}
+% For the split environment
+\usepackage{amsmath}
 
 \begin{document}
 % Meta
@@ -31,6 +33,7 @@ According to this model, a computer can:
 \end{enumerate}
 
 \subsection{Simple View Of A Computer}
+The simplest model of a computer can be represented as:
 
 \[
 	Memory \Leftrightarrow Bus \Leftrightarrow Processor
@@ -78,6 +81,7 @@ First we need to re-write the Java code in the three-address style:
 	product \leftarrow c * d
 \]
 Now we can draw the box view of it:
+
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=90mm]{two_box_model_diagram.pdf}
@@ -115,9 +119,11 @@ The one address style can only use up to one memory location in each instruction
 The load-store style cannot perform operations on memory locations at all. Instead, values from memory must be loaded into a registers before the operation takes place and then the operation can be performed on the registers. Following the operation, the result must be stored back into memory again.
 
 \[
-    R1 \leftarrow \textrm{\it memory location}\\
-	R1 \leftarrow R0 + R1\\
-    \textrm{\it memory location} \leftarrow R1
+	\begin{split}
+	    R1 &\leftarrow \textrm{\it memory location}\\
+		R1 &\leftarrow R0 + R1\\
+	    \textrm{\it memory location} &\leftarrow R1
+    \end{split}
 \]
 
 This means that we need extra instructions to do stuff with memory locations:
@@ -251,14 +257,14 @@ In order to perform a conditional branch, we must first perform a compare comman
 If we wanted to do a $£1$ discount on a shopping list if the price was over $£20$, we would do the following:
 
 \begin{verbatim}
-		LDR	R0, total	; Load the total price into R0
+			LDR	R0, total	; Load the total price into R0
 	
-		CMP	R0, #20		; Compare R0 and 20 (the literal)
-		BLT	nodiscount	; If the price is too low, then don't discount
-		SUB	R0, #1		; Deduct £1
-		STR	R0, total	; Store the result back into memory
+			CMP	R0, #20		; Compare R0 and 20 (the literal)
+			BLT	nodiscount	; If the price is too low, then don't discount
+			SUB	R0, #1		; Deduct £1
+			STR	R0, total	; Store the result back into memory
 
-nodiscount	SVC	2		; Finish
+nodiscount	SVC	2			; Finish
 
 total 		DEFW	25		; Lets say the total is $25
 \end{verbatim}
