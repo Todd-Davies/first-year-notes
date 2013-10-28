@@ -269,6 +269,20 @@ nodiscount	SVC	2			; Finish
 total 		DEFW	25		; Lets say the total is $25
 \end{verbatim}
 
+\subsection{Allocating memory}
+
+The \texttt{DEFW} (define word) operation puts a value in memory before the program is run. Any define operation is executed before the program is run.
+
+The actual memory location that is used to store the value isn't known to the running program, however, an {\it alias} is attached to the memory location by the programmer and the memory location can be referenced through that.
+
+The syntax for the \texttt{DEFW} command is as follows:
+
+\begin{verbatim}
+myage	DEFW	18
+\end{verbatim}
+
+Where {\tt myage} is the alias and {\tt 18} is the value.
+
 \section{Lecture 7: Addresses and Addressing}
 When a processor references memory it needs to produce an address.
 
