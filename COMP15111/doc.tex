@@ -283,7 +283,28 @@ myage	DEFW	18
 
 Where {\tt myage} is the alias and {\tt 18} is the value.
 
-\section{Lection 3: Storing values}
+{\tt DEFW} can also be used to define a number of words:
+
+\marginpar{\raggedright The label is associated with the lowest address (i.e. 0)}
+\begin{verbatim}
+squares	DEFW	0, 1, 4, 9, 16, 25
+\end{verbatim}
+
+{\tt DEFB} stores a single byte in memory. It is useful for strings such as "hello":
+
+\begin{verbatim}
+hi 	DEFB	"hello"
+\end{verbatim}
+
+{\tt DEFS} sets a block of bytes to a set value:
+
+\begin{verbatim}
+reserved_space 	DEFS	10, 5
+\end{verbatim}
+
+The above will set 10 bytes to the value '5'.
+
+\section{Lecture 3: Storing values}
 
 \section{Lecture 4: ARM assembly programming}
 
@@ -301,7 +322,7 @@ There are other types too (such as the halfword and doubleword) but they aren't 
 
 ARM processors require that memory locations are aligned. This means that values stored in memory start at specific places. For example, a word address must be a multiple of four.
 
-This means that after a {\tt DEFW} statement, the {\tt ALIGN} command must be called.
+This means that after a {\tt DEFW} statement, the {\tt ALIGN} command must be called (See ~\ref{subsubsec:align} for more on the {\tt ALIGN} command.).
 
 \subsection{Loading and storing values in memory}
 
@@ -334,6 +355,115 @@ In big endian, the first byte would by {\tt 0x78} since bits are read from right
 This is important when we deciding what the most and least significant bits in a word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit is the smallest address.}
 
 In this course, little endian is used, though ARM can use either.
+
+\subsection{Addressing memory}
+
+ARM uses 32 bit addresses, so there are $2^{32}$ different bytes that can be addressed in memory (or $\frac{2^{32}}{4}$ different words). However, there is no guarantee that the system on which the program is running will have that much memory available.
+
+\subsection{Instruction encoding}
+
+Each ARM instruction is encoded into a four byte word. The exact meaning of each of the bits varies per instruction.
+
+For example, in the branch instruction, the first four bits specify the condition, the second four bits represent the actual operation to perform (i.e. branch) and the remaining twenty four bits define the memory location of the next instruction to branch to.
+
+However, this presents a problem. We only have twenty four bits with which to define the next location to branch to, which allows us to define $2^24$ different locations. However, there are $2^32$ possible addresses that we could use!
+
+This problem is overcome by treating the 24 bits as an offset to the address of the current instruction. This works since most of the time, the address that is being branched to is fairly close to the current instruction.
+
+In order to be able to branch to addresses before and after the current instruction, we must use two's complement to allow signed integers to be used to specify the offset. This means we can branch to any instruction at an address $\pm 2^{23}$ from the current instruction.
+
+\subsection{Literals}
+
+ARM is able to encode literal values into instructions. This saves time having to access registers or memory in order to perform operations such as arithmetic.
+
+An example is to increment a register:
+
+\begin{verbatim}
+	ADD 	R1, R1, #1
+\end{verbatim}
+
+However, ARM only assigns up to 12 bits for a literal value, so we can only have $2^{12}$ values. However, ARM employs a strange method of encoding these values so that more useful values are available (for example, \#512 is allowed, but \#257 isn't).
+
+\subsubsection{Negative literals}
+
+Technically, ARM doesn't support negative literals, however, the assembler will usually be able to find a way to implement them. Some examples are given below:
+
+\marginpar{\raggedright{\tt CMN} is compare negative.\\{\tt MVN} is move not.}
+\begin{center}
+    \begin{tabular}{l l l r}
+        {\tt ADD R1, \#-1} & $\rightarrow$ & {\tt SUB R1, \#1}\\
+        {\tt CMP R2, \#-2} & $\rightarrow$ & {\tt CMN R2, \#2}\\
+        {\tt MOV R3, \#-3} & $\rightarrow$ & {\tt MVN R3, \#3}\\
+    \end{tabular}
+\end{center}
+
+\subsection{Supervisor calls}
+
+Supervisor calls are functions implemented by the operating system, not ARM itself. The parameter of an {\tt SVC} call defines it's exact operation.\marginpar{\raggedright SWI is another name for SVC - they do the same thing.}
+
+In this module, the SVC call does the following for each parameter:
+
+\begin{tabularx}{\textwidth}{l X}
+	{\tt SVC 0 } & Output a character \\
+	{\tt SVC 1 } & Input a character \\
+	{\tt SVC 2 } & Stop execution \\
+	{\tt SVC 3 } & Output a string \\
+	{\tt SVC 4 } & Output an integer \\
+\end{tabularx}
+
+\subsection{Pseudo instructions}
+
+The ARM assembler provides some instructions that are translated into sequences of more complicated instructions at the time of assembly for our convenience.
+
+One such instruction is loading a literal into a register. This is done using the {\tt LDR} command as usual, however a literal is used with the '$=$' character instead of a '$\#$'. E.g. to load the value $100$ into register one, we do:
+
+\begin{verbatim}
+	LDR 	R1, =100
+\end{verbatim}
+
+However, this is a pseudo instruction and will be converted by the assembler to:
+
+\begin{verbatim}
+	MOV 	R1, #100
+\end{verbatim}
+
+However, if the number is very large, it becomes:
+
+\begin{verbatim}
+constant	DEFB 	100
+			LDR 	R1, constant
+\end{verbatim}
+
+\subsection{Loading an address into a register}
+
+The {\tt ADR} command loads an address into a register, for example:
+
+\begin{verbatim}
+constant	DEFB 	100
+			ADR 	R1, constant
+\end{verbatim}
+
+Will load the memory address of {\tt constant} into register one.
+
+\subsection{Directives}
+Directives are evaluated at the time of assembly.
+
+\subsubsection{Align}
+\label{subsubsec:align}
+The align command leaves as many blank bytes as needed so that the next item in memory will start at a word boundary (a multiple of 4).
+
+\subsubsection{Entry}
+Sets the PC at the start of the program (i.e. where the program should start from)
+
+\subsubsection{EQU}
+Allows you to name a literal, which can go a long way to making the code more maintainable. We could define the literal $18$ as $drinking_age$:
+
+\begin{verbatim}
+drinking_age	EQU 	#18
+				; Check the person is over 18
+				CMP 	R1, #drinking_age
+				BLT		too_young
+\end{verbatim}
 
 \section{Lecture 5: Arithmetic}
 \section{Lecture 6: If and While}
