@@ -283,6 +283,29 @@ myage	DEFW	18
 
 Where {\tt myage} is the alias and {\tt 18} is the value.
 
+\section{Lection 3: Storing values}
+
+\section{Lecture 4: ARM assembly programming}
+
+\subsection{Different types of values}
+
+ARM has the capacity to work with many different types and sizes of values. Each type has a different use case. The main ones are described below:
+
+\begin{tabularx}{\textwidth}{l l X}
+	{\bf Name} & {\bf length} & {\bf Use}\\
+	Byte & 8 bits & Used for characters\\
+	Word & 32 bits & Used for integer es, addresses and instructions\\
+\end{tabularx}
+
+There are other types too (such as the halfword and doubleword) but they aren't needed for this module.
+
+ARM processors require that memory locations are aligned. This means that values stored in memory start at specific places. For example, a word address must be a multiple of four.
+
+This means that after a {\tt DEFW} statement, the {\tt ALIGN} command must be called.
+
+\section{Lecture 5: Arithmetic}
+\section{Lecture 6: If and While}
+
 \section{Lecture 7: Addresses and Addressing}
 When a processor references memory it needs to produce an address.
 
@@ -385,5 +408,10 @@ These bits can be added or subtracted, for example:
 This provides a range of $\pm$ ~4 kilobytes around a 'base' register
 
 In practice this method is adequate for most purposes. 
+
+\section{Lecture 8: Case study}
+\section{Lecture 9: Stacks}
+\section{Lecture 10: Methods, parameters, variables and stacks}
+
 \end{document}
 
