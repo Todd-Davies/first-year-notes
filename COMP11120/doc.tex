@@ -202,7 +202,7 @@ Convert 893 into base 16.
 
 Reading up from the bottom, we can see that the hexadecimal (base 16) representation is $3,7,13$ or $37D$.
 
-\subsection{A structure for the intergers}
+\subsection{A structure for the integers}
 \subsubsection{The basic data}
 The set $\mathbb{Z}$ of all integers: 
 
@@ -216,7 +216,7 @@ It is conventional to write {\it xy} as an abbreviation for {\it x}x{\it y}
 
 Sometimes different notations are used, for example, in programming * is usually used.
 
-These operations illustrate two properties which an arbritart binary operation may or may not have.
+These operations illustrate two properties which an arbitrary binary operation may or may not have.
  
 Both + and x are {\bf commutative} but - is not.
 
@@ -238,6 +238,8 @@ Associativity ensures that for most purposes brackets are not needed to punctuat
 
 Below are the definitions of commutativity and associativity.
 
+\marginpar{\raggedright N.b. Commutativity and associativity don't always have to go together. An example is the average of two numbers, what is that?}
+
 \begin{enumerate}
   \item 
     $\circledast$ is {\bf commutative} if and only if
@@ -252,4 +254,28 @@ Below are the definitions of commutativity and associativity.
     \] 
     for all $a1,a2,a3,\in,A$
 \end{enumerate}
+
+Some numbers have special effects on operations in a set. Some examples are $0$ and $1$. When $0$ is added to a number, the result is still that number, and when multiplying a number by $1$, the result is still that number. This means for the set $\mathbb{Z}$, $0$ and $1$ are neutral elements for the operations addition and multiplication respectively.
+
+\subsection{The formal language}
+
+We use the formal language to talk about $\mathbb{Z}$. Expressions in the formal language are built up from atoms in a recursive fashion, so an expression may be $(x \circ y)$ where $x$ and $y$ are expressions and $\circ$ is one of the three operations ($+, -, \times$). The brackets are important in the formal language, since they ensure that strings can only be parsed in one way.
+
+Strings that contain literals that aren't neutral elements or have invalid bracketing are not valid in the formal language. Examples may include:
+
+\[
+	(x + y + z)\\
+\]
+\[
+	(x + 2)\\
+\]
+\[
+	x((y
+\]
+
+% TODO: Parse trees once I figure out how to do them in LaTeX
+% See my SE question: http://tex.stackexchange.com/questions/141264/drawing-parse-trees
+
+% TODO: Write section on how to parse a parse tree
+
 \end{document}
