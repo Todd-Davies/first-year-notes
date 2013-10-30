@@ -11,6 +11,13 @@
 \usepackage{tabularx}
 % For long division
 \usepackage{polynom}
+% For parse trees
+\usepackage{proof}
+
+% Gives us a dot to use in parse trees. The phantom '|' symbols aren't shown but
+% give us vertical (and a little bit of horizontal) space so the parse tree has
+% the correct spacing.
+\newcommand{\parsetreedot}{\phantom{|}\cdot\phantom{|}}
 
 \pagestyle{fancyplain}
 
@@ -273,9 +280,37 @@ Strings that contain literals that aren't neutral elements or have invalid brack
 	x((y
 \]
 
-% TODO: Parse trees once I figure out how to do them in LaTeX
-% See my SE question: http://tex.stackexchange.com/questions/141264/drawing-parse-trees
+We can use a parse tree to show how an expression is built up from it's identifiers ($a, b, c\ldots$), constants ($0, 1\ldots$) and operations ($+, -, \times\ldots$).
 
-% TODO: Write section on how to parse a parse tree
+For example, the parse tree of $(x \times (y + z))$ is:
+
+% See my SE question for more on these parse trees:
+% http://tex.stackexchange.com/questions/141264/drawing-parse-trees
+
+\[
+	\infer[(\times)]{(x \times (y + z))}{
+		x
+		&
+		\infer[(+)]{(y + z)}{
+			y
+			&
+			z
+		}
+	}
+\]
+
+Often, especially with large parse trees, it's a pain to write so many identifiers. Because of this, it is a convention to replace identifiers with dots after they've been used once, like so:
+
+\[
+	\infer[(\times)]{\parsetreedot} {
+		x
+		&
+		\infer[(+)]{\parsetreedot} {
+			y
+			&
+			z
+		}
+	}
+\]
 
 \end{document}
