@@ -13,6 +13,14 @@
 \usepackage{polynom}
 % For parse trees
 \usepackage{proof}
+% Gives us bigger margins on the right (and smaller on the left) for the margin
+% paragraphs
+\usepackage[left=2cm,
+			top=3cm,
+			right=5cm,
+			bottom=3cm,
+			marginparwidth=4cm,
+			marginparsep=3mm]{geometry}
 
 % Gives us a dot to use in parse trees. The phantom '|' symbols aren't shown but
 % give us vertical (and a little bit of horizontal) space so the parse tree has
@@ -31,6 +39,11 @@
 \lhead{\today}
 
 \maketitle
+
+{\small Note, extra space has been allocated for the right hand margin to allow
+for more extensive margin notes. Also, it gives you space to make your own
+annotations and perhaps try some problems of your own.}
+
 \tableofcontents
 \newpage
 
@@ -299,7 +312,9 @@ For example, the parse tree of $(x \times (y + z))$ is:
 	}
 \]
 
-Often, especially with large parse trees, it's a pain to write so many identifiers. Because of this, it is a convention to replace identifiers with dots after they've been used once, like so:
+Often, especially with large parse trees, it's a pain to write so many
+identifiers. Because of this, it is a convention to replace identifiers with
+dots after they've been used once, like so:
 
 \[
 	\infer[(\times)]{\parsetreedot} {
@@ -311,6 +326,145 @@ Often, especially with large parse trees, it's a pain to write so many identifie
 			z
 		}
 	}
+\]
+
+In order to parse a parse tree, we must assign an appropriate value to each of
+the 'leaves' of the tree (i.e. all the identifiers) and let the values trickle
+down towards the root node of the tree where the evaluated answer will appear.
+
+Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
+
+\[
+	\infer[(\times)]{32} {
+		4
+		&
+		\infer[(+)]{8} {
+			6
+			&
+			2
+		}
+	}
+\]
+
+\marginpar{\raggedright The infix notation is when an operator is placed between
+two operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it postfix} notations.}
+
+At this point, parse trees may seem very pointless, but this is because we're
+doing very simple arithmetic. However, when we start to define other operators
+that do unfamiliar things or don't use the {\it infix} notation,
+then using parse trees can be a big help!
+
+\subsection{The properties of sets}
+
+All sets have some properties in common that we can use to manipulate them. Examples include membership, equality, inclusion etc.
+
+\subsubsection{Set membership}
+
+To indicate that an element is a member of a set, we use the $\in$ symbol. For example, to say that the element $true$ is a member of the set $\mathbb{B}$ool, we would write:
+
+\[
+	true \in \mathbb{B}ool
+\]
+
+Interestingly, we can parse this into English in many ways though. It could mean any of the following things:
+
+\begin{itemize}
+	\item $true$ is an element of the set $\mathbb{B}$ool
+	\item $true$ is an member of the set $\mathbb{B}$ool
+	\item $true$ is contained in $\mathbb{B}$ool
+	\item $\mathbb{B}$ool contains $true$
+\end{itemize}
+
+Conversely, to indicate that an element is not a member of a set, we use the symbol $\notin$:
+
+\[
+	sheep \not\in \mathbb{B}ool
+\]
+
+Note that there is no concept of {\it order} or {\it repetition} in sets. This means that the following sets are all equal:
+
+\[
+	\{1,2,3\}
+\]
+\[
+	\{2,3,1\}
+\]
+\[
+	\{2,3,1,2\}
+\]
+\[
+	\{3,3,3,3,3,2,1\}
+\]
+
+\subsubsection{Set equality}
+
+Sets are equal if they have exactly the same members. Note that as far as sets are concerned, duplicate members are treated as just one member.
+
+The notation for set equality is very easy. To say the set $X$ is equal to the set $Y$, we write:
+
+\[
+	X = Y
+\]
+
+However, you must understand that this is only true if for each element $a$ in
+$X$ that element will also be contained in $Y$ and for each element $a$ in Y,
+that element will also be contained within $X$:
+
+\marginpar{\raggedright Sets with different descriptions can still be equal.
+Convince yourself that the set of integers where $y^3 < y$ is equal to the set
+of integers where $x < -1$}
+
+\[
+	\textrm{For each }a, a \in X \leftrightarrow a \in Y
+\]
+
+\subsubsection{Set inclusion}
+
+If one set is a subset of another set, all the members of the first set are also found within the second set. In mathematical terms:
+
+% TODO: Somebody else other than Todd veridy this is true and then delete this
+% comment please. Peer review ftw!
+\[
+	\textrm{For each }a, a \in X \rightarrow a \in Y
+\]
+
+The notation for inclusion is $\subseteq$, so in the above example, we would
+write:
+
+\marginpar{\raggedright If $X \subseteq Y$ and $Y \subseteq X$ then what else an
+we say about the relationship between $X$ and $Y$?}
+
+\[
+	X \subseteq Y
+\]
+
+\subsubsection{The empty set}
+
+The empty set is a set that contains no members at all. It's symbol is
+$\emptyset$.
+
+Because the empty set has no members, it is a subset of all other sets:
+
+\marginpar{\raggedright This is because otherwise $x in \emptyset$ would be true
+for some $x$ where $x \not\in A$. This is impossible since there are no elements
+in the $\emptyset$.}
+
+\[
+	\emptyset \in A
+\]
+
+\subsubsection{Singleton sets}
+
+For any entity $a$, we can form a set consisting only of $a$:
+
+\[
+	\{a\}
+\]
+
+Be aware, a singleton set is not the same as the element contained within the set:
+
+\[
+	a \neq \{a\}
 \]
 
 \end{document}
