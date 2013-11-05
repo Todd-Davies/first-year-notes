@@ -11,6 +11,21 @@
 \usepackage{tabularx}
 % For long division
 \usepackage{polynom}
+% For parse trees
+\usepackage{proof}
+% Gives us bigger margins on the right (and smaller on the left) for the margin
+% paragraphs
+\usepackage[left=2cm,
+			top=3cm,
+			right=5cm,
+			bottom=3cm,
+			marginparwidth=4cm,
+			marginparsep=3mm]{geometry}
+
+% Gives us a dot to use in parse trees. The phantom '|' symbols aren't shown but
+% give us vertical (and a little bit of horizontal) space so the parse tree has
+% the correct spacing.
+\newcommand{\parsetreedot}{\phantom{|}\cdot\phantom{|}}
 
 \pagestyle{fancyplain}
 
@@ -24,6 +39,11 @@
 \lhead{\today}
 
 \maketitle
+
+{\small Note, extra space has been allocated for the right hand margin to allow
+for more extensive margin notes. Also, it gives you space to make your own
+annotations and perhaps try some problems of your own.}
+
 \tableofcontents
 \newpage
 
@@ -202,21 +222,19 @@ Convert 893 into base 16.
 
 Reading up from the bottom, we can see that the hexadecimal (base 16) representation is $3,7,13$ or $37D$.
 
-\subsection{A structure for the intergers}
-\subsubsection{The basic data}
-The set $\mathbb{Z}$ of all integers: 
+\subsection{A structure for the integers}
 
-$\ldots,-3,-2,-1,0,1,2,3,\ldots$
+The set $\mathbb{Z}$ of all integers $\ldots,-3,-2,-1,0,1,2,3,\ldots$ includes
+the subset $\mathbb{N}$ of all natural numbers together with the negative
+integers. We will be using three basic binary operations on the carrier set
+$\mathbb{Z}$: addition, multiplication and subtraction.
 
-includes the subset $\mathbb{N}$ of all natural numbers together with the negative integers. We will be using three basic binary operations on the carrier set $\mathbb{Z}$: addition, multiplication and subtraction.
+The standard notation for these operations is $+$, $\times$ and $-$ and they are
+used as infix operations.
 
-The standard notation for there is +, x and - used as infix operations.
-
-It is conventional to write {\it xy} as an abbreviation for {\it x}x{\it y}
-
-Sometimes different notations are used, for example, in programming * is usually used.
-
-These operations illustrate two properties which an arbritart binary operation may or may not have.
+Sometimes different notations are used, for example, in programming * is usually
+used, or there is a convention to write $xy$ as an abbreviation for $x \times
+y$.
  
 Both + and x are {\bf commutative} but - is not.
 
@@ -238,6 +256,8 @@ Associativity ensures that for most purposes brackets are not needed to punctuat
 
 Below are the definitions of commutativity and associativity.
 
+\marginpar{\raggedright N.b. Commutativity and associativity don't always have to go together. An example is the average of two numbers, what is that?}
+
 \begin{enumerate}
   \item 
     $\circledast$ is {\bf commutative} if and only if
@@ -252,4 +272,252 @@ Below are the definitions of commutativity and associativity.
     \] 
     for all $a1,a2,a3,\in,A$
 \end{enumerate}
+
+Some numbers have special effects on operations in a set. Some examples are $0$ and $1$. When $0$ is added to a number, the result is still that number, and when multiplying a number by $1$, the result is still that number. This means for the set $\mathbb{Z}$, $0$ and $1$ are neutral elements for the operations addition and multiplication respectively.
+
+\subsection{The formal language}
+
+We use the formal language to talk about $\mathbb{Z}$. Expressions in the formal language are built up from atoms in a recursive fashion, so an expression may be $(x \circ y)$ where $x$ and $y$ are expressions and $\circ$ is one of the three operations ($+, -, \times$). The brackets are important in the formal language, since they ensure that strings can only be parsed in one way.
+
+Strings that contain literals that aren't neutral elements or have invalid bracketing are not valid in the formal language. Examples may include:
+
+\[
+	(x + y + z)\\
+\]
+\[
+	(x + 2)\\
+\]
+\[
+	x((y
+\]
+
+We can use a parse tree to show how an expression is built up from it's identifiers ($a, b, c\ldots$), constants ($0, 1\ldots$) and operations ($+, -, \times\ldots$).
+
+For example, the parse tree of $(x \times (y + z))$ is:
+
+% See my SE question for more on these parse trees:
+% http://tex.stackexchange.com/questions/141264/drawing-parse-trees
+
+\[
+	\infer[(\times)]{(x \times (y + z))}{
+		x
+		&
+		\infer[(+)]{(y + z)}{
+			y
+			&
+			z
+		}
+	}
+\]
+
+Often, especially with large parse trees, it's a pain to write so many
+identifiers. Because of this, it is a convention to replace identifiers with
+dots after they've been used once, like so:
+
+\[
+	\infer[(\times)]{\parsetreedot} {
+		x
+		&
+		\infer[(+)]{\parsetreedot} {
+			y
+			&
+			z
+		}
+	}
+\]
+
+In order to parse a parse tree, we must assign an appropriate value to each of
+the 'leaves' of the tree (i.e. all the identifiers) and let the values trickle
+down towards the root node of the tree where the evaluated answer will appear.
+
+Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
+
+\[
+	\infer[(\times)]{32} {
+		4
+		&
+		\infer[(+)]{8} {
+			6
+			&
+			2
+		}
+	}
+\]
+
+\marginpar{\raggedright The infix notation is when an operator is placed between
+two operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it postfix} notations.}
+
+At this point, parse trees may seem very pointless, but this is because we're
+doing very simple arithmetic. However, when we start to define other operators
+that do unfamiliar things or don't use the {\it infix} notation,
+then using parse trees can be a big help!
+
+\subsection{The properties of sets}
+
+All sets have some properties in common that we can use to manipulate them. Examples include membership, equality, inclusion etc.
+
+\subsubsection{Set membership}
+
+To indicate that an element is a member of a set, we use the $\in$ symbol. For example, to say that the element $true$ is a member of the set $\mathbb{B}$ool, we would write:
+
+\[
+	true \in \mathbb{B}ool
+\]
+
+Interestingly, we can parse this into English in many ways though. It could mean any of the following things:
+
+\begin{itemize}
+	\item $true$ is an element of the set $\mathbb{B}$ool
+	\item $true$ is an member of the set $\mathbb{B}$ool
+	\item $true$ is contained in $\mathbb{B}$ool
+	\item $\mathbb{B}$ool contains $true$
+\end{itemize}
+
+Conversely, to indicate that an element is not a member of a set, we use the symbol $\notin$:
+
+\[
+	sheep \not\in \mathbb{B}ool
+\]
+
+Note that there is no concept of {\it order} or {\it repetition} in sets. This means that the following sets are all equal:
+
+\[
+	\{1,2,3\}
+\]
+\[
+	\{2,3,1\}
+\]
+\[
+	\{2,3,1,2\}
+\]
+\[
+	\{3,3,3,3,3,2,1\}
+\]
+
+\subsubsection{Set equality}
+
+Sets are equal if they have exactly the same members. Note that as far as sets are concerned, duplicate members are treated as just one member.
+
+The notation for set equality is very easy. To say the set $X$ is equal to the set $Y$, we write:
+
+\[
+	X = Y
+\]
+
+However, you must understand that this is only true if for each element $a$ in
+$X$ that element will also be contained in $Y$ and for each element $a$ in Y,
+that element will also be contained within $X$:
+
+\marginpar{\raggedright Sets with different descriptions can still be equal.
+Convince yourself that the set of integers where $y^3 < y$ is equal to the set
+of integers where $x < -1$}
+
+\[
+	\textrm{For each }a, a \in X \leftrightarrow a \in Y
+\]
+
+\subsubsection{Set inclusion}
+
+If one set is a subset of another set, all the members of the first set are also found within the second set. In mathematical terms:
+
+% TODO: Somebody else other than Todd veridy this is true and then delete this
+% comment please. Peer review ftw!
+\[
+	\textrm{For each }a, a \in X \rightarrow a \in Y
+\]
+
+The notation for inclusion is $\subseteq$, so in the above example, we would
+write:
+
+\marginpar{\raggedright If $X \subseteq Y$ and $Y \subseteq X$ then what else an
+we say about the relationship between $X$ and $Y$?}
+
+\[
+	X \subseteq Y
+\]
+
+\subsubsection{The empty set}
+
+The empty set is a set that contains no members at all. It's symbol is
+$\emptyset$.
+
+Because the empty set has no members, it is a subset of all other sets:
+
+\marginpar{\raggedright This is because otherwise $x in \emptyset$ would be true
+for some $x$ where $x \not\in A$. This is impossible since there are no elements
+in the $\emptyset$.}
+
+\[
+	\emptyset \in A
+\]
+
+\subsubsection{Singleton sets}
+
+For any entity $a$, we can form a set consisting only of $a$:
+
+\[
+	\{a\}
+\]
+
+Be aware, a singleton set is not the same as the element contained within the set:
+
+\[
+	a \neq \{a\}
+\]
+
+\subsubsection{Set union}
+
+There are several ways of combining multiple sets together to create another
+set. One such method is set union, the symbol of which is $\cup$. The union of
+two sets is a set containing all the members of {\it both} sets. For example:
+
+\[
+	A = \{1, 3, 5, 7, 9\}
+\]
+
+\[
+ 	B = \{1, 1, 2, 3, 5, 8, 13\}
+\]
+
+\[
+	A \cup B = \{1, 2, 3, 5, 7, 8, 9, 13\}
+\]
+
+We could also define the union of two sets mathematically, like so:
+
+\[
+	x \in A \cup B \leftrightarrow x \in A \textrm{ or } x \in B
+\]
+
+\subsubsection{Set intersection}
+
+Another way of combining sets is intersection. Intersecting two sets will
+produce a set of elements that belong to both of the sets. The symbol for
+intersection is $\cap$.
+
+If we defined intersection mathematically, we would do so like this:
+
+\[
+	x \in A \cap B \leftrightarrow x \in A \textrm{ and } x \in B
+\]
+
+\subsubsection{Relative complement}
+
+The relative complement of two sets is all the members in the first set that
+aren't members of the second set. The symbol for the relative complement is $-$.
+Defined mathematically, we get:
+
+\[
+	x \in A - B \leftrightarrow x \in A \textrm{ and } x \not\in B
+\]
+
+\subsubsection{The universal set}
+
+% TODO: Link to De Morgan's laws when we've covered it.
+The universal set contains {\it all of the possible elements}. The notation we use to describe the universal set is $S$. We can define the De Morgan's laws using the universal set:
+
+\[
+	X' = S - X
+\]
+
 \end{document}
