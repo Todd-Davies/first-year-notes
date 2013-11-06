@@ -520,12 +520,119 @@
 	$\neg (A \wedge B) \wedge (A \vee B)$
 }
 
+% NNF, CNF and DNF
+
+\card{
+	What two conditions are there for Negation Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The expression is build up of literals using only conjunction and disjunction\\
+		2. & Negation can be used, but only on literals, not expressions\\
+	\end{tabularx}\\
+	\vspace{3mm}
+	{\footnotesize N.b. a literal is a formula that is either atomic or the negation of an atomic formula (i.e. $x$ or $\neg x$)}
+}
+
+\card{
+	What two steps do we do to get an expression into Negation Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & Remove all implication and bi-implication operations by applying the logical identities\\
+		2. & Apply De Morgan's laws to any expressions that are negated\\
+	\end{tabularx}
+}
+
+\card{
+	What three conditions are there for Conjunctive Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The formula must be in NNF already\\
+		2. & There must be no nested brackets\\
+		3. & Conjunction must be used outside of the brackets, and disjunction inside the brackets
+	\end{tabularx}
+}
+
+\card{
+	What two steps do we do to get an expression into Conjunctive Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & Get rid of nested brackets using identities\\
+		2. & Use the distributive identities to bring all the disjunctions inside the conjunctions.
+	\end{tabularx}
+}
+
+\card{
+	What is the CNF test for tautologies?
+}{
+	Each expression in the formula must have both a literal and the negation of the literal.\\
+	\vspace{3mm}
+	E.g. $(p_1 \vee p_2 \vee \neg p_1) \wedge (p_3 \vee \neg p_2 \vee p_2)$
+}
+
+\card{
+	What three conditions are there for Disjunctive Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The formula must be in NNF already\\
+		2. & There must be no nested brackets\\
+		3. & Disjunction must be used outside of the brackets, and conjunction inside the brackets
+	\end{tabularx}
+}
+
+\card{
+	What is the DNF test for contradictions?
+}{
+	Each expression in the formula must have both a literal and the negation of the literal.\\
+	\vspace{3mm}
+	E.g. $(p_1 \wedge p_2 \wedge \neg p_1) \vee (p_3 \wedge \neg p_2 \wedge p_2)$
+}
+
+% Predicates and quantifiers
+
+\card{
+	What is the universal quantifier?
+}{
+	$\forall$
+}
+
+\card{
+	What is the existential quantifier?
+}{
+	$\exists$
+}
+
+\card{
+	What can we do to a universal quantifier with a negation such as this:\\
+	\[
+		\neg \forall x P(x)
+	\]
+}{
+	We can turn it into an existential quantifier, such as:\\
+	\[
+		\exists x \neg 	P(x)
+	\]
+}
+
+\card{
+	What can we do to an existential quantifier with a negation such as this:\\
+	\[
+		\neg \exists x P(x)
+	\]
+}{
+	We can turn it into a universal quantifier, such as:\\
+	\[
+		\forall x \neg 	P(x)
+	\]
+}
+
 % Nasty questions
 
 \card{
 	What is the arity of a unary symbol?
 }{
-	1
+	1\\
+	\vspace{3mm}
+	{\footnotesize Arity - the number of arguments that a function can take}
 }
 
 \card{

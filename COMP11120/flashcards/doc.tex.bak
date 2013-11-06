@@ -179,8 +179,8 @@
 % Logic functions (truth tables)
 
 \flashcard{
-	The truth table for and \texttt{and} function is:
-	\begin{tabular}{l|l|l}
+	The truth table for the \texttt{and} function is:
+	\begin{tabular}{c|c|c}
 		Input 1 & Input 2 & Input 1 \texttt{and} Input 2\\ \hline
 		T & T & \blank{T}\\  \hline
 		T & F & \blank{F}\\  \hline
@@ -190,8 +190,8 @@
 }
 
 \flashcard{
-	The truth table for and \texttt{or} function is:
-	\begin{tabular}{l|l|l}
+	The truth table for the \texttt{or} function is:
+	\begin{tabular}{c|c|c}
 		Input 1 & Input 2 & Input 1 \texttt{or} Input 2\\ \hline
 		T & T & \blank{T}\\  \hline
 		T & F & \blank{T}\\  \hline
@@ -201,8 +201,8 @@
 }
 
 \flashcard{
-	The truth table for and \texttt{implies} function is:
-	\begin{tabular}{l|l|l}
+	The truth table for the \texttt{implies} function is:
+	\begin{tabular}{c|c|c}
 		Input 1 & Input 2 & Input 1 \texttt{implies} Input 2\\ \hline
 		T & T & \blank{T}\\  \hline
 		T & F & \blank{F}\\  \hline
@@ -373,9 +373,239 @@
 % Logical connectives
 
 \card{
-	What is the symbol for locical negation?
+	What is the symbol for logical negation?
 }{
-	
+	$\neg$	
+}
+
+\card{
+	What is the symbol for conjunction?
+}{
+	$\wedge$
+}
+
+\card{
+	What is the symbol for disjunction?
+}{
+	$\vee$
+}
+
+\card{
+	What is the symbol for logical and?
+}{
+	$\wedge$
+}
+
+\card{
+	What is the symbol for logical or?
+}{
+	$\vee$
+}
+
+\card{
+	What is the symbol for implication?
+}{
+	$\implies$
+}
+
+\card{
+	What is the symbol for bi-implication?
+}{
+	$\iff$
+}
+
+\flashcard{
+	The truth table for the \texttt{bi-implication} function is:
+	\begin{tabular}{c|c|c}
+		Input 1 & Input 2 & Input 1 \texttt{$\iff$} Input 2\\ \hline
+		T & T & \blank{T}\\  \hline
+		T & F & \blank{F}\\  \hline
+		F & T & \blank{F}\\  \hline
+		F & F & \blank{T}\\  \hline
+	\end{tabular}
+}
+
+% Tautologies, Satisfiables and Contradictions
+
+\flashcard{An expression is a \blank{tautology} when all of it's possible outcomes are true}
+
+\flashcard{An expression is \blank{satisfiable} when at least one of it's possible outcomes are true}
+
+\flashcard{An expression is a \blank{contradiction} when none of it's possible outcomes are true}
+
+\card{
+	What is the notation to say $A$ is a tautology?
+}{
+	$\models A$
+}
+
+\card{
+	What is the notation to say $A$ is satisfiable?
+}{
+	$\not\models \neg A$ 
+}
+
+\card{
+	What is the notation to say $A$ is a contradiction?
+}{
+	$\not\models A$
+}
+
+% Logical equivalence laws
+
+\card{
+	Use the fact that $\cup$ is associative to re-arrange:\\
+	$X \vee (Y \vee Z)$ 
+}{
+	$Y \vee (X \vee Z)$\\
+	or\\
+	$Z \vee (X \vee Y)$
+}
+
+\card{
+	Use the fact that $\cap$ is associative to re-arrange:\\
+	$X \wedge (Y \wedge Z)$ 
+}{
+	$Y \wedge (X \wedge Z)$\\
+	or\\
+	$Z \wedge (X \wedge Y)$
+}
+
+\card{
+	What are the two possible rearrangements of $A \implies B$?
+}{
+	$\neg A \vee B$\\
+	$\neg B \implies \neg A$
+}
+
+\card{
+	What is the rearrangement of $\neg(A \implies B)$
+}{
+	$A \wedge \neg B$
+}
+
+\card{
+	What is the rearrangement of $A \implies \neg B?$
+}{
+	$B \implies \neg A$
+}
+
+\card{
+	Rearrange $A \iff B$
+}{
+	$(A \implies B) \wedge (B \implies A)$
+}
+
+\card{
+	Rearrange $A \iff B$
+}{
+	$(\neg A \vee B) \wedge (\neg B \vee A)$
+}
+
+\card{
+	Rearrange $A \iff B$
+}{
+	$(A \wedge B) \vee (\neg A \wedge \neg B)$
+}
+
+\card{
+	Rearrange $\neg(A \iff B)$
+}{
+	$(A \wedge \neg B) \vee (B \wedge \neg A)$
+}
+
+\card{
+	Rearrange $\neg(A \iff B)$
+}{
+	$\neg (A \wedge B) \wedge (A \vee B)$
+}
+
+% NNF, CNF and DNF
+
+\card{
+	What two conditions are there for Negation Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The expression is build up of literals using only conjunction and disjunction\\
+		2. & Negation can be used, but only on literals, not expressions\\
+	\end{tabularx}\\
+	\vspace{3mm}
+	{\footnotesize N.b. a literal is a formula that is either atomic or the negation of an atomic formula (i.e. $x$ or $\neg x$)}
+}
+
+\card{
+	What two steps do we do to get an expression into Negation Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & Remove all implication and bi-implication operations by applying the logical identities\\
+		2. & Apply De Morgan's laws to any expressions that are negated\\
+	\end{tabularx}
+}
+
+\card{
+	What two conditions are there for Conjunctive Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The formula must be in NNF already\\
+		2. & There must be no nested brackets\\
+		3. & Conjunction must be used outside of the brackets, and disjunction inside the brackets
+	\end{tabularx}
+}
+
+\card{
+	What two steps do we do to get an expression into Conjunctive Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & Get rid of nested brackets using identities\\
+		2. & Use the distributive itentities to bring all the disjunctions inside the conjunctions.
+	\end{tabularx}
+}
+
+\card{
+	What is the CNF test for tautologies?
+}{
+	Each expression in the formula must have both a literal and the negation of the literal.\\
+	\vspace{3mm}
+	E.g. $(p_1 \vee p_2 \vee \neg p_1) \wedge (p_3 \vee \neg p_2 \wedge p_2)$
+}
+
+% Nasty questions
+
+\card{
+	What is the arity of a unary symbol?
+}{
+	1
+}
+
+\card{
+	Is disjunction inclusive or exclusive?
+}{
+	Inclusive.
+}
+
+\card{
+	What does 'iff' mean?
+}{
+	If and only if.
+}
+
+\card{
+	What does 'PL' stand for?
+}{
+	Propositional Logic
+}
+
+\card{
+	What is a truth valuation?
+}{
+	A truth valuation is a list of values define the input values for an expression. E.g.:\\
+	$(x=T, y=F)$
+}
+
+\card{
+	If $A \implies B$ is a tautology, what does that mean?
+} {
+	$A$ and $B$ are logically equivalent.
 }
 
 \end{document} 
