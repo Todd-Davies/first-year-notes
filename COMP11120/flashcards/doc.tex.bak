@@ -1,7 +1,18 @@
 \documentclass[frontgrid]{flacards}
+% For sets e.g. \mathbb{Z}
 \usepackage{amsfonts}
+% For the 'split' envirnoment and symbols
+\usepackage{amsmath, amssymb}
+% For grey outs in the 'flashcard' environment
 \usepackage{color}
-
+% For parse trees
+\usepackage{proof}
+% For venn diagrams
+\usepackage{tikz}
+% Multi line tables
+\usepackage{tabularx}
+% For tikz backgrounds (i.e. filling in S!)
+\usetikzlibrary{backgrounds,positioning}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -18,20 +29,353 @@
     }%
 }
 
+% Venn diagram circles
+\def\firstcircle{(0:0.8cm) circle (1.2cm)}
+\def\secondcircle{(180:0.8cm) circle (1.2cm)}
+\def\thirdcircle{(0:0.4cm) circle (0.4cm)}
+
+% Gives us a dot to use in parse trees. The phantom '|' symbols aren't shown but
+% give us vertical (and a little bit of horizontal) space so the parse tree has
+% the correct spacing.
+\newcommand{\parsetreedot}{\phantom{|}\cdot\phantom{|}}
+
 \begin{document}
 
-\pagesetup{2}{4} 
+\pagesetup{2}{6} 
 
-\card{For each $a$ in $X$, $a \in X \leftrightarrow a \in Y$.\\How is this represented?}{$X=Y$}
+% The basic sets
 
-\card{How else could we express:\\$X \subseteq Y \leftrightarrow Y \subseteq X$}{$X=Y$}
+\card{
+	The set $\mathbb{N}$ contains?
+}{
+	The set of natural numbers (all non-negative integers).
+}
 
-\card{The set $\mathbb{N}$ contains?}{The set of natural numbers (all non-negative integers).}
+\card{
+	The set $\mathbb{R}$ contains?
+}{
+	The set of real numbers (all finite and infinite decimal numbers).
+}
 
-\card{The set $\mathbb{R}$ contains?}{The set of real numbers (all finite and infinate decimal numbers).}
+\card{
+	The set $\mathbb{Z}$ contains?
+}{
+	The set of integers.
+}
 
-\card{The set $\mathbb{Z}$ contains?}{The set of integers).}
+\card{
+	The set $\mathbb{Q}$ contains?
+}{
+	The set of rational numbers.\\
+	Contains all $m/n$ for $m, n in \mathbb{Z}$
+}
 
-\card{The set $\mathbb{Q}$ contains?}{The set of rational numbers.\\Contains all $m/n$ for $m, n in \mathbb{Z}$}
+\card{
+	What is this?\\$\emptyset$
+}{
+	The null set.
+}
+
+\card{
+	What is this?\\$\mathbb{S}$
+}{
+	The universal set, containing all possible elements.
+}
+
+% Set operations
+
+\card{
+	What does $X \subseteq Y$ mean?
+}{
+	$X$ is a subset of $Y$\\
+	$Y$ is a superset of $X$\\
+	$X$ is included in $Y$\\
+	$Y$ includes $X$\\
+	\vspace{3mm}
+    \begin{tikzpicture}[scale=0.8]
+      \begin{scope}
+	    \fill[light-gray] \thirdcircle;
+      \end{scope}
+      \draw \firstcircle node[text=black,right] {$Y$};
+      \draw \thirdcircle node [text=black] {$X$};
+    \end{tikzpicture}
+}
+
+\card{
+	What does $'$ mean after a set (or $^{c}$)?
+}{
+	The complement of the set. E.g. $X'$:\\
+	\vspace{3mm}
+    \begin{tikzpicture}[
+    	scale=0.8,
+    	show background rectangle, 
+    	background rectangle/.style={fill=lightgray},
+    	box/.style={draw, font=\itshape}
+	]
+	  \begin{scope}
+	    \fill[white] \firstcircle;
+      \end{scope}
+      \draw \firstcircle node[text=black, fill=white](setx) {$X$};
+      \draw node[below of=setx, left of=setx] {$S$};
+    \end{tikzpicture}	
+}
+
+\card{
+	What does $x \in X$ mean?
+}{
+	$x$ is contained in / is a member of $X$
+}
+
+\card{
+	What does $x \notin X$ mean?
+}{
+	$x$ is not a member of $X$
+}
+
+\card{
+	For each $a$ in $X$, $a \in X \leftrightarrow a \in Y$.\\
+	How is this represented?
+}{
+	$X=Y$
+}
+
+\card{
+	How else could we express:\\
+	$X \subseteq Y \leftrightarrow Y \subseteq X$
+}{
+	$X=Y$
+}
+
+\card{
+	What does $X \cup Y$ mean?
+}{
+	The \textbf{union} of the sets $X$ and $Y$.\\
+	\vspace{3mm}
+    \begin{tikzpicture}
+      \begin{scope}
+	    \fill[light-gray] \firstcircle;
+	    \fill[light-gray] \secondcircle;
+      \end{scope}
+      \draw \firstcircle node[text=black,right] {$Y$};
+      \draw \secondcircle node [text=black,left] {$X$};
+    \end{tikzpicture}
+}
+
+\card{
+	What does $X \cap Y$ mean?
+}{
+	The \textbf{intersection} of the sets $X$ and $Y$.\\
+	\vspace{3mm}
+    \begin{tikzpicture}
+      \begin{scope}
+	    \clip \secondcircle;
+	    \fill[light-gray] \firstcircle;
+      \end{scope}
+      \draw \firstcircle node[text=black,right] {$Y$};
+      \draw \secondcircle node [text=black,left] {$X$};
+    \end{tikzpicture}
+}
+
+% Logic functions (truth tables)
+
+\flashcard{
+	The truth table for and \texttt{and} function is:
+	\begin{tabular}{l|l|l}
+		Input 1 & Input 2 & Input 1 \texttt{and} Input 2\\ \hline
+		T & T & \blank{T}\\  \hline
+		T & F & \blank{F}\\  \hline
+		F & T & \blank{F}\\  \hline
+		F & F & \blank{F}\\  \hline
+	\end{tabular}
+}
+
+\flashcard{
+	The truth table for and \texttt{or} function is:
+	\begin{tabular}{l|l|l}
+		Input 1 & Input 2 & Input 1 \texttt{or} Input 2\\ \hline
+		T & T & \blank{T}\\  \hline
+		T & F & \blank{T}\\  \hline
+		F & T & \blank{T}\\  \hline
+		F & F & \blank{F}\\  \hline
+	\end{tabular}
+}
+
+\flashcard{
+	The truth table for and \texttt{implies} function is:
+	\begin{tabular}{l|l|l}
+		Input 1 & Input 2 & Input 1 \texttt{implies} Input 2\\ \hline
+		T & T & \blank{T}\\  \hline
+		T & F & \blank{F}\\  \hline
+		F & T & \blank{T}\\  \hline
+		F & F & \blank{T}\\  \hline
+	\end{tabular}
+}
+
+% Associativity and commutativity
+
+\flashcard{
+	An operation is \blank{commutative} if:
+	\[
+		a1 \circledast a2 = a2 \circledast a1
+    \] 
+}
+
+\flashcard{
+	An operation is \blank{associative} if:
+	\[
+		(a1 \circledast a2) \circledast a3 = a1 \circledast (a2 \circledast a3)
+    \] 
+}
+
+% Valid expressions in the formal language
+
+\card{
+	Is $(v + w + x)$ a valid expression in the formal language?
+}{
+	No, there aren't enough brackets.\\
+	$((v + w) + x)$ would be valid though!
+}
+
+\card{
+	Is $(x + 4)$ a valid expression in the formal language?
+}{
+	No, since $4$ isn't an allowable atom.\\
+	$(x + 0)$ would be valid though!
+}
+
+\card{
+	Is $((x \times 0) + (y + z)))$ a valid expression in the formal language?
+}{
+	No, since there are two many brackets.\\
+	$((x \times 0) + (y + z))$ would be valid though!
+}
+
+% Parse trees
+
+\card{
+	What expression does this parse tree represent?
+	\[
+		\infer[(-)]{\parsetreedot} {
+			x
+			&
+			\infer[(\times)]{\parsetreedot} {
+				y
+				&
+				z
+			}
+		}
+	\]
+}{
+	$(x - (y \times z))$
+}
+
+\card{
+	Evaluate the following parse tree
+	\[
+		\infer[(\div)]{\parsetreedot} {
+			140
+			&
+			\infer[(-)]{\parsetreedot} {
+				10
+				&
+				\infer[(\times)]{\parsetreedot} {
+					3
+					&
+					1
+				}
+			}
+		}
+	\]
+}{
+	$(140 \div (10 - (3 \times 1))) = 20$
+	\[
+		\infer[(\div)]{20} {
+			140
+			&
+			\infer[(-)]{7} {
+				10
+				&
+				\infer[(\times)]{3} {
+					3
+					&
+					1
+				}
+			}
+		}
+	\]
+}
+
+% Set identities
+
+\card{
+	Use the fact that $\cup$ is associative to re-arrange:\\
+	$X \cup (Y \cup Z)$ 
+}{
+	$Y \cup (X \cup Z)$\\
+	or\\
+	$Z \cup (X \cup Y)$
+}
+
+\card{
+	Use the fact that $\cap$ is associative to re-arrange:\\
+	$X \cap (Y \cap Z)$ 
+}{
+	$Y \cap (X \cap Z)$\\
+	or\\
+	$Z \cap (X \cap Y)$
+}
+
+\card{
+	Use the distributive law on:\\
+	$X \cup (Y \cap Z)$ 
+}{
+	$(X \cap Y) \cup (X \cap Z)$
+}
+
+\card{
+	Use the distributive law on:\\
+	$X \cap (Y \cup Z)$ 
+}{
+	$(X \cup Y) \cap (X \cup Z)$
+}
+
+\card{
+	Use absorbsion on:\\
+	$X \cup (X \cap Y)$ 
+}{
+	$X$
+}
+
+\card{
+	Use absorbsion on:\\
+	$X \cap (X \cup Y)$ 
+}{
+	$X$
+}
+
+\card{
+	What three things happen when De Morgan's law is applied to an expression?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The expression is negated (involution is applied if it's already negated)\\
+		2. &  Each sub expression is negated (again, applying involution)\\
+		3. &  Each union inside the expression is turned into an intersection and vice versa\\
+	\end{tabularx}
+}
+
+\card{
+	What does involution mean?
+}{
+	If an expression is negated twice, they cancel each other out.\\
+	$X'' = X$
+}
+
+% Logical connectives
+
+\card{
+	What is the symbol for locical negation?
+}{
+	
+}
 
 \end{document} 
