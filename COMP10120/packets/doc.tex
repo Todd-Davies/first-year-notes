@@ -16,4 +16,32 @@
 
 \maketitle
 
+Packets are small pieces of information that are sent over a network. When
+computers send files between each other, they break the files down into packets
+and send them individually.
+
+When a computer breaks a file down into packets, it attaches and IP number (the
+IP address of the sending computer) and a sequence number (the IP address of the
+receiving computer). It also attaches a checksum to each packet so the receiving
+computer can verify that it received the packet correctly.
+
+Packets can be sent over networks using a variety of protocols, which are sets
+of rules defining the roles of both the receiving and sending computers in the
+transmission process. Once the packets arrive at the destination computer, they
+are re-ordered into their sequential order.
+
+Packets are split into three parts; header, data and trailer.
+
+The header contains three things; the IP addresses of both the sending and
+receiving computers and the length of the packet.
+
+The data is the information contained in the packet.
+
+The trailer contains the checksum of the packet.
+
+Once the packet arrives at the destination, the checksum of the packet is
+compared with a newly generated checksum of the received packet, and if they do
+not match, then the destination computer will ask for the packet to be resent
+since it must have been corrupted.
+
 \end{document}

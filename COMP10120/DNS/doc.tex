@@ -16,4 +16,46 @@
 
 \maketitle
 
+In order for one computer to send data to another computer, the IP address of
+the receiving computer must be known. The DNS system allows IP addresses to be
+translated into more human readable (and rememberable) domain names.
+
+\section*{Before DNS}
+
+In the early days of the Internet, there were only a few hundred machines
+online, so a single text file could contain all the host names and corresponding
+IP addresses. This text file was managed by the Standford Research Institute and
+was called Hosts.txt. System administrators would periodically copy that file
+onto their own systems, and so the mapping of IP addresses to domain names was
+kept consistent over the whole network.
+
+However, as the Internet grew, it soon became too much work to manually update
+the Hosts.txt file, since changes were being made every few minutes, and so the
+DNS system was developed as an automated and scalable solution.
+
+\section*{How does DNS work?}
+
+DNS stands for Domain Name System, and is able to resolve domain names into IP
+addresses and be dynamically updated.
+
+Each device on the Internet is called a host (this can be anything, from a
+gaming computer to an Internet connected toaster), and it has a unique IP
+address. Just as the IP address is unique to the host, the domain name is also
+unique. To allow for more variety, domain names aren't limited to one level, and
+allow for many sub-domains.\marginpar{\raggedright A sub-domain is the part
+before the main domain name. {\it blog} in blog.test.com for example.}
+
+Top level domains are the last part of a domain name, such as \texttt{.com} or
+\texttt{.gov.uk}. They are usually managed by top level domain servers.
+
+In order to translate a domain name into an IP address, your computer first
+constructs a DNS query containing the domain name and then sends it to the DNS
+server listed in the IP settings of your computer.
+
+When the DNS server receives the request, it checks it's cache of previously
+resolved names and if it contains the one it's looking for, it will send the IP
+address back to your computer. If the server doesn't have the domain name
+cached, then it'll send a request to the top level domain server, which will
+find the specific DNS server for that domain and find the IP.
+
 \end{document}
