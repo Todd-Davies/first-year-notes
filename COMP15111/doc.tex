@@ -448,6 +448,17 @@ Will load the memory address of {\tt constant} into register one.
 \subsection{Directives}
 Directives are evaluated at the time of assembly.
 
+\subsubsection{DEF commands}
+
+The {\tt DEF\{W,B,S\}} command reserves an amount of memory dependent on the operation used (see the table) and puts an initial value in it.
+
+\begin{tabularx}{\textwidth}{l|X}
+	{\bf Command} & {\bf Function}\\ \hline
+	{\tt DEFW num} & Reserves a {\it word} of memory and puts the initial value {\tt num} in it.\\ \hline
+	{\tt DEFB value} & Reserves {\it byte}(s) of memory and puts the initial value {\tt value} in it. Note that the value can be a string literal, in which case the number of bytes reserved will be equal to the length of the string.\\ \hline
+	{\tt DEFS size, fill} & Reserves a {\it block} of memory of {\tt size} bytes and initialises them with the value {\tt fill}. \\ \hline	
+\end{tabularx}
+
 \subsubsection{Align}
 \label{subsubsec:align}
 The align command leaves as many blank bytes as needed so that the next item in memory will start at a word boundary (a multiple of 4).
@@ -456,7 +467,7 @@ The align command leaves as many blank bytes as needed so that the next item in 
 Sets the PC at the start of the program (i.e. where the program should start from)
 
 \subsubsection{EQU}
-Allows you to name a literal, which can go a long way to making the code more maintainable. We could define the literal $18$ as $drinking_age$:
+Allows you to name a literal, which can go a long way to making the code more maintainable. We could define the literal $18$ as $drinking\_age$:
 
 \begin{verbatim}
 drinking_age	EQU 	#18
@@ -466,6 +477,130 @@ drinking_age	EQU 	#18
 \end{verbatim}
 
 \section{Lecture 5: Arithmetic}
+
+\subsection{Making good use of registers}
+
+Registers are a precious resource when programming on ARM. When writing software to evaluate expressions, it's often tempting to load all the variables into registers first, and then perform the arithmetic in separate registers like so:
+
+\begin{verbatim}
+	; a = b + c + d
+	LDR 	R1, b
+	LDR 	R2, c
+	LDR 	R3, d
+	ADD 	R4, R1, R2
+	ADD 	R5, R4, R3
+	STR 	R5, a
+\end{verbatim}
+
+However, this is pointless - the values in the registers {\tt R4} and {\tt R5} aren't going to be needed again, so we may as well do:
+
+\begin{verbatim}
+	; a = b + c + d
+	LDR 	R1, b
+	LDR 	R2, c
+	LDR 	R3, d
+	ADD 	R1, R1, R2
+	ADD 	R1, R1, R3
+	STR 	R1, a
+\end{verbatim}
+
+But, we can optimise even further here. Instead of loading all the variables into registers before we do arithmetic, we can save a register and load only the ones we need before each {\tt ADD} instruction:
+
+\begin{verbatim}
+	; a = b + c + d
+	LDR 	R1, b
+	LDR 	R2, c
+	ADD 	R1, R1, R2
+	LDR 	R2, d
+	ADD 	R1, R1, R2
+	STR 	R1, a
+\end{verbatim}
+
+Sometimes, it's useful to re-order an arithmetic expression so it can be implemented using less registers. This can often be achieved by increasing the nesting of brackets in an expression such as this:
+
+\[
+	(b - e) + (c * d) = ((c * d) + b - e)
+\]
+
+Though these expressions are both equal, the right hand side will use a register less in ARM code, since each instruction can be executed sequentially, however the left hand side requires two expressions to be evaluated (and stored in a total of three registers) and then both expressions added together.
+
+\subsection{Using literals in expressions}
+
+If there is a literal in the expression you want to evaluate, then it's possible to use a literal instead of a register. For example, these two programs will end up with the same answer in {\tt R0} but the one on the right uses less registers:
+
+% Split the page into two for side-by-side comparison
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{verbatim}
+			; (a + 5) * b
+			LDR 	R0, 5
+			LDR 	R1, a
+			ADD 	R0, R0, R1
+			LDR 	R1, b
+			MUL 	R0, R0, R1
+
+	five	DEFW	5
+	\end{verbatim}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+	\begin{verbatim}
+			; (a + 5) * b
+			LDR 	R0, a
+			ADD 	R0, R0, #5
+			LDR 	R1, b
+			MUL 	R0, R0, R1
+	\end{verbatim}
+\end{minipage}
+
+Literals can be any expression that the assembler can evaluate, for example, the following are all valid:\marginpar{\raggedright Note that {\tt MUL} cannot use literals. To get around this, first {\tt MOV} the literal into a register and then multiply.}
+
+\begin{verbatim}
+ADD 	R0, R0, #(1 + 2)
+\end{verbatim}
+
+% TODO: Check this
+\begin{verbatim}
+ADD 	R0, R0, #-2
+\end{verbatim}
+
+% TODO: Check this
+\begin{verbatim}
+ADD 	R0, R0, #(2 - 1)
+\end{verbatim}
+
+\subsection{Status flags}
+
+ARM has some 1-bit status flags that are set after a {\tt CMP} instruction as shown below:
+
+\begin{tabular}{l|l}
+	Flag & Meaning\\ \hline
+	Negative & Previous result was negative\\ \hline
+	Zero & Previous result was zero\\ \hline
+	Carry & Previous add or subtract generated a carry\\ \hline
+	Overflow & The previous add or subtract overflowed and went out of range\\ \hline
+\end{tabular}
+
+You can get any data operation to alter the flags by appending {\tt S} to the instruction. For example:
+
+\begin{verbatim}
+	SUBS	R0, R1, R2 ;
+\end{verbatim}
+
+The above command will subtract {\tt R2} from {\tt R1} and store the result in {\tt R0}, but it will also set the flags according to the value of {\tt R0}. For example, if the value in {\tt R0} was negative after the operation, the {\tt Negative} flag would be set.
+
+\subsection{Other useful arithmetic commands}
+
+The {\tt RSB} command is reverse subtract, and is useful for negating a literal:
+
+\begin{verbatim}
+	RSB 	R1, R0, #0; R1 = 0 - R0 = -R0
+\end{verbatim}
+
+The {\tt MLA} command is multiply and add. It can only use registers as operands.
+
+\begin{verbatim}
+	MLA 	R1, R2, R3, R4 ; R1 = (R2 * R3) + R4
+\end{verbatim}
+
 \section{Lecture 6: If and While}
 
 \section{Lecture 7: Addresses and Addressing}
