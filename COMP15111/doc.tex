@@ -10,6 +10,16 @@
 \usepackage{tabularx}
 % For the split environment
 \usepackage{amsmath}
+% For tabs in verbatim
+\usepackage{moreverb}
+% Gives us bigger margins on the right (and smaller on the left) for the margin
+% paragraphs
+\usepackage[left=2cm,
+			top=3cm,
+			right=5cm,
+			bottom=3cm,
+			marginparwidth=4cm,
+			marginparsep=3mm]{geometry}
 
 \begin{document}
 % Meta
@@ -18,6 +28,11 @@
 \rhead{COMP15111 Notes}
 
 \maketitle
+
+{\small Note, extra space has been allocated for the right hand margin to allow
+for more extensive margin notes. Also, it gives you space to make your own
+annotations and perhaps try some problems of your own.}
+
 \tableofcontents
 \newpage
 
@@ -194,15 +209,15 @@ ARM has many different instructions to perform operations such as addition, subt
 
 The syntax for such operations is usually:
 
-\begin{verbatim}
+\begin{listing}{1}
 	[operand]	[destination register]	[register 1]	[register 2]
-\end{verbatim}
+\end{listing}
 
 For example, to add two numbers together, we might write:
 
-\begin{verbatim}
-	ADD R2, R0, R1
-\end{verbatim}
+\begin{listing}{1}
+	ADD	R2, R0, R1
+\end{listing}
 
 This will add the value of R0 to the value of R1 and store it in R2.
 
@@ -216,9 +231,9 @@ Branches can be made to be conditional by appending a conditional operator (comi
 
 The syntax is something like:
 
-\begin{verbatim}
+\begin{listing}{1}
 	B[conditional operator]	[branch name]
-\end{verbatim}
+\end{listing}
 
 Some examples of different conditional operators are:
 
@@ -256,18 +271,18 @@ In order to perform a conditional branch, we must first perform a compare comman
 
 If we wanted to do a $£1$ discount on a shopping list if the price was over $£20$, we would do the following:
 
-\begin{verbatim}
-			LDR	R0, total	; Load the total price into R0
+\begin{listing}{1}
+		LDR	R0, total	; Load the total price into R0
 	
-			CMP	R0, #20		; Compare R0 and 20 (the literal)
-			BLT	nodiscount	; If the price is too low, then don't discount
-			SUB	R0, #1		; Deduct £1
-			STR	R0, total	; Store the result back into memory
+		CMP	R0, #20		; Compare R0 and 20 (the literal)
+		BLT	nodiscount	; If the price is too low, then don't discount
+		SUB	R0, #1		; Deduct £1
+		STR	R0, total	; Store the result back into memory
 
-nodiscount	SVC	2			; Finish
+nodiscount	SVC	2		; Finish
 
-total 		DEFW	25		; Lets say the total is $25
-\end{verbatim}
+total 		DEFW	25		; Lets say the total is \$25
+\end{listing}
 
 \subsection{Allocating memory}
 
@@ -277,30 +292,30 @@ The actual memory location that is used to store the value isn't known to the ru
 
 The syntax for the \texttt{DEFW} command is as follows:
 
-\begin{verbatim}
+\begin{listing}{1}
 myage	DEFW	18
-\end{verbatim}
+\end{listing}
 
 Where {\tt myage} is the alias and {\tt 18} is the value.
 
 {\tt DEFW} can also be used to define a number of words:
 
 \marginpar{\raggedright The label is associated with the lowest address (i.e. 0)}
-\begin{verbatim}
+\begin{listing}{1}
 squares	DEFW	0, 1, 4, 9, 16, 25
-\end{verbatim}
+\end{listing}
 
 {\tt DEFB} stores a single byte in memory. It is useful for strings such as "hello":
 
-\begin{verbatim}
-hi 	DEFB	"hello"
-\end{verbatim}
+\begin{listing}{1}
+hi	DEFB	"hello"
+\end{listing}
 
 {\tt DEFS} sets a block of bytes to a set value:
 
-\begin{verbatim}
-reserved_space 	DEFS	10, 5
-\end{verbatim}
+\begin{listing}{1}
+reserved_space	DEFS	10, 5
+\end{listing}
 
 The above will set 10 bytes to the value '5'.
 
@@ -378,9 +393,9 @@ ARM is able to encode literal values into instructions. This saves time having t
 
 An example is to increment a register:
 
-\begin{verbatim}
-	ADD 	R1, R1, #1
-\end{verbatim}
+\begin{listing}{1}
+	ADD	R1, R1, #1
+\end{listing}
 
 However, ARM only assigns up to 12 bits for a literal value, so we can only have $2^{12}$ values. However, ARM employs a strange method of encoding these values so that more useful values are available (for example, \#512 is allowed, but \#257 isn't).
 
@@ -417,31 +432,31 @@ The ARM assembler provides some instructions that are translated into sequences 
 
 One such instruction is loading a literal into a register. This is done using the {\tt LDR} command as usual, however a literal is used with the '$=$' character instead of a '$\#$'. E.g. to load the value $100$ into register one, we do:
 
-\begin{verbatim}
-	LDR 	R1, =100
-\end{verbatim}
+\begin{listing}{1}
+	LDR	R1,	=100
+\end{listing}
 
 However, this is a pseudo instruction and will be converted by the assembler to:
 
-\begin{verbatim}
-	MOV 	R1, #100
-\end{verbatim}
+\begin{listing}{1}
+	MOV	R1,	#100
+\end{listing}
 
 However, if the number is very large, it becomes:
 
-\begin{verbatim}
-constant	DEFB 	100
-			LDR 	R1, constant
-\end{verbatim}
+\begin{listing}{1}
+constant	DEFB	100
+		LDR	R1, constant
+\end{listing}
 
 \subsection{Loading an address into a register}
 
 The {\tt ADR} command loads an address into a register, for example:
 
-\begin{verbatim}
-constant	DEFB 	100
-			ADR 	R1, constant
-\end{verbatim}
+\begin{listing}{1}
+constant	DEFB	100
+		ADR	R1, constant
+\end{listing}
 
 Will load the memory address of {\tt constant} into register one.
 
@@ -469,12 +484,12 @@ Sets the PC at the start of the program (i.e. where the program should start fro
 \subsubsection{EQU}
 Allows you to name a literal, which can go a long way to making the code more maintainable. We could define the literal $18$ as $drinking\_age$:
 
-\begin{verbatim}
+\begin{listing}{1}
 drinking_age	EQU 	#18
-				; Check the person is over 18
-				CMP 	R1, #drinking_age
-				BLT		too_young
-\end{verbatim}
+		; Check the person is over 18
+		CMP 	R1, #drinking_age
+		BLT	too_young
+\end{listing}
 
 \section{Lecture 5: Arithmetic}
 
@@ -482,7 +497,7 @@ drinking_age	EQU 	#18
 
 Registers are a precious resource when programming on ARM. When writing software to evaluate expressions, it's often tempting to load all the variables into registers first, and then perform the arithmetic in separate registers like so:
 
-\begin{verbatim}
+\begin{listing}{1}
 	; a = b + c + d
 	LDR 	R1, b
 	LDR 	R2, c
@@ -490,31 +505,31 @@ Registers are a precious resource when programming on ARM. When writing software
 	ADD 	R4, R1, R2
 	ADD 	R5, R4, R3
 	STR 	R5, a
-\end{verbatim}
+\end{listing}
 
 However, this is pointless - the values in the registers {\tt R4} and {\tt R5} aren't going to be needed again, so we may as well do:
 
-\begin{verbatim}
-	; a = b + c + d
-	LDR 	R1, b
-	LDR 	R2, c
-	LDR 	R3, d
-	ADD 	R1, R1, R2
-	ADD 	R1, R1, R3
-	STR 	R1, a
-\end{verbatim}
+\begin{listing}{1}
+; a = b + c + d
+LDR 	R1, b
+LDR 	R2, c
+LDR 	R3, d
+ADD 	R1, R1, R2
+ADD 	R1, R1, R3
+STR 	R1, a
+\end{listing}
 
 But, we can optimise even further here. Instead of loading all the variables into registers before we do arithmetic, we can save a register and load only the ones we need before each {\tt ADD} instruction:
 
-\begin{verbatim}
-	; a = b + c + d
-	LDR 	R1, b
-	LDR 	R2, c
-	ADD 	R1, R1, R2
-	LDR 	R2, d
-	ADD 	R1, R1, R2
-	STR 	R1, a
-\end{verbatim}
+\begin{listing}{1}
+; a = b + c + d
+LDR 	R1, b
+LDR 	R2, c
+ADD 	R1, R1, R2
+LDR 	R2, d
+ADD 	R1, R1, R2
+STR 	R1, a
+\end{listing}
 
 Sometimes, it's useful to re-order an arithmetic expression so it can be implemented using less registers. This can often be achieved by increasing the nesting of brackets in an expression such as this:
 
@@ -530,41 +545,44 @@ If there is a literal in the expression you want to evaluate, then it's possible
 
 % Split the page into two for side-by-side comparison
 \begin{minipage}[t]{0.5\textwidth}
-	\begin{verbatim}
-			; (a + 5) * b
-			LDR 	R0, 5
-			LDR 	R1, a
-			ADD 	R0, R0, R1
-			LDR 	R1, b
-			MUL 	R0, R0, R1
+	\begin{listing}{1}
+	; (a + 5) * b
+	LDR	R0, 5
+	LDR	R1, a
+	ADD	R0, R0, R1
+	LDR	R1, b
+	MUL	R0, R0, R1
 
-	five	DEFW	5
-	\end{verbatim}
+five	DEFW	5
+	\end{listing}
 \end{minipage}
 \begin{minipage}[t]{0.5\textwidth}
-	\begin{verbatim}
-			; (a + 5) * b
-			LDR 	R0, a
-			ADD 	R0, R0, #5
-			LDR 	R1, b
-			MUL 	R0, R0, R1
-	\end{verbatim}
+	\begin{listing}{1}
+	; (a + 5) * b
+	LDR	R0, a
+	ADD	R0, R0, #5
+	LDR	R1, b
+	MUL	R0, R0, R1
+
+
+
+	\end{listing}
 \end{minipage}
 
 Literals can be any expression that the assembler can evaluate, for example, the following are all valid:\marginpar{\raggedright Note that {\tt MUL} cannot use literals. To get around this, first {\tt MOV} the literal into a register and then multiply.}
 
 \begin{verbatim}
-ADD 	R0, R0, #(1 + 2)
+	ADD	R0, R0, #(1 + 2)
 \end{verbatim}
 
 % TODO: Check this
 \begin{verbatim}
-ADD 	R0, R0, #-2
+	ADD	R0, R0, #-2
 \end{verbatim}
 
 % TODO: Check this
 \begin{verbatim}
-ADD 	R0, R0, #(2 - 1)
+	ADD	R0, R0, #(2 - 1)
 \end{verbatim}
 
 \subsection{Status flags}
@@ -582,7 +600,7 @@ ARM has some 1-bit status flags that are set after a {\tt CMP} instruction as sh
 You can get any data operation to alter the flags by appending {\tt S} to the instruction. For example:
 
 \begin{verbatim}
-	SUBS	R0, R1, R2 ;
+	SUBS	R0, R1, R2
 \end{verbatim}
 
 The above command will subtract {\tt R2} from {\tt R1} and store the result in {\tt R0}, but it will also set the flags according to the value of {\tt R0}. For example, if the value in {\tt R0} was negative after the operation, the {\tt Negative} flag would be set.
@@ -592,16 +610,125 @@ The above command will subtract {\tt R2} from {\tt R1} and store the result in {
 The {\tt RSB} command is reverse subtract, and is useful for negating a literal:
 
 \begin{verbatim}
-	RSB 	R1, R0, #0; R1 = 0 - R0 = -R0
+	RSB	R1, R0, #0; R1 = 0 - R0 = -R0
 \end{verbatim}
 
 The {\tt MLA} command is multiply and add. It can only use registers as operands.
 
 \begin{verbatim}
-	MLA 	R1, R2, R3, R4 ; R1 = (R2 * R3) + R4
+	MLA	R1, R2, R3, R4 ; R1 = (R2 * R3) + R4
 \end{verbatim}
 
 \section{Lecture 6: If and While}
+
+\subsection{If statements in ARM}
+
+Given an if statement written in Java such as this:
+
+\begin{listing}{1}
+if(condition)
+{
+    actionStatement;
+}
+\end{listing}
+
+How would we convert that into ARM assembly? The best way is to do the following:
+
+\begin{enumerate}
+
+	\item Check to see if the condition is false
+
+	\item If it is, then branch to the end of the if statement
+
+	\item Otherwise, perform the action statement
+
+\end{enumerate}
+
+An example implementation may be:
+
+\begin{listing}{1}
+	CMP 	R1, R2  	; Compare two registers
+	BGE 	endif		; The condition
+	MOV 	R1, #0 	; Whatever the action statement may be
+endif
+\end{listing}
+
+Note that it is often easier to implement the inverse of some comparisons. For example, if we were evaluating {\tt (a >= b)} we could do either of these:
+
+\begin{itemize}
+	\item 
+	\begin{enumerate}
+		\item Check whether {\tt a} is greater than {\tt b}
+		\item Check whether {\tt a} is equal to {\tt b}
+		\item Work out how to branch away if both are false
+	\end{enumerate}
+	\item 
+	\begin{enumerate}
+		\item Inverse the comparison and check if {\tt a} is less than {\tt b}
+		\item Branch away if it is
+	\end{enumerate}
+\end{itemize}
+
+\subsection{If else statements}
+
+If else statements are much like if statements, except that if the condition is
+false then you branch to the else action, and if the condition is true, then you
+branch to after the else statement once you've executed the action. Here's an
+example:
+
+Lets implement {\tt if(a==b) { a += 1;} else { b += 1; }}:
+
+\begin{listing}{1}
+	LDR 	R0, a
+	LDR 	R1, b
+	CMP 	R0, R1 	; Compare
+	BNE 	else	;If they aren't equal
+	ADD 	R0, R0, #1
+	B 	end
+else 	ADD 	R1, R1, #1
+end
+\end{listing}
+
+\subsection{While statements}
+
+Implementing a while statement in ARM assembler is very similar to implementing
+an if statement, except after you have executed the action statement, you branch
+back to the initial condition again, like so:\marginpar{Note that if the code in
+your while loop is being executed repeatedly, then it's probably worth
+optimising it!}
+
+\begin{listing}{1}
+start	CMP 	R1, R2  	; Compare two registers
+	BGE 	endif		; The condition
+	ADD 	R1, R1, #1 	; Whatever the action statement may be
+	B	start 		; Branch back to the start
+endif
+\end{listing}
+
+In ARM, we can make {\it any} instruction have a conditional code on it.
+Consequently, we can get rid of a branch instruction, like so:
+
+\begin{listing}{1}
+start	CMP 	R1, R2  	; Compare two registers
+	ADDLT 	R1, R1, #1 	; Add only if the flag is less than
+	BLT	start 		; Branch back to the start
+endif
+\end{listing}
+
+You can compare the result of an arithmetic instruction with zero by appending
+{\tt S} to the instruction like so:
+
+%TODO: Check this
+\begin{listing}{1}
+start	ADDS 	R0, #1
+	BNE 	start
+endif
+\end{listing}
+
+This will keep adding {\tt 1} to {\tt R0} until it reaches 0. This is often
+useful when translating for loops that count up to a number. Instead of counting
+up, you can count down using the {\tt SUBS} instruction and only iterate if the
+result isn't zero.
 
 \section{Lecture 7: Addresses and Addressing}
 When a processor references memory it needs to produce an address.
@@ -683,7 +810,7 @@ Rather than use e.g. extra ADD instructions, we often use {\bf Base + Offset Add
 
 We have actually been using this all along: Base = PC register.
 
-\section{Offset Addressing}
+\subsection{Offset Addressing}
 In offset addressing the address is calculated from a register value and a number.
 
 The register specifier is just a few bits, The offset can be 'fairly small'.
