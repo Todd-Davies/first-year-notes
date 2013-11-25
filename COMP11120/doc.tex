@@ -27,6 +27,16 @@
 % the correct spacing.
 \newcommand{\parsetreedot}{\phantom{|}\cdot\phantom{|}}
 
+% Means that I don't have to type \marginpar{\raggedright \scriptsize every 
+% time I want a margin paragraph
+\makeatletter
+\renewcommand{\@marginparreset}{%
+  \reset@font\scriptsize
+  \raggedright
+  \@setminipage
+}
+\makeatother
+
 \pagestyle{fancyplain}
 
 \author{Todd Davies, Chris Williamson}
@@ -256,7 +266,7 @@ Associativity ensures that for most purposes brackets are not needed to punctuat
 
 Below are the definitions of commutativity and associativity.
 
-\marginpar{\raggedright N.b. Commutativity and associativity don't always have to go together. An example is the average of two numbers, what is that?}
+\marginpar{ N.b. Commutativity and associativity don't always have to go together. An example is the average of two numbers, what is that?}
 
 \begin{enumerate}
   \item 
@@ -344,7 +354,7 @@ Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
 	}
 \]
 
-\marginpar{\raggedright The infix notation is when an operator is placed between
+\marginpar{ The infix notation is when an operator is placed between
 two operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it postfix} notations.}
 
 At this point, parse trees may seem very pointless, but this is because we're
@@ -408,7 +418,7 @@ However, you must understand that this is only true if for each element $a$ in
 $X$ that element will also be contained in $Y$ and for each element $a$ in Y,
 that element will also be contained within $X$:
 
-\marginpar{\raggedright Sets with different descriptions can still be equal.
+\marginpar{ Sets with different descriptions can still be equal.
 Convince yourself that the set of integers where $y^3 < y$ is equal to the set
 of integers where $x < -1$}
 
@@ -429,7 +439,7 @@ If one set is a subset of another set, all the members of the first set are also
 The notation for inclusion is $\subseteq$, so in the above example, we would
 write:
 
-\marginpar{\raggedright If $X \subseteq Y$ and $Y \subseteq X$ then what else an
+\marginpar{ If $X \subseteq Y$ and $Y \subseteq X$ then what else an
 we say about the relationship between $X$ and $Y$?}
 
 \[
@@ -443,7 +453,7 @@ $\emptyset$.
 
 Because the empty set has no members, it is a subset of all other sets:
 
-\marginpar{\raggedright This is because otherwise $x in \emptyset$ would be true
+\marginpar{ This is because otherwise $x in \emptyset$ would be true
 for some $x$ where $x \not\in A$. This is impossible since there are no elements
 in the $\emptyset$.}
 
@@ -522,17 +532,18 @@ The universal set contains {\it all of the possible elements}. The notation we u
 
 \subsection{Boolean algebra of sets}
 
-If we have a universal set, $S$, and consider only subsets of $S$. This gives us:
+If we have a universal set, $S$, and consider only subsets of $S$. Then these
+are all the things that we have:
 
 \begin{itemize}
 	\item Two distinguished subsets $\emptyset$ and $S$
-	\item A 1-placed operation (.)' on such subsets
-	\item Two 2-placed operations $\cap$ and $\cup$ on such subsets
+	\item A unary operation $(.)'$ on such subsets
+	\item Two binary operations; $\cap$ and $\cup$ on such subsets
 \end{itemize}
 
-These form a structure known as {\bf Boolean algebra}
-
-Below is a list of basic properties we can use with this structure:
+This structure of operations and sets is known as {\bf Boolean algebra}. Boolean
+algebra has many basic properties that we can exploit in order to manipulate
+expression into other forms. Here is a list to be learnt.\marginpar{There are flashcards on these too.}
 
 \begin{tabular}{c c c}
 	$X \cup S = S$     &	extreme	&	$X \cap \emptyset = \emptyset$\\
@@ -543,15 +554,55 @@ Below is a list of basic properties we can use with this structure:
 	$X \cup X = X$ & idempotent & $X \cap X = X$\\
 	$X \cup (X \cap Y) = X$ & absorbsion & $X \cap (X \cup Y) = X$\\
 	$(X \cup Y)' = X' \cap Y'$ & De Morgan & $(X \cap Y)' = X' \cup Y'$\\
-	$X \cup X' = S$ & complement & $X \cap X' = \emptyset$ 
+	$X \cup X' = S$ & complement & $X \cap X' = \emptyset$ \\
+	$X'' = X$ & involution & $X = X''$ 
 \end{tabular}
 
-There is also another law called {\it involution}. This means that if an
-expression is negated twice, then the negations will cancel each other out:
+\section{Propositional Logic}
 
-\[
-	X'' = X
-\]
+\subsection{The logical connectives}
 
+Most of these are very similar to the properties of sets that we came across in
+the boolean algebra section. Learn these:
 
+\marginpar{ We use {it inclusive} or in propositional
+logic, not {\it exclusive} or.}
+
+\marginpar{ {\it Iff} is an abbreviation for {\it 
+if and only iff}.}
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Name & Symbol & Meaning\\ \hline
+		Negation		&	$\neg$		& not\\
+		Conjunction		&	$\wedge$	& and\\
+		Disjunction		&	$\vee$		& or\\
+		Implication		&	$\implies$	& implies\\
+		Bi-implication	&	$\iff$		& iff\\
+		\hline
+	\end{tabular}
+\end{center}
+
+All of these symbols are used as infixes, and so go in between two parameters. An
+exception to this however, is negation, which is a unary symbol, and is placed
+as a prefix before it's argument.
+\marginpar{ If a connective takes one parameter,
+then it's arity is 1, if it takes two then it has an arity of 2 etc etc}
+
+\subsubsection{The truth tables of the logical connectives}
+
+Using a truth table, we can fully describe the behaviour of the connectives we
+have just described in the previous section:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		$p_1$& $p_2$& $\neg p_1$& $p_1 \wedge p_2$& $p_1 \vee p_2$& $p_1 \implies p_2$& $p_1 \iff p_2$\\ \hline
+		T& T& F& T &T &T &T\\
+		T& F& F& F &T &F &F\\
+		F& T& T& F &T &T &F\\
+		F& F& T& F &F &T &T\\ \hline
+	\end{tabular}
+\end{center}
 \end{document}
