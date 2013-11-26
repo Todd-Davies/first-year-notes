@@ -605,4 +605,83 @@ have just described in the previous section:
 		F& F& T& F &F &T &T\\ \hline
 	\end{tabular}
 \end{center}
+
+\paragraph{A note about implication:}
+In order to understand why the truth table for implication is as stated above,
+consider this example:
+
+\[
+	x > 3 \textrm{ implies } x > 1
+\]
+
+Now take a look at the truth table for this expression:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$x$ & $x > 3$ & $x > 1$ & $x > 3 \implies x > 1$\\ \hline
+		4 & T & T & T\\
+		2 & F & T & T\\
+		0 & F & F & T\\ \hline
+	\end{tabular}
+\end{center}
+
+As you can see, there is no way to make the first expression ($x>3$) true, but
+the second expression ($x>1$) false. Henceforth, the first expression implies
+the second expression.
+
+\subsection{The formulae of propositional logic}
+
+In order to build up a piece of propositional logic, we must construct an
+expression from {\it atomic formulae} and connectives.\marginpar{An example of
+an atomic formula is $p$, or maybe $r_2$. It's any single boolean variable.}
+
+There are three rules we can use to generate a formulae in PL:
+
+\begin{enumerate}
+	\item Every atomic formula is a formula of PL
+	\item If $A$ is a formula, then so is $\neg A$
+	\item If $A$, $B$ are formulae, then so are $(A \wedge B)$, $(A \vee B)$, $(A \implies B)$, $(A \iff B)$
+\end{enumerate}
+
+\paragraph{Syntactic conventions} are of course in widespread use. 
+
+For example, when you have written an expression, it is usual to leave off the
+outermost parentheses, so $(p \wedge (r \vee q))$ would become $p \wedge (r \vee
+q)$.
+
+\marginpar{This second convention is adopted for all associative operations, not
+just conjunction and disjunction.}
+It is also common to leave out parentheses from repeated uses of conjunction or
+disjunction, so $p \wedge (q \wedge r)$ would become $p \wedge q \wedge r$.
+
+\subsection{Truth valuations}
+
+A truth valuation is a list of allocations that define the values of variables
+in an expression, where:
+
+\[
+	\{p_1=x_1,\dots, p_n=x_n\}
+\]
+
+\marginpar{An example truth valuation for the expression $p \wedge r$ might be
+$\{p=T, r=F\}$, for which the end value would be $F$.}
+
+In order to determine the end value of the PL formula, you must first construct
+a truth valuation of it's component atoms, and only then can the formula be
+evaluated.
+
+\subsection{Tautologies and contradictions}
+
+If the outcome of a formula is always $T$ for every possible truth valuation,
+then the formula is said to be a {\bf tautology}. An example of such an
+expression is $p \vee \neg p$.
+
+In contrast, a formula that will yield an outcome of $F$ for every possible
+truth valuation is named a {\bf contradiction}. Such an example may be $p \wedge
+\neg p$.
+
+If an expression is not a tautology and isn't a contradiction either, then it is
+named {\bf satisfiable}.
+
 \end{document}
