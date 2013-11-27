@@ -1,0 +1,40 @@
+% So the image fits the page
+\documentclass{article}
+\usepackage[paperwidth=\maxdimen,paperheight=\maxdimen]{geometry}
+% Include tikz
+\usepackage{tikz}
+% For making the page fit the image (without standalone)
+\usepackage[tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\usetikzlibrary{shapes, patterns}
+% Define some lovely colours
+\definecolor{light-gray}{gray}{0.95}
+
+\begin{document}
+
+\begin{center}
+    \begin{tikzpicture}
+        % Bus line
+        \draw [<->] (-7.5, 4) -- (7.5, 4);
+        % Bus label
+        \node at (0, 4.5) {Bus};
+        % Memory box
+        \draw [fill=light-gray] (-7,  3) rectangle (-3, -3);
+        % Memory label
+        \node at (-5, 0) {Memory};
+        % Bus rectangle
+        \draw [fill=light-gray] (-2, 3) rectangle (2, -3);
+        % Bus label
+        \node at (0, 0) {I/0};
+        % Processor box
+        \draw [fill=light-gray] (3,  3) rectangle (7, -3);
+        % Processor label
+        \node at (5, 0) {Processor};
+        % Connecting lines
+        \draw [<->] (-5, 3.8) -- (-5, 3.2);
+        \draw [<->] (0, 3.8) -- (0, 3.2);
+        \draw [<->] (5, 3.8) -- (5, 3.2);
+    \end{tikzpicture}
+\end{center}
+
+\end{document}
