@@ -1,0 +1,32 @@
+% So the image fits the page
+\documentclass{article}
+\usepackage[paperwidth=\maxdimen,paperheight=\maxdimen]{geometry}
+% Include tikz
+\usepackage{tikz}
+% For making the page fit the image (without standalone)
+\usepackage[tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\usetikzlibrary{shapes, patterns}
+% Define some lovely colours
+\definecolor{light-gray}{gray}{0.95}
+
+\begin{document}
+
+\begin{center}
+    \begin{tikzpicture}
+        % Instruction box
+        \draw [fill=light-gray] (-8, 2) rectangle (-4, -2);
+        % Address box
+        \draw [fill=light-gray] (-4, 2) rectangle (8, -2);
+        % Operation label
+        \node[font=\fontsize{26}{29}\sffamily] at (-6, 0) {Operation};
+        % Operation bits label
+        \node at (-6, -1) {4 bits};
+        % Address label
+        \node[font=\fontsize{26}{29}\sffamily] at (2, 0) {Address};
+        % Address bits label
+        \node at (2, -1) {12 bits};
+    \end{tikzpicture}
+\end{center}
+
+\end{document}
