@@ -373,4 +373,25 @@ used to decode the instruction, read the operand and store the result wherever
 it needs to be stored. Please refer to the course supplied notes for the full
 datapath design of the MU0.
 
+\subsection{Registers in the MU0}
+
+The MU0 contains three registers; ACC (Accumulator), PC (Program Counter) and IR
+(Instruction Register). Only the first two are visible to the programmer (since
+the job of the instruction register is to store the next instruction to be
+executed after a fetch has occurred).
+
+Each register is comprised of 16 D-type flip flops and is therefore made up of
+sixteen bits. All of the flip flops are connected to the system clock, and are
+therefore synchronous in their operation.
+
+The CE (Clock Enable) signal initiates the loading of information into the
+registers. If CE is high, then each flip flop will assume the input value that
+it is given when the system is clocked.\marginpar{N.b. if there isn't a clock
+pulse when the CE is high, then nothing will happen, since the registers only
+change on each clock pulse.}
+
+The outputs of the three registers can be def into a shared bus. Only one
+register can feed into the bus at a time, and in order to coordinate this, the
+OE (Output Enable) signal must be high for a register to drive the output bus.
+
 \end{document}
