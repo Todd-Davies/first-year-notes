@@ -453,4 +453,26 @@ simply add up all the times in each path, and see which one is longest.
 When we have the time it takes to execute the critical path, we can use the
 formula $f = \frac{1}{T}$ to find the maximum clock frequency of the circuit
 
+\subsubsection{The structure of the ALU in the MU0}
+
+Though the ALU inside the MU0 is mostly comprised of just an Adder, there are a
+few more things going on too. There is some preconditioning that is applied to
+the input buses. For the following commands, the following preconditions are
+applied:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		{\bf Function} & {\bf First bus} & {\bf Second bus}\\ \hline
+		{\tt ADD} & Normal & Normal\\ \hline
+		{\tt SUB} & Normal & Inverted\\ \hline
+		{\tt INC} & Normal & 1\\ \hline
+		{\tt output = second\_bus} & 0 & Normal\\ \hline
+	\end{tabular}
+\end{center}
+
+\marginpar{'1' here means '000000000000001' and '0' means '000000000000000'}
+
+
+
 \end{document}
