@@ -394,4 +394,63 @@ The outputs of the three registers can be def into a shared bus. Only one
 register can feed into the bus at a time, and in order to coordinate this, the
 OE (Output Enable) signal must be high for a register to drive the output bus.
 
+\subsection{Register banks}
+
+In modern processors, there are usually far more registers than in the MU0, for
+example, ARM uses 16 registers and MIPS uses 32. Each register can be connected
+to any port at any time. It is common to be able to perform several read/write
+operations on registers in one instruction.
+
+Like memory, registers need to be addressed using a series of bits. With 16
+registers, $2^{4}$ bits are needed to address all the registers. In the MU0, we
+don't need to bother with this, since it has only one programmer accessible
+register, the accumulator, and $2^0=1$.
+
+\subsection{The ALU}
+
+The MU0 doesn't really contain an ALU (Arithmetic Logic Unit), since the ALU
+contained within the MU0 doesn't have functions for logical operations such as
+{\tt NOT}, {\tt AND} and {\tt XOR}. Thus it would be more accurate to simply
+call the ALU inside the MU0 an Arithmetic Unit!
+
+A typical ALU will usually contain two input buses (lets say called {\tt A} and
+{\tt B}) and an output bus (called {\tt Z} in our example). The ALU in the MU0 is
+capable of doing the following operations:
+
+\begin{tabular}{|l|l|}
+	\hline
+	{\bf Instruction} {\bf Description}\\ \hline
+	{\tt ADD} & {\tt Z = A + B}\\ \hline
+	{\tt SUB} & {\tt Z = A - B}\\ \hline
+	Fetch instruction & {\tt PC = PC + 1}\\ \hline
+	{\tt LDA} & {\tt Z = A}\\ \hline
+\end{tabular}
+
+It is important to note that each of these operations can be expressed as an
+addition:
+
+\begin{itemize}
+	\item Z = X + Y
+	\item Z = X + (-Y)
+	\item Z = X + 1
+	\item Z = 0 + Y
+\end{itemize}
+
+This makes the implementation of the ALU easier.
+
+Because all the MU0 ALU really does is add stuff together, its main component is
+an adder. Since the MU0 is a 16 bit machine, the adder must be 16 bits too. The
+most simple adder we can use for the MU0 is a 16 bit ripple-carry adder.
+
+\subsubsection{Critical paths}
+
+We can determine how fast a circuit can run by finding the critical path of the
+circuit. The critical path is defined as the path some logic can take from one
+end of the circuit to the other that will take the most time. If we are given
+the time it takes for each gate used in the circuit to change state, then we can
+simply add up all the times in each path, and see which one is longest.
+
+When we have the time it takes to execute the critical path, we can use the
+formula $f = \frac{1}{T}$ to find the maximum clock frequency of the circuit
+
 \end{document}
