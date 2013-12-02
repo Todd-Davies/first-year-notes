@@ -833,9 +833,140 @@ This provides a range of $\pm$ ~4 kilobytes around a 'base' register
 
 In practice this method is adequate for most purposes. 
 
-\section{Lecture 8: Case study}
+\section{Lecture 8: Strings, bit shifts, rotations and tables}
+
+\subsection{Working with Strings}
+
+A String is just a list of bytes where each byte represents a character. The
+last byte in the list is the null byte which contains the value {\tt 0}.
+
+\subsubsection{Loading a String}
+
+In order to load the String into a register, the {\tt ADRL} command must be
+used, for example:
+
+\begin{listing}{1}
+msg	DEFB 	"My message", 0
+	ALIGN
+
+	ADRL 	R0, msg
+	SVC 	3
+\end{listing}
+
+\subsubsection{Finding the length of a String}
+
+In order to find the length of a String, we need only to loop over each byte in
+the String until we get to the null byte, and add up how many iterations we've
+done as we go along:
+
+\begin{listing}{1}
+	ADRL	R1, message
+	MOV 	R2, #0
+count 	LDRB 	R0, [R1, R2]
+	CMP 	R0, #0
+	ADDNE 	R2, R2, #1
+	BNE 	count
+	STR 	R2, length
+\end{listing}
+
+\marginpar{\vspace{-6em}Here, we use {\tt R1} to store the message, {\tt R0} to read each
+character, and {\tt R2} to keep the count.}
+
+\subsubsection{Getting the index of a character in a String}
+
+In order to do the equivalent of {\tt String.indexOf(character)}, we can do
+something similar to finding the length of the String, but we only need to loop
+until we get to the character we're looking for.
+
+\begin{listing}{1}
+	ADRL	R1, message
+	LDRB	R2, character
+count 	LDRB 	R0, [R1] #1
+	CMP 	R0, #0
+	BEQ 	end
+	CMP 	R0, R2
+	BNE 	count
+end 	ADRL 	R0, message
+	SUB 	R1, R1, R0
+	SUB 	R1, R1, #1
+	STR 	R0, index
+\end{listing}
+
+\marginpar{\vspace{-10em}Note how this snippet has an optimisation to use one less
+register during the looping process than the string length snippet does. It
+only uses one register to loop over the string and then works out the number of
+times it's looped after the character has been found.}
+
+\subsection{Bit shifting and rotations}
+
+Shift operations move all the bits in a word in one direction or another. For
+example:
+
+\begin{center}
+	\begin{tabular}{|l|c|}
+		\hline
+		{\bf Shift direction} & {\bf Resultant word}\\ \hline
+		No shift & {\tt 10011011}\\ \hline
+		Left shift & {\tt 00110110}\\ \hline
+		Right shift & {\tt 01001101}\\ \hline
+	\end{tabular}
+\end{center}
+
+\marginpar{Shifting to the left is like multiplying by two, and shifting to the
+right is like dividing by two.}
+
+You might have noticed that a zero is appended to whatever side the bits are
+moving away from in order to ensure that the word is still the same number of
+bits as before.
+
+Rotation operations are very similar to shift operations, except instead of
+padding the word with zeroes, the bit that was lost is appended to the other
+side of the word:
+
+\begin{center}
+	\begin{tabular}{|l|c|}
+		\hline
+		{\bf Rotation direction} & {\bf Resultant word}\\ \hline
+		No rotation & {\tt 10011011}\\ \hline
+		Left rotation & {\tt 00110111}\\ \hline
+		Right rotation & {\tt 11001101}\\ \hline
+	\end{tabular}
+\end{center}
+
+ARM has four different operations for shifting and rotations:
+
+\begin{center}
+	\begin{tabularx}{0.8\textwidth}{|l|l|X|}
+		\hline
+		{\bf Mnemonic} & {\bf Meaning} & {\bf Function}\\ \hline
+		{\tt LSL n} & Logical shift left & Shifts left by n bits. Any bits that are lost are zeroed.\\ \hline
+		{\tt LSR n} & Logical shift right &  Shifts right by n bits. Any bits that are lost are zeroed.\\ \hline
+		{\tt ASR n} & Arithmetic shift right & Shifts right by n bits. Any bits that are lost are set as the sign bit (to preserve the signed bit).\\ \hline
+		{\tt ROR n} & Rotate Right & Rotates right by n bits.\\ \hline
+	\end{tabularx}
+\end{center}
+
+\subsection{Accessing a row in a table}
+
+We can use bit shifts to access a row in a table:
+
+\begin{listing}{1}
+	ADRL 	R1, table
+	LDR 	R2, [R1, R0, LSL #2]
+
+table 	DEFW 	0
+	DEFW 	3
+	DEFW 	6
+	DEFW 	9
+	DEFW 	12
+	DEFW 	15
+	DEFW 	18
+\end{listing}
+
+This snippet will allow us to access the row with an index stored in {\tt R0},
+so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
+
 \section{Lecture 9: Stacks}
 \section{Lecture 10: Methods, parameters, variables and stacks}
 
 \end{document}
-
