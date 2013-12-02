@@ -1,0 +1,111 @@
+\documentclass[frontgrid]{flacards}
+\usepackage{color}
+
+
+\definecolor{light-gray}{gray}{0.75}
+
+\newcommand{\frontcard}[1]{\textcolor{light-gray}{\colorbox{light-gray}{$#1$}}}
+\newcommand{\backcard}[1]{#1} 
+
+\newcommand{\flashcard}[1]{% create new command for cards with blanks
+    \card{% call the original \card command with twice the same argument (#1)
+        \let\blank\frontcard% but let \blank behave like \frontcard the first time
+        #1
+    }{%
+        \let\blank\backcard% and like \backcard the second time
+        #1
+    }%
+}
+
+\begin{document}
+
+\pagesetup{2}{4} 
+
+% -------------------
+% Methods of indexing
+% -------------------
+\card{
+	In the following instruction, what method of indexing is used, what will
+	{\tt R0} contain and what will happen to {\tt R1}?
+	\\\vspace{2em}
+	{\tt LDR	R0, [R1]}
+}{
+	This is called {\bf register-indirect addressing}.
+	\\\vspace{2em}
+        The value loaded into {\tt R0} will be the 32 bits stored at the memory
+	address that is equal to the value in {\tt R1}.
+	\\\vspace{2em}
+	{\tt R1} won't be altered at all.
+}
+
+\card{
+	In the following instruction, what method of indexing is used, what will
+	{\tt R0} contain and what will happen to {\tt R1}?
+	\\\vspace{2em}
+	{\tt LDR	R0, [R1, \#4]}
+}{
+	This is called {\bf pre-indexed addressing}.
+	\\\vspace{2em}
+        The value loaded into {\tt R0} will be the 32 bits stored at the memory
+	address that is equal to the value in {\tt R1 + 4}.
+	\\\vspace{2em}
+	{\tt R1} won't be altered at all.
+}
+
+\card{
+	In the following instruction, what method of indexing is used, what will
+	{\tt R0} contain and what will happen to {\tt R1}?
+	\\\vspace{2em}
+	{\tt LDR	R0, [R1, \#4]!}
+}{
+	This is called {\bf pre-indexed autoindexed addressing}.
+	\\\vspace{2em}
+        The value loaded into {\tt R0} will be the 32 bits stored at the memory
+	address that is equal to the value in {\tt R1 + 4}.
+	\\\vspace{2em}
+	{\tt R1} will be incremented by {\tt 4} {\it before} the load operation.
+}
+
+\card{
+	In the following instruction, what method of indexing is used, what will
+	{\tt R0} contain and what will happen to {\tt R1}?
+	\\\vspace{2em}
+	{\tt LDR	R0, [R1], \#4}
+}{
+	This is called {\bf post-indexed autoindexed addressing}.
+	\\\vspace{2em}
+        The value loaded into {\tt R0} will be the 32 bits stored at the memory
+	address that is equal to the value in {\tt R1 + 4}.
+	\\\vspace{2em}
+	{\tt R1} will be incremented by {\tt 4} {\it after} the load operation.
+}
+
+\card{
+	In the following instruction, what method of indexing is used, what will
+	{\tt R0} contain and what will happen to {\tt R1} and {\tt R2}?
+	\\\vspace{2em}
+	{\tt LDR	R0, [R1, R2]}
+}{
+	This is called {\bf register-indexed addressing}.
+	\\\vspace{2em}
+        The value loaded into {\tt R0} will be the 32 bits stored at the memory
+	address that is equal to the value in {\tt R1 + R2}.
+	\\\vspace{2em}
+	{\tt R1} and {\tt R2} will stay the same.
+}
+
+\card{
+	In the following instruction, what method of indexing is used, what will
+	{\tt R0} contain and what will happen to {\tt R1} and {\tt R2}?
+	\\\vspace{2em}
+	{\tt LDR	R0, [R1, R2, LSL, \#2]}
+}{
+	This is called {\bf scaled register-indexed addressing}.
+	\\\vspace{2em}
+        The value loaded into {\tt R0} will be the 32 bits stored at the memory
+	address that is equal to the value in {\tt R1 + (R2 * 4)}.
+	\\\vspace{2em}
+	{\tt R1} and {\tt R2} will stay the same.
+}
+
+\end{document} 
