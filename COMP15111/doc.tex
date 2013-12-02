@@ -36,7 +36,7 @@ annotations and perhaps try some problems of your own.}
 \tableofcontents
 \newpage
 
-\section{Lecture 1: Introduction}
+\section{Introduction}
 \subsection{A Computational Model}
 The simplest, earliest, commonest, most important computational model is the \textbf{Von-Neumann Imperative Procedural Computer Model}
 
@@ -58,8 +58,8 @@ The simplest model of a computer can be represented as:
 Memory is a set of locations which can hold information, such as numbers(or programs). Each memory location has a unique (numerical) address, and there are typically thousands of millions of different locations. There are various ways of depicting memory; a common one is a 'hex dump' that often looks something like this: \marginpar{\raggedright Run the command {\it hexdump} to generate hexdumps.}
 
 \begin{tabular}{l l l}
-	Address     &	Values (8 bit numbers)	&	Characters\\
-	00000000	&	48 65 6c 6c 6f 0a		&	Hello.\\
+	{\bf Address}     &	{\bf Values (8 bit numbers)}	&	{\bf Characters}\\
+	00000000	&	48 65 6C 6C 6F 0A		&	Hello.\\
 \end{tabular}
 
 Each item that is in the memory has a unique address.
@@ -156,14 +156,14 @@ For example, the Java code {\it Sum = a + b + c;} would be run as:
         R3 & $\leftarrow$ & R1 + R2 & (i.e. a+b)\\
         R4 & $\leftarrow$ & c & (i.e. load from c)\\
         R5 & $\leftarrow$ & R3 + R4  & (i.e. (a+b)+c)\\
-        Sum & $\rightarrow$ & R5 & (i.e. store to sum)\\
+        Sum & $\leftarrow$ & R5 & (i.e. store to sum)\\
     \end{tabular}
 \end{center}
 
 You can see that the load-store style favours lots of very simple, very fast instructions.
 
-\section{Lecture 2}
-Computers obey programs which are sequences of instructions. Instructions are coded as values in memory. The sequences are held in memory adjacent memory locations. Values in memory can be interpreted as you please, from numbers to text, to images or anything really!
+\section{ARM}
+Computers obey programs which are sequences of instructions. Instructions are coded as values in memory. The sequences are held in memory adjacent memory locations. Values in memory can be interpreted as you please, from numbers to text, images or anything really!
 
 Any given set of binary digits can be read as a decimal number, but not always as text, so values in memory are often represented as numbers for convenience.
 
@@ -319,9 +319,9 @@ reserved_space	DEFS	10, 5
 
 The above will set 10 bytes to the value '5'.
 
-\section{Lecture 3: Storing values}
+\section{Storing values}
 
-\section{Lecture 4: ARM assembly programming}
+\section{ARM assembly programming}
 
 \subsection{Different types of values}
 
@@ -491,7 +491,7 @@ drinking_age	EQU 	#18
 		BLT	too_young
 \end{listing}
 
-\section{Lecture 5: Arithmetic}
+\section{Arithmetic}
 
 \subsection{Making good use of registers}
 
@@ -619,7 +619,7 @@ The {\tt MLA} command is multiply and add. It can only use registers as operands
 	MLA	R1, R2, R3, R4 ; R1 = (R2 * R3) + R4
 \end{verbatim}
 
-\section{Lecture 6: If and While}
+\section{If and While}
 
 \subsection{If statements in ARM}
 
@@ -730,7 +730,7 @@ useful when translating for loops that count up to a number. Instead of counting
 up, you can count down using the {\tt SUBS} instruction and only iterate if the
 result isn't zero.
 
-\section{Lecture 7: Addresses and Addressing}
+\section{Addresses and Addressing}
 When a processor references memory it needs to produce an address.
 
 The address needs the same number of bits as the memory address. i.e. 32 in ARM
@@ -833,7 +833,7 @@ This provides a range of $\pm$ ~4 kilobytes around a 'base' register
 
 In practice this method is adequate for most purposes. 
 
-\section{Lecture 8: Strings, bit shifts, rotations and tables}
+\section{Strings, bit shifts, rotations and tables}
 
 \subsection{Working with Strings}
 
@@ -966,7 +966,9 @@ table 	DEFW 	0
 This snippet will allow us to access the row with an index stored in {\tt R0},
 so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 
-\section{Lecture 9: Stacks}
-\section{Lecture 10: Methods, parameters, variables and stacks}
+\section{Stacks}
+\section{Methods, parameters, variables and stacks}
+\section{Switch statements}
+\section{Boolean values}
 
 \end{document}
