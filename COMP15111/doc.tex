@@ -321,6 +321,40 @@ The above will set 10 bytes to the value '5'.
 
 \section{Storing values}
 
+% TODO: Expand on this section
+
+There are many ways to store data. For example, we could store what lights are
+one in a traffic light in many different ways. First, we must decide how many
+different states the traffic light can be in:
+
+\begin{verbatim}
+	Red, Red Amber, Green, Amber
+\end{verbatim}
+
+You can see that we have four states. This could be represented in binary as two
+bits:
+
+\begin{tabular}{|c|c|}
+	\hline
+	{\tt 00} & Red\\ \hline
+	{\tt 01} & Red Amber\\ \hline
+	{\tt 10} & Green\\ \hline
+	{\tt 11} & Amber\\ \hline
+\end{tabular}
+
+We could also store the states as their binary representations of their names:
+
+\begin{tabular}{|c|c|}
+	\hline
+	R & {\tt 01010010}\\ \hline
+	RA & {\tt 0101001001000001}\\ \hline
+	G & {\tt 01000111}\\ \hline
+	A & {\tt 01000001}\\ \hline
+\end{tabular}
+
+You can see though, that this isn't as efficient as storing just two binary
+digits.
+
 \section{ARM assembly programming}
 
 \subsection{Different types of values}
