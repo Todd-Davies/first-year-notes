@@ -209,15 +209,15 @@ ARM has many different instructions to perform operations such as addition, subt
 
 The syntax for such operations is usually:
 
-\begin{listing}{1}
+\begin{verbatim}
 	[operand]	[destination register]	[register 1]	[register 2]
-\end{listing}
+\end{verbatim}
 
 For example, to add two numbers together, we might write:
 
-\begin{listing}{1}
+\begin{verbatim}
 	ADD	R2, R0, R1
-\end{listing}
+\end{verbatim}
 
 This will add the value of R0 to the value of R1 and store it in R2.
 
@@ -231,9 +231,9 @@ Branches can be made to be conditional by appending a conditional operator (comi
 
 The syntax is something like:
 
-\begin{listing}{1}
+\begin{verbatim}
 	B[conditional operator]	[branch name]
-\end{listing}
+\end{verbatim}
 
 Some examples of different conditional operators are:
 
@@ -292,30 +292,30 @@ The actual memory location that is used to store the value isn't known to the ru
 
 The syntax for the \texttt{DEFW} command is as follows:
 
-\begin{listing}{1}
+\begin{verbatim}
 myage	DEFW	18
-\end{listing}
+\end{verbatim}
 
 Where {\tt myage} is the alias and {\tt 18} is the value.
 
 {\tt DEFW} can also be used to define a number of words:
 
 \marginpar{\raggedright The label is associated with the lowest address (i.e. 0)}
-\begin{listing}{1}
+\begin{verbatim}
 squares	DEFW	0, 1, 4, 9, 16, 25
-\end{listing}
+\end{verbatim}
 
 {\tt DEFB} stores a single byte in memory. It is useful for strings such as "hello":
 
-\begin{listing}{1}
+\begin{verbatim}
 hi	DEFB	"hello"
-\end{listing}
+\end{verbatim}
 
 {\tt DEFS} sets a block of bytes to a set value:
 
-\begin{listing}{1}
+\begin{verbatim}
 reserved_space	DEFS	10, 5
-\end{listing}
+\end{verbatim}
 
 The above will set 10 bytes to the value '5'.
 
@@ -427,9 +427,9 @@ ARM is able to encode literal values into instructions. This saves time having t
 
 An example is to increment a register:
 
-\begin{listing}{1}
+\begin{verbatim}
 	ADD	R1, R1, #1
-\end{listing}
+\end{verbatim}
 
 However, ARM only assigns up to 12 bits for a literal value, so we can only have $2^{12}$ values. However, ARM employs a strange method of encoding these values so that more useful values are available (for example, \#512 is allowed, but \#257 isn't).
 
@@ -466,22 +466,22 @@ The ARM assembler provides some instructions that are translated into sequences 
 
 One such instruction is loading a literal into a register. This is done using the {\tt LDR} command as usual, however a literal is used with the '$=$' character instead of a '$\#$'. E.g. to load the value $100$ into register one, we do:
 
-\begin{listing}{1}
+\begin{verbatim}
 	LDR	R1,	=100
-\end{listing}
+\end{verbatim}
 
 However, this is a pseudo instruction and will be converted by the assembler to:
 
-\begin{listing}{1}
+\begin{verbatim}
 	MOV	R1,	#100
-\end{listing}
+\end{verbatim}
 
 However, if the number is very large, it becomes:
 
-\begin{listing}{1}
+\begin{verbatim}
 constant	DEFB	100
 		LDR	R1, constant
-\end{listing}
+\end{verbatim}
 
 \subsection{Loading an address into a register}
 
