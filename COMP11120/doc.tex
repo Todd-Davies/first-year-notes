@@ -9,6 +9,8 @@
 \usepackage{amsmath,amssymb}
 % For line brakes in tables
 \usepackage{tabularx}
+% For vertically centered tables
+\usepackage{array}
 % For long division
 \usepackage{polynom}
 % For parse trees
@@ -363,6 +365,7 @@ that do unfamiliar things or don't use the {\it infix} notation,
 then using parse trees can be a big help!
 
 \subsection{The properties of sets}
+\label{subsec:properties_of_sets}
 
 All sets have some properties in common that we can use to manipulate them. Examples include membership, equality, inclusion etc.
 
@@ -447,6 +450,7 @@ we say about the relationship between $X$ and $Y$?}
 \]
 
 \subsubsection{The empty set}
+\label{subsubsec:empty_set}
 
 The empty set is a set that contains no members at all. It's symbol is
 $\emptyset$.
@@ -522,6 +526,7 @@ Defined mathematically, we get:
 \]
 
 \subsubsection{The universal set}
+\label{subsubsec:universal_set}
 
 % TODO: Link to De Morgan's laws when we've covered it.
 The universal set contains {\it all of the possible elements}. The notation we use to describe the universal set is $S$. We can define the De Morgan's laws using the universal set:
@@ -683,5 +688,97 @@ truth valuation is named a {\bf contradiction}. Such an example may be $p \wedge
 
 If an expression is not a tautology and isn't a contradiction either, then it is
 named {\bf satisfiable}.
+
+% TODO: Continue from page 24 of the logic notes
+
+\section{Probability}
+
+\subsection{Sample spaces and events}
+
+A {\bf Sample Space} is a set of all the possible outcomes of an {\it
+experiment}. In this sense, an experiment is taken to be some occurrence that
+will produce one of many outcomes.
+
+The notation we use for the sample space is $\Omega$.
+
+\[
+	\Omega = \{\omega_1, \omega_2, \ldots, \omega_n\}
+\]
+
+An {\bf event} is a set containing one ore more outcomes of an experiment. Since
+all outcomes are included in the set $\Omega$, all events are also subsets of
+the sample space. This works both ways, any subset of $\Omega$ is an event. We
+use $\omega$ to represent an event.
+
+An event is said to have occurred if the outcome of an experiment contains an
+element of that event.
+
+Since all events are sets, it makes sense that we would have an empty set and a
+universal set. As with discrete logic (see page~\pageref{subsubsec:empty_set}),
+we also use the empty set in probability. Here, we use it to describe an event
+that {\it never} occurs. The notation for the empty set is $\emptyset$. We have
+already discussed the universal set (see page~\pageref{subsubsec:universal_set})
+of probability, it's the sample space, $\Omega$.
+
+\marginpar{If $\Omega$ has $n$ elements, then there are $2^n$ possible events.}
+
+To sum up events an sample spaces, here's an example. If toss a coin, the
+following events are generated:
+
+\begin{center}
+	\begin{tabular}{|>{\centering\arraybackslash}m{1cm}|m{8cm}|}
+		\hline
+		{\bf Event} & {\bf Description}\\ \hline
+		$\emptyset$ & Nothing happens. This will never occur.\\ \hline
+		$\{H\}$     & The coin shows heads.\\ \hline
+		$\{T\}$     & The coin shows tails.\\ \hline
+		$\Omega$    & The coin shows either heads or tails. This event always occurs.\\
+		\hline
+	\end{tabular}
+\end{center}
+
+\marginpar{Note, events can, of course have multiple elements. If we were
+examining a dice throw, we could define the event $A$ to contain all the
+outcomes that are even numbers, so $A = \{2,4,6\}$}
+
+\subsection{More set properties}
+
+All of the set operations we discussed in the Discrete Structures section of the
+notes still apply here, these can be found in section
+~\ref{subsec:properties_of_sets} on page~\pageref{subsec:properties_of_sets}.
+
+However, there are three additional properties that will be useful in this
+section.
+
+\subsubsection{The number of items in a set}
+
+We can use the operator $\#$ to find the number of elements in a set. If we have
+an event $A$ that contains the elements $\{\omega_1, \omega_2, \omega_3\}$ then
+the number of outcomes it contains is three, therefore $\#A = 3$.
+
+\subsubsection{Set difference}
+
+If we have two sets $A$ and $B$, and $B$ is a subset of $A$ (i.e. $B \subset A$), then we can find the set difference between $A$ and $B$.
+
+The set difference is defined as {\bf all the elements in $A$ that are not in
+$B$.} The symbol for set difference is ``$\setminus$''.
+
+Mathematically, this is:
+
+\[
+	A \ B = \{\omega \in \Omega \textrm{ } \vert \textrm{ } \omega \in A \textrm{ and } \omega \not\in B\}
+\]
+
+\subsubsection{Disjoint sets}
+
+If two sets are disjoint, then they share no common elements, that is to say
+that:
+
+\[
+	A \cap B = \emptyset
+\]
+
+This is important in probability, since if two events are disjoint, then they
+will never occur at the same time.
 
 \end{document}
