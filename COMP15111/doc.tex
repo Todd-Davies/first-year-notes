@@ -12,6 +12,8 @@
 \usepackage{amsmath}
 % For tabs in verbatim
 \usepackage{moreverb}
+% For drawing stacks
+\usepackage{drawstack}
 % Gives us bigger margins on the right (and smaller on the left) for the margin
 % paragraphs
 \usepackage[left=2cm,
@@ -334,23 +336,27 @@ different states the traffic light can be in:
 You can see that we have four states. This could be represented in binary as two
 bits:
 
-\begin{tabular}{|c|c|}
-	\hline
-	{\tt 00} & Red\\ \hline
-	{\tt 01} & Red Amber\\ \hline
-	{\tt 10} & Green\\ \hline
-	{\tt 11} & Amber\\ \hline
-\end{tabular}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		{\tt 00} & Red\\ \hline
+		{\tt 01} & Red Amber\\ \hline
+		{\tt 10} & Green\\ \hline
+		{\tt 11} & Amber\\ \hline
+	\end{tabular}
+\end{center}
 
 We could also store the states as their binary representations of their names:
 
-\begin{tabular}{|c|c|}
-	\hline
-	R & {\tt 01010010}\\ \hline
-	RA & {\tt 0101001001000001}\\ \hline
-	G & {\tt 01000111}\\ \hline
-	A & {\tt 01000001}\\ \hline
-\end{tabular}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		R & {\tt 01010010}\\ \hline
+		RA & {\tt 0101001001000001}\\ \hline
+		G & {\tt 01000111}\\ \hline
+		A & {\tt 01000001}\\ \hline
+	\end{tabular}
+\end{center}
 
 You can see though, that this isn't as efficient as storing just two binary
 digits.
@@ -1001,6 +1007,143 @@ This snippet will allow us to access the row with an index stored in {\tt R0},
 so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 
 \section{Stacks}
+
+%TODO: Make the stack pointer start at the top and descend on pops
+%TODO: Work out if the stack pointer points to the next address or the current one
+%TODO: Add stuff about using post and pre indexing with STR and LDR instead of POP and PUSH
+
+A stack is a data structure that is used by ARM assembly (an in a variety of
+other computing applications) to help maintain the state of a program.
+
+The only operations that can be performed on a Stack are {\tt push} and {\tt
+pop}. The former adds an item onto the stack and the latter removes the last
+item from the stack. Because these are the only two operations, a Stack is a
+type of {\it Last In First Out} data structure.
+
+%TODO: Check that the DEFS command is *actually* used. In ARM assembly, a stack
+is usually initialised using the {\tt DEFS} command to reserve a block of space
+in memory. This means that the stack will be a fixed size.
+
+In ARM assembly, one register is reserved as the Stack Pointer (SP). This keeps
+track of the memory location that addresses the next free space in the stack.
+
+\subsection{Pushing to a stack}
+
+Lets initialise a stack of five memory locations:
+
+\begin{center}
+\begin{drawstack}
+	\cell{0}	\cellptr{{\tt 0x00000416}}
+	\cell{0}	\cellptr{{\tt 0x00000412}}
+	\cell{0}	\cellptr{{\tt 0x00000408}}
+	\cell{0}	\cellptr{{\tt 0x00000404}}
+	\cell{0}	\cellptr{{\tt 0x00000400} (SP)}
+\end{drawstack}
+\end{center}
+
+If we want to {\it push} an item onto the stack, we need to do two things:
+
+\begin{itemize}
+
+	\item Write the value to the current memory location addressed by the stack pointer.
+
+	\item Increment the stack pointer by {\tt 4}
+
+\end{itemize}
+
+The ARM command for a stack push is {\tt PUSH}. An example might be:
+
+\begin{verbatim}
+	PUSH 	\#20
+\end{verbatim}
+
+Or if you wanted to push one or more registers:
+
+\begin{verbatim}
+	PUSH 	R1, R2, R3
+\end{verbatim}
+
+If we executed the first of these commands ({\tt PUSH \#20}), the stack would
+look like this:
+
+\begin{center}
+\begin{drawstack}
+	\cell{0}	\cellptr{{\tt 0x00000416}}
+	\cell{0}	\cellptr{{\tt 0x00000412}}
+	\cell{0}	\cellptr{{\tt 0x00000408}}
+	\cell{0}	\cellptr{{\tt 0x00000404} (SP)}
+	\cell{20}	\cellptr{{\tt 0x00000400}}
+\end{drawstack}
+\end{center}
+
+Executing {\tt PUSH R2, R3} when the values of {\tt R2} and {\tt R3} were {\tt
+523} and {\tt 8} respectively would result in a stack such as:
+
+\begin{center}
+\begin{drawstack}
+	\cell{0}	\cellptr{{\tt 0x00000416}}
+	\cell{0}	\cellptr{{\tt 0x00000412} (SP)}
+	\cell{8}	\cellptr{{\tt 0x00000408}}
+	\cell{523}	\cellptr{{\tt 0x00000404}}
+	\cell{20}	\cellptr{{\tt 0x00000400}}
+\end{drawstack}
+\end{center}
+
+\subsection{Poping from the stack}
+
+The ARM syntax to pop an item from the stack is very similar. To pop the last
+item from the stack into {\tt R1} the command would be:
+
+\begin{verbatim}
+	POP 	R1
+\end{verbatim}
+
+The stack would now look like:
+
+\begin{center}
+\begin{drawstack}
+	\cell{0}	\cellptr{{\tt 0x00000416}}
+	\cell{0}	\cellptr{{\tt 0x00000412}}
+	\cell{8}	\cellptr{{\tt 0x00000408} (SP)}
+	\cell{523}	\cellptr{{\tt 0x00000404}}
+	\cell{20}	\cellptr{{\tt 0x00000400}}
+\end{drawstack}
+\end{center}
+
+And the value of {\tt R1} would be {\tt 8}. This works for multiple registers
+too just like the {\tt PUSH} command does.
+
+\subsection{Other ways of accessing the stack}
+
+It's important to remember that the stack is just a set of memory locations, and
+the stack pointer is just a normal register. This means that other commands for
+accessing memory can also be used to access and manipulate the stack. For
+example, take a look at this block:
+
+%TODO: use post indexing!
+\begin{listing}{1}
+	SUB 	SP, SP, #4
+	LDR 	R1, SP
+\end{listing}
+
+This will decrement the stack pointer by {\tt 4}, and then load the value of the
+memory location stored in the Stack Pointer into R1. Essentially, this is doing
+the same thing as {\tt POP R1} will do.
+
+\subsection{Stacks and method calls}
+
+It is important that when a program branches from one method to another, the
+values stored in the registers are not overwritten for when the program branches
+back to the original method.
+
+This problem is resolved by pushing the values stored in the registers onto the
+stack before a branch is made, and then poping them off the stack once the
+method has finished executing. Alternately, the method that is being called can
+preserve the values in the registers by pushing and poping them to and from the
+stack at the start and the end of the method. Obviously, only one such method
+needs to be employed, so it's best to stick to one convention for the whole
+program.
+
 \section{Methods, parameters, variables and stacks}
 \section{Switch statements}
 \section{Boolean values}
