@@ -23,6 +23,16 @@
 			marginparwidth=4cm,
 			marginparsep=3mm]{geometry}
 
+% Means that I don't have to type \marginpar{\raggedright \scriptsize every 
+% time I want a margin paragraph
+\makeatletter
+\renewcommand{\@marginparreset}{%
+  \reset@font\scriptsize
+  \raggedright
+  \@setminipage
+}
+\makeatother
+
 \begin{document}
 % Meta
 \author{Chris Williamson, Todd Davies}
@@ -1010,7 +1020,6 @@ so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 
 %TODO: Make the stack pointer start at the top and descend on pops
 %TODO: Work out if the stack pointer points to the next address or the current one
-%TODO: Add stuff about using post and pre indexing with STR and LDR instead of POP and PUSH
 
 A stack is a data structure that is used by ARM assembly (an in a variety of
 other computing applications) to help maintain the state of a program.
@@ -1020,12 +1029,16 @@ pop}. The former adds an item onto the stack and the latter removes the last
 item from the stack. Because these are the only two operations, a Stack is a
 type of {\it Last In First Out} data structure.
 
-%TODO: Check that the DEFS command is *actually* used. In ARM assembly, a stack
 is usually initialised using the {\tt DEFS} command to reserve a block of space
 in memory. This means that the stack will be a fixed size.
 
 In ARM assembly, one register is reserved as the Stack Pointer (SP). This keeps
-track of the memory location that addresses the next free space in the stack.
+track of the memory location that addresses the last item in the stack.
+
+Stacks can be implemented where the stack pointer starts at the highest memory
+address in the range allocated to the stack, or where it starts at the bottom.
+In ARM assembly, it is usual to start the stack pointer at the highest address
+and work down.
 
 \subsection{Pushing to a stack}
 
@@ -1037,9 +1050,12 @@ Lets initialise a stack of five memory locations:
 	\cell{0}	\cellptr{{\tt 0x00000412}}
 	\cell{0}	\cellptr{{\tt 0x00000408}}
 	\cell{0}	\cellptr{{\tt 0x00000404}}
-	\cell{0}	\cellptr{{\tt 0x00000400} (SP)}
+	\cell{0}	\cellptr{{\tt 0x00000400}}
 \end{drawstack}
 \end{center}
+
+The stack pointer will currently be pointed at {\tt 0x00000420}, so the next
+stackable memory location will be {\tt 0x00000416}.
 
 If we want to {\it push} an item onto the stack, we need to do two things:
 
@@ -1047,7 +1063,7 @@ If we want to {\it push} an item onto the stack, we need to do two things:
 
 	\item Write the value to the current memory location addressed by the stack pointer.
 
-	\item Increment the stack pointer by {\tt 4}
+	\item Decrement the stack pointer by {\tt 4}
 
 \end{itemize}
 
@@ -1068,11 +1084,11 @@ look like this:
 
 \begin{center}
 \begin{drawstack}
-	\cell{0}	\cellptr{{\tt 0x00000416}}
+	\cell{20}	\cellptr{{\tt 0x00000416} (SP)}
 	\cell{0}	\cellptr{{\tt 0x00000412}}
 	\cell{0}	\cellptr{{\tt 0x00000408}}
-	\cell{0}	\cellptr{{\tt 0x00000404} (SP)}
-	\cell{20}	\cellptr{{\tt 0x00000400}}
+	\cell{0}	\cellptr{{\tt 0x00000404}}
+	\cell{0}	\cellptr{{\tt 0x00000400}}
 \end{drawstack}
 \end{center}
 
@@ -1081,11 +1097,11 @@ Executing {\tt PUSH R2, R3} when the values of {\tt R2} and {\tt R3} were {\tt
 
 \begin{center}
 \begin{drawstack}
-	\cell{0}	\cellptr{{\tt 0x00000416}}
-	\cell{0}	\cellptr{{\tt 0x00000412} (SP)}
-	\cell{8}	\cellptr{{\tt 0x00000408}}
-	\cell{523}	\cellptr{{\tt 0x00000404}}
-	\cell{20}	\cellptr{{\tt 0x00000400}}
+	\cell{20}	\cellptr{{\tt 0x00000416}}
+	\cell{523}	\cellptr{{\tt 0x00000412}}
+	\cell{8}	\cellptr{{\tt 0x00000408} (SP)}
+	\cell{0}	\cellptr{{\tt 0x00000404}}
+	\cell{0}	\cellptr{{\tt 0x00000400}}
 \end{drawstack}
 \end{center}
 
@@ -1102,13 +1118,17 @@ The stack would now look like:
 
 \begin{center}
 \begin{drawstack}
-	\cell{0}	\cellptr{{\tt 0x00000416}}
-	\cell{0}	\cellptr{{\tt 0x00000412}}
-	\cell{8}	\cellptr{{\tt 0x00000408} (SP)}
-	\cell{523}	\cellptr{{\tt 0x00000404}}
-	\cell{20}	\cellptr{{\tt 0x00000400}}
+	\cell{20}	\cellptr{{\tt 0x00000416}}
+	\cell{523}	\cellptr{{\tt 0x00000412} (SP)}
+	\cell{8}	\cellptr{{\tt 0x00000408}}
+	\cell{0}	\cellptr{{\tt 0x00000404}}
+	\cell{0}	\cellptr{{\tt 0x00000400}}
 \end{drawstack}
 \end{center}
+
+\marginpar{Note that we don't actually have to reset the memory location {\tt
+0x00000408} since it will be overwritten on any subsequent push and since the
+stack pointer is behind it, it will never be read from.}
 
 And the value of {\tt R1} would be {\tt 8}. This works for multiple registers
 too just like the {\tt PUSH} command does.
@@ -1120,15 +1140,26 @@ the stack pointer is just a normal register. This means that other commands for
 accessing memory can also be used to access and manipulate the stack. For
 example, take a look at this block:
 
-%TODO: use post indexing!
 \begin{listing}{1}
-	SUB 	SP, SP, #4
 	LDR 	R1, SP
+	ADD 	SP, SP, #4
 \end{listing}
 
-This will decrement the stack pointer by {\tt 4}, and then load the value of the
-memory location stored in the Stack Pointer into R1. Essentially, this is doing
-the same thing as {\tt POP R1} will do.
+\marginpar{Of course, we could use post indexed addressing in order to do the
+same thing: {\tt LDR R1, [SP], \#4}}
+
+This will load the value of the memory location addressed by the value inside
+the stack pointer into {\tt R1} and then increment the stack pointer by 4.
+Essentially, this is doing the same thing as {\tt POP R1} will do.
+
+In order to do the same thing for pushing to the stack we can do:
+
+\begin{listing}{1}
+	SUB 	SP, SP, #4
+	STR 	R1, SP
+\end{listing}
+
+\marginpar{Which is equal to {\tt STR R1, [SP, \#-4]!}}
 
 \subsection{Stacks and method calls}
 
