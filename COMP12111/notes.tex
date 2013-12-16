@@ -417,14 +417,16 @@ A typical ALU will usually contain two input buses (lets say called {\tt A} and
 {\tt B}) and an output bus (called {\tt Z} in our example). The ALU in the MU0 is
 capable of doing the following operations:
 
-\begin{tabular}{|l|l|}
-	\hline
-	{\bf Instruction} {\bf Description}\\ \hline
-	{\tt ADD} & {\tt Z = A + B}\\ \hline
-	{\tt SUB} & {\tt Z = A - B}\\ \hline
-	Fetch instruction & {\tt PC = PC + 1}\\ \hline
-	{\tt LDA} & {\tt Z = A}\\ \hline
-\end{tabular}
+\begin{center}
+	\begin{tabular}{|l|l|}
+		\hline
+		{\bf Instruction} & {\bf Description}\\ \hline
+		{\tt ADD} & {\tt Z = A + B}\\ \hline
+		{\tt SUB} & {\tt Z = A - B}\\ \hline
+		Fetch instruction & {\tt PC = PC + 1}\\ \hline
+		{\tt LDA} & {\tt Z = A}\\ \hline
+	\end{tabular}
+\end{center}
 
 It is important to note that each of these operations can be expressed as an
 addition:
@@ -474,5 +476,65 @@ applied:
 \marginpar{'1' here means '000000000000001' and '0' means '000000000000000'}
 
 
+\subsubsection*{Selecting what logic to use in an ALU}
+
+An important feature of any ALU is the ability to select what Logic to employ on
+the input data. This is often accomplished by way of another bus going into the
+ALU carrying the code of the logic function to execute.
+
+It is possible to use a multiplexer to execute certain logical tasks. Setting
+all bits to 0 in a bus for example could be done in verilog like so:
+
+\begin{listing}{1}
+module setzero(fun, in, out);
+	output [15:0] out;
+	input [15:0] in;
+	input fun;
+
+	assign out = fun ? 0 : in
+endmodule
+\end{listing}
+
+The last line of the verilog block does the actual work here. It is a
+conditional operator that will set the output to 0 if the {\tt fun} input is
+high, and set the output to the {\tt in} bus if {\tt fun} is low.
+
+\subsubsection{General ALU's}
+
+In general, ALU's have many more features than the one in the MU0. Such features
+may include:
+
+\begin{itemize}
+	\item Do nothing to the data (also known as {\it true data})
+	\item Complement the input (invert all the bits)
+	\item Zero the bits
+	\item Make all the bits 1
+\end{itemize}
+
+\subsubsection{Decoding the function code in an ALU}
+
+The required value of the control bits to activate any given function in the ALU
+are arbitrary, though choosing a good set of values is desirable since it may
+make the implementation easier.
+
+\subsection{Making decisions in the ALU}
+
+In any processor, when an {\tt if} statement is executed then the processor will
+most likely (under many layers of syntax and abstraction) perform a branch.
+
+In the MU0, the accumulator is used to evaluate conditions, however, in some
+other architectures, the result of a comparison is stored in a separate {\it
+condition code} register (these results are often referred to as {\it flags}).
+
+In the MU0, there are only two conditional branches:
+
+\begin{enumerate}
+	\item Jump if {\tt Acc} is positive
+	\item Jump if {\tt Acc} is not 0
+\end{enumerate}
+
+This also allows programmers to test for a specific value, since you can use
+{\tt SUB} to get 0 if two values are equal and then use the second jump
+condition.
 
 \end{document}
