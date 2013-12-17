@@ -663,4 +663,21 @@
 	$A$ and $B$ are logically equivalent.
 }
 
+% ================================
+% Probability
+% ================================
+
+\card{
+	How can we show that $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$?
+}{
+	\[
+		\begin{split}
+			\mathbb{P}(A \cup B) &= \sum\limits_{i=1}^n1_{A \cup B}(\omega_i)p_i\\
+			&= \sum\limits_{i=1}^n(1_{A}(\omega_i) + 1_{B}(\omega_i))p_i\\
+			&= \sum\limits_{i=1}^n(1_{A}(\omega_i))p_i + \sum\limits_{i=1}^n(1_{A}(\omega_i))p_i\\
+			&= \mathbb{P}(A) + \mathbb{P}(B)
+		\end{split}
+	\]
+}
+
 \end{document} 
