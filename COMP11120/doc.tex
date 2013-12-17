@@ -781,4 +781,53 @@ that:
 This is important in probability, since if two events are disjoint, then they
 will never occur at the same time.
 
+\section{Probability measures}
+
+A probability measure is a mapping between an event and the probability that the
+event will occur.
+
+\[
+	\mathbb{P} : \{\textrm{\it Collection of all events}\} \rightarrow [0,1]
+\]
+
+This defines $\mathbb{P}$ as a number between $0$ and $1$ (i.e. a probability).
+Since a probability measure is defined for {\it all} events that can occur, then
+the following are true:
+
+\begin{itemize}
+	\item $\mathbb{P}(\Omega) = 1$
+	\item If $A$ and $B$ are disjoint events then $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$
+	\item If $\mathbb{P}(A) = 0$ then $A$ will never occur.
+	\item If $\mathbb{P}(A) = 1$ then $A$ will always occur.
+\end{itemize}
+
+\marginpar{If $\mathbb{P}(A) = 1$, then that doesn't mean that $A = \Omega$,
+since there could be other events $\omega$ where $\mathbb{P}(\omega) = 0$}
+
+In order to verify whether any given mapping is a probability measure, you must
+check it against the first two of the above bullets; that the sum of all the
+mappings is $1$ and the mapping of the union of any two disjoint events is the
+same as the sum of the separate mappings of the disjoint events.
+
+\subsection{Indicator functions}
+
+An indicator function will yield a value of $1$ if an element $\omega$ is inside
+a set, and a value of $0$ if the element is not inside the set. It can be
+defined as follows:
+
+\[
+	1_A(\omega_i) = \begin{cases} 
+						1\textrm{ if }\omega_i \in A\\
+						0\textrm{ if }\omega_i \not\in A
+					\end{cases}
+\]
+
+We can therefore define the probability of an event $A$ to be the sum of all the
+probabilities of the events inside $A$:
+
+\[
+	\mathbb{P}(A) = \sum\limits_{i=1}^n1_A(\omega_i)p_i
+\]
+
+\marginpar{Note that $n$ is the number of elements inside $A$.}
 \end{document}
