@@ -1018,8 +1018,7 @@ so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 
 \section{Stacks}
 
-%TODO: Make the stack pointer start at the top and descend on pops
-%TODO: Work out if the stack pointer points to the next address or the current one
+%TODO: Reference STFMD (or whatever it's called)
 
 A stack is a data structure that is used by ARM assembly (an in a variety of
 other computing applications) to help maintain the state of a program.
@@ -1175,7 +1174,91 @@ stack at the start and the end of the method. Obviously, only one such method
 needs to be employed, so it's best to stick to one convention for the whole
 program.
 
-\section{Methods, parameters, variables and stacks}
+\section{Methods}
+
+The most basic way of calling a method in ARM assembly is by using the {\tt BL}
+command. This will do two things:
+
+\begin{enumerate}
+	\item Move the current value of the program counter into the link register.
+	\item Branch to the label defined in the instruction.
+\end{enumerate}
+
+The method being called will use move the value of the link register back into
+the program counter once it has finished execution. Here's an example:
+
+\begin{listing}{1}
+
+start 	B main
+
+addR1R2	ADD 	R1, R1, R2
+	; Move the value of the Link Register back into the PC
+	MOV 	PC, LR
+
+main 	MOV 	R1, #4
+	MOV 	R2, #2
+	BL 	addR1R2
+
+\end{listing}
+
+This program will move the values {\tt 4} and {\tt 2} into {\tt R1} and {\tt R2}
+respectively, and then branch to a method that will add the two registers
+together and store the result in {\tt R1}.
+
+\subsection{Saving the value of registers}
+
+What if a method used lots of registers internally. We should make sure that the
+state of the registers is the same at the end of the method as they are at the
+start of the method, since otherwise there could be issues with corrupted data.
+
+The easiest way to do this is to stack the parameters, like so:
+
+\begin{listing}{1}
+method 	; First lets store the registers we're going to use into memory
+	PUSH 	{R0-R2}
+	; ===========================
+	; Do stuff with the registers
+	; ===========================
+	POP 	{R0-R2}
+	; Branch back to the calling instruction
+	MOV 	PC, LR
+\end{listing}
+
+\marginpar{If a method calls another method, then the link register will need to
+be stacked too!}
+
+\subsection{Passing parameters}
+
+Passing parameters to a method is easy; just add them to the stack! To do this,
+just load the variable into a register, then add it to the stack:
+
+\begin{listing}{1}
+	LDR 	R0, myvar
+	STR 	R0, [SP,#-4]!
+\end{listing}
+
+When the method wants to access a parameter, it can just load the value in
+memory addressed by the stack pointer, adding an offset of {\tt \#4} if the
+second parameter needs to be accessed, {\tt \#8} for the third and so on. If the
+fourth parameter was to be loaded, then the instruction would be {\tt LDR R0
+[SP, \#12]}.
+
+\subsection{Stack frames}
+
+A stack frame is a set of stacked values that are related to a particular method
+call. They usually have a format that is specific to the method being called.
+For example:
+
+\begin{center}
+\begin{drawstack}
+	\cell{Method variables}	\cellptr{{\tt SP}}
+	\cell{Callee saved registers}
+	\cell{LR}
+	\cell{Parameters}
+	\cell{Caller saved registers}
+\end{drawstack}
+\end{center}
+
 \section{Switch statements}
 \section{Boolean values}
 
