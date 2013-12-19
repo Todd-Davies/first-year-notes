@@ -645,5 +645,30 @@ the fastest clock frequency we could set would be:
 	\frac{1}{20\times10^{-9}} = \SI{50}{\mega\hertz}
 \]
 
+\section{Optimising an architecture}
+
+There are three main ways that we can optimise a processor so that it can run faster, they are:
+
+\begin{itemize}
+	
+	\item Improving the technology so that there are more transistors on the
+	chip. This means that it can do more logic at any one time.
+
+	\item Shrink the critical path so that the clock speed can be increased.
+	This often has to balance power consumption and heat production with
+	speed.
+
+	\item Restructure the design so that each clock cycle can do more stuff.
+	An example of this may be when an instruction is both fetched; the PC
+	must be read and the value must be fetched from the memory. These
+	operations could be done one after another, but it would mean that the
+	fetch stage of an instruction would take twice as long, and the
+	processor would take 1.5 times longer to execute.
+
+\end{itemize}
+
+\marginpar{A metric often used here is the number of clocks per instruction
+(CPI).}
+
 
 \end{document}
