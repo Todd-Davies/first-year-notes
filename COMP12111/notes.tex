@@ -12,6 +12,8 @@
 \usepackage{amsmath}
 % For tabs in verbatim and the listings environment
 \usepackage{moreverb}
+% FOr SI units
+\usepackage{siunitx}
 % Gives us bigger margins on the right (and smaller on the left) for the margin
 % paragraphs
 \usepackage[left=2cm,
@@ -536,5 +538,112 @@ In the MU0, there are only two conditional branches:
 This also allows programmers to test for a specific value, since you can use
 {\tt SUB} to get 0 if two values are equal and then use the second jump
 condition.
+
+\section{How the MU0 executes operations}
+
+All instructions execute in the MU0 in two instruction cycles. The first cycle
+involves the instruction being fetched from memory and read into the instruction
+register, while the second cycle is when the instruction is decoded and
+executed.
+
+\subsection{Fetching an instruction}
+
+When the processor is in the fetch state, the value at the memory address
+specified by the program counter register is fetched into the instruction
+register. The PC is then incremented so that the next instruction is fetched
+when this one has finished executing.
+
+\marginpar{Even if the instruction is a jump, the PC is still incremented after
+the fetch. This is because the instruction hasn't been decoded while it is
+being fetched so the processor has no way of knowing if it's a jump.}
+
+\subsection{Executing an instruction}
+
+When the processor starts to decode the instruction, its behaviour is defined by
+the instruction that it is executing. It will first read the instruction code
+and then follow one of the eight possible paths of execution depending on what
+the instruction is to be executed.
+
+The control signals that control all of the registers and the ALU depend on the
+value of F. The data in the instruction is then just piped through the
+processor, being mutated by the various components as it goes.
+
+\subsubsection{Implementing an instruction decoder in verilog}
+
+We can create a block of verilog code that will compile down to a FSM that will
+translate a three bit input from the instruction into the control lines to the
+various components inside the processor.
+
+First, we need an always block to trigger whenever the {\tt state} or the
+instruction register {\tt IR} changes:
+
+\begin{listing}{1}
+always @ (state, ir)
+\end{listing}
+
+After that, we need to check the state of {\tt state} to see if the processor is
+loading an instruction or decoding one:
+
+\begin{listingcont}
+	if(state==0)	// We're fetching an instruction
+		begin
+		// Set the control lines to fetch an instruction from memory
+		Asel = 0;
+		...
+		Ren = 1;
+		Wen = 0;
+		end
+	else 		// The state must be equal to 1 therefore we're decoding
+		begin
+\end{listingcont}
+
+Now we need a case statement to decode the instruction code:
+
+\begin{listingcont}
+	case(ir[15:12])
+		// LDA
+		0: 	begin
+			Ren = 1;
+			Wen = 0;
+			Asel = 0;
+			Xsel = 1;
+			M[1:0] = 2'b10;
+			...
+			end
+		1:	begin
+			...
+			end
+		...
+		7:	begin
+			...
+			end
+	endcase
+end
+\end{listingcont}
+
+\section{Timing in the MU0}
+
+The MU0 employs a synchronous timing design. This means that all state changes
+happen at the same time, at the positive edge of the clock. This is handy, since
+when the control signals begin to be calculated at the start of decoding, the IR
+is latched and they have a whole cycle to settle.
+
+In order to employ a synchronous design, we must assume that the clock signal
+arrives at all the flip flops at the same time, and that there is enough time
+between clock ticks so that the slowest possible set of logic changes have time
+to take place.\marginpar{This would be the {\it worst case critical path}.}
+
+In order to calculate the fastest timing we can do, we must find the critical path of the processor (i.e. the slowest path data can take). We the have to use the formula:
+
+\[
+	\textrm{\it Time period} = \frac{1}{frequency}
+\]
+
+to find the maximum clock frequency. So, if the critical path was $20ns$, then
+the fastest clock frequency we could set would be:
+\[
+	\frac{1}{20\times10^{-9}} = \SI{50}{\mega\hertz}
+\]
+
 
 \end{document}
