@@ -15,6 +15,8 @@
 \usepackage{polynom}
 % For parse trees
 \usepackage{proof}
+% For merged columns in tables
+\usepackage{booktabs}
 % Gives us bigger margins on the right (and smaller on the left) for the margin
 % paragraphs
 \usepackage[left=2cm,
@@ -830,4 +832,120 @@ probabilities of the events inside $A$:
 \]
 
 \marginpar{Note that $n$ is the number of elements inside $A$.}
+
+\section{Computing the probability of equally likely functions}
+
+If we have a sample space $\Omega = \{ \omega_1, \omega_2, \dots, \omega_n \}$
+where each element is equally likely to occur, then we can say that $p_i =
+\mathbb{P}(\{\omega_i\})$. Since all the elements are equally likely to occur,
+we can say that $p_1 = p_2 = \dots = p_i$ and also that $p_1 + p_2 + \dots + p_i
+= 1$.
+
+Using ideas from the previous section, we can find the probability of any event
+$A$ inside a sample space where all elements are equally likely. To do this, all
+we need to do is find the sum of all the elements in the sample space, but
+multiply the elements by the indicator function of $A$ before we add them onto
+the sum:
+
+\[
+	\mathbb{P}(A) = \sum\limits_{i=1}^{n} 1_A(\omega_i)p_i
+\]
+
+However, since all the elements inside $\Omega$ are equally likely, that must
+mean that for any event $\omega_i$, it's probability must be $\frac{1}{n}$ where
+$n$ is the number of elements inside the sample space. If we take this into
+account, we can formulate the following formula:
+
+\[
+	\mathbb{P}(A) = \frac{1}{n}\sum\limits_{i=1}^{n} 1_A(\omega_i)
+\]
+
+
+However, we can make this even more simple; if we recognise that any element in
+$A$ has the same probability of occurring as any element in $\Omega$, then it's
+easy to realise that the probability of $A$ occurring will be equal to the
+relationship between sizes of the sets $A$ and $\Omega$:
+
+\[
+	\mathbb{P}(A) = \frac{\#A}{\#\Omega}
+\]
+
+\subsection{Finding the binomial coefficient}
+
+The binomial coefficient is represented as $n \choose k$, both $n$ and $k$ are
+integers. It is pronounced $n$ {\it choose} $k$.
+
+\[
+	{n \choose k} = \frac{n!}{k!(n-k)!}
+\]
+
+\subsection{Choosing items}
+
+If we have a set of three items $a, b$ and $c$, then how many different ways can
+we choose two of those three items from the set?
+
+This depends on two things. Does the order of the items matter, and can we
+choose an item twice?
+
+If the order is important and we can choose an item many times, then we can
+choose the following items:
+
+\[
+	(a,a), (a,b), (a,c), (b,a), (b,b), (b,c), (c,a), (c,b), (c,c)
+\]
+
+If the order is not important, then we have:
+
+\[
+	(a,a), (a,b), (a,c), (b,b), (b,c), (c,c)
+\]
+
+If the order is important, but we can't choose an item twice, we get:
+
+\[
+	(a,b), (a,c), (b,a), (b,c), (c,a), (c,b)
+\]
+
+Finally, if the order is not important and the items cannot be selected twice,
+then:
+
+\[
+	(a,b), (a,c), (b,c)
+\]
+
+In order to calculate the number of possible different selections we can make in
+these different cases, we can use this table:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline
+	& \multicolumn{2}{c|}{Order important?}\\
+	\cline{2-3}
+	& Yes & No\\ \hline
+	Without replacement & $\frac{n!}{(n-k)!}$ & $n \choose k$\\ \hline
+	With replacement & $n^k$ & Complicated\\ \hline
+\end{tabular}
+\end{center}
+
+It's easy to verify that these are true; since:
+
+\begin{itemize}
+	\item With replacement, order important:
+	\[
+		n^k = 3^2 = 9
+	\]
+	\item Without replacement, order important:
+	\[
+		\frac{n!}{(n - k)!} = 	\frac{3!}{(3 - 2)!} = 6
+	\]
+	\item Without replacement and order is not important:
+	\[
+		{n \choose k} = \frac{n!}{k(n - k)!} = \frac{3!}{2(3 - 2)!} = \frac{6}{2} = 3
+	\]
+
+\end{itemize}
+
+\marginpar{See chapter 2 in the course provided notes for (copious) examples of
+the content covered in this section.}
+
 \end{document}
