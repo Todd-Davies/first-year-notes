@@ -1,65 +1,13 @@
-\documentclass{article}
-% For the fancy header
-\usepackage{fancyhdr}
-% So we don't have to put \\ everywhere for new lines
-\usepackage[parfill]{parskip}
-% For sets e.g. \mathbb{Z}
-\usepackage{amsfonts}
-% For the 'split' envirnoment and symbols
-\usepackage{amsmath,amssymb}
-% For line brakes in tables
-\usepackage{tabularx}
-% For vertically centered tables
-\usepackage{array}
-% For long division
-\usepackage{polynom}
-% For parse trees
-\usepackage{proof}
-% For merged columns in tables
-\usepackage{booktabs}
-% Gives us bigger margins on the right (and smaller on the left) for the margin
-% paragraphs
-\usepackage[left=2cm,
-			top=3cm,
-			right=5cm,
-			bottom=3cm,
-			marginparwidth=4cm,
-			marginparsep=3mm]{geometry}
+% Set the author and title of the compiled pdf
+\hypersetup{
+	pdftitle = {\Title},
+	pdfauthor = {\Author}
+}
 
 % Gives us a dot to use in parse trees. The phantom '|' symbols aren't shown but
 % give us vertical (and a little bit of horizontal) space so the parse tree has
 % the correct spacing.
 \newcommand{\parsetreedot}{\phantom{|}\cdot\phantom{|}}
-
-% Means that I don't have to type \marginpar{\raggedright \scriptsize every 
-% time I want a margin paragraph
-\makeatletter
-\renewcommand{\@marginparreset}{%
-  \reset@font\scriptsize
-  \raggedright
-  \@setminipage
-}
-\makeatother
-
-\pagestyle{fancyplain}
-
-\author{Todd Davies, Chris Williamson}
-\title{COMP11120 Notes}
-\date{\today}
-
-\begin{document}
-
-\rhead{COMP11120 Notes}
-\lhead{\today}
-
-\maketitle
-
-{\small Note, extra space has been allocated for the right hand margin to allow
-for more extensive margin notes. Also, it gives you space to make your own
-annotations and perhaps try some problems of your own.}
-
-\tableofcontents
-\newpage
 
 \section{Discrete Structures}
 
@@ -947,5 +895,3 @@ It's easy to verify that these are true; since:
 
 \marginpar{See chapter 2 in the course provided notes for (copious) examples of
 the content covered in this section.}
-
-\end{document}

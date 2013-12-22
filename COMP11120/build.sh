@@ -1,3 +1,7 @@
 #!/bin/bash
-aspell -t check doc.tex
-pdflatex doc.tex
+aspell -t check content.tex
+aspell -t check meta.tex
+pdflatex notes.tex
+pdflatex kindle.tex
+# In case the Author field isn't set
+exiftool notes.pdf -Author="Todd Davies"
