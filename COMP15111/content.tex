@@ -6,7 +6,9 @@
 
 \section{Introduction}
 \subsection{A Computational Model}
-The simplest, earliest, commonest, most important computational model is the \textbf{Von-Neumann Imperative Procedural Computer Model}
+
+The simplest, earliest, commonest, most important computational model is the
+\textbf{Von-Neumann Imperative Procedural Computer Model}
 
 According to this model, a computer can:
 \begin{enumerate}
@@ -23,24 +25,39 @@ The simplest model of a computer can be represented as:
 \]
 
 \subsubsection{Memory}
-Memory is a set of locations which can hold information, such as numbers(or programs). Each memory location has a unique (numerical) address, and there are typically thousands of millions of different locations. There are various ways of depicting memory; a common one is a 'hex dump' that often looks something like this: \marginpar{\raggedright Run the command {\it hexdump} to generate hexdumps.}
 
-\begin{tabular}{l l l}
-	{\bf Address}     &	{\bf Values (8 bit numbers)}	&	{\bf Characters}\\
-	00000000	&	48 65 6C 6C 6F 0A		&	Hello.\\
-\end{tabular}
+Memory is a set of locations which can hold information, such as numbers(or
+programs). Each memory location has a unique (numerical) address, and there are
+typically thousands of millions of different locations. There are various ways
+of depicting memory; a common one is a 'hex dump' that often looks something
+like this: \marginpar{\raggedright Run the command {\it hexdump} to generate
+hexdumps.}
+
+\begin{center}
+	\begin{tabular}{l l l}
+		{\bf Address}     &	{\bf Values (8 bit numbers)}	&	{\bf Characters}\\
+		00000000	&	48 65 6C 6C 6F 0A		&	Hello.\\
+	\end{tabular}
+\end{center}
 
 Each item that is in the memory has a unique address.
 
 \subsubsection{Bus}
-A bus is a bidirectional communication path. It is able to transmit addresses and numbers between components inside the computer.
+
+A bus is a bidirectional communication path. It is able to transmit addresses
+and numbers between components inside the computer.
 
 \subsubsection{Processor}
-The processor obeys a sequence of instructions, commonly referred to as a program.
-Historically the processor was often referred to as a CPU, however, this is inappropriate nowadays since typical processors consist of several processing cores.
+
+The processor obeys a sequence of instructions, commonly referred to as a
+program. Historically the processor was often referred to as a CPU, however,
+this is inappropriate nowadays since typical processors consist of several
+processing cores.
 
 \subsection{Three-address instructions}
-Every kind of processor has a different set of instructions, real world examples include: Pentium, ARM and others
+
+Every kind of processor has a different set of instructions, real world examples
+include: Pentium, ARM and others
 
 Each three-address instruction:
 \begin{enumerate}
@@ -57,7 +74,9 @@ For example, if we wanted to convert the Java code $sum = a + b;$ into a three-a
 \end{enumerate}
 
 \subsubsection{Three address example}
-{\bf Question:} Convert the Java code {\it product = c * d;} into the three-address style and draw a two box view of it.
+
+{\bf Question:} Convert the Java code {\it product = c * d;} into the three-
+address style and draw a two box view of it.
 
 First we need to re-write the Java code in the three-address style:
 \[
@@ -240,12 +259,16 @@ In order to perform a conditional branch, we must first perform a compare comman
 If we wanted to do a $£1$ discount on a shopping list if the price was over $£20$, we would do the following:
 
 \begin{listing}{1}
-		LDR	R0, total	; Load the total price into R0
+		LDR	R0, total	; Load the total price
+						; into R0
 	
-		CMP	R0, #20		; Compare R0 and 20 (the literal)
-		BLT	nodiscount	; If the price is too low, then don't discount
+		CMP	R0, #20		; Compare R0 and 20
+						; (the literal)
+		BLT	nodiscount	; If the price is too low,
+						; then don't discount
 		SUB	R0, #1		; Deduct £1
-		STR	R0, total	; Store the result back into memory
+		STR	R0, total	; Store the result back 
+						; into memory
 
 nodiscount	SVC	2		; Finish
 
@@ -595,13 +618,13 @@ Literals can be any expression that the assembler can evaluate, for example, the
 
 ARM has some 1-bit status flags that are set after a {\tt CMP} instruction as shown below:
 
-\begin{tabular}{l|l}
+\begin{tabularx}{0.8\textwidth}{l|X}
 	Flag & Meaning\\ \hline
 	Negative & Previous result was negative\\ \hline
 	Zero & Previous result was zero\\ \hline
 	Carry & Previous add or subtract generated a carry\\ \hline
 	Overflow & The previous add or subtract overflowed and went out of range\\ \hline
-\end{tabular}
+\end{tabularx}
 
 You can get any data operation to alter the flags by appending {\tt S} to the instruction. For example:
 
@@ -642,7 +665,7 @@ How would we convert that into ARM assembly? The best way is to do the following
 
 \begin{enumerate}
 
-	\item Check to see if the condition is false
+	\item Check to see if the condition is else
 
 	\item If it is, then branch to the end of the if statement
 
@@ -653,13 +676,15 @@ How would we convert that into ARM assembly? The best way is to do the following
 An example implementation may be:
 
 \begin{listing}{1}
-	CMP 	R1, R2  	; Compare two registers
-	BGE 	endif		; The condition
-	MOV 	R1, #0 	; Whatever the action statement may be
+	CMP 	R1, R2  ; Compare two registers
+	BGE 	endif	; The condition
+	MOV 	R1, #0 	; Whatever the action 
+					; statement may be
 endif
 \end{listing}
 
-Note that it is often easier to implement the inverse of some comparisons. For example, if we were evaluating {\tt (a >= b)} we could do either of these:
+Note that it is often easier to implement the inverse of some comparisons. For
+example, if we were evaluating {\tt (a >= b)} we could do either of these:
 
 \begin{itemize}
 	\item 
@@ -704,10 +729,14 @@ your while loop is being executed repeatedly, then it's probably worth
 optimising it!}
 
 \begin{listing}{1}
-start	CMP 	R1, R2  	; Compare two registers
-	BGE 	endif		; The condition
-	ADD 	R1, R1, #1 	; Whatever the action statement may be
-	B	start 		; Branch back to the start
+	; Compare two registers
+	start	CMP 	R1, R2 
+	; The condition
+	BGE 	endif
+	; Whatever the action statement may be 
+	ADD 	R1, R1, #1
+	; Branch back to the start
+	B	start 
 endif
 \end{listing}
 
@@ -715,9 +744,12 @@ In ARM, we can make {\it any} instruction have a conditional code on it.
 Consequently, we can get rid of a branch instruction, like so:
 
 \begin{listing}{1}
-start	CMP 	R1, R2  	; Compare two registers
-	ADDLT 	R1, R1, #1 	; Add only if the flag is less than
-	BLT	start 		; Branch back to the start
+	; Compare two registers
+	start	CMP 	R1, R2 
+	; Add only if the flag is less than
+	ADDLT 	R1, R1, #1 
+	; Branch back to the start
+	BLT	start
 endif
 \end{listing}
 
@@ -783,10 +815,10 @@ loading a register from a memory location: LDR R0, b
 Could be done using register indirect addressing:
 
 \begin{center}
-    \begin{tabular}{l l l l}
-        ADR & R2, & b & move the {\bf address} of b into R2\\
-        LDR & R0, & [R2] & use address in R2 to fetch the {\bf value} of b\\
-    \end{tabular}
+    \begin{tabularx}{0.8\textwidth}{l l l X}
+        ADR & R2, & b & Move the {\bf address} of b into R2\\
+        LDR & R0, & [R2] & Use address in R2 to fetch the {\bf value} of b\\
+    \end{tabularx}
 \end{center}
 
 This is still a bit limited - addresses are:
@@ -880,19 +912,19 @@ character, and {\tt R2} to keep the count.}
 
 \subsubsection{Getting the index of a character in a String}
 
-In order to do the equivalent of {\tt String.indexOf(character)}, we can do
+In order to do the equivalent of\\{\tt String.indexOf(character)}, we can do
 something similar to finding the length of the String, but we only need to loop
 until we get to the character we're looking for.
 
 \begin{listing}{1}
 	ADRL	R1, message
 	LDRB	R2, character
-count 	LDRB 	R0, [R1] #1
+	count 	LDRB 	R0, [R1] #1
 	CMP 	R0, #0
 	BEQ 	end
 	CMP 	R0, R2
 	BNE 	count
-end 	ADRL 	R0, message
+	end 	ADRL 	R0, message
 	SUB 	R1, R1, R0
 	SUB 	R1, R1, #1
 	STR 	R0, index
@@ -942,7 +974,7 @@ side of the word:
 ARM has four different operations for shifting and rotations:
 
 \begin{center}
-	\begin{tabularx}{0.8\textwidth}{|l|l|X|}
+	\begin{tabularx}{\textwidth}{|l|X|X|}
 		\hline
 		{\bf Mnemonic} & {\bf Meaning} & {\bf Function}\\ \hline
 		{\tt LSL n} & Logical shift left & Shifts left by n bits. Any bits that are lost are zeroed.\\ \hline
@@ -1145,10 +1177,11 @@ the program counter once it has finished execution. Here's an example:
 
 \begin{listing}{1}
 
-start 	B main
+	start 	B main
 
-addR1R2	ADD 	R1, R1, R2
-	; Move the value of the Link Register back into the PC
+add R1R2	ADD 	R1, R1, R2
+	; Move the value of the Link
+	; Register back into the PC
 	MOV 	PC, LR
 
 main 	MOV 	R1, #4
@@ -1170,7 +1203,9 @@ start of the method, since otherwise there could be issues with corrupted data.
 The easiest way to do this is to stack the parameters, like so:
 
 \begin{listing}{1}
-method 	; First lets store the registers we're going to use into memory
+method
+	; First lets store the registers
+	; we're going to use into memory
 	PUSH 	{R0-R2}
 	; ===========================
 	; Do stuff with the registers
@@ -1236,14 +1271,17 @@ R1} left. The number of places shifted is equal to the value of {\tt R0}. This
 has the effect of adding {\tt (4*R0)} onto {\tt R1}.}
 
 \begin{listing}{1}
-; Define a table of variables with the locations to branch to
+; Define a table of variables with 
+; the locations to branch to
 swtable	DEFW	case0
 	DEFW 	case1
 	DEFW 	default
 	DEFW 	case2
-; Load the base address of the table into R1
+; Load the base address of the table
+; into R1
 	ADR 	R1, swtable
-; Load the value of R1 into the PC. Offset the value in R1 by (R0*4)
+; Load the value of R1 into the PC.
+; Offset the value in R1 by (R0*4)
 	LDR 	PC, [R1, R0, LSL, #2]
 
 case0	; Do stuff
