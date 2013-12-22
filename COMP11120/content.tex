@@ -13,67 +13,90 @@
 
 \subsection{Terminology}
 
-A {\it structure} consists of certain {\it sets}. It also contains {\it elements} of these sets, {\it operations} on these sets and {\it relations} on these sets.
+A {\it structure} consists of certain {\it sets}. It also contains {\it
+elements} of these sets, {\it operations} on these sets and {\it relations} on
+these sets.
 
 \subsection{Number systems to learn}
 
 The following number must be learnt:
 
-\begin{tabularx}{\textwidth}{l X}
-	$\mathbb{N}$ & The set of natural numbers (all whole numbers from $0$ to $\infty$)\\
+\begin{center}
+	\begin{tabularx}{\textwidth}{l X}
+		$\mathbb{N}$ & The set of natural numbers (all whole numbers from $0$ to $\infty$)\\
 
-	$\mathbb{Z}$ & The set of integers (all whole numbers from $-\infty$ to $\infty$)\\
+		$\mathbb{Z}$ & The set of integers (all whole numbers from $-\infty$ to $\infty$)\\
 
-	$\mathbb{Q}$ & The set of rational numbers (any integer divided by any other integer e.g. $\frac{5}{4}=1.25$)\\
+		$\mathbb{Q}$ & The set of rational numbers (any integer divided by any other integer e.g. $\frac{5}{4}=1.25$)\\
 
-	$\mathbb{R}$ & The set of real numbers (all finite and infinite decimal numbers)\\
-\end{tabularx}
+		$\mathbb{R}$ & The set of real numbers (all finite and infinite decimal numbers)\\
+	\end{tabularx}
+\end{center}
 
 \subsubsection{Operations}
 
-Each number system has a set of valid operations that can be performed on elements in that system. Number systems only contain operations that will produce an output that is still within the number system.
+Each number system has a set of valid operations that can be performed on
+elements in that system. Number systems only contain operations that will
+produce an output that is still within the number system.
 
-For example, the number system $\mathbb{N}$ contains the operations of addition and multiplication. This is because the summation of any two positive integers will {\it always} be a member of $\mathbb{N}$, and the same goes for multiplication.
+For example, the number system $\mathbb{N}$ contains the operations of addition
+and multiplication. This is because the summation of any two positive integers
+will {\it always} be a member of $\mathbb{N}$, and the same goes for
+multiplication.
 
-However, you may be wondering why subtraction and division aren't included in this number system. This is because for some numbers, the result of subtraction or division won't be inside the set $\mathbb{N}$. An example of this would be subtracting $4$ from $2$. Even though both of the operands are inside $\mathbb{N}$, the answer isn't.
+However, you may be wondering why subtraction and division aren't included in
+this number system. This is because for some numbers, the result of subtraction
+or division won't be inside the set $\mathbb{N}$. An example of this would be
+subtracting $4$ from $2$. Even though both of the operands are inside
+$\mathbb{N}$, the answer isn't.
 
-Different sets may have different operations available. For example, you can concentrate any two members of the set $\mathbb{S}tring$ and end up with another $\mathbb{S}tring$.
+Different sets may have different operations available. For example, you can
+concentrate any two members of the set $\mathbb{S}tring$ and end up with another
+$\mathbb{S}tring$.
 
-\paragraph{Types of operation}
+\paragraph{Types of operation} Operations that have an operand either side of
+them are called {\it infix} operations. An example of an infix operation is
+addition. Infix operations are also referred to as {\it binary} operations since
+they have {\it two} operands.
 
-Operations that have two operands either side of them are called {\it infix} operations. An example of an infix operation is addition. Infix operations are also referred to as {\it binary} operations since they have {\it two} operands.
+\paragraph{Commutativity} If an operation is commutative, the order of the
+operands doesn't matter. For example, addition is commutative since:
 
-\paragraph{Commutativity}
-
-If an operation is commutative, the order of the operands doesn't matter. For example, addition is commutative since:
-
-\[
+\begin{dmath}
 	a + b = b + a
-\]
+\end{dmath}
 
 Subtraction however, isn't commutative:
 
-\[
+\begin{dmath}
 	a - b \neq b - a
-\]
+\end{dmath}
 
 \paragraph{Associativity}
 
-An operation is associative if inserting or changing brackets doesn't change the outcome of the operation. For example, multiplication is associative since:
+An operation is associative if inserting or changing brackets doesn't change the
+outcome of the operation. For example, multiplication is associative since:
 
-\[
+\begin{dmath}
 	(a \times b) \times c = a \times (b \times c)
-\]
+\end{dmath}
 
-An operation may only be commutative or associative if it is commutative or associative for {\it all} elements of the set that the operation supports.
+An operation may only be commutative or associative if it is commutative or
+associative for {\it all} elements of the set that the operation supports.
 
 \paragraph{Distinguished elements}
 
-A set may contain distinguished elements that have strange effects on certain operations in the set. An example is the number 1. If we multiply {\it something} by 1, then the result will always be the same {\it something}. The same goes for 0 with addition. Because of this, we refer to 1 and 0 as distinguished elements of the set $\mathbb{Z}$.
+A set may contain distinguished elements that have strange effects on certain
+operations in the set. An example is the number 1. If we multiply {\it
+something} by 1, then the result will always be the same {\it something}. The
+same goes for 0 with addition. Because of this, we refer to 1 and 0 as
+distinguished elements of the set $\mathbb{Z}$.
 
 \subsubsection{Relations}
 
-Each of the sets $\mathbb{N, Q, Q, R}$ carries binary comparison relations $\leq$ and $<$. Different sets (such as $\mathbb{S}tring$) may have other relations, such as:
+Each of the sets $\mathbb{N, Q, Q, R}$ carries binary comparison relations
+$\leq$ and $<$. Different sets (such as $\mathbb{S}tring$) may have other
+relations, such as:
 
 \begin{itemize}
 	\item Is a section of
@@ -85,25 +108,29 @@ All relations return values in the set $\mathbb{B}ool$.
 
 \subsection{Bases}
 
-Conventionally, we count using base 10. Base 10 includes, you guessed it, ten different symbols from 0 through to 9.
+Conventionally, we count using base 10. Base 10 includes, you guessed it, ten
+different symbols from 0 through to 9.
 
-Sometimes however, it is convenient to count using different bases. Popular bases include:
+Sometimes however, it is convenient to count using different bases. Popular
+bases include:
 
-\begin{tabular}{l l l}
-	{\bf Base $n$} & {\bf Member symbols} & {\bf Name}\\
-	$n = 2$ & $\mathbb{Z}_2 = \{0, 1\}$ & Binary\\
-	$n = 8$ & $\mathbb{Z}_8 = \{0, 1, 2, 3, 4, 5, 6, 7\}$ & Octal\\
-	$n = 10$ & $\mathbb{Z}_{10} = \{0, 1, 2, 3, 4, 5, 6, 7\}$ & Decimal/Denary\\
-	$n = 16$ & $\mathbb{Z}_{16} = \{0, 1, 2, \ldots ,9, A, B, C, D, E, F\}$ & Hexadecimal\\
-\end{tabular}
+\begin{center}
+	\begin{tabular}{l l l}
+		{\bf Base $n$} & {\bf Member symbols} & {\bf Name}\\
+		$n = 2$ & $\mathbb{Z}_2 = \{0, 1\}$ & Binary\\
+		$n = 8$ & $\mathbb{Z}_8 = \{0, 1, 2, 3, 4, 5, 6, 7\}$ & Octal\\
+		$n = 10$ & $\mathbb{Z}_{10} = \{0, 1, \ldots, 7\}$ & Decimal\\
+		$n = 16$ & $\mathbb{Z}_{16} = \{0-9, A-F\}$ & Hexadecimal\\
+	\end{tabular}
+\end{center}
 
 \subsubsection{How to read numbers in any given base}
 
 The formula for reading a number in a given base is as follows:
 
-\[
+\begin{dmath}
 	\sum_{i=0}^{k}a_{i}b^{i}
-\]
+\end{dmath}
 
 Where the number you're trying to read takes the form $a_k, a_{k-1}, \ldots, a_2, a_1, a_0$ and $b$ is the base you're using.
 
@@ -111,31 +138,29 @@ Where the number you're trying to read takes the form $a_k, a_{k-1}, \ldots, a_2
 
 Lets apply the formula to the base 10 number $27385$:
 
-\[
-	\begin{split}
-		27385 &= (5 \times 10^0) + (8 \times 10^1) + (3 \times 10^2) + (7 \times 10^3) + (2 \times 10^4)\\
-		      &= (5 \times 1) + (8 \times 10) + (3 \times 100) + (7 \times 1000) + (2 \times 10000)\\
-		      &= 5 + 80 + 300 + 7000 + 20000\\
-		      &= 27385
-	\end{split}
-\]
+\begin{dmath}
+		27385 = (5 \times 10^0) + (8 \times 10^1) + (3 \times 10^2) + (7 \times 10^3) + (2 \times 10^4)
+		      = (5 \times 1) + (8 \times 10) + (3 \times 100) + (7 \times 1000) + (2 \times 10000)
+		      = 5 + 80 + 300 + 7000 + 20000
+		      = 27385
+\end{dmath}
 
 \paragraph{Example 2}
 
 Lets apply the formula to the base 16 number $F00BA4$:
 
-\[
-	\begin{split}
-		F00BA4 &= (4 \times 16^0) + (A \times 16^1) + (B \times 16^2) + (0 \times 16^3) + (0 \times 16^4) + (F \times 16^5)\\
-		       &= (4 \times 16^0) + (10 \times 16) + (11 \times 256) + (0 \times 4096) + (0 \times 65536) + (15 \times 1048576)\\
-		       &= 4 + 160 + 2816 + 0 + 0 + 15728640\\
-		       &= 15731620
-	\end{split}
-\]
+
+\begin{dmath}
+	F00BA4 = (4 \times 16^0) + (A \times 16^1) + (B \times 16^2) + (0 \times 16^3) + (0 \times 16^4) + (F \times 16^5)
+	       = (4 \times 16^0) + (10 \times 16) + (11 \times 256) + (0 \times 4096) + (0 \times 65536) + (15 \times 1048576)
+	       = 4 + 160 + 2816 + 0 + 0 + 15728640
+	       = 15731620
+\end{dmath}
 
 \subsubsection{Changing from base 10 to base $n$}
 
-In order to change into base $n$ from base 10, we just repeatedly divide by $n$ and use the remainder as the value for base $n$. Here are a few examples:
+In order to change into base $n$ from base 10, we just repeatedly divide by $n$
+and use the remainder as the value for base $n$. Here are a few examples:
 
 \paragraph{Example 1}
 Convert 893 into base 2.
@@ -155,7 +180,8 @@ Convert 893 into base 2.
 	\end{tabular}
 \end{center}
 
-Reading up from the bottom, we can see that the binary (base 2) representation is $1101111101$.
+Reading up from the bottom, we can see that the binary (base 2) representation
+is $1101111101$.
 
 \paragraph{Example 2}
 Convert 893 into base 9.
@@ -169,7 +195,8 @@ Convert 893 into base 9.
 	\end{tabular}
 \end{center}
 
-Reading up from the bottom, we can see that the nonal (base 9) representation is $1202$.
+Reading up from the bottom, we can see that the nonal (base 9) representation is
+$1202$.
 
 \paragraph{Example 2}
 Convert 893 into base 16.
@@ -182,7 +209,8 @@ Convert 893 into base 16.
 	\end{tabular}
 \end{center}
 
-Reading up from the bottom, we can see that the hexadecimal (base 16) representation is $3,7,13$ or $37D$.
+Reading up from the bottom, we can see that the hexadecimal (base 16)
+representation is $3,7,13$ or $37D$.
 
 \subsection{A structure for the integers}
 
@@ -205,7 +233,8 @@ Both + and x are {\bf commutative} but - is not.
 \item There are integers {\it x,y} with $x - y \ne y - x$.
 \end{enumerate}
 
-Commutativity ensures that for most purposes the order in which the two arguments are consumed is irrelevant.
+Commutativity ensures that for most purposes the order in which the two
+arguments are consumed is irrelevant.
 
 Both + and x are {\bf associative} but - is not.
 
@@ -214,53 +243,68 @@ Both + and x are {\bf associative} but - is not.
 \item There are integers {\it x,y,z} with $(x - y) - z \ne x - (y - z)$.
 \end{enumerate}
 
-Associativity ensures that for most purposes brackets are not needed to punctuate an expression. For instance, we can make sense of {\it x + y + z} and {\it xyz} since it doesn't matter where the brackets are, the resulting values are the same.
+Associativity ensures that for most purposes brackets are not needed to
+punctuate an expression. For instance, we can make sense of {\it x + y + z} and
+{\it xyz} since it doesn't matter where the brackets are, the resulting values
+are the same.
 
 Below are the definitions of commutativity and associativity.
 
-\marginpar{ N.b. Commutativity and associativity don't always have to go together. An example is the average of two numbers, what is that?}
+\marginpar{ N.b. Commutativity and associativity don't always have to go
+together. An example is the average of two numbers, what is that?}
 
 \begin{enumerate}
   \item 
     $\circledast$ is {\bf commutative} if and only if
-    \[
+    \begin{dmath}
 	a1 \circledast a2 = a2 \circledast a1
-    \] 
+    \end{dmath} 
     for all $a1,a2,\in,A$
   \item 
     $\circledast$ is {\bf associative} if and only if
-    \[
+    \begin{dmath}
 	(a1 \circledast a2) \circledast a3 = a1 \circledast (a2 \circledast a3)
-    \] 
+    \end{dmath} 
     for all $a1,a2,a3,\in,A$
 \end{enumerate}
 
-Some numbers have special effects on operations in a set. Some examples are $0$ and $1$. When $0$ is added to a number, the result is still that number, and when multiplying a number by $1$, the result is still that number. This means for the set $\mathbb{Z}$, $0$ and $1$ are neutral elements for the operations addition and multiplication respectively.
+Some numbers have special effects on operations in a set. Some examples are $0$
+and $1$. When $0$ is added to a number, the result is still that number, and
+when multiplying a number by $1$, the result is still that number. This means
+for the set $\mathbb{Z}$, $0$ and $1$ are neutral elements for the operations
+addition and multiplication respectively.
 
 \subsection{The formal language}
 
-We use the formal language to talk about $\mathbb{Z}$. Expressions in the formal language are built up from atoms in a recursive fashion, so an expression may be $(x \circ y)$ where $x$ and $y$ are expressions and $\circ$ is one of the three operations ($+, -, \times$). The brackets are important in the formal language, since they ensure that strings can only be parsed in one way.
+We use the formal language to talk about $\mathbb{Z}$. Expressions in the formal
+language are built up from atoms in a recursive fashion, so an expression may be
+$(x \circ y)$ where $x$ and $y$ are expressions and $\circ$ is one of the three
+operations ($+, -, \times$). The brackets are important in the formal language,
+since they ensure that strings can only be parsed in one way.
 
-Strings that contain literals that aren't neutral elements or have invalid bracketing are not valid in the formal language. Examples may include:
+Strings that contain literals that aren't neutral elements or have invalid
+bracketing are not valid in the formal language. Examples may include:
 
-\[
+\begin{dmath}
 	(x + y + z)\\
-\]
-\[
+\end{dmath}
+\begin{dmath}
 	(x + 2)\\
-\]
-\[
+\end{dmath}
+\begin{dmath}
 	x((y
-\]
+\end{dmath}
 
-We can use a parse tree to show how an expression is built up from it's identifiers ($a, b, c\ldots$), constants ($0, 1\ldots$) and operations ($+, -, \times\ldots$).
+We can use a parse tree to show how an expression is built up from it's
+identifiers ($a, b, c\ldots$), constants ($0, 1\ldots$) and operations ($+, -,
+\times\ldots$).
 
 For example, the parse tree of $(x \times (y + z))$ is:
 
 % See my SE question for more on these parse trees:
 % http://tex.stackexchange.com/questions/141264/drawing-parse-trees
 
-\[
+\begin{dmath}
 	\infer[(\times)]{(x \times (y + z))}{
 		x
 		&
@@ -270,13 +314,13 @@ For example, the parse tree of $(x \times (y + z))$ is:
 			z
 		}
 	}
-\]
+\end{dmath}
 
 Often, especially with large parse trees, it's a pain to write so many
 identifiers. Because of this, it is a convention to replace identifiers with
 dots after they've been used once, like so:
 
-\[
+\begin{dmath}
 	\infer[(\times)]{\parsetreedot} {
 		x
 		&
@@ -286,7 +330,7 @@ dots after they've been used once, like so:
 			z
 		}
 	}
-\]
+\end{dmath}
 
 In order to parse a parse tree, we must assign an appropriate value to each of
 the 'leaves' of the tree (i.e. all the identifiers) and let the values trickle
@@ -294,7 +338,7 @@ down towards the root node of the tree where the evaluated answer will appear.
 
 Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
 
-\[
+\begin{dmath}
 	\infer[(\times)]{32} {
 		4
 		&
@@ -304,10 +348,11 @@ Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
 			2
 		}
 	}
-\]
+\end{dmath}
 
-\marginpar{ The infix notation is when an operator is placed between
-two operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it postfix} notations.}
+\marginpar{ The infix notation is when an operator is placed between two
+operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it
+postfix} notations.}
 
 At this point, parse trees may seem very pointless, but this is because we're
 doing very simple arithmetic. However, when we start to define other operators
@@ -317,17 +362,21 @@ then using parse trees can be a big help!
 \subsection{The properties of sets}
 \label{subsec:properties_of_sets}
 
-All sets have some properties in common that we can use to manipulate them. Examples include membership, equality, inclusion etc.
+All sets have some properties in common that we can use to manipulate them.
+Examples include membership, equality, inclusion etc.
 
 \subsubsection{Set membership}
 
-To indicate that an element is a member of a set, we use the $\in$ symbol. For example, to say that the element $true$ is a member of the set $\mathbb{B}$ool, we would write:
+To indicate that an element is a member of a set, we use the $\in$ symbol. For
+example, to say that the element $true$ is a member of the set $\mathbb{B}$ool,
+we would write:
 
-\[
+\begin{dmath}
 	true \in \mathbb{B}ool
-\]
+\end{dmath}
 
-Interestingly, we can parse this into English in many ways though. It could mean any of the following things:
+Interestingly, we can parse this into English in many ways though. It could mean
+any of the following things:
 
 \begin{itemize}
 	\item $true$ is an element of the set $\mathbb{B}$ool
@@ -336,36 +385,40 @@ Interestingly, we can parse this into English in many ways though. It could mean
 	\item $\mathbb{B}$ool contains $true$
 \end{itemize}
 
-Conversely, to indicate that an element is not a member of a set, we use the symbol $\notin$:
+Conversely, to indicate that an element is not a member of a set, we use the
+symbol $\notin$:
 
-\[
+\begin{dmath}
 	sheep \not\in \mathbb{B}ool
-\]
+\end{dmath}
 
-Note that there is no concept of {\it order} or {\it repetition} in sets. This means that the following sets are all equal:
+Note that there is no concept of {\it order} or {\it repetition} in sets. This
+means that the following sets are all equal:
 
-\[
+\begin{dmath}
 	\{1,2,3\}
-\]
-\[
+\end{dmath}
+\begin{dmath}
 	\{2,3,1\}
-\]
-\[
+\end{dmath}
+\begin{dmath}
 	\{2,3,1,2\}
-\]
-\[
+\end{dmath}
+\begin{dmath}
 	\{3,3,3,3,3,2,1\}
-\]
+\end{dmath}
 
 \subsubsection{Set equality}
 
-Sets are equal if they have exactly the same members. Note that as far as sets are concerned, duplicate members are treated as just one member.
+Sets are equal if they have exactly the same members. Note that as far as sets
+are concerned, duplicate members are treated as just one member.
 
-The notation for set equality is very easy. To say the set $X$ is equal to the set $Y$, we write:
+The notation for set equality is very easy. To say the set $X$ is equal to the
+set $Y$, we write:
 
-\[
+\begin{dmath}
 	X = Y
-\]
+\end{dmath}
 
 However, you must understand that this is only true if for each element $a$ in
 $X$ that element will also be contained in $Y$ and for each element $a$ in Y,
@@ -375,19 +428,20 @@ that element will also be contained within $X$:
 Convince yourself that the set of integers where $y^3 < y$ is equal to the set
 of integers where $x < -1$}
 
-\[
+\begin{dmath}
 	\textrm{For each }a, a \in X \leftrightarrow a \in Y
-\]
+\end{dmath}
 
 \subsubsection{Set inclusion}
 
-If one set is a subset of another set, all the members of the first set are also found within the second set. In mathematical terms:
+If one set is a subset of another set, all the members of the first set are also
+found within the second set. In mathematical terms:
 
-% TODO: Somebody else other than Todd veridy this is true and then delete this
+% TODO: Somebody else other than Todd verify this is true and then delete this
 % comment please. Peer review ftw!
-\[
+\begin{dmath}
 	\textrm{For each }a, a \in X \rightarrow a \in Y
-\]
+\end{dmath}
 
 The notation for inclusion is $\subseteq$, so in the above example, we would
 write:
@@ -395,9 +449,9 @@ write:
 \marginpar{ If $X \subseteq Y$ and $Y \subseteq X$ then what else an
 we say about the relationship between $X$ and $Y$?}
 
-\[
+\begin{dmath}
 	X \subseteq Y
-\]
+\end{dmath}
 
 \subsubsection{The empty set}
 \label{subsubsec:empty_set}
@@ -411,23 +465,24 @@ Because the empty set has no members, it is a subset of all other sets:
 for some $x$ where $x \not\in A$. This is impossible since there are no elements
 in the $\emptyset$.}
 
-\[
+\begin{dmath}
 	\emptyset \in A
-\]
+\end{dmath}
 
 \subsubsection{Singleton sets}
 
 For any entity $a$, we can form a set consisting only of $a$:
 
-\[
+\begin{dmath}
 	\{a\}
-\]
+\end{dmath}
 
-Be aware, a singleton set is not the same as the element contained within the set:
+Be aware, a singleton set is not the same as the element contained within the
+set:
 
-\[
+\begin{dmath}
 	a \neq \{a\}
-\]
+\end{dmath}
 
 \subsubsection{Set union}
 
@@ -435,23 +490,23 @@ There are several ways of combining multiple sets together to create another
 set. One such method is set union, the symbol of which is $\cup$. The union of
 two sets is a set containing all the members of {\it both} sets. For example:
 
-\[
+\begin{dmath}
 	A = \{1, 3, 5, 7, 9\}
-\]
+\end{dmath}
 
-\[
+\begin{dmath}
  	B = \{1, 1, 2, 3, 5, 8, 13\}
-\]
+\end{dmath}
 
-\[
+\begin{dmath}
 	A \cup B = \{1, 2, 3, 5, 7, 8, 9, 13\}
-\]
+\end{dmath}
 
 We could also define the union of two sets mathematically, like so:
 
-\[
+\begin{dmath}
 	x \in A \cup B \leftrightarrow x \in A \textrm{ or } x \in B
-\]
+\end{dmath}
 
 \subsubsection{Set intersection}
 
@@ -461,9 +516,9 @@ intersection is $\cap$.
 
 If we defined intersection mathematically, we would do so like this:
 
-\[
+\begin{dmath}
 	x \in A \cap B \leftrightarrow x \in A \textrm{ and } x \in B
-\]
+\end{dmath}
 
 \subsubsection{Relative complement}
 
@@ -471,19 +526,21 @@ The relative complement of two sets is all the members in the first set that
 aren't members of the second set. The symbol for the relative complement is $-$.
 Defined mathematically, we get:
 
-\[
+\begin{dmath}
 	x \in A - B \leftrightarrow x \in A \textrm{ and } x \not\in B
-\]
+\end{dmath}
 
 \subsubsection{The universal set}
 \label{subsubsec:universal_set}
 
 % TODO: Link to De Morgan's laws when we've covered it.
-The universal set contains {\it all of the possible elements}. The notation we use to describe the universal set is $S$. We can define the De Morgan's laws using the universal set:
+The universal set contains {\it all of the possible elements}. The notation we
+use to describe the universal set is $S$. We can define the De Morgan's laws
+using the universal set:
 
-\[
+\begin{dmath}
 	X' = S - X
-\]
+\end{dmath}
 
 \subsection{Boolean algebra of sets}
 
@@ -498,20 +555,21 @@ are all the things that we have:
 
 This structure of operations and sets is known as {\bf Boolean algebra}. Boolean
 algebra has many basic properties that we can exploit in order to manipulate
-expression into other forms. Here is a list to be learnt.\marginpar{There are flashcards on these too.}
+expression into other forms. Find them on the flashcards that go with these
+notes.
 
-\begin{tabular}{c c c}
-	$X \cup S = S$     &	extreme	&	$X \cap \emptyset = \emptyset$\\
-	$X \cup \emptyset = X$ & neutral &	$X \cap S = X$\\
-	$X \cup Y = Y \cup X$ & commutative & $X \cap Y = Y \cap X$\\
-	$X \cup (Y \cup Z) = (X \cup Y) \cup Z$ & associative & $X \cap (Y \cap Z) = (X \cap Y) \cap Z$\\
-	$X \cup (Y \cap Z) = (X \cup Y) \cap (X \cup Z)$ & distributive & $X \cap (Y \cup Z) = (X \cap Y) \cup (X \cap Z)$\\
-	$X \cup X = X$ & idempotent & $X \cap X = X$\\
-	$X \cup (X \cap Y) = X$ & absorbsion & $X \cap (X \cup Y) = X$\\
-	$(X \cup Y)' = X' \cap Y'$ & De Morgan & $(X \cap Y)' = X' \cup Y'$\\
-	$X \cup X' = S$ & complement & $X \cap X' = \emptyset$ \\
-	$X'' = X$ & involution & $X = X''$ 
-\end{tabular}
+%\begin{tabular}{c c c}
+%	$X \cup S = S$     &	extreme	&	$X \cap \emptyset = \emptyset$\\
+%	$X \cup \emptyset = X$ & neutral &	$X \cap S = X$\\
+%	$X \cup Y = Y \cup X$ & commutative & $X \cap Y = Y \cap X$\\
+%	$X \cup (Y \cup Z) = (X \cup Y) \cup Z$ & associative & $X \cap (Y \cap Z) = (X \cap Y) \cap Z$\\
+%	$X \cup (Y \cap Z) = (X \cup Y) \cap (X \cup Z)$ & distributive & $X \cap (Y \cup Z) = (X \cap Y) \cup (X \cap Z)$\\
+%	$X \cup X = X$ & idempotent & $X \cap X = X$\\
+%	$X \cup (X \cap Y) = X$ & absorbsion & $X \cap (X \cup Y) = X$\\
+%	$(X \cup Y)' = X' \cap Y'$ & De Morgan & $(X \cap Y)' = X' \cup Y'$\\
+%	$X \cup X' = S$ & complement & $X \cap X' = \emptyset$ \\
+%	$X'' = X$ & involution & $X = X''$ 
+%\end{tabular}
 
 \section{Propositional Logic}
 
@@ -539,11 +597,12 @@ if and only iff}.}
 	\end{tabular}
 \end{center}
 
-All of these symbols are used as infixes, and so go in between two parameters. An
-exception to this however, is negation, which is a unary symbol, and is placed
-as a prefix before it's argument.
-\marginpar{ If a connective takes one parameter,
-then it's arity is 1, if it takes two then it has an arity of 2 etc etc}
+All of these symbols are used as infixes, and so go in between two parameters.
+An exception to this however, is negation, which is a unary symbol, and is
+placed as a prefix before it's argument.
+
+\marginpar{ If a connective takes one parameter, then it's arity is 1, if it
+takes two then it has an arity of 2 etc etc}
 
 \subsubsection{The truth tables of the logical connectives}
 
@@ -551,13 +610,22 @@ Using a truth table, we can fully describe the behaviour of the connectives we
 have just described in the previous section:
 
 \begin{center}
-	\begin{tabular}{|c|c|c|c|c|c|c|}
+	\begin{tabular}{|c|c|c|c|c|}
 		\hline
-		$p_1$& $p_2$& $\neg p_1$& $p_1 \wedge p_2$& $p_1 \vee p_2$& $p_1 \implies p_2$& $p_1 \iff p_2$\\ \hline
-		T& T& F& T &T &T &T\\
-		T& F& F& F &T &F &F\\
-		F& T& T& F &T &T &F\\
-		F& F& T& F &F &T &T\\ \hline
+		$p_1$& $p_2$& $\neg p_1$& $p_1 \wedge p_2$& $p_1 \vee p_2$\\ \hline
+		T& T& F& T &T\\
+		T& F& F& F &T\\
+		F& T& T& F &T\\
+		F& F& T& F &F\\ \hline
+	\end{tabular}
+	% Split into two so it'll look good on a kindle
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$p_1$& $p_2$& $p_1 \implies p_2$& $p_1 \iff p_2$\\ \hline
+		T& T& T &T\\
+		T& F& F &F\\
+		F& T& T &F\\
+		F& F& T &T\\ \hline
 	\end{tabular}
 \end{center}
 
@@ -565,9 +633,9 @@ have just described in the previous section:
 In order to understand why the truth table for implication is as stated above,
 consider this example:
 
-\[
+\begin{dmath}
 	x > 3 \textrm{ implies } x > 1
-\]
+\end{dmath}
 
 Now take a look at the truth table for this expression:
 
@@ -615,9 +683,9 @@ disjunction, so $p \wedge (q \wedge r)$ would become $p \wedge q \wedge r$.
 A truth valuation is a list of allocations that define the values of variables
 in an expression, where:
 
-\[
+\begin{dmath}
 	\{p_1=x_1,\dots, p_n=x_n\}
-\]
+\end{dmath}
 
 \marginpar{An example truth valuation for the expression $p \wedge r$ might be
 $\{p=T, r=F\}$, for which the end value would be $F$.}
@@ -651,9 +719,9 @@ will produce one of many outcomes.
 
 The notation we use for the sample space is $\Omega$.
 
-\[
+\begin{dmath}
 	\Omega = \{\omega_1, \omega_2, \ldots, \omega_n\}
-\]
+\end{dmath}
 
 An {\bf event} is a set containing one ore more outcomes of an experiment. Since
 all outcomes are included in the set $\Omega$, all events are also subsets of
@@ -708,25 +776,26 @@ the number of outcomes it contains is three, therefore $\#A = 3$.
 
 \subsubsection{Set difference}
 
-If we have two sets $A$ and $B$, and $B$ is a subset of $A$ (i.e. $B \subset A$), then we can find the set difference between $A$ and $B$.
+If we have two sets $A$ and $B$, and $B$ is a subset of $A$ (i.e. $B \subset
+A$), then we can find the set difference between $A$ and $B$.
 
 The set difference is defined as {\bf all the elements in $A$ that are not in
 $B$.} The symbol for set difference is ``$\setminus$''.
 
 Mathematically, this is:
 
-\[
+\begin{dmath}
 	A \ B = \{\omega \in \Omega \textrm{ } \vert \textrm{ } \omega \in A \textrm{ and } \omega \not\in B\}
-\]
+\end{dmath}
 
 \subsubsection{Disjoint sets}
 
 If two sets are disjoint, then they share no common elements, that is to say
 that:
 
-\[
+\begin{dmath}
 	A \cap B = \emptyset
-\]
+\end{dmath}
 
 This is important in probability, since if two events are disjoint, then they
 will never occur at the same time.
@@ -736,9 +805,9 @@ will never occur at the same time.
 A probability measure is a mapping between an event and the probability that the
 event will occur.
 
-\[
+\begin{dmath}
 	\mathbb{P} : \{\textrm{\it Collection of all events}\} \rightarrow [0,1]
-\]
+\end{dmath}
 
 This defines $\mathbb{P}$ as a number between $0$ and $1$ (i.e. a probability).
 Since a probability measure is defined for {\it all} events that can occur, then
@@ -765,19 +834,19 @@ An indicator function will yield a value of $1$ if an element $\omega$ is inside
 a set, and a value of $0$ if the element is not inside the set. It can be
 defined as follows:
 
-\[
+\begin{dmath}
 	1_A(\omega_i) = \begin{cases} 
 						1\textrm{ if }\omega_i \in A\\
 						0\textrm{ if }\omega_i \not\in A
 					\end{cases}
-\]
+\end{dmath}
 
 We can therefore define the probability of an event $A$ to be the sum of all the
 probabilities of the events inside $A$:
 
-\[
+\begin{dmath}
 	\mathbb{P}(A) = \sum\limits_{i=1}^n1_A(\omega_i)p_i
-\]
+\end{dmath}
 
 \marginpar{Note that $n$ is the number of elements inside $A$.}
 
@@ -795,18 +864,18 @@ we need to do is find the sum of all the elements in the sample space, but
 multiply the elements by the indicator function of $A$ before we add them onto
 the sum:
 
-\[
+\begin{dmath}
 	\mathbb{P}(A) = \sum\limits_{i=1}^{n} 1_A(\omega_i)p_i
-\]
+\end{dmath}
 
 However, since all the elements inside $\Omega$ are equally likely, that must
 mean that for any event $\omega_i$, it's probability must be $\frac{1}{n}$ where
 $n$ is the number of elements inside the sample space. If we take this into
 account, we can formulate the following formula:
 
-\[
+\begin{dmath}
 	\mathbb{P}(A) = \frac{1}{n}\sum\limits_{i=1}^{n} 1_A(\omega_i)
-\]
+\end{dmath}
 
 
 However, we can make this even more simple; if we recognise that any element in
@@ -814,18 +883,18 @@ $A$ has the same probability of occurring as any element in $\Omega$, then it's
 easy to realise that the probability of $A$ occurring will be equal to the
 relationship between sizes of the sets $A$ and $\Omega$:
 
-\[
+\begin{dmath}
 	\mathbb{P}(A) = \frac{\#A}{\#\Omega}
-\]
+\end{dmath}
 
 \subsection{Finding the binomial coefficient}
 
 The binomial coefficient is represented as $n \choose k$, both $n$ and $k$ are
 integers. It is pronounced $n$ {\it choose} $k$.
 
-\[
+\begin{dmath}
 	{n \choose k} = \frac{n!}{k!(n-k)!}
-\]
+\end{dmath}
 
 \subsection{Choosing items}
 
@@ -838,28 +907,28 @@ choose an item twice?
 If the order is important and we can choose an item many times, then we can
 choose the following items:
 
-\[
+\begin{dmath}
 	(a,a), (a,b), (a,c), (b,a), (b,b), (b,c), (c,a), (c,b), (c,c)
-\]
+\end{dmath}
 
 If the order is not important, then we have:
 
-\[
+\begin{dmath}
 	(a,a), (a,b), (a,c), (b,b), (b,c), (c,c)
-\]
+\end{dmath}
 
 If the order is important, but we can't choose an item twice, we get:
 
-\[
+\begin{dmath}
 	(a,b), (a,c), (b,a), (b,c), (c,a), (c,b)
-\]
+\end{dmath}
 
 Finally, if the order is not important and the items cannot be selected twice,
 then:
 
-\[
+\begin{dmath}
 	(a,b), (a,c), (b,c)
-\]
+\end{dmath}
 
 In order to calculate the number of possible different selections we can make in
 these different cases, we can use this table:
@@ -879,17 +948,17 @@ It's easy to verify that these are true; since:
 
 \begin{itemize}
 	\item With replacement, order important:
-	\[
+	\begin{dmath}
 		n^k = 3^2 = 9
-	\]
+	\end{dmath}
 	\item Without replacement, order important:
-	\[
+	\begin{dmath}
 		\frac{n!}{(n - k)!} = 	\frac{3!}{(3 - 2)!} = 6
-	\]
+	\end{dmath}
 	\item Without replacement and order is not important:
-	\[
+	\begin{dmath}
 		{n \choose k} = \frac{n!}{k(n - k)!} = \frac{3!}{2(3 - 2)!} = \frac{6}{2} = 3
-	\]
+	\end{dmath}
 
 \end{itemize}
 
