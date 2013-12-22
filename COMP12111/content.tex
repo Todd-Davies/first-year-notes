@@ -539,17 +539,18 @@ After that, we need to check the state of {\tt state} to see if the processor is
 loading an instruction or decoding one:
 
 \begin{listingcont}
-	if(state==0)	// We're fetching an instruction
+	if(state==0)
+		// We're fetching an instruction
 		begin
-		// Set the control lines to fetch an instruction
-		// from memory
+		// Set the control lines to fetch
+		// an instruction from memory
 		Asel = 0;
 		...
 		Ren = 1;
 		Wen = 0;
 		end
-	else 		// The state must be equal to 1 therefore
-				// we're decoding
+	else 	// The state must be equal to 1 
+			// therefore we're decoding
 		begin
 \end{listingcont}
 
