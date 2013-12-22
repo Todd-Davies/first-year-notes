@@ -754,15 +754,17 @@ A faster way to multiply numbers would be using long division:
 Here's an example of applying the algorithm to the multiplication $453 \times
 643$:
 
-\begin{tabular}{c c c}
-	{\tt Accumulator} & {\tt X} & {\tt M}\\ \hline
-	00000000 & 3 & 00000643\\
-	00001929 & 3 & 00000643\\
-	00001929 & 5 & 00006430\\
-	00034079 & 5 & 00006430\\
-	00034079 & 4 & 00064300\\
-	00291279 & 4 & 00064300\\
-\end{tabular}
+\begin{center}
+	\begin{tabular}{c c c}
+		{\tt Accumulator} & {\tt X} & {\tt M}\\ \hline
+		00000000 & 3 & 00000643\\
+		00001929 & 3 & 00000643\\
+		00001929 & 5 & 00006430\\
+		00034079 & 5 & 00006430\\
+		00034079 & 4 & 00064300\\
+		00291279 & 4 & 00064300\\
+	\end{tabular}
+\end{center}
 
 Here, we're using base 10 to do our calculations, but a computer would use base
 2. This is no problem, since we'd only ever have to multiply by 1 or 0 (which is
