@@ -24,11 +24,6 @@
 % Import the packages for the notes
 \input{packages.tex}
 
-\input{meta.tex}
-% Meta
-\author{\Author}
-\title{\Title}
-
 % Means that I don't have to type \marginpar{\raggedright \scriptsize every 
 % time I want a margin paragraph
 \makeatletter
@@ -40,10 +35,13 @@
 \makeatother
 
 \begin{document}
-% Set the headers
-\rhead{TITLE}
-\chead{}
 
+% Get the author, the title etc
+\input{meta.tex}
+
+% Set the headers
+\rhead{\Title}
+\chead{}
 
 \maketitle
 
