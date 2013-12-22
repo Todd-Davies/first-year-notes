@@ -492,14 +492,14 @@ This also allows programmers to test for a specific value, since you can use
 {\tt SUB} to get 0 if two values are equal and then use the second jump
 condition.
 
-\section{How the MU0 executes operations}
+\subsection{How the MU0 executes operations}
 
 All instructions execute in the MU0 in two instruction cycles. The first cycle
 involves the instruction being fetched from memory and read into the instruction
 register, while the second cycle is when the instruction is decoded and
 executed.
 
-\subsection{Fetching an instruction}
+\subsubsection{Fetching an instruction}
 
 When the processor is in the fetch state, the value at the memory address
 specified by the program counter register is fetched into the instruction
@@ -510,7 +510,7 @@ when this one has finished executing.
 the fetch. This is because the instruction hasn't been decoded while it is
 being fetched so the processor has no way of knowing if it's a jump.}
 
-\subsection{Executing an instruction}
+\subsubsection{Executing an instruction}
 
 When the processor starts to decode the instruction, its behaviour is defined by
 the instruction that it is executing. It will first read the instruction code
@@ -576,7 +576,7 @@ Now we need a case statement to decode the instruction code:
 end
 \end{listingcont}
 
-\section{Timing in the MU0}
+\subsection{Timing in the MU0}
 
 The MU0 employs a synchronous timing design. This means that all state changes
 happen at the same time, at the positive edge of the clock. This is handy, since
@@ -627,3 +627,171 @@ faster, they are:
 
 \marginpar{A metric often used here is the number of clocks per instruction
 (CPI).}
+
+\subsection{Carry look ahead}
+
+Adders are an important and oft used component in any computer architecture.
+Since there are so many of them, they are a good target for optimisation. It is
+possible to work out whether the adder will generate a carry or not almost as
+soon as the input bits arrive. Just by looking at the input bits, we can tell if
+{\tt Cout} will be Zero, {\tt Cin} or One.
+
+\begin{center}
+	\begin{tabular}{|c c|c|}
+		\hline
+		{\bf A} & {\bf B} & {\bf Cout}\\ \hline
+		0 & 0 & 0\\
+		0 & 1 & {\tt Cin}\\
+		1 & 0 & {\tt Cin}\\
+		1 & 1 & 1\\
+		\hline
+	\end{tabular}
+\end{center}
+
+Working out the carry out and propagating it onto the next adder is a technique
+called {\bf Look Ahead Carry}.
+
+\subsection{Parallelism}
+
+One obvious way to improve the speed of any architecture is to make two things
+happen at once; i.e. make things happen in parallel. There are two different
+ways of achieving parallel execution in a computer:
+
+\begin{itemize}
+
+	\item Start one instruction before another has finished executing (e.g. by
+	decoding one instruction while fetching the next)
+
+	\item Compute several instructions at the same time (e.g. by having two
+	processing cores)
+
+\end{itemize}
+
+\marginpar{\vspace{-6em} Using more than one processing core, or executing 
+multiple instructions in parallel is also known as superscalar processing.}
+
+However, it is often the case that despite using parallel execution, gaining a
+speed increase of twice what was observed without using parallel execution is
+often not the case, since systems would be more complicated. However, the cost
+of the system would usually increase by at least two times, since it would be
+harder to make and would contain more components.
+
+
+\subsection{Adding bitwise operators to an ALU}
+
+If you wanted to add bitwise operators to an ALU, all you need to do is put the
+respective gates before the inputs into the ALU. The specific bitwise operator
+to be used can be selected by using a multiplexer.
+
+An optimisation here, would be to recognise that it is possible to implement an
+XOR gate by just disabling the carry on the adders inside the ALU.
+
+\section{Bit shifting}
+
+In order to multiply or divide a number by two in binary, all you have to do is
+shift the numbers to the left or right by one place. This is called a bit shift.
+
+You may notice, that when you shift to the right, data is lost. This problem can
+be mitigated by doing two things:
+
+\begin{itemize}
+
+	\item A logical shift right (where zeros are shifted in to the MSB).
+
+	\item An arithmetic shift right (where the existing MSB is copied to the new
+	MSB). This will preserve the sign of the number if it is being interpreted
+	as a signed integer.
+
+\end{itemize}
+
+However, since in most (if not all) computer systems, a number only has a finite
+set of binary digits, shifting to the left can also result in the loss of data.
+When doing a left shift, a zero is always shifted in to the right side.
+
+\subsection{Bit rotations}
+
+It is also possible to rotate bits, so when you do a shift, copy the bit that
+would be shifted out, and insert it onto the side of the number that is gaining
+a new bit. In this way, data is only never mutated, and never lost.
+
+\subsection{Implementing a single shift}
+
+The only components needed to implement a single place bit shift are
+multiplexers. See page 47 in the notes for a diagram.
+
+\subsection{Shift registers}
+
+A shift register is just like a normal register, but it inputs and outputs the
+data in parallel. You can also give them bits one at a time, so that all the
+bits in the register are shifted along to make room for the new one and the end
+bit 'falls off' and is lost.
+
+Often, lots of extra components are required to implement a shift register, so
+it's not usually worth implementing inside a processor. However, they are often
+used for tasks involving I/O.
+
+\section{Multiplication}
+
+Simple multiplication would involve starting with a register set to {\tt 0}, and
+then adding {\tt M} to the register {\tt N} times. This however, is very slow
+for large numbers. \marginpar{The time complexity would be $O(nm)$.} This would
+be simple to implement though, since all you really need is an adder and some
+logic to count from {\tt 0} to {\tt N}.
+
+A faster way to multiply numbers would be using long division:
+
+\begin{enumerate}
+	\item Start with zero in an accumulator
+	\item Get the least significant digit of {\tt M}. We'll call this {\tt X}.
+	\item Multiply {\tt N} by {\tt X}.
+	\item Add the result to the accumulator.
+	\item Multiply {\tt N} by 10.
+	\item Make {\tt X} the next least significant digit of {\tt M}.
+	\item Repeat steps 3-6 until you run out of digits in N
+\end{enumerate}
+
+Here's an example of applying the algorithm to the multiplication $453 \times
+643$:
+
+\begin{tabular}{c c c}
+	{\tt Accumulator} & {\tt X} & {\tt M}\\ \hline
+	00000000 & 3 & 00000643\\
+	00001929 & 3 & 00000643\\
+	00001929 & 5 & 00006430\\
+	00034079 & 5 & 00006430\\
+	00034079 & 4 & 00064300\\
+	00291279 & 4 & 00064300\\
+\end{tabular}
+
+Here, we're using base 10 to do our calculations, but a computer would use base
+2. This is no problem, since we'd only ever have to multiply by 1 or 0 (which is
+easy) or multiply by 2 (instead of 10, which is just a shift).
+
+Here's an example in base 2. Multiply $0101$ by $0010$:
+
+\begin{center}
+	\begin{tabular}{c c c}
+		{\tt Accumulator} & {\tt X} & {\tt M}\\ \hline
+		0000 & 1 & 00010\\
+		0010 & 1 & 00010\\
+		0010 & 0 & 00100\\
+		0010 & 0 & 00100\\
+		0010 & 1 & 01000\\
+		1010 & 1 & 01000\\
+		1010 & 0 & 10000\\
+		1010 & 0 & 10000\\
+	\end{tabular}
+\end{center}
+
+We can check that using base 10: $5 \times 2 = 10$.
+
+It is possible to terminate this algorithm early if the remaining bits to be
+multiplied are all zeros. This is called {\bf early termination}.
+
+%TODO: The notes explain this so badly (page 50). Can it be cleaned up?
+If the multiplication goes over the number of bits available inside the number,
+we can use {\bf modulo arithmetic}. This is when we will take the answer and
+find the modulus of it with $2^n$ where $n$ is the number of bits in the number.
+
+\marginpar{If we use modulo arithmetic, then multiplication will work just fine
+on signed integers too!}
