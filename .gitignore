@@ -24,3 +24,4 @@
 *.out
 *.synctex.gz
 *.tex.bak
+*.pdf_original
