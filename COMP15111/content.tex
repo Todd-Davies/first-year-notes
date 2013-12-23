@@ -1343,3 +1343,49 @@ than {\tt 4}!
 	CMP 	R0, #4
 	BHI 	default
 \end{listing}
+
+\subsection{Booleans in ARM assembly}
+
+Since a boolean value is either true or false, it is obvious that we only need a
+minimum of one bit to represent it. However, due to the difficulties of
+accessing just one bit in the ARM architecture, it actually make more sense to
+represent a boolean as a byte, where the least significant bit is either {\tt 1}
+or {\tt 0} depending on the value of the boolean.
+
+This is easy, since it means that booleans are represented as the integers {\tt
+0} and {\tt 1}. Testing a boolean value is easy too, since all you need to do is
+compare it to zero or one.
+
+\begin{verbatim}
+	CMP 	R1, #0
+\end{verbatim}
+
+\subsubsection{Logical operators in ARM}
+
+ARM assembly implements four logical operators:
+
+\begin{itemize}
+
+	\item {\tt AND} (logical AND)
+	\item {\tt ORR} (logical OR)
+	\item {\tt EOR} (logical XOR)
+	\item {\tt BIC} (bit clear)
+	\item {\tt MVN} (logical not)
+
+\end{itemize}
+
+All of these are self explanatory except from the bit clear one, which is
+explained using a table:
+
+\begin{tabular}{|c|c|c}
+
+	A & B & BIC A B\\ \hline
+	0 & 0 & 0\\
+	0 & 1 & 0\\
+	1 & 0 & 1\\
+	1 & 1 & 0\\
+	
+\end{tabular}
+
+{\tt BIC} is equivalent to {\tt A \& !B}. If {\tt B} is high, then the output will
+be {\tt 0}, otherwise, it will be {\tt A}.
