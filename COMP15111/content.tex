@@ -26,17 +26,17 @@ The simplest model of a computer can be represented as:
 
 \subsubsection{Memory}
 
-Memory is a set of locations which can hold information, such as numbers(or
-programs). Each memory location has a unique (numerical) address, and there are
-typically thousands of millions of different locations. There are various ways
-of depicting memory; a common one is a 'hex dump' that often looks something
-like this: \marginpar{\raggedright Run the command {\it hexdump} to generate
-hexdumps.}
+Memory is a set of locations which can hold information, such as numbers,
+programs or many other types of data. Each memory location has a unique
+numerical address, and there are typically thousands of millions of different
+locations. There are various ways of depicting memory; a common one is a 'hex
+dump' that often looks something like this: \marginpar{\raggedright Run the
+command {\it hexdump} to generate hexdumps.}
 
 \begin{center}
 	\begin{tabular}{l l l}
-		{\bf Address}     &	{\bf Values (8 bit numbers)}	&	{\bf Characters}\\
-		00000000	&	48 65 6C 6C 6F 0A		&	Hello.\\
+		{\bf Address}     &	{\bf Hex values}	&	{\bf ASCII}\\
+		{\tt 00000000}	&	{\tt 48 65 6C 6C 6F 0A}		&	Hello.\\
 	\end{tabular}
 \end{center}
 
@@ -66,7 +66,9 @@ Each three-address instruction:
 	\item Copies the result back from the processor into a third memory location (destination operand)
 \end{enumerate}
 
-For example, if we wanted to convert the Java code $sum = a + b;$ into a three-address instruction we would:
+For example, if we wanted to convert the Java code {\tt sum = a + b;} into a
+three-address instruction we would:
+
 \begin{enumerate}
 	\item Identify the two {\it source operands}: $a$ holds 2, $b$ holds 3
 	\item Perform the {\it operation}: 2 + 3 = 5
@@ -82,13 +84,13 @@ First we need to re-write the Java code in the three-address style:
 \[
 	product \leftarrow c * d
 \]
-Now we can draw the box view of it:
+Now we can draw the box view of it (figure~\ref{figure:two_box_model}).
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=90mm]{two_box_model_diagram.pdf}
+	\includegraphics[width=\textwidth]{two_box_model_diagram.pdf}
 	\caption{An example of the two box model}
-	\label{overflow}
+	\label{figure:two_box_model}
 \end{figure}
 
 \subsubsection{Memory bottleneck}
@@ -157,7 +159,9 @@ Any given set of binary digits can be read as a decimal number, but not always a
 \subsection{Assembly Language}
 Assembly language is a means of representing machine instructions in a human readable form.
 
-Each type of processor has its own assembly language (since each language is specific to a partial architecture) but they typically have a lot in common:
+Each type of processor has its own assembly language (since each language is
+specific to a partiaular architecture) but each instruction typically has a lot
+in common:
 
 \begin{itemize}
 	\item A mnemonic, that specifies the type of operation
@@ -180,7 +184,8 @@ ARM has many instructions but we only need three categories:
 
 \subsection{Transferring data between registers and memory}
 
-Memory operations load a register from the memory or store a register value to the memory.
+Memory operations load a value into a register from an address in memory or
+store the value of a register to a memory address.
 
 For example, $a$ into register 1 ($R1 \leftarrow a$) we would write:
 {\tt LDR R1, a}
@@ -210,11 +215,13 @@ This will add the value of R0 to the value of R1 and store it in R2.
 
 \subsection{ARM control instructions}
 
-The most common control instruction is the branch. Similar to \texttt{GOTO} in other languages, a branch will change the PC register (see section~\ref{subsec:pc}) to another value so the order of execution of the program is changed.
+The most common control instruction is the branch. Similar to \texttt{GOTO} in
+other languages, a branch will change the PC register (see
+section~\ref{subsec:pc}) to another value so the order of execution of the
+program is changed.
 
-% TODO: change (coming up later) to the actual section when it's written
-
-Branches can be made to be conditional by appending a conditional operator (coming up later) on to the command.
+Branches can be made to be conditional by appending a conditional operator on to
+the command.
 
 The syntax is something like:
 
@@ -382,7 +389,9 @@ The commands {\tt LDR} and {\tt STR} are used to move values between memory and 
 
 \subsection{Endianness}
 
-Endianness is a property of a memory location that defines the order of the bits. There are two types of endianness, {\bf little endian} and {\bf big endian}.
+Endianness is a property of a memory location that defines the order of the
+bits. There are two types of endianness, {\bf little endian} and {\bf big
+endian}.
 
 In the word {\tt 0x12345678} there are four bytes:
 \begin{itemize}
@@ -392,11 +401,16 @@ In the word {\tt 0x12345678} there are four bytes:
 	\item {\tt 0x78}
 \end{itemize}
 
-In little endian, the first byte would be {\tt 0x12} since bits are read from left to right in little endian.
+In little endian, the first byte would be {\tt 0x12} since bits are read from
+left to right in little endian.
 
-In big endian, the first byte would by {\tt 0x78} since bits are read from right to left in big endian.
+In big endian, the first byte would by {\tt 0x78} since bits are read from right
+to left in big endian.
 
-This is important when we deciding what the most and least significant bits in a word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit is the smallest address.}
+This is important when we deciding what the most and least significant bits in a
+word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little
+endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit
+is the smallest address.}
 
 In this course, little endian is used, though ARM can use either.
 
