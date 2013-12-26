@@ -61,6 +61,7 @@ versions of this rule, it is something along the lines of:
 \subsection{CPU}
 
 \subsubsection{The fetch, decode, execute cycle}
+\label{subsubsec:fetch_decode_execute}
 
 The CPU is essentially a large FSM\marginpar{FSM = Finite State Machine} that
 loops over three operations; fetch, decode and execute in order to perform the
@@ -799,3 +800,157 @@ find the modulus of it with $2^n$ where $n$ is the number of bits in the number.
 
 \marginpar{If we use modulo arithmetic, then multiplication will work just fine
 on signed integers too!}
+
+\section{Computer memory}
+
+Obviously, computers are able to temporarily store values inside registers,
+however, there are never enough registers in the processor to allow the
+execution of more than just the most basic of programs. This gives need for
+memory, which is a set of locations where data can be stored situated outside of
+the processor.
+
+The program that is being executed on the computer is also situated inside the
+memory. As we saw on page~\pageref{subsubsec:fetch_decode_execute}, the CPU gets
+each instruction it's going to execute in a sequential manner from memory.
+
+It is important to remember that memory treats programs and data the same. A
+single memory location could be interpreted as a number, character, pointer or
+CPU instruction, but all it is to the memory is a set of binary digits to be
+stored at a particular address. This is a vital part of the {\it Von Neumann}
+architecture.
+
+There are other types of architecture that attempt to approach the problem of
+storing programs in different ways. For example; the Harvard architecture is
+where programs stored in memory are separated from the data they store.
+
+\subsection{Random Access Memory}
+
+Most computers will implement memory as Random Access Memory (RAM). This is
+where any location in the memory can be loaded from or stored to at any time.
+
+The MU0 has a 12 bit address bus for it's random access memory, and therefore is
+able to address $2^12$ different memory locations of one word each. This is
+equivalent to $4,000$ words or $8kB$.
+
+Each bit of memory in RAM is usually implemented as a flip flop.
+
+\subsubsection{Tristate devices}
+
+A tristate device has three states; $1$, $0$ and $off$.
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		{\tt In} & {\tt En} & {\tt Out}\\ \hline
+		0 & 0 & 0\\
+		0 & 1 & 0\\
+		1 & 0 & 0\\
+		1 & 1 & 1\\
+	\end{tabular}
+\end{center}
+
+\subsubsection{Decoding an address}
+
+When the CPU wants to do something with an address in memory, the memory
+controller must convert the address supplied by the CPU into the correct
+selection of flip flops. The address is supplied as a binary number, so all we
+have to do is have a multiplexer with $N$ address bits (where $N$ is the width
+of the address), and then we can select $2^N$ addresses. The address produced by
+the multiplexer selects which output from memory should become active.
+
+Often, it's impractical to decode an entire address bus in a single decoder, so
+they are nested, meaning that the first decoder might choose what memory device
+is active (from say two sticks of RAM) and then the next may decide what
+specific module on the RAM the address is on etc etc.
+
+In verilog, it might look like this:
+
+\begin{listing}{1}
+	module address_dec(addr_in, enable, sel_out);
+		input	[2:0]	addr_in;
+		input			enable;
+		output	[7:0]	sel_out;
+		reg		[7:0]	sel_out;
+
+		always @ (addr_in or enable)
+			if(enable)
+				case (addr_in)
+				0: sel_out = 8'b00000001;
+				1: sel_out = 8'b00000010;
+				2: sel_out = 8'b00000100;
+				3: sel_out = 8'b00001000;
+				4: sel_out = 8'b00010000;
+				5: sel_out = 8'b00100000;
+				6: sel_out = 8'b01000000;
+				7: sel_out = 8'b10000000;
+				endcase
+			else
+				sel_out = 0;
+	endmodule
+\end{listing}
+
+\subsubsection{Implementing memory}
+
+Using a D-type flip flop is often to expensive for the millions of addresses
+needed in RAM. Consequently, the most desirable trait for RAM is to cram as many
+bits as possible into the smallest amount of space at low cost.
+
+Static RAM (SRAM) is often used in RAM since it is small compared to D-type flip
+flops and other types of memory. Though SRAM (and DRAM) needs amplification
+before it can be used in a circuit, the amplifiers can be shared between many
+thousands of bits of SRAM, so the overhead is small. Having small amounts of
+space used up by RAM means that the cost is lower since less silicon is used.
+
+Though DRAM takes up less space than SRAM, it is slower and requires more
+support logic. This means that for most applications, even though it takes up
+more space, SRAM is more suited.
+
+The timing of the changes of the input signals to memory is very important. If
+the input address changes during a write operation for example, then two memory
+addresses could become corrupted! Also, since most memory has no clock input, it
+cannot rely on the processor's timing to ensure that things happen in sync.
+
+A transparent latch is used to ensure that when writing starts, the write signal
+and address signals don't change for the duration of the write.
+
+It is impractical to read and write individual bytes of memory when the address
+width of the memory is greater than one byte. Reading is slightly easier, since
+the whole word can be read, and then shifted so that the desired byte is in the
+first eight bits and the other bits are ignored. Writing is harder since you
+have to write a whole word, which requires you that the bits in the word that
+you {\it don't} want to set are the same as the ones currently in memory,
+otherwise they'll be overwritten.
+
+\subsection{Memory maps}
+
+A memory map is a diagram showing what different ranges of memory addresses map
+to. They usually start from the first address and finish at the last. Some areas
+of the memory map may not contain anything (if there aren't enough memory
+locations to use up all the bits in the bus). Reading from these undefined areas
+could give any value, but writing to them will have no effect.
+
+Some architectures dedicate a separate area in memory just to IO. Since IO is
+often slower than normal memory, it might be possible to slow down bus cycles
+here automatically.
+
+\subsection{Endianness}
+
+Endianness is a property of a memory location that defines the order of the bits. There are two types of endianness, {\bf little endian} and {\bf big endian}.
+
+In the word {\tt 0x12345678} there are four bytes:
+\begin{itemize}
+	\item {\tt 0x12}
+	\item {\tt 0x34}
+	\item {\tt 0x56}
+	\item {\tt 0x78}
+\end{itemize}
+
+In little endian, the first byte would be {\tt 0x12} since bits are read from
+left to right in little endian.
+
+In big endian, the first byte would by {\tt 0x78} since bits are read from right
+to left in big endian.
+
+This is important when we deciding what the most and least significant bits in a
+word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little
+endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit
+is the smallest address.}
