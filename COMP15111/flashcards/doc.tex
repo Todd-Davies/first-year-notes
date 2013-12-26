@@ -1,4 +1,6 @@
 \documentclass[frontgrid]{flacards}
+\usepackage{tabularx}
+\usepackage[parfill]{parskip}
 \usepackage{color}
 
 
@@ -20,6 +22,107 @@
 \begin{document}
 
 \pagesetup{2}{4} 
+
+\card{
+	Where do the values that are fed into an operand come from when an
+	instruction is executed using the three address style?
+}{
+	Memory.
+	\vspace{1em}\\
+	The resulting value is also copied to a destination address in memory.
+}
+
+\card{
+	Why are registers faster than memory?
+}{
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & Implemented using a flip flop or some other very fast volatile
+		storage (rather than smaller, cheaper SRAM).\\
+		- & Situated inside the processor, so there's less distance for the
+		data to travel, which takes less time.\\
+		- & Fewer of them so address decoding takes less time\\
+		- & Data doesn't need to be transferred over a bus.\\
+	\end{tabularx}
+}
+
+\card{
+	What is the {\it one-address} style of instruction?
+}{
+	Where only one memory address may be used in any one instruction. The other
+	operands must be registers.
+}
+
+\card{
+	Describe the {\it load-store} style of instruction.
+}{
+	The only operations on memory are load and store operations. This means each
+	instruction is very fast and very simple, but there are many instructions.
+}
+
+\card{
+	How is code written in ARM Assembly run?
+}{
+	It is first assembled using an assembler into machine code. Then it is
+	loaded into memory and executed sequentially.
+}
+
+\card{
+	What is the instruction to load a value at a memory address into a register?
+}{
+	{\tt LDR \[register\] \[memory_address_alias\]}
+}
+
+\card{
+	What is the instruction to store a value in a register to a memory address?
+}{
+	{\tt STR \[register\] \[memory_address_alias\]}
+}
+
+\card{
+	What is the instruction to sum two numbers?
+}{
+	{\tt ADD \[destination_register\] \[operand_register1\] \[operand_register2\]}
+}
+
+\card{
+	What is the instruction to branch upon a condition?
+}{
+	{\tt B \[condition\] \[branch_name\]}
+}
+
+\card{
+	What does the program counter do? What register is it?
+}{
+	It is used to store the memory address of the next instruction to be executed.
+	\vspace{1em}\\
+	It's register 15.
+}
+
+\card{
+	When is the {\tt DEFW} command executed. What does it do? What's its syntax?
+}{
+	It is executed before the program runs.
+	\vspace{1em}\\
+	It stores a value at a memory address and assignes the address an alias.
+	\vspace{1em}\\
+	{\tt \[alias\] DEFW \[value_1\], ... \[value_n\]}
+}
+
+\card{
+	What does {\tt DEFB} do?
+}{
+    {\tt DEFB} stores a single byte in memory. If you give it a string, the
+	whole string will be stored (in multiple bytes).
+}
+
+\card{
+	What's the syntax of {\it DEFS}?
+}{
+	{\it \[alias\] DEFS \[number_of_bytes\], \[value_of_bytes\]}
+}
+
+% Up to lecture 4
+
 
 % -------------------
 % Methods of indexing
