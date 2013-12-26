@@ -964,3 +964,125 @@ It's easy to verify that these are true; since:
 
 \marginpar{See chapter 2 in the course provided notes for (copious) examples of
 the content covered in this section.}
+
+
+\section{Conditioning}
+
+If an experiment is performed where we already know that a certain event will
+occur, then we can factor in an additional factor into our probabilistic
+theories. This factor could be called a condition.
+
+An example is throwing a dice. If we define the event $B = \{5, 6\}$ then there
+is a probability of $\frac{1}{3}$ that the event $B$ will occur. If we know in
+advance that $B$ will occur, then the probabilities that the events outside $B$
+will occur suddenly drop to zero:
+
+\begin{dmath}
+	{\mathbb{P}(\{1\}) = \dots = \mathbb{P}(\{4\}) = 0}
+\end{dmath}
+
+The probability that $B$ will occur is $1$, therefore the probability that
+either event in $B$ will occur is $\frac{1}{2}$.
+
+To clarify the following two things have just happened:
+
+\begin{itemize}
+	\item All outcomes not in the event $B$ have a probability $0$.
+	\item All outcomes in the event $B$ have their probability {\it scaled} by a
+	factor of $\frac{1}{\mathbb{P}(B)}$.
+\end{itemize}
+
+In a more general case, the probability that any event $A$ occurs, given that
+the event $B$ occurs is:
+
+\begin{dmath}
+	\frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+\end{dmath}
+
+The notation we use for conditional probability (i.e. the probability an event
+$A$ will occur given that the event definitely will $B$ occur) is:
+
+\begin{dmath}
+	\mathbb{P}(A|B)
+\end{dmath}
+
+\marginpar{It's correct to say that the definition of $A$ given $B$ is a
+probability measure. The probability measure would be concentrated on the event
+$B$ rather than the whole sample space $Omega$ since all events outside $B$ are
+given the probability $0$.}
+
+\subsection{Independent events}
+
+If the probability of the event $A$ does not change when we add the conditional
+that an event $B$ will certainly occur and $\mathbb{P}(B) \ge 0$, then the
+events $A$ and $B$ are independent. This could be described as:
+
+\begin{dmath}
+	{\mathbb{P}(A) = \mathbb{P}(A|B)}
+\end{dmath}
+
+We can manipulate this mathematical definition of independence using the
+equations we described in the at the start of the conditionals section:
+
+\begin{dmath}
+	{\mathbb{P}(A) = \mathbb{P}(A|B)} \iff {\mathbb{P}(A) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}} \iff {\mathbb{P}(A)\mathbb{P}(B) = \mathbb{P}(A \cap B)}
+\end{dmath}
+
+Henceforth, we often take the last of these equations as our definition for
+independence.
+
+Of course, it's easy to do the following too:
+
+\begin{dmath}
+	{\mathbb{P}(A)\mathbb{P}(B) = \mathbb{P}(A \cap B)} \iff {\mathbb{P}(B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(A)}} \iff {\frac{\mathbb{P}(B \cap A)}{\mathbb{P}(A)}} \iff {\mathbb{P}(B|A)}\\	
+\end{dmath}
+
+\begin{dmath}
+	{\mathbb{P}(A|B) \iff \mathbb{P}(B|A)}
+\end{dmath}
+
+So, an event is independent of another event if knowledge that one event occurs
+won't give you any extra information about how likely it is that the other event
+will occur. This doesn't mean that the events are disjoint (unless the
+probability of either was $0$).
+
+\subsection{Partitions}
+
+Partitions are sections of a sample space that:
+
+\begin{itemize}
+	\item Don't overlap.
+	\item Include all elements inside the sample space between them.
+\end{itemize}
+
+So, suppose I had partitions $E_0 \dots E_n$, the following would hold:
+
+\begin{itemize}
+	\item $E_i \cap E_i = \emptyset$ for and $i$ and $j$
+	\item $E_0 \cup E_1 \cup \dots \cup E_n = \Omega$
+\end{itemize}
+
+This means that all partitions are mutually disjoint.
+
+\marginpar{The simplest partition is to take an event $A$ and it's complement
+$A^c$.}
+
+Note that the probability of the union of any two partitions will be the sum of
+the probability of the seperate partitions, since all partitions are disjoint.
+
+\subsection{The law of total probability}
+
+The law of total probability splits any event $A$ up in terms of the partitions
+in the sample space:
+
+\begin{dmath}
+	A = (A \cap E_i) \cup (A \cap E_2) \cup \dots \cup (A \cap E_n)
+\end{dmath}
+
+We can write this in terms of probabilities:
+
+\begin{dmath}
+	\mathbb{P}(A) = \mathbb{P}(A|E_1)\mathbb{P}(E_1) + \dots + \mathbb{P}(A|E_n)\mathbb{P}(E_n)
+\end{dmath}
+
+\subsection{Bayes Theorem}
