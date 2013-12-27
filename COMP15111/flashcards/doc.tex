@@ -1,6 +1,5 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{tabularx}
-\usepackage[parfill]{parskip}
 \usepackage{color}
 
 
@@ -69,25 +68,25 @@
 \card{
 	What is the instruction to load a value at a memory address into a register?
 }{
-	{\tt LDR \[register\] \[memory_address_alias\]}
+	{\tt LDR <register> <memory\_address\_alias>}
 }
 
 \card{
 	What is the instruction to store a value in a register to a memory address?
 }{
-	{\tt STR \[register\] \[memory_address_alias\]}
+	{\tt STR <register> <memory\_address\_alias>}
 }
 
 \card{
 	What is the instruction to sum two numbers?
 }{
-	{\tt ADD \[destination_register\] \[operand_register1\] \[operand_register2\]}
+	{\tt ADD <destination\_register> <operand\_register1> <operand\_register2>}
 }
 
 \card{
 	What is the instruction to branch upon a condition?
 }{
-	{\tt B \[condition\] \[branch_name\]}
+	{\tt B <condition> <branch\_name>}
 }
 
 \card{
@@ -103,9 +102,9 @@
 }{
 	It is executed before the program runs.
 	\vspace{1em}\\
-	It stores a value at a memory address and assignes the address an alias.
+	It stores a value at a memory address and assigns the address an alias.
 	\vspace{1em}\\
-	{\tt \[alias\] DEFW \[value_1\], ... \[value_n\]}
+	{\tt <alias> DEFW <value\_1>, ... <value\_n>}
 }
 
 \card{
@@ -118,11 +117,93 @@
 \card{
 	What's the syntax of {\it DEFS}?
 }{
-	{\it \[alias\] DEFS \[number_of_bytes\], \[value_of_bytes\]}
+	{\tt <alias> DEFS <number\_of\_bytes>, <value\_of\_bytes>}
 }
 
-% Up to lecture 4
+\card{
+	What does {\tt STRB} do? What is it's syntax?
+}{
+	Stores the lowest eight bits of a register into memory.
+	\vspace{1em}\\
+	{\tt STRB <register> <memory\_alias>}
+}
 
+\card{
+	What does {\tt LDRB} do? What is it's syntax?
+}{
+	Loads the lowest eight bits of a specific memory address into a register. 
+	The other bits in the register are set to zero.
+	\vspace{1em}\\
+	{\tt LDRB <register> <memory\_alias>}
+}
+
+\flashcard{When using Little Endian, bytes are read from \blank{left} to \blank{right}.}
+
+\flashcard{When using Big Endian, bytes are read from \blank{right} to \blank{left}.}
+
+\card{How many bits are assigned to a literal in an ARM instruction}{12}
+
+\card{
+	What command should be used to load a literal into a {\it register}
+}{
+	{\tt LDR <register> =<literal>}
+	\vspace{1em}\\
+	Note, this is a pseudo instruction, that is converted to either {\tt MOV
+	<register> \#<literal>} or it will define a constant and load that in from
+	memory.
+}
+
+\card{
+	How do you load an address into a register so you can use it as a pointer?
+}{
+	{\tt ADR <register>, <alias>}
+	Now the {\tt <register>} will hold the memory location (and is therefore a
+	pointer to) the alias.
+}
+
+\card{
+	What does {\tt DEFW <number>} do?
+}{
+	It reserves a word of memory initialised to {\tt <number>}
+}
+
+\card{
+	What does {\tt DEFB <value>} do?
+}{
+	It reserves a byte(s) of memory with the value {\tt <value>}. If a string is
+	passed as the value, multiple bytes will be reserved, each with the value of
+	a character.
+}
+
+\card{
+	What does {\tt DEFS <size>, <fill>} do?
+}{
+    It reserves a block of memory {\tt <size>} bytes long initialised to the
+	value {\tt <fill>}.
+}
+
+\card{
+	What does {\tt ALIGN} do?
+}{
+	Leaves blank bytes in memory so that the next {\tt DEFINE} command will 
+	start on a word boundary.
+}
+
+\card{
+	What does {\tt ENTRY} do?
+}{
+	Sets the PC at the start of the program (i.e. dictates where the program
+	should) start from.
+}
+
+\card{
+	What does {\tt EQU} do?
+}{
+	{\tt EQU} allows us to name a literal. You can then refer to the literal 
+	(still with a hash before it) by name in your code which is easy to read.
+	\vspace{1em}\\
+	{\tt <alias> EQU #<value>}
+}
 
 % -------------------
 % Methods of indexing
