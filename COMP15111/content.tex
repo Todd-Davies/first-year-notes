@@ -160,7 +160,7 @@ Any given set of binary digits can be read as a decimal number, but not always a
 Assembly language is a means of representing machine instructions in a human readable form.
 
 Each type of processor has its own assembly language (since each language is
-specific to a partiaular architecture) but each instruction typically has a lot
+specific to a particular architecture) but each instruction typically has a lot
 in common:
 
 \begin{itemize}
@@ -241,7 +241,10 @@ Some examples of different conditional operators are:
 \subsection{Stored programs and the Program Counter}
 \label{subsec:pc}
 
-A computer can make decisions, and choose which instructions to obey next depending upon the results of those decisions. A {\bf Program Counter} (PC) register is used to hold the memory address of the next instruction to be executed. ARM uses register 15 as its PC.
+A computer can make decisions, and choose which instructions to obey next
+depending upon the results of those decisions. A {\bf Program Counter} (PC)
+register is used to hold the memory address of the next instruction to be
+executed. ARM uses register 15 as its PC.
 
 \subsection{Fetch-Execute Cycle}
 
@@ -1391,15 +1394,160 @@ ARM assembly implements four logical operators:
 All of these are self explanatory except from the bit clear one, which is
 explained using a table:
 
-\begin{tabular}{|c|c|c}
-
-	A & B & BIC A B\\ \hline
-	0 & 0 & 0\\
-	0 & 1 & 0\\
-	1 & 0 & 1\\
-	1 & 1 & 0\\
-	
-\end{tabular}
+\begin{center}
+	\begin{tabular}{|c|c|c}
+		A & B & BIC A B\\ \hline
+		0 & 0 & 0\\
+		0 & 1 & 0\\
+		1 & 0 & 1\\
+		1 & 1 & 0\\
+	\end{tabular}
+\end{center}
 
 {\tt BIC} is equivalent to {\tt A \& !B}. If {\tt B} is high, then the output will
 be {\tt 0}, otherwise, it will be {\tt A}.
+
+\section{Communicating with Peripherals}
+
+A peripheral is a device that is attached to a computer. This could be a
+keyboard, mouse, printer or arguably even the main memory of the computer.
+
+There are two methods of interfacing with peripherals; polling and interrupts.
+
+\subsection{Polling}
+
+Polling is where the CPU will constantly check for an update from a peripheral.
+This involves using a loop to check the contents of a status register and then
+reading any data from the peripheral.
+
+The status register is a memory mapped register that both the CPU and peripheral
+have access to. When the peripheral has data to transfer to the CPU, it will
+change the value of the status register to match a specific pattern (usually
+setting just one bit in the register). For example, the test pattern may be
+setting bit 7 high. Next time the CPU checks the status register, if bit 7 is
+high, then it will know there is data waiting for it.
+
+If this is the case, then the CPU will then read the data register. This is also
+a memory mapped register, and will contain the data from the peripheral.
+
+\subsubsection{Memory mapping}
+%TODO: Check this
+A memory mapped register appears to be located at a specific memory location,
+but instead actually is situated inside the peripheral and is {\it mapped} so
+that it appears to be at a memory address.
+
+\subsubsection{Implementing polling}
+
+In this simple implementation of a polling loop, we're assuming that the {\tt
+status\_register} and {\tt data\_register} have already been set up as aliases to
+the correct memory locations.
+
+\begin{listing}{1}
+	; Load the program relative
+	; address into R1
+	ADR	R1, status_reg
+loop
+	; Use R1 as a pointer to
+	; load the data in the status
+	; register into R0
+	LDR	R0, [R1]
+	; Test the content of the
+	; status register
+	TST	R0, 0x80
+	; Loop if the test failed
+	BEQ	loop
+	; Load the content from the
+	; data register into R0
+	ADR	R1, data_reg
+	LDR	R0, [R1]
+\end{listing}
+
+\subsubsection{The {\tt TST} instruction}
+
+TST performs a bitwise {\tt AND} on it's operands (a register and a literal test
+pattern). It then updates the flags for a subsequent conditional instruction. If
+the result of the AND was zero, then subsequent {\tt EQ} conditional
+instructions will execute - i.e. it compares the result of the AND operation to
+zero.
+
+Using the example in the polling implementation, lets execute the command {\tt
+TST R0, 0x80}, first where the test condition is not met, and then when it is:
+
+\begin{center}
+	\begin{tabular}{c|c}
+		Content of {\tt R0} & 00000000\\ \hline
+		Test pattern & 10000000\\ \hline
+		Result & 00000000\\ \hline
+	\end{tabular}
+
+	\begin{tabular}{c|c}
+		Content of {\tt R0} & 10110100\\ \hline
+		Test pattern & 10000000\\ \hline
+		Result & 10000000\\ \hline
+	\end{tabular}
+\end{center}
+
+In the second run, you can see that the result isn't zero, so the test pattern
+must have been met.
+
+\subsection{Interrupts}
+
+Unlike the polling method, and interrupt is initiated by the peripheral rather
+than the CPU. It follows the following steps:
+
+\begin{enumerate}
+	\item {\bf Stop the program}
+			This is often done by the interrupt automatically, and works just
+			like a branch and link.
+	\item {\bf Save important registers}
+			The {\tt STMFD} command can be used to save important register.
+			This would include the current program status register (CSPR) and
+			any registers modified by the interrupt handler.
+	\item {\bf Run the interrupt handler}
+			This would usually involve double checking the status register to
+			make sure that the data is ready to be read and then reading the
+			data inside the data register.
+	\item {\bf Restore the saved registers}
+			Use {\tt LDMFD} to restore the registers just like we did to save
+			them.
+	\item {\bf Restart the program}
+			Copy the Link register into the program counter and add on {\tt \#4}
+			so that the next instruction is executed and the program carries on
+			as before.
+\end{enumerate}
+
+\subsubsection{An implementation of an interrupt}
+
+This is how an interrupt may be implemented:
+
+\begin{listing}{1}
+; Stage 1 has already happened
+; When we branched here
+interrupt
+	; Stage 2 - save registers
+	STMFD SP!, {R0, R1}
+	; Stage 3 - run the interrupt
+	; handler
+	; Check the status_reg
+	ADR   R1, status_reg
+	LDRB  R0, [R1]
+	TST   R0, #0x80
+	; Go to an error if the
+	; TST failed
+	BEQ   error
+	; Load the data_reg info
+	ADR   R1, data_reg
+	LDRB  R0, [R1]
+	; Store the data_reg info
+	LDR   R1, data
+	STR   R0, [R1]
+	; Acknowledge the transfer
+	LDR   R1, acknowledge
+	STR   #1, R1
+	; Step 4 - restore the
+	; registers
+	LDMFD SP!, {R0, R1}
+	; Step 5 - Branch back to
+	; were we came from
+	SUBS  PC, LR, #4
+\end{listing}
