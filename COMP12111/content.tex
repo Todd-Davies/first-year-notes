@@ -934,7 +934,9 @@ here automatically.
 
 \subsection{Endianness}
 
-Endianness is a property of a memory location that defines the order of the bits. There are two types of endianness, {\bf little endian} and {\bf big endian}.
+Endianness is a property of a memory location that defines the order of the
+bits. There are two types of endianness, {\bf little endian} and {\bf big
+endian}.
 
 In the word {\tt 0x12345678} there are four bytes:
 \begin{itemize}
@@ -954,3 +956,70 @@ This is important when we deciding what the most and least significant bits in a
 word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little
 endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit
 is the smallest address.}
+
+\subsection{The memory hierarchy}
+
+Compared to the speed of a processor, memory is slow. This is a problem, since
+if fetching an instruction takes a long time, then the previous instruction will
+have already finished executing and the processor will be sitting idle.
+
+A possible solution to this would be to increase the speed of the memory, but
+providing gigabytes of fast SRAM would cost a great deal of money. The solution
+used by most architectures is to have multiple layers of caching, where small,
+yet frequently accessed areas of memory can be replicated using very fast SRAM.
+
+This allows us to create some sort of hierarchy of memory:
+
+\begin{enumerate}
+	\item Registers inside the processor.
+	\item Small amounts of SRAM (static RAM) inside the processor (called the L1
+	cache). Typically around 1-5\% of the size of the main memory.
+	\item The main memory. Usually made of DRAM (dynamic RAM).
+	\item Read Only Memory or Electrically Erasable Programmable Read Only Memory
+	to store the information needed to boot.\
+	\item The paging file (virtual memory) on the hard disk.
+\end{enumerate}
+
+As we descend the memory hierarchy, the speed of the memory goes down, but so
+does the cost per bit. We may be able to have terabytes of virtual memory, but
+only a couple of kilobytes (probably less) of internal registers.
+
+Having a cache is especially useful since most programs adhere to the {\it
+principle of locality}, which describes how areas of memory are likely to be
+used multiple times for a specific duration. There are many types of locality,
+as described below:
+
+\begin{itemize}
+	\item {\bf Temporal locality} - when a memory location is used, it is likely
+	to be used again in the near future. This may be especially useful when the
+	application is maintaining a stack, or is in a loop.
+	\item {\bf Spatial locality} - if a memory location is used, then locations
+	around that memory location may also be used soon. This is especially true
+	with arrays and other ordered data structures.
+\end{itemize}
+
+If the CPU uses a Harvard architecture rather than a Von Neumann architecture,
+then it may have two caches; one for the data memory and one for the instruction
+memory. Note that a Harvard architecture will require a higher memory bandwidth,
+which is more expensive, but faster.
+
+Disadvantages of the Harvard architecture are that code can't be self modifying
+(since storing instructions won't be implemented for the instruction memory),
+more wiring it needed and the split between the amounts of data and instruction
+memory are hardwired, so a small program that needs a lot of data would be at a
+disadvantage for instance.
+
+\subsubsection{ROM}
+
+ROM is non-volatile, flash based memory. It cannot be written to (unless it's
+electrically erasable) and so is protected from accidental writing. It is very
+useful for finite state machines and bootstrap programs that start up a
+computer.
+
+\subsubsection{DRAM}
+
+Dynamic RAM stores bits as charged uncharged capacitors. This means that it is
+very dense, yet very cheap since capacitors can be made to be very small.
+However, capacitors (especially very small ones) tend to leak charge, and so the
+memory is volatile and needs refreshing every so often. This periodic refreshing
+is what gives rise to the name {\it Dynamic} RAM.
