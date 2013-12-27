@@ -369,7 +369,7 @@ ARM has the capacity to work with many different types and sizes of values. Each
 \begin{tabularx}{\textwidth}{l l X}
 	{\bf Name} & {\bf length} & {\bf Use}\\
 	Byte & 8 bits & Used for characters\\
-	Word & 32 bits & Used for integer es, addresses and instructions\\
+	Word & 32 bits & Used for integers, addresses and instructions\\
 \end{tabularx}
 
 There are other types too (such as the halfword and doubleword) but they aren't needed for this module.
@@ -419,23 +419,39 @@ In this course, little endian is used, though ARM can use either.
 
 \subsection{Addressing memory}
 
-ARM uses 32 bit addresses, so there are $2^{32}$ different bytes that can be addressed in memory (or $\frac{2^{32}}{4}$ different words). However, there is no guarantee that the system on which the program is running will have that much memory available.
+ARM uses 32 bit addresses, so there are $2^{32}$ different bytes that can be
+addressed in memory (or $\frac{2^{32}}{4}$ different words). However, there is
+no guarantee that the system on which the program is running will have that much
+memory available.
 
 \subsection{Instruction encoding}
 
-Each ARM instruction is encoded into a four byte word. The exact meaning of each of the bits varies per instruction.
+Each ARM instruction is encoded into a four byte word. The exact meaning of each
+of the bits varies per instruction.
 
-For example, in the branch instruction, the first four bits specify the condition, the second four bits represent the actual operation to perform (i.e. branch) and the remaining twenty four bits define the memory location of the next instruction to branch to.
+For example, in the branch instruction, the first four bits specify the
+condition, the second four bits represent the actual operation to perform (i.e.
+branch) and the remaining twenty four bits define the memory location of the
+next instruction to branch to.
 
-However, this presents a problem. We only have twenty four bits with which to define the next location to branch to, which allows us to define $2^24$ different locations. However, there are $2^32$ possible addresses that we could use!
+However, this presents a problem. We only have twenty four bits with which to
+define the next location to branch to, which allows us to define $2^{24}$
+different locations. However, there are $2^{32}$ possible addresses that we
+could use!
 
-This problem is overcome by treating the 24 bits as an offset to the address of the current instruction. This works since most of the time, the address that is being branched to is fairly close to the current instruction.
+This problem is overcome by treating the 24 bits as an offset to the address of
+the current instruction. This works since most of the time, the address that is
+being branched to is fairly close to the current instruction.
 
-In order to be able to branch to addresses before and after the current instruction, we must use two's complement to allow signed integers to be used to specify the offset. This means we can branch to any instruction at an address $\pm 2^{23}$ from the current instruction.
+In order to be able to branch to addresses before and after the current
+instruction, we must use two's complement to allow signed integers to be used to
+specify the offset. This means we can branch to any instruction at an address
+$\pm 2^{23}$ from the current instruction.
 
 \subsection{Literals}
 
-ARM is able to encode literal values into instructions. This saves time having to access registers or memory in order to perform operations such as arithmetic.
+ARM is able to encode literal values into instructions. This saves time having
+to access registers or memory in order to perform operations such as arithmetic.
 
 An example is to increment a register:
 
