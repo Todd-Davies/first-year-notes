@@ -1068,7 +1068,7 @@ This means that all partitions are mutually disjoint.
 $A^c$.}
 
 Note that the probability of the union of any two partitions will be the sum of
-the probability of the seperate partitions, since all partitions are disjoint.
+the probability of the separate partitions, since all partitions are disjoint.
 
 \subsection{The law of total probability}
 
@@ -1086,3 +1086,28 @@ We can write this in terms of probabilities:
 \end{dmath}
 
 \subsection{Bayes Theorem}
+
+The derivation of Bayes theorem is quite easy; start with an event partitioned
+into $m$ partitions, then take $\mathbb{P}(E_i|A)$ and use first the definition
+of conditional probability, then the multiplicative law, then the law of total
+probability. The process is described mathematically below:
+
+\begin{dmath}
+	\mathbb{P}(E_i|A) = \frac{\mathbb{P}(E_i \cap A)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|E_i)\mathbb{P}(E_i)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|E_i)\mathbb{P}(E_i)}{\mathbb{P}(A|E_1)\mathbb{P}(E_1) + \dots + \mathbb{P}(A|E_m)\mathbb{P}(E_m)}
+\end{dmath}
+
+Bayes theorem is good if you have the probability of some event $A$ that depends
+on the condition of the event $B$ happening (i.e. you know $\mathbb{P}(A|B)$,
+but you instead want to know $\mathbb{P}(B|A)$.
+
+\subsubsection{The complementary law for conditional probabilities}
+
+The complementary law states that:
+
+\begin{dmath}
+	\mathbb{P}(A|B) = 1 - \mathbb{P}(A^c|B)
+\end{dmath}
+
+\section{Random variables}
+
+
