@@ -1,7 +1,7 @@
 #!/bin/bash
 aspell -t check content.tex
 aspell -t check meta.tex
-aspell -t check three_bx_model.tex
+aspell -t check three_box_model.tex
 aspell -t check instruction_format.tex
 pdflatex instruction_format.tex
 pdflatex three_box_model.tex

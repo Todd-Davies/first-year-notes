@@ -1023,3 +1023,119 @@ very dense, yet very cheap since capacitors can be made to be very small.
 However, capacitors (especially very small ones) tend to leak charge, and so the
 memory is volatile and needs refreshing every so often. This periodic refreshing
 is what gives rise to the name {\it Dynamic} RAM.
+
+\section{Input Output and Communications}
+
+There's no point having a blazingly fast CPU and memory unless you have methods
+of interfacing with it so that you can both give it data and receive it's
+output. This is the principle behind Input Output (I/O).
+
+The maximum speed that information can travel at is equal to the speed at which
+the medium it is being carried by is able to propagate. This can be a limiting
+factor in very fast IO communications.
+
+Digital signals have some characteristics that are important to remember:
+
+\begin{itemize}
+	\item There are two widely separated, obvious levels of the signal with no
+	intermediate state.
+	\item This means that if noise is overlaid onto the signal, it is still
+	discernible with little effort.
+\end{itemize}
+
+Different mediums are able to transmit signals at different speeds. This can be
+essential for achieving very fast speeds. Ultimately, it's a trade off between
+practicality and speed. Connecting a wire between two computers is easy and
+reading the voltage or current requires little effort, however, using a speaker
+to project audio requires next to no effort to set up, but requires lots of
+effort to decode and sound travels slowly through air. Light is a very fast
+medium for communication since it's the fastest thing in the universe, which is
+why optical fibre is very fast.
+
+If bits are sent one after the other, then the communication is described as
+{\bf serial}, but if more than one bit is sent at once (say via many wires),
+then the communication is said to be {\bf parallel}. In both cases, timing is
+essential for the signals to be interpreted correctly.
+
+\subsubsection{Latency}
+
+Latency is the time it takes for a signal to get from it's start to it's
+destination. The longer a journey is, then the higher the latency is, and the
+slower the signal can travel through the medium, the higher the latency will
+get. Latency is measured in seconds.
+
+\subsubsection{Bandwidth}
+
+This is the amount of data that can go through a connection per unit time.
+Usually measured in bits per second. It's set by the width of the data channel
+(i.e. how many bits can be sent in parallel) and the transmission speed of the
+bits.
+
+Bandwidth and latency aren't very related, you can increase the bandwidth by
+widening the data channel (i.e. adding more wires), which will increase the
+speed of the connection. You can also decrease the latency by reducing the
+distance the data has to travel (e.g. by moving the RAM nearer to the
+processor.)
+
+\subsection{Serial communications}
+
+As said before, a serial communication is (usually) where only one wire is used
+and different signals are distinguished by being sent at different times. This
+is good because it only needs one cable (and decoder) and is limited only by the
+data rate. However, since only one bit can be sent at a time, it may have a low
+bandwidth, and serial decoding logic will need to be implemented at the
+receiving end.
+
+One extra wire is always needed for all (electrical) communications in order to
+establish a common ground level so that both communicating parties are in
+agreement as to what 'high' and 'low' are.
+
+\subsection{Parallel communications}
+
+Again, as described above, parallel communications have a width of at least two
+bits. This means that different elements of the signal can be distinguished by
+being sent down different paths as well as being delineated by time. An example
+of this could be a seven segment display.
+
+Parallel connections often require more wires than serial connections, and so
+need bigger connectors and more interface circuits. They are also unsuitable for
+some mediums where only one method data path is applicable (e.g. single
+frequency radio). However, the main advantage is that they can have a far higher
+bandwidth.
+
+Of course you can always have several serial bits operating in parallel and so
+get the best of both worlds!
+
+\subsection{Synchronous communications}
+
+Timing is very important in any serial communication (or parallel communications
+that are employing serial methods too). Using two different clocks, one at the
+transmitting end and one at the receiving end is hard, since no two clocks are
+ever exactly the same, meaning that they could become out of sync. The solution
+is to use a {\bf common clock}. This requires an extra wire (which doubles the
+number of wires in a serial communication), but it is worth it since the chance
+of timing discrepancies drops vastly.
+
+\subsubsection{Clock skew}
+
+There is still a potential for a phenomenon called {\bf clock skew} though. This
+is when there is a different latency in the connection for the clock and the
+connection for the data. This means that the clock will rise and fall just
+before or after the edge of the data signals. This can be mitigated though by
+doing a phase shift, so that the signals are mapped onto each other again.
+
+\subsubsection{Encoding clock transmission}
+
+It is possible to remove the need for an extra clock signal by encoding the
+clock signal into the data itself. The principle is that the receiving end will
+assume that there is always going to be a signal transition at a predictable
+time, and then it can use it's knowledge of the approximate bit rate to
+regenerate the clock. This is what happens in Ethernet.
+
+\marginpar{Note that we'll still need a ground wire between the sender and
+receiver.}
+
+Manchester encoding is one way of encoding the clock into the signal. It codes a
+$0$ as a falling edge and a $1$ as a rising edge. Some other transitions
+(in between the clock ticks) may be inserted to make this work if there are
+consecutive $1's$ and $0's$.
