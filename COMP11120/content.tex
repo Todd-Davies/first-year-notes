@@ -1118,7 +1118,7 @@ A random variable is a mapping between the sample space $\Omega$ to real numbers
 \end{dmath}
 
 This means that every outcome in the sample space corresponds to a real number.
-The range of the random variable is very intuative; if we were throwing a dice,
+The range of the random variable is very intuitive; if we were throwing a dice,
 then the range would be $\{1, 2, \dots, 6\}$.
 
 The sum of the probabilities of the random variable is always equal to $1$:
@@ -1126,3 +1126,58 @@ The sum of the probabilities of the random variable is always equal to $1$:
 \begin{dmath}
 	\sum\limits_{i=1}^m\mathbb{P}(X=r_i) = 1
 \end{dmath}
+
+\subsection{Constructing new random variables from existing ones}
+
+Creating a random variable from another random variable is fairly easy; it's
+basically a composite function. If we have a random variable $X$ and a function
+$f$ then:
+
+\begin{dmath}
+	Y(\omega) = f(X(\omega)) \textrm{ for all $\omega \in \Omega$}
+\end{dmath}
+
+Note that the range of the new function ($Y$) may be different from the range of
+the old one ($X$).
+
+\subsection{Probability mass functions}
+
+Usually abbreviated to {\it pmf} a probability mass function is a function
+(denoted by $p$) that contains information regarding the probabilities of $X$ in
+given ranges.
+
+Since the output of a {\it pmf} is a probability, the range of a {\it pmf} is
+always $[0,1]$.
+
+Mathematically, the probability mass function of a random variable $X$ is
+defined as:
+
+\begin{dmath}
+	p(r_i) := \mathbb{P}(X = r_i) \textrm{ for all $i > 1$}
+\end{dmath}
+
+\marginpar{The sum of all the values in a {\it pmf} function is always $1$.}
+
+\subsection{Cumulative distribution functions}
+
+A cumulative distribution function {\it cdf} is similar to a {\it pmf} except
+that:
+
+\begin{itemize}
+	\item The value of the {\it cdf} is the sum of the {\it pmf} up to that 
+	point.
+	\item A {\it cdf} can be generated for any function, not just discrete ones
+	like a {\it pmf} can.
+\end{itemize}
+
+However, both the {\it cdf} and the {\it pmf} share the same range. The
+definition of {\it cdf} is:
+
+\begin{dmath}
+	{F(x) = \mathbb{P}(X \leq x)} \textrm{ for all $x \in \mathbb{R}$}
+\end{dmath}
+
+A graph of a {\it cdf} function contains all the information about the random
+variable it has mapped. We can deduce it's range, the {\it pmf} and where the
+graph jumps. Note that black dots on the graph indicate where a value is, and
+white dots at the same $x$ coordinate show where the value isn't.
