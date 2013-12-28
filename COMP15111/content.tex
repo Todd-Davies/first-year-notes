@@ -61,9 +61,11 @@ include: Pentium, ARM and others
 
 Each three-address instruction:
 \begin{enumerate}
-	\item Copies the values from any two memory locations and sends them to the processor (source operands)
+	\item Copies the values from any two memory locations and sends them to the
+	processor (source operands)
 	\item Copies some operation e.g. adds the copied numbers together
-	\item Copies the result back from the processor into a third memory location (destination operand)
+	\item Copies the result back from the processor into a third memory location
+	(destination operand)
 \end{enumerate}
 
 For example, if we wanted to convert the Java code {\tt sum = a + b;} into a
@@ -72,7 +74,8 @@ three-address instruction we would:
 \begin{enumerate}
 	\item Identify the two {\it source operands}: $a$ holds 2, $b$ holds 3
 	\item Perform the {\it operation}: 2 + 3 = 5
-	\item Let the variable $sum$ equal the answer 5. This is the {\it destination operand}
+	\item Let the variable $sum$ equal the answer 5. This is the {\it 
+	destination operand}
 \end{enumerate}
 
 \subsubsection{Three address example}
@@ -94,7 +97,9 @@ Now we can draw the box view of it (figure~\ref{figure:two_box_model}).
 \end{figure}
 
 \subsubsection{Memory bottleneck}
-Most processors can process instructions faster than they can be fed by memory. Each instruction in the three-address cycle requires four memory cycles:
+
+Most processors can process instructions faster than they can be fed by memory.
+Each instruction in the three-address cycle requires four memory cycles:
 
 \begin{enumerate}
     \item Fetch the instruction
@@ -103,24 +108,38 @@ Most processors can process instructions faster than they can be fed by memory. 
     \item Write the result to memory
 \end{enumerate}
 
-Each of these memory cycles could take hundreds of processor clock cycles to complete, and so in this time the processor would be doing nothing. However, most modern processors employ a {\it cache} to temporarily store commonly accessed memory locations, and so avoid some of the memory cycles. 
+Each of these memory cycles could take hundreds of processor clock cycles to
+complete, and so in this time the processor would be doing nothing. However,
+most modern processors employ a {\it cache} to temporarily store commonly
+accessed memory locations, and so avoid some of the memory cycles.
 
 \subsection{Registers}
-Registers are very small amounts of storage build into a processor. Since they are inside the processor data doesn't need to be transferred over the bus, and so they are very fast. Registers are used instead of the main memory which speeds up program execution.
 
-Each register can only hold one value and each processor will only generally have a few dozen registers (e.g. ARM has sixteen).
+Registers are very small amounts of storage build into a processor. Since they
+are inside the processor data doesn't need to be transferred over the bus, and
+so they are very fast. Registers are used instead of the main memory which
+speeds up program execution.
+
+Each register can only hold one value and each processor will only generally
+have a few dozen registers (e.g. ARM has sixteen).
 
 \subsection{Instruction Styles}
 
 \subsubsection{One address}
-The one address style can only use up to one memory location in each instruction, all other operands must be registers. An example may be:
+
+The one address style can only use up to one memory location in each
+instruction, all other operands must be registers. An example may be:
 
 \[
     R1 \leftarrow R0 + \textrm{\it memory location}
 \]
 
 \subsubsection{Load-store}
-The load-store style cannot perform operations on memory locations at all. Instead, values from memory must be loaded into a registers before the operation takes place and then the operation can be performed on the registers. Following the operation, the result must be stored back into memory again.
+
+The load-store style cannot perform operations on memory locations at all.
+Instead, values from memory must be loaded into a registers before the operation
+takes place and then the operation can be performed on the registers. Following
+the operation, the result must be stored back into memory again.
 
 \[
 	\begin{split}
@@ -132,8 +151,10 @@ The load-store style cannot perform operations on memory locations at all. Inste
 
 This means that we need extra instructions to do stuff with memory locations:
 \begin{enumerate}
-	\item \textbf{Load} the value from memory into a register before the operation.
-	\item \textbf{Store} the value in the register back to memory after the operation.
+	\item \textbf{Load} the value from memory into a register before the 
+	operation.
+	\item \textbf{Store} the value in the register back to memory after the 
+	operation.
 \end{enumerate}
 
 For example, the Java code {\it Sum = a + b + c;} would be run as:
@@ -149,15 +170,23 @@ For example, the Java code {\it Sum = a + b + c;} would be run as:
     \end{tabular}
 \end{center}
 
-You can see that the load-store style favours lots of very simple, very fast instructions.
+You can see that the load-store style favours lots of very simple, very fast
+instructions.
 
 \section{ARM}
-Computers obey programs which are sequences of instructions. Instructions are coded as values in memory. The sequences are held in memory adjacent memory locations. Values in memory can be interpreted as you please, from numbers to text, images or anything really!
 
-Any given set of binary digits can be read as a decimal number, but not always as text, so values in memory are often represented as numbers for convenience.
+Computers obey programs which are sequences of instructions. Instructions are
+coded as values in memory. The sequences are held in memory adjacent memory
+locations. Values in memory can be interpreted as you please, from numbers to
+text, images or anything really!
+
+Any given set of binary digits can be read as a decimal number, but not always
+as text, so values in memory are often represented as numbers for convenience.
 
 \subsection{Assembly Language}
-Assembly language is a means of representing machine instructions in a human readable form.
+
+Assembly language is a means of representing machine instructions in a human
+readable form.
 
 Each type of processor has its own assembly language (since each language is
 specific to a particular architecture) but each instruction typically has a lot
@@ -167,10 +196,12 @@ in common:
 	\item A mnemonic, that specifies the type of operation
 	\item A destination, such as a register or memory location
 	\item And one or more sources that may be registers or memory locations.
-	\item Possibly with a comment too which will help programmers understand what's happening and aren't interpreted by the assembler.
+	\item Possibly with a comment too which will help programmers understand 
+	what's happening and aren't interpreted by the assembler.
 \end{itemize}
 
-When a program has been written in assembler, it must be {\it assembled} by an {\it assembler} to run it.
+When a program has been written in assembler, it must be {\it assembled} by an
+{\it assembler} to run it.
 
 \subsection{ARM instructions}
 
@@ -178,8 +209,10 @@ ARM has many instructions but we only need three categories:
 
 \begin{itemize}
 	\item Memory operations that move data between the memory and the registers.
-	\item Processing operations that perform calculations using value already in registers.
-	\item Control flow instructions are used to make decisions, repeat operations etc.
+	\item Processing operations that perform calculations using value already in
+	registers.
+	\item Control flow instructions are used to make decisions, repeat 
+	operations etc.
 \end{itemize}
 
 \subsection{Transferring data between registers and memory}
@@ -193,11 +226,13 @@ For example, $a$ into register 1 ($R1 \leftarrow a$) we would write:
 Or to store the value in register 5 into $sum$ ($sum \leftarrow R5$):
 {\tt STR R5, sum}
 
-In these examples, $a$ and $sum$ are aliases for the addresses of memory locations.
+In these examples, $a$ and $sum$ are aliases for the addresses of memory
+locations.
 
 \subsection{ARM processing instructions}
 
-ARM has many different instructions to perform operations such as addition, subtraction and multiplication.
+ARM has many different instructions to perform operations such as addition,
+subtraction and multiplication.
 
 The syntax for such operations is usually:
 
@@ -248,25 +283,31 @@ executed. ARM uses register 15 as its PC.
 
 \subsection{Fetch-Execute Cycle}
 
-The processor must first fetch instructions from memory before it can execute them. This is called the fetch-execute cycle, and it involves:
+The processor must first fetch instructions from memory before it can execute
+them. This is called the fetch-execute cycle, and it involves:
 
-\begin{enumerate}
-	\item \textbf{Fetch}: copy the instruction, pointed to by the PC, from memory and set PC to point to the next instruction
-	\item \textbf{Execute}:  obey the instruction (exactly as before)
-	\item Repeat.
+\begin{enumerate}     \item \textbf{Fetch}: copy the instruction, pointed to by
+the PC, from memory and set PC to point to the next instruction     \item
+\textbf{Execute}:  obey the instruction (exactly as before)     \item Repeat.
 \end{enumerate}
 
-In ARM, the PC starts with a values of \texttt{0x00000000} when the program is initially run. On each cycle of the Fetch-Execute cycle, the PC is incremented by 4, since instructions each occupy 4 memory locations.
+In ARM, the PC starts with a values of \texttt{0x00000000} when the program is
+initially run. On each cycle of the Fetch-Execute cycle, the PC is incremented
+by 4, since instructions each occupy 4 memory locations.
 
 \subsection{Decision Making}
 
-In order to make decisions, the computer mustn't just execute instructions one after the other in a linear manner. Instead, branches must be used to change the sequence of instructions to be executed.
+In order to make decisions, the computer mustn't just execute instructions one
+after the other in a linear manner. Instead, branches must be used to change the
+sequence of instructions to be executed.
 
-In order to perform a conditional branch, we must first perform a compare command to perform the comparison before we do the branch.
+In order to perform a conditional branch, we must first perform a compare
+command to perform the comparison before we do the branch.
 
 \subsubsection{An example}
 
-If we wanted to do a $£1$ discount on a shopping list if the price was over $£20$, we would do the following:
+If we wanted to do a $£1$ discount on a shopping list if the price was over
+$£20$, we would do the following:
 
 \begin{listing}{1}
 		LDR	R0, total	; Load the total price
@@ -287,9 +328,12 @@ total 		DEFW	25		; Lets say the total is \$25
 
 \subsection{Allocating memory}
 
-The \texttt{DEFW} (define word) operation puts a value in memory before the program is run. Any define operation is executed before the program is run.
+The \texttt{DEFW} (define word) operation puts a value in memory before the
+program is run. Any define operation is executed before the program is run.
 
-The actual memory location that is used to store the value isn't known to the running program, however, an {\it alias} is attached to the memory location by the programmer and the memory location can be referenced through that.
+The actual memory location that is used to store the value isn't known to the
+running program, however, an {\it alias} is attached to the memory location by
+the programmer and the memory location can be referenced through that.
 
 The syntax for the \texttt{DEFW} command is as follows:
 
@@ -364,7 +408,8 @@ digits.
 
 \subsection{Different types of values}
 
-ARM has the capacity to work with many different types and sizes of values. Each type has a different use case. The main ones are described below:
+ARM has the capacity to work with many different types and sizes of values. Each
+type has a different use case. The main ones are described below:
 
 \begin{tabularx}{\textwidth}{l l X}
 	{\bf Name} & {\bf length} & {\bf Use}\\
@@ -372,22 +417,28 @@ ARM has the capacity to work with many different types and sizes of values. Each
 	Word & 32 bits & Used for integers, addresses and instructions\\
 \end{tabularx}
 
-There are other types too (such as the halfword and doubleword) but they aren't needed for this module.
+There are other types too (such as the halfword and doubleword) but they aren't
+needed for this module.
 
-ARM processors require that memory locations are aligned. This means that values stored in memory start at specific places. For example, a word address must be a multiple of four.
-
-This means that after a {\tt DEFW} statement, the {\tt ALIGN} command must be called (See ~\ref{subsubsec:align} for more on the {\tt ALIGN} command.).
+ARM processors require that memory locations are aligned. This means that values
+stored in memory start at specific places. For example, a word address must be a
+multiple of four.
+e
+This means that after a {\tt DEFW} statement, the {\tt ALIGN} command must be
+called (See ~\ref{subsubsec:align} for more on the {\tt ALIGN} command.).
 
 \subsection{Loading and storing values in memory}
 
-The commands {\tt LDR} and {\tt STR} are used to move values between memory and registers. The commands are detailed in full below:
+The commands {\tt LDR} and {\tt STR} are used to move values between memory and
+registers. The commands are detailed in full below:
 
 \begin{tabularx}{\textwidth}{l X}
 	{\bf Command} & {\bf Function}\\
 	{\tt STR} & Copies the whole (32 bit) register into memory.\\
 	{\tt LDR} & Loads a 32 bit word from memory into a register.\\
 	{\tt STRB} & Stores a single 8 bit byte into memory from a register.\\
-	{\tt LDRB} & Loads a byte from memory into a register. The upper 24 bits of the register are zeroed.\\
+	{\tt LDRB} & Loads a byte from memory into a register. The upper 24 bits of
+	the register are zeroed.\\
 \end{tabularx}
 
 \subsection{Endianness}
@@ -459,11 +510,15 @@ An example is to increment a register:
 	ADD	R1, R1, #1
 \end{verbatim}
 
-However, ARM only assigns up to 12 bits for a literal value, so we can only have $2^{12}$ values. However, ARM employs a strange method of encoding these values so that more useful values are available (for example, \#512 is allowed, but \#257 isn't).
+However, ARM only assigns up to 12 bits for a literal value, so we can only have
+$2^{12}$ values. However, ARM employs a strange method of encoding these values
+so that more useful values are available (for example, \#512 is allowed, but
+\#257 isn't).
 
 \subsubsection{Negative literals}
 
-Technically, ARM doesn't support negative literals, however, the assembler will usually be able to find a way to implement them. Some examples are given below:
+Technically, ARM doesn't support negative literals, however, the assembler will
+usually be able to find a way to implement them. Some examples are given below:
 
 \marginpar{\raggedright{\tt CMN} is compare negative.\\{\tt MVN} is move not.}
 \begin{center}
@@ -476,7 +531,11 @@ Technically, ARM doesn't support negative literals, however, the assembler will 
 
 \subsection{Supervisor calls}
 
-Supervisor calls are functions implemented by the operating system, not ARM itself. The parameter of an {\tt SVC} call defines it's exact operation.\marginpar{\raggedright SWI is another name for SVC - they do the same thing.}
+Supervisor calls are functions implemented by the operating system, not ARM
+itself. The parameter of an {\tt SVC} call defines it's exact
+operation.
+
+\marginpar{\raggedright SWI is another name for SVC - they do the same thing.}
 
 In this module, the SVC call does the following for each parameter:
 
@@ -490,9 +549,13 @@ In this module, the SVC call does the following for each parameter:
 
 \subsection{Pseudo instructions}
 
-The ARM assembler provides some instructions that are translated into sequences of more complicated instructions at the time of assembly for our convenience.
+The ARM assembler provides some instructions that are translated into sequences
+of more complicated instructions at the time of assembly for our convenience.
 
-One such instruction is loading a literal into a register. This is done using the {\tt LDR} command as usual, however a literal is used with the '$=$' character instead of a '$\#$'. E.g. to load the value $100$ into register one, we do:
+One such instruction is loading a literal into a register. This is done using
+the {\tt LDR} command as usual, however a literal is used with the '$=$'
+character instead of a '$\#$'. E.g. to load the value $100$ into register one,
+we do:
 
 \begin{verbatim}
 	LDR	R1,	=100
@@ -520,31 +583,53 @@ constant	DEFB	100
 		ADR	R1, constant
 \end{listing}
 
-Will load the memory address of {\tt constant} into register one.
+It will load the memory address of {\tt constant} relative to the {\tt PC} into
+{\tt R1}. When the code is assembled, it is turned into two instructions (so
+{\tt ADR} is a pseudo instruction). They are:
+
+\begin{listing}{1}
+	ADD R1, R1, PC
+	LDR PC, R1
+\end{listing}
 
 \subsection{Directives}
 Directives are evaluated at the time of assembly.
 
 \subsubsection{DEF commands}
 
-The {\tt DEF\{W,B,S\}} command reserves an amount of memory dependent on the operation used (see the table) and puts an initial value in it.
+The {\tt DEF\{W,B,S\}} command reserves an amount of memory dependent on the
+operation used (see the table) and puts an initial value in it.
 
 \begin{tabularx}{\textwidth}{l|X}
 	{\bf Command} & {\bf Function}\\ \hline
-	{\tt DEFW num} & Reserves a {\it word} of memory and puts the initial value {\tt num} in it.\\ \hline
-	{\tt DEFB value} & Reserves {\it byte}(s) of memory and puts the initial value {\tt value} in it. Note that the value can be a string literal, in which case the number of bytes reserved will be equal to the length of the string.\\ \hline
-	{\tt DEFS size, fill} & Reserves a {\it block} of memory of {\tt size} bytes and initialises them with the value {\tt fill}. \\ \hline	
+
+	{\tt DEFW num} & Reserves a {\it word} of memory and puts the initial
+	value {\tt num} in it.\\ \hline
+
+	{\tt DEFB value} & Reserves {\it byte}(s) of memory and puts the initial
+	value {\tt value} in it. Note that the value can be a string literal, in
+	which case the number of bytes reserved will be equal to the length of the
+	string.\\ \hline
+
+	{\tt DEFS size, fill} & Reserves a {\it block} of memory of {\tt size}
+	bytes and initialises them with the value {\tt fill}. \\ \hline	
 \end{tabularx}
 
 \subsubsection{Align}
 \label{subsubsec:align}
-The align command leaves as many blank bytes as needed so that the next item in memory will start at a word boundary (a multiple of 4).
+
+The align command leaves as many blank bytes as needed so that the next item in
+memory will start at a word boundary (a multiple of 4).
 
 \subsubsection{Entry}
-Sets the PC at the start of the program (i.e. where the program should start from)
+
+Sets the PC at the start of the program (i.e. where the program should start
+from)
 
 \subsubsection{EQU}
-Allows you to name a literal, which can go a long way to making the code more maintainable. We could define the literal $18$ as $drinking\_age$:
+
+Allows you to name a literal, which can go a long way to making the code more
+maintainable. We could define the literal $18$ as $drinking\_age$:
 
 \begin{listing}{1}
 drinking_age	EQU 	#18
@@ -557,7 +642,9 @@ drinking_age	EQU 	#18
 
 \subsection{Making good use of registers}
 
-Registers are a precious resource when programming on ARM. When writing software to evaluate expressions, it's often tempting to load all the variables into registers first, and then perform the arithmetic in separate registers like so:
+Registers are a precious resource when programming on ARM. When writing software
+to evaluate expressions, it's often tempting to load all the variables into
+registers first, and then perform the arithmetic in separate registers like so:
 
 \begin{listing}{1}
 	; a = b + c + d
@@ -569,7 +656,8 @@ Registers are a precious resource when programming on ARM. When writing software
 	STR 	R5, a
 \end{listing}
 
-However, this is pointless - the values in the registers {\tt R4} and {\tt R5} aren't going to be needed again, so we may as well do:
+However, this is pointless - the values in the registers {\tt R4} and {\tt R5}
+aren't going to be needed again, so we may as well do:
 
 \begin{listing}{1}
 ; a = b + c + d
@@ -581,7 +669,9 @@ ADD 	R1, R1, R3
 STR 	R1, a
 \end{listing}
 
-But, we can optimise even further here. Instead of loading all the variables into registers before we do arithmetic, we can save a register and load only the ones we need before each {\tt ADD} instruction:
+But, we can optimise even further here. Instead of loading all the variables
+into registers before we do arithmetic, we can save a register and load only the
+ones we need before each {\tt ADD} instruction:
 
 \begin{listing}{1}
 ; a = b + c + d
@@ -593,17 +683,25 @@ ADD 	R1, R1, R2
 STR 	R1, a
 \end{listing}
 
-Sometimes, it's useful to re-order an arithmetic expression so it can be implemented using less registers. This can often be achieved by increasing the nesting of brackets in an expression such as this:
+Sometimes, it's useful to re-order an arithmetic expression so it can be
+implemented using less registers. This can often be achieved by increasing the
+nesting of brackets in an expression such as this:
 
 \[
 	(b - e) + (c * d) = ((c * d) + b - e)
 \]
 
-Though these expressions are both equal, the right hand side will use a register less in ARM code, since each instruction can be executed sequentially, however the left hand side requires two expressions to be evaluated (and stored in a total of three registers) and then both expressions added together.
+Though these expressions are both equal, the right hand side will use a register
+less in ARM code, since each instruction can be executed sequentially, however
+the left hand side requires two expressions to be evaluated (and stored in a
+total of three registers) and then both expressions added together.
 
 \subsection{Using literals in expressions}
 
-If there is a literal in the expression you want to evaluate, then it's possible to use a literal instead of a register. For example, these two programs will end up with the same answer in {\tt R0} but the one on the right uses less registers:
+If there is a literal in the expression you want to evaluate, then it's possible
+to use a literal instead of a register. For example, these two programs will end
+up with the same answer in {\tt R0} but the one on the right uses less
+registers:
 
 % Split the page into two for side-by-side comparison
 \begin{minipage}[t]{0.5\textwidth}
@@ -631,7 +729,11 @@ five	DEFW	5
 	\end{listing}
 \end{minipage}
 
-Literals can be any expression that the assembler can evaluate, for example, the following are all valid:\marginpar{\raggedright Note that {\tt MUL} cannot use literals. To get around this, first {\tt MOV} the literal into a register and then multiply.}
+Literals can be any expression that the assembler can evaluate, for example, the
+following are all valid:
+
+\marginpar{\raggedright Note that {\tt MUL} cannot use literals. To get around
+this, first {\tt MOV} the literal into a register and then multiply.}
 
 \begin{verbatim}
 	ADD	R0, R0, #(1 + 2)
@@ -649,23 +751,33 @@ Literals can be any expression that the assembler can evaluate, for example, the
 
 \subsection{Status flags}
 
-ARM has some 1-bit status flags that are set after a {\tt CMP} instruction as shown below:
+ARM has some 1-bit status flags that are set after a {\tt CMP} instruction as
+shown below:
 
 \begin{tabularx}{0.8\textwidth}{l|X}
 	Flag & Meaning\\ \hline
+
 	Negative & Previous result was negative\\ \hline
+
 	Zero & Previous result was zero\\ \hline
+
 	Carry & Previous add or subtract generated a carry\\ \hline
-	Overflow & The previous add or subtract overflowed and went out of range\\ \hline
+
+	Overflow & The previous add or subtract overflowed and went out of range\\
+	\hline
 \end{tabularx}
 
-You can get any data operation to alter the flags by appending {\tt S} to the instruction. For example:
+You can get any data operation to alter the flags by appending {\tt S} to the
+instruction. For example:
 
 \begin{verbatim}
 	SUBS	R0, R1, R2
 \end{verbatim}
 
-The above command will subtract {\tt R2} from {\tt R1} and store the result in {\tt R0}, but it will also set the flags according to the value of {\tt R0}. For example, if the value in {\tt R0} was negative after the operation, the {\tt Negative} flag would be set.
+The above command will subtract {\tt R2} from {\tt R1} and store the result in
+{\tt R0}, but it will also set the flags according to the value of {\tt R0}. For
+example, if the value in {\tt R0} was negative after the operation, the {\tt
+Negative} flag would be set.
 
 \subsection{Other useful arithmetic commands}
 
@@ -675,7 +787,8 @@ The {\tt RSB} command is reverse subtract, and is useful for negating a literal:
 	RSB	R1, R0, #0; R1 = 0 - R0 = -R0
 \end{verbatim}
 
-The {\tt MLA} command is multiply and add. It can only use registers as operands.
+The {\tt MLA} command is multiply and add. It can only use registers as
+operands.
 
 \begin{verbatim}
 	MLA	R1, R2, R3, R4 ; R1 = (R2 * R3) + R4
@@ -694,7 +807,8 @@ if(condition)
 }
 \end{listing}
 
-How would we convert that into ARM assembly? The best way is to do the following:
+How would we convert that into ARM assembly? The best way is to do the
+following:
 
 \begin{enumerate}
 
@@ -809,11 +923,15 @@ The address needs the same number of bits as the memory address. i.e. 32 in ARM
 addressing modes - mechanisms for generating addresses
 
 \subsection{Direct Addressing}
-Direct addressing is a mode where the address is simply contained within the instruction.
 
-This requires an instruction longer than the address size which is a problem because ARMs maximum bit length is 32.
+Direct addressing is a mode where the address is simply contained within the
+instruction.
 
-So far, we assumed that direct addressing uses LDR/STR instructions, for example:
+This requires an instruction longer than the address size which is a problem
+because ARMs maximum bit length is 32.
+
+So far, we assumed that direct addressing uses LDR/STR instructions, for
+example:
 
 \begin{center}
     \begin{tabular}{l l l}
@@ -824,12 +942,16 @@ So far, we assumed that direct addressing uses LDR/STR instructions, for example
     \end{tabular}
 \end{center}
 
-This looks like direct addressing but on ARM it's 'faked' by the assembler as a pseudo-instruction
+This looks like direct addressing but on ARM it's 'faked' by the assembler as a
+pseudo-instruction
 
 \subsubsection{Problems with direct addressing}
-ARM: both instructions and addresses are 32 bits, but the instruction also specifies operation so it can't contain every possible address.
 
-Solution: allow a register to contain an address, use the address in the register to do loads and stores.
+ARM: both instructions and addresses are 32 bits, but the instruction also
+specifies operation so it can't contain every possible address.
+
+Solution: allow a register to contain an address, use the address in the
+register to do loads and stores.
 
 This is {\bf Register Indirect Addressing}
 
@@ -838,7 +960,8 @@ The address is held in the register
 
 It takes only a few bits to select a register (4 bits in the case of ARM R0-R15)
 
-A register can (typically) hold an arbitrary address (32 bits in the case of ARM)
+A register can (typically) hold an arbitrary address (32 bits in the case of
+ARM)
 
 ARM has register indirect addressing
 
@@ -877,16 +1000,20 @@ We can operate on registers, so we can:
   \item do arithmetic to calculate addresses
 \end{itemize}
 
-Rather than use e.g. extra ADD instructions, we often use {\bf Base + Offset Addressing} - address addition done within the operand.
+Rather than use e.g. extra ADD instructions, we often use {\bf Base + Offset
+Addressing} - address addition done within the operand.
 
 We have actually been using this all along: Base = PC register.
 
 \subsection{Offset Addressing}
-In offset addressing the address is calculated from a register value and a number.
+
+In offset addressing the address is calculated from a register value and a
+number.
 
 The register specifier is just a few bits, The offset can be 'fairly small'.
 
-With one register 'pointer' any of several variables in nearby addresses may be addressed.
+With one register 'pointer' any of several variables in nearby addresses may be
+addressed.
 
 ARM allows offsets of 12 bits in LDR/STR
 
@@ -940,8 +1067,8 @@ count 	LDRB 	R0, [R1, R2]
 	STR 	R2, length
 \end{listing}
 
-\marginpar{\vspace{-6em}Here, we use {\tt R1} to store the message, {\tt R0} to read each
-character, and {\tt R2} to keep the count.}
+\marginpar{\vspace{-6em}Here, we use {\tt R1} to store the message, {\tt R0} to
+read each character, and {\tt R2} to keep the count.}
 
 \subsubsection{Getting the index of a character in a String}
 
@@ -963,8 +1090,8 @@ until we get to the character we're looking for.
 	STR 	R0, index
 \end{listing}
 
-\marginpar{\vspace{-10em}Note how this snippet has an optimisation to use one less
-register during the looping process than the string length snippet does. It
+\marginpar{\vspace{-10em}Note how this snippet has an optimisation to use one
+less register during the looping process than the string length snippet does. It
 only uses one register to loop over the string and then works out the number of
 times it's looped after the character has been found.}
 
@@ -1010,9 +1137,17 @@ ARM has four different operations for shifting and rotations:
 	\begin{tabularx}{\textwidth}{|l|X|X|}
 		\hline
 		{\bf Mnemonic} & {\bf Meaning} & {\bf Function}\\ \hline
-		{\tt LSL n} & Logical shift left & Shifts left by n bits. Any bits that are lost are zeroed.\\ \hline
-		{\tt LSR n} & Logical shift right &  Shifts right by n bits. Any bits that are lost are zeroed.\\ \hline
-		{\tt ASR n} & Arithmetic shift right & Shifts right by n bits. Any bits that are lost are set as the sign bit (to preserve the signed bit).\\ \hline
+
+		{\tt LSL n} & Logical shift left & Shifts left by n bits. Any bits that
+		are lost are zeroed.\\ \hline
+
+		{\tt LSR n} & Logical shift right &  Shifts right by n bits. Any bits
+		that are lost are zeroed.\\ \hline
+
+		{\tt ASR n} & Arithmetic shift right & Shifts right by n bits. Any bits
+		that are lost are set as the sign bit (to preserve the signed bit).\\
+		\hline
+
 		{\tt ROR n} & Rotate Right & Rotates right by n bits.\\ \hline
 	\end{tabularx}
 \end{center}
@@ -1081,7 +1216,8 @@ If we want to {\it push} an item onto the stack, we need to do two things:
 
 \begin{itemize}
 
-	\item Write the value to the current memory location addressed by the stack pointer.
+	\item Write the value to the current memory location addressed by the stack
+	pointer.
 
 	\item Decrement the stack pointer by {\tt 4}
 
@@ -1455,8 +1591,8 @@ that it appears to be at a memory address.
 \subsubsection{Implementing polling}
 
 In this simple implementation of a polling loop, we're assuming that the {\tt
-status\_register} and {\tt data\_register} have already been set up as aliases to
-the correct memory locations.
+status\_register} and {\tt data\_register} have already been set up as aliases
+to the correct memory locations.
 
 \begin{listing}{1}
 	; Load the program relative
@@ -1567,3 +1703,66 @@ interrupt
 	; were we came from
 	SUBS  PC, LR, #4
 \end{listing}
+
+\subsubsection{Having multiple interrupts}
+
+An interrupt vector table can be used to select the correct address to branch to
+when multiple interrupts are in place. All that is needed is a table of pointers
+to various methods for handling the different peripherals. Then, it's easy to
+find the correct peripheral by using the value set in the status register as an
+index in the table.
+
+\subsubsection{How an {\tt SVC} call works}
+
+We know that an {\tt SVC} call is a software {\it interrupt}. This means there
+will be an interrupt handler that will be called to do something once the {\tt
+SVC} instruction is executed. However, we include a parameter between $0$ and
+$4$ when we use a software interrupt, and this parameter defines the exact
+behaviour of the interrupt.
+
+How then, does the interrupt handler know what parameter was used then? Well,
+these are the processes that go on when an {\tt SVC} call happens:
+
+\begin{enumerate}
+	\item Branch an link to the interrupt handler, save registers using 
+	{\tt STMFD SP, {R0-R2, LR}}.
+
+	\item Load the link register into a register and take off {\tt \#4}. This
+	will be the {\tt SVC X} instruction. {\tt LDR R0, [LR, \#-4]}
+
+	\item Clear the top eight bits (the conditional code and the instruction
+	code). Use {\tt BIC R0, R0, 0xFF000000}
+
+	\item Logic shift right by 8 places (this will give us the 16 bit parameter,
+	with the upper 16 bits all zeroed) {\tt LSR R1, R0, \#8}.
+
+	\item Load the start of the interrupt vector table into {\tt R2}: 
+	{\tt LDR R2, vector\_table}
+
+	\item Now, we should load the interrupt into the PC with an offset of
+	{\tt R1 * \#4} using {\tt LDR PC, [R2, R1, LSL \#4]}
+
+	\item We can finally restore the registers using 
+	{\tt LDMFD SP, {R0-R2, PC}}. At the same time, we can set the PC back to 
+	where it was.
+\end{enumerate}
+
+\subsection{Direct Memory Access}
+
+Direct Memory Access (DMA) is a way of avoiding excess CPU overhead for data
+transfer between peripherals. If each interrupt takes 100 instructions to
+execute, and data is being sent byte by byte to the processor, then the process
+may use up a lot of CPU time, especially if there's lots of data being
+transferred.
+
+The solution to this is to have an external, hardware based solution on the
+motherboard with access to memory. This will take care of the interrupts for us
+instead of the CPU. This allows peripherals to write directly to memory rather
+than having to go through the CPU. The hardware controller can give the CPU an
+interrupt once every kilobyte or so is written, which would reduce the load on
+the CPU by 1000 times.
+
+DMA is good, since it reduces load on the CPU, and enables greater
+parallelization, however, it requires extra hardware which makes the system more
+complicated. Besides, the memory of the computer and the peripheral itself are
+still doing the same amount of work; only the load on the CPU has been lessened.
