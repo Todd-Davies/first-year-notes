@@ -1139,3 +1139,99 @@ Manchester encoding is one way of encoding the clock into the signal. It codes a
 $0$ as a falling edge and a $1$ as a rising edge. Some other transitions
 (in between the clock ticks) may be inserted to make this work if there are
 consecutive $1's$ and $0's$.
+
+\subsection{The Universal Serial Bus (USB) protocol}
+
+USB is a packed based form of serial I/O communication. A USB cable has four
+cables; power, ground, data + and data -. The two data wires carry only one
+signal between them. To provide a better resistance to noise, there are read as
+carrying a $0$ if the difference in voltage is less than \SI{200}{\milli\volt}
+or a $1$ if the difference is greater than \SI{200}{\milli\volt}.
+
+Information is encoded into packages as it is sent via USB, and communicating
+devices are synchronised by recovering the encoded clock.
+
+\subsubsection{Encoding information for USB}
+
+The encoding method used in the USB protocol is called {\it Non Return to Zero
+Inverted} (NRZI) encoding. This means that any change (i.e. $0 \rightarrow 1$ or
+$1 \rightarrow 0$) is interpreted as a $0$, whereas no change is interpreted as
+a $1$.
+
+{\bf Bit stuffing} is used to make sure there are no long sequences without any
+changes in the voltage. This means that a zero (i.e. a change in the signal)
+is inserted every six consecutive one's.
+
+There are features built in to USB to assist clock synchronisation. A {\tt SYNC}
+signal is a sequence of {\tt 00000001} which is used to facilitate clock
+synchronisation. There are also many error correction features such as a Cyclic
+Redundancy Check or the End of the Packet field.
+
+\subsection{Asynchronous Serial Communications}
+
+An Asynchronous communication is one where there is no transmitted clock signal.
+Instead, both parties know an approximate transmission frequency and all the
+symbols in the code have the same length, yet there can be an arbitrary time
+between symbols.
+
+Having no clock means that Asynchronous communications are often more convenient
+than synchronous ones since less decoding may be required. In an {\bf
+Asynchronous Serial Line}, though there is no clock, both communicating parties
+have decided on the period of transmission per data element. This means that
+though they will differ slightly, the transmitting and receiving ends of the
+line won't drift apart too far with their timing, though they must resynchronise
+every so often to ensure that their clocks do stay within acceptable times of
+each other. This will slow down communications since extra bits need to be
+inserted every couple of bytes.
+
+\subsubsection{Symbol transmission}
+
+In an asynchronous serial communication, there can be any length of gap between
+symbols. This means that the symbols must be coded so that they are easily
+distinguishable. Using the {\it NRZI} encoding, the following may be
+implemented:
+
+\begin{itemize}
+	\item The symbol starts with a {\it start bit} which is always a $1$
+	\item The data is encoded as 8 bits.
+	\item The symbol ends with an {\it end bit} which is always a $0$.
+\end{itemize}
+
+This means that there is an overhead of two bits for every eight bits of data,
+and the symbol length is ten bits.
+
+\subsubsection{The RS232 serial interface}
+
+The RS232 interface is a very common asynchronous serial interface. The data
+line is idle when it is 'high', and transmission of a symbol is started by the
+line dropping to 'low' for one bit. This is called the {\it start bit}. Eight
+bits will then follow using standard $high=1$, $low=0$ encoding. The line will
+then go back to 'high' again to idle.
+
+\subsubsection{Strobing}
+
+A strobe line lies parallel to the data line in an interface. The idea is that
+the strobe going will high will signal that data is being sent over the data
+line. The sending device will place the data to be sent on a bus, and then wait
+for the bus to settle. Then it will turn on the strobe and the data will be read
+off the bus by the receiving device. Once the bus has been read, the strobe will
+be turned off indicating that transfer has finished.
+
+\subsubsection{Handshaking}
+
+Handshaking requires two lines that run parallel to the data line; a request
+line and acknowledge line. In order to set up a data transfer, the following
+takes place:
+
+\begin{itemize}
+	\item The transmitter goes high on the {\tt request} line.
+	\item The receiver latches onto that and goes high on {\tt acknowledge}.
+	\item The data is sent along the {\tt data} line.
+	\item The transmitter goes low on {\tt request}.
+	\item This prompts the receiver to go low on {\tt acknowledge}.
+\end{itemize}
+
+This is truly asynchronous, since the transmitter must wait for acknowledgement
+before it can send the data, so we know that it is ready to be received.
+However, it may require up to eleven wires (eight bits, a request, acknowledge
+and ground wire).
