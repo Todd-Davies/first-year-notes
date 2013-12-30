@@ -1128,7 +1128,7 @@ The sum of the probabilities of the random variable is always equal to $1$:
 \end{dmath}
 
 \subsection{Constructing new random variables from existing ones}
-
+\label{subsec:new_random_vars}
 Creating a random variable from another random variable is fairly easy; it's
 basically a composite function. If we have a random variable $X$ and a function
 $f$ then:
@@ -1181,3 +1181,61 @@ A graph of a {\it cdf} function contains all the information about the random
 variable it has mapped. We can deduce it's range, the {\it pmf} and where the
 graph jumps. Note that black dots on the graph indicate where a value is, and
 white dots at the same $x$ coordinate show where the value isn't.
+
+\subsection{The mean of a random variable}
+
+Finding the average value of a random variable is comparable to doing so for a
+sequence of numbers where each number has a weight. If the numbers are numbered
+$\alpha_1 \dots \alpha_n$ and their weights are numbered $\omega_1 \dots
+\omega_n$ then the average value would be:
+
+\begin{dmath}
+	\textrm{Average value: } = \frac{\omega_1\alpha_1 + \dots + \omega_n\alpha_n}{\omega_1 + \dots + \omega_n}
+\end{dmath}
+
+Note that the mean is represented by $\mathbb{E}$ so:
+
+\begin{dmath}
+	\mathbb{E} = \frac{\omega_1\alpha_1 + \dots + \omega_n\alpha_n}{\omega_1 + \dots + \omega_n}
+\end{dmath}
+
+In this analogy, then the values for $\alpha$ would be members of the range of
+$X$ and the values of $\omega$ would be the probabilities that these values
+would occur:
+
+\begin{dmath}
+	\mathbb{E}(X) = \frac{\mathbb{P}(X = r_1) \cdot r_1 + \dots + \mathbb{P}(X = r_n) \cdot r_n}{\mathbb{P}(X = r_1) + \dots + \mathbb{P}(X = r_n)}
+\end{dmath}
+
+However, since the denominator of this fraction is merely the sum of the
+probabilities of each of the elements in the range of $X$, it will always equal
+$1$. Therefore:
+
+\begin{dmath}
+	\mathbb{E}(X) = {\mathbb{P}(X = r_1) \cdot r_1 + \dots + \mathbb{P}(X = r_n) \cdot r_n} = {\sum\limits_{i=1}^{n} r_i \mathbb{P}(X = r_i)}
+\end{dmath}
+
+In order to define the mean of a function of a random variable (as described in
+section~\ref{subsec:new_random_vars}), we don't need to apply the function to
+the probability of each element occurring, only to the element itself:
+
+\begin{dmath}
+	\mathbb{E}(f(X)) = {\sum\limits_{i=1}^{n} f(r_i) \mathbb{P}(X = r_i)}
+\end{dmath}
+
+Of course, if the random variable $Y = f(X(r_i))$ then you can just find
+the average of $Y$ instead:
+
+\begin{dmath}
+	\mathbb{E}(Y) = {\sum\limits_{i=1}^{n} r_i \mathbb{P}(Y = r_i)}
+\end{dmath}
+
+We can say two more things about the means of random variables:
+
+\begin{itemize}
+	\item If the random variable only has one element in it's range, then the mean of the random variable must be that element.
+	\item For any $a, b \in \mathbb{R}$ we have
+	\begin{dmath}
+		\mathbb{E}(aX + b) = a\mathbb{E}(X) + b
+	\end{dmath}
+\end{itemize}
