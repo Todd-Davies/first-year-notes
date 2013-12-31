@@ -1766,3 +1766,27 @@ DMA is good, since it reduces load on the CPU, and enables greater
 parallelization, however, it requires extra hardware which makes the system more
 complicated. Besides, the memory of the computer and the peripheral itself are
 still doing the same amount of work; only the load on the CPU has been lessened.
+
+%TODO: Fill out this section whenever decent crib notes become avalible
+
+\section{Operating systems}
+
+Most operating systems consist of four elements; a stack, a kernel, multiple
+libraries for programs to use and a user interface.
+
+\subsection{The Kernel}
+
+The kernel is responsible for abstracting the implementation details of the
+hardware that the operating system is sitting on top of away so that programs
+and applications can interface with it more easily. It also protects programs
+from each other, so that one program cannot access another programs memory
+space. This is an important security feature, and it is important that the
+kernel cannot be bypassed.
+
+\subsubsection{Kernel modes}
+
+Most kernels have multiple different processing {\it modes} that will allow
+programs different privileges. The default mode is usually the {\it user} mode
+where programs can only access memory in their allocated space. There is also a
+{\it privileged} mode where programs can access any memory address. ARM has an
+{\it interrupt} mode too handle interrupts from peripherals.
