@@ -1790,3 +1790,81 @@ programs different privileges. The default mode is usually the {\it user} mode
 where programs can only access memory in their allocated space. There is also a
 {\it privileged} mode where programs can access any memory address. ARM has an
 {\it interrupt} mode too handle interrupts from peripherals.
+
+\section{Methods of running code}
+
+\subsection{Compilers and assemblers}
+
+The job of compilers and assemblers is to convert human readable source code
+into machine executable code (often referred to as {\it machine code}). There
+are a number of steps associated with compilation:
+
+\marginpar{Note that this process is referred to assembly when its assembly code
+that is being transformed, and compilation when it's higher level code such as
+Java, LISP or C++.}
+
+\begin{enumerate}
+
+	\item {\bf Lexical analysis} is when the source code is broken down into
+	tokens (groups of one or more characters that represent something, like a
+	parameter, punctuation, operands etc). This is where comments are filtered
+	out of the source code; they are not included in the tokens.
+
+	\item {\bf Syntaxic analysis} checks that the tokens are formed so that
+	together, they form structures in the correct syntax for the language of
+	the code. This means checking that method calls have the right number of
+	parameters, semicolons are in the correct place, etc.
+
+	\item {\bf Semantic analysis} makes sure that the code makes sense; it'll
+	check the types of variables, check that programmer defined names and
+	definitions are legal and so on.
+
+	\item {\bf Code generation}. If the compilation process gets this far, then
+	the code is all correct and will run. All that remains now is to convert it
+	into machine readable code. This can be in a variety of different formats,
+	such as bytecode for Java or machine code if Assembly languages are being
+	assembled.
+
+	\item {\bf Optimisation} is an important part of compilation. Only higher
+	level languages have any optimisation built into their compilation process
+	though; most assemblers don't do it (since they rely on the human
+	programmer doing so).
+
+\end{enumerate}
+
+\subsection{Interpreters}
+
+An interpreter reads code and executes it directly. This code can be written
+either by hand in a language such as Python, or it can have been assembled or
+compiled such as with most assembly languages and compiled languages such as
+Java.
+
+Here are some of the pros and cons about interpreters:
+
+\begin{itemize}
+	\item Simple to implement.
+	
+	\item Code is very portable, the interpreter guarantees that certain
+	functions will be available and they will be accessible in the same way
+	on whatever system the interpreter is running on.
+
+	\item Theoretically, interpreters are fairly secure, though exploits in the
+	past have proven that implementing a secure interpreter isn't something to
+	be taken lightly (take a look at Java!)
+
+	\item Interpreters can be used to prototype new hardware, since they can
+	emulate what the hardware would do.
+
+	\item Debugging is very easy on an interpreter since a programmer would have
+	full access to the stack and so could see the value of variables and memory
+	locations all the time. It potentially also allows for code execution to be
+	paused or stepped through.
+
+	\item Interpreters are often seen as being slow since they are running on
+	top of the {\it real hardware}, so there will invariably be some (often
+	significant) overhead.
+
+	\item It's often hard to simulate a real computer. While this may not always
+	be desirable, if the interpreter is designed to mimic hardware exactly,
+	then this is often very hard to implement.
+\end{itemize}
