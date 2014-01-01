@@ -1239,3 +1239,48 @@ We can say two more things about the means of random variables:
 		\mathbb{E}(aX + b) = a\mathbb{E}(X) + b
 	\end{dmath}
 \end{itemize}
+
+\subsection{The variance and standard deviation of a random variable}
+
+The variance of a random variable is how much on average, a random variable
+strays from it's mean. This may seem strange, but it makes more sense when
+applied; a random variable that can take the values $\{-20, 0, 20\}$ will have
+a greater variance than one that has a range of $\{-2, 0, 2\}$, providing that
+their respective weightings are the same.
+
+In order to find the variance of a random variable ($X$), we must first find
+it's mean ($\mu$). We can then go through each element in the random variable
+and find how far it is from the mean of the random variable. Let $Y$ denote
+the new random variable produced:
+
+\begin{dmath}
+	Y(\omega) = (X(\omega) - \mu)^2
+\end{dmath}
+
+In order to find the variance of the random variable, we need to find then
+average amount that the variable strays from it's mean, so we must find the
+mean of $Y$:
+
+\begin{dmath}
+	Var(X) = \mathbb{E}[(X - \mu)^2]
+\end{dmath}
+
+So, to sum it up, the variance is a measure of how far $X$ is on average from
+it's mean $\mu$. The larger the variance is, the larger the distance on
+average is.
+
+Note that when finding the variance, it's imperative that you remember to take
+into account the probability of each element $\omega$ happening.
+
+\begin{dmath}
+	Var(X) = \sum\limits_{i=1}^{m}(r_i - \mu)^2\mathbb{P}(X=r_i)
+\end{dmath}
+
+\subsubsection{Standard deviation}
+
+The standard deviation of a random variable is merely just the square root of
+it's variance:
+
+\begin{dmath}
+	SD(X) = \sqrt{Var(X)}
+\end{dmath}
