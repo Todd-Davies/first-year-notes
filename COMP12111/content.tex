@@ -1235,3 +1235,24 @@ This is truly asynchronous, since the transmitter must wait for acknowledgement
 before it can send the data, so we know that it is ready to be received.
 However, it may require up to eleven wires (eight bits, a request, acknowledge
 and ground wire).
+
+\subsubsection{Time Domain Multiplexing (TDM)}
+
+Time domain multiplexing is a method of sharing spare bandwidth on a connection
+between many different channels. It allows all of the bandwidth on a connection
+to be used up, and also lets multiple 'virtual' connections be established over
+one real one.
+
+\subsection{Layered Communications Protocols}
+
+The concept of a layered communications protocol is that there is a hierarchy of
+protocols all sitting on top of each other with a physical link between two
+computers at the bottom. The idea is that it is very easy to communicate between
+each layer, so each step in the chain is simple and easy to use, which allows
+for lots of extensibility and flexibility.
+
+Most of the layers communicate with each other using only a virtual link, only
+the physical layers actually have any real connection. This means that there is
+a differing level of abstraction at each level (i.e. the network card doesn't
+need to know that a music video is being streamed, only that packets are coming
+into it via an Ethernet port).
