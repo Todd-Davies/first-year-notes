@@ -1273,7 +1273,7 @@ Note that when finding the variance, it's imperative that you remember to take
 into account the probability of each element $\omega$ happening.
 
 \begin{dmath}
-	Var(X) = \sum\limits_{i=1}^{m}(r_i - \mu)^2\mathbb{P}(X=r_i)
+	{Var(X) = \sum\limits_{i=1}^{m}(r_i - \mu)^2\mathbb{P}(X=r_i)}
 \end{dmath}
 
 \subsubsection{Standard deviation}
@@ -1283,4 +1283,77 @@ it's variance:
 
 \begin{dmath}
 	SD(X) = \sqrt{Var(X)}
+\end{dmath}
+
+\section{Distributions}
+
+A distribution is a combination of {\it range} and {\it pmf}. If two different
+random variables have the same range and the same pmf, then they have the same
+distribution.
+
+\subsection{The Bernoulli distribution}
+
+The Bernoulli distribution has a range of $R = \{0, 1\}$ and a pmf of $p_x(0) =
+1-p$ and $p_x(1) = p$.
+
+An example of an experiment following this distribution would be the tossing of
+a coin.
+
+If a random variable $X$ follows the Bernoulli distribution ($X ~ Bernoulli(p)$)
+then:
+
+\begin{dmath}
+	{\mathbb{E}[X] = p} \textrm{ and } {Var(X) = p(1-p)}
+\end{dmath}
+
+\subsection{The Binomial distribution}
+
+The binomial distribution deals with situations where you have an experiment
+that can yield an outcome of {\it success} or {\it failure}. It's range is from
+$\{0, 1, \dots, n\}$ since it accounts for the experiment being repeated $n$
+times.
+
+The probability of having $k$ number of successes in a row out of $n$ tries is:
+
+\begin{dmath}
+	{p_x(k) = \mathbb{P}(X = k) = {n \choose k}p^k(1-p)^{n-k}}
+\end{dmath}
+
+The mean of a Binomial distribution is $\mathbb{E}[X] = np$ and the variance is
+$Var(X) = np(1-p)$.
+
+\subsection{The Poisson distribution}
+
+The Poisson distribution is very similar to the Binomial distribution, but it is
+suited to applications where $n$ is very large and $p$ is very small. It
+predicts the probability of a number of $k$ successes occurring within $n$ tries
+of an experiment.
+
+\begin{dmath}
+	p_x(k) = \frac{\lambda^k}{k!}e^{-\lambda}
+\end{dmath}
+
+The mean and the variance both equal $\lambda$:
+
+\begin{dmath}
+	{\mathbb{E}[X] = Var(X) = \lambda}
+\end{dmath}
+
+\subsection{The Geometric distribution}
+
+The geometric distribution finds the number of experiments you should do before
+getting your first success.
+
+\begin{dmath}
+	p_x(k) = (1-p)^{k-1}p \textrm{ for all $k \in \{0, 1, \dots\}$}
+\end{dmath}
+
+The mean and variance of a geometric distribution are:
+
+\begin{dmath}
+	\mathbb{E}[X] = \frac{1}{p}
+\end{dmath}
+
+\begin{dmath}
+	Var(X) = \frac{1-p}{p^2}
 \end{dmath}
