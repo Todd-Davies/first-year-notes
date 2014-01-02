@@ -1880,3 +1880,120 @@ Here are some of the pros and cons about interpreters:
 	be desirable, if the interpreter is designed to mimic hardware exactly,
 	then this is often very hard to implement.
 \end{itemize}
+
+\section{Java Bytecode}
+
+When a {\tt .java} file is compiled, the compiler ({\tt javac}) produces a {\tt
+.class} file. This is a file that contains java {\it bytecode}. This bytecode
+can then be run by a Java Virtual Machine (JVM). This is done by executing the
+instructions in the bytecode sequentially, {\it interpreting} each instruction
+as it comes. By doing this, the Virtual Machine can provide some guarantees of
+security, including the ability to execute code inside a sandbox if it is
+suspected to be malicious or untrustworthy.
+
+\marginpar{A sandbox is a virtual environment that is able to separate a piece
+of running code from it's environment. For example, code running inside a
+sandbox might not be able to access the clipboard, hard drive or the Internet.}
+
+One of the beautiful things about compiling code to an abstract assembly
+language such as bytecode is that in order to run it, all you need is a virtual
+machine. In this sense, all you need to run any Java code on any specific
+platform is a virtual machine specific to that platform. This makes languages
+that compile down to an abstract assembly language inherently portable and
+ubiquitously compatible.
+
+\subsection{Types of instruction}
+
+We are familiar with three address instructions (such as {\tt ADD R1, R2, R3})
+and two address instructions ({\tt LDR R1, var}), but bytecode also brings one
+and even zero address instructions into the mix. The creators of Java wanted to
+ensure that bytecode was as compact as possible so that it could be transferred
+over slow Internet connections as quickly as possible. Having zero or one
+address instructions was a way to shave off excess characters in the bytecode in
+order to minimise the bandwidth that bytecode would need to be sent over the
+Internet.
+
+\marginpar{In fact, the vast majority of bytecode instructions are only $8$ bits
+long (though some may take up to 32 bits). This is a lot shorter than the
+standard $32$ bit instruction used by ARM assembly, in fact, bytecode is often
+just one third the size of ARM code.}
+
+Instructions that take less than two operands will get their source and/or
+destination operands implicitly. In Java, they are the top one or two items on
+the stack. Code that is written in this way is often referred to as a {\it stack
+machine}.
+
+For example, in order to add two numbers using a zero address instruction, the
+two numbers would have to be present on the stack, like so:
+
+\begin{center}
+\begin{drawstack}
+	\cell{5}	
+	\cell{2}	\cellptr{{\tt SP}}
+	\cell{0}	
+	\cell{0}	
+	\cell{0}	
+\end{drawstack}
+\end{center}
+
+When the {\it ADD} command is executed, the two values would be popped, added
+together and then pushed again:
+
+\begin{center}
+\begin{drawstack}
+	\cell{7}	\cellptr{{\tt SP}}
+	\cell{0}
+	\cell{0}	
+	\cell{0}	
+	\cell{0}	
+\end{drawstack}
+\end{center}
+
+So, the {\tt ADD} command in bytecode is really four ARM instructions; two
+pop's, one add and a push.
+
+One address instructions are similar and are required in order to correctly
+populate the stack before any processing can occur. {\tt PUSH a} will push {\tt
+a} onto the stack, and {\tt POP a} will pop {\tt a} off the stack. The bytecode
+to execute the expression $x = (a+b) * (c-d)$ would be:
+
+\begin{listing}{1}
+	PUSH a
+	PUSH b
+	ADD
+	PUSH c
+	PUSH d
+	SUB
+	MUL
+	POP x
+\end{listing}
+
+\subsection{Interpreting bytecode}
+
+It is possible to interpreter bytecode by having a large switch statement with
+all the different instructions in it and just matching the bytes against it.
+
+The speed at which bytecode runs is sometimes a problem though. Due to the
+nature of one and zero address instructions, the stack is heavily used, which
+means that the processor wastes a lot of cycles merely waiting for memory
+addresses to be read. Luckily, due to the structure of the stack, the spatial
+locality of the memory addresses is high, and they are cached efficiently,
+however, execution can still be $10-100$ times slower than compiled C code.
+
+\subsubsection{Speeding up bytecode}
+
+It is possible to compile bytecode into native machine instructions. Java makes
+use of a technique called {\it Dynamic Class Loading} so that it only loads
+classes when they are needed (which minimises the overhead of starting up
+programs and makes the memory usage lighter). The Java Virtual Matching (JVM)
+will also compiles classes in real time using the Just In Time (JIT) compiler.
+This is initially slower than a simple interpreter since it takes time to
+compile classes before use, but they run far faster once compiled.
+
+The JIT makes use of dynamic compilation in order to progressively enhance the
+speed of code as it runs more times. When a section of code is run the first
+time, the JIT will spend only the minimum amount of time compiling it so that it
+can be executed as soon as possible, however, if the code is run again, and
+again, then each time, the JIT will improve upon the compilation so that it runs
+faster. Since only around 10\% of code in programs is run frequently, this is
+very efficient, since only that small percentage will be compiled in detail.
