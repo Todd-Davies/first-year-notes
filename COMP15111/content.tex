@@ -30,8 +30,7 @@ Memory is a set of locations which can hold information, such as numbers,
 programs or many other types of data. Each memory location has a unique
 numerical address, and there are typically thousands of millions of different
 locations. There are various ways of depicting memory; a common one is a 'hex
-dump' that often looks something like this: \marginpar{\raggedright Run the
-command {\it hexdump} to generate hexdumps.}
+dump' that often looks something like this:
 
 \begin{center}
 	\begin{tabular}{l l l}
@@ -41,6 +40,8 @@ command {\it hexdump} to generate hexdumps.}
 \end{center}
 
 Each item that is in the memory has a unique address.
+
+\marginpar{Run the command {\tt hexdump} to generate hexdumps.}
 
 \subsubsection{Bus}
 
@@ -345,12 +346,15 @@ Where {\tt myage} is the alias and {\tt 18} is the value.
 
 {\tt DEFW} can also be used to define a number of words:
 
-\marginpar{\raggedright The label is associated with the lowest address (i.e. 0)}
 \begin{verbatim}
 squares	DEFW	0, 1, 4, 9, 16, 25
 \end{verbatim}
 
-{\tt DEFB} stores a single byte in memory. It is useful for strings such as "hello":
+\marginpar{The label ({\tt squares}) is associated with the lowest address (i.e.
+0)}
+
+{\tt DEFB} stores a single byte in memory. It is useful for strings such as
+"hello":
 
 \begin{verbatim}
 hi	DEFB	"hello"
@@ -463,10 +467,12 @@ to left in big endian.
 
 This is important when we deciding what the most and least significant bits in a
 word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little
-endian, but {\tt 0x78} in big endian.\marginpar{N.b. The least significant bit
-is the smallest address.}
+endian, but {\tt 0x78} in big endian.
 
 In this course, little endian is used, though ARM can use either.
+
+\marginpar{N.b. The least significant bit is the smallest address. It is the one
+that has a value of {\tt 1} and thus determines if the number is odd or even.}
 
 \subsection{Addressing memory}
 
@@ -520,7 +526,6 @@ so that more useful values are available (for example, \#512 is allowed, but
 Technically, ARM doesn't support negative literals, however, the assembler will
 usually be able to find a way to implement them. Some examples are given below:
 
-\marginpar{\raggedright{\tt CMN} is compare negative.\\{\tt MVN} is move not.}
 \begin{center}
     \begin{tabular}{l l l r}
         {\tt ADD R1, \#-1} & $\rightarrow$ & {\tt SUB R1, \#1}\\
@@ -529,13 +534,17 @@ usually be able to find a way to implement them. Some examples are given below:
     \end{tabular}
 \end{center}
 
+\marginpar{{\tt CMN} is compare negative.\\{\tt MVN} is move not.}
+
 \subsection{Supervisor calls}
 
 Supervisor calls are functions implemented by the operating system, not ARM
 itself. The parameter of an {\tt SVC} call defines it's exact
 operation.
 
-\marginpar{\raggedright SWI is another name for SVC - they do the same thing.}
+\marginpar{{\tt SWI} is the old (yet still occasionally used) command for
+{\tt SVC} - they do the same thing. {\tt SWI} stands for 
+{\it SoftWare Interrupt}, and {\tt SVC} stands for {\it SuperVisor Call}}
 
 In this module, the SVC call does the following for each parameter:
 
@@ -732,9 +741,6 @@ five	DEFW	5
 Literals can be any expression that the assembler can evaluate, for example, the
 following are all valid:
 
-\marginpar{\raggedright Note that {\tt MUL} cannot use literals. To get around
-this, first {\tt MOV} the literal into a register and then multiply.}
-
 \begin{verbatim}
 	ADD	R0, R0, #(1 + 2)
 \end{verbatim}
@@ -748,6 +754,10 @@ this, first {\tt MOV} the literal into a register and then multiply.}
 \begin{verbatim}
 	ADD	R0, R0, #(2 - 1)
 \end{verbatim}
+
+\marginpar{Note that {\tt MUL} cannot use literals. To get around this, first
+{\tt MOV} the literal into a register and then use {\tt MUL} with that
+register.}
 
 \subsection{Status flags}
 
@@ -871,13 +881,11 @@ end
 
 Implementing a while statement in ARM assembler is very similar to implementing
 an if statement, except after you have executed the action statement, you branch
-back to the initial condition again, like so:\marginpar{Note that if the code in
-your while loop is being executed repeatedly, then it's probably worth
-optimising it!}
+back to the initial condition again, like so:
 
 \begin{listing}{1}
 	; Compare two registers
-	start	CMP 	R1, R2 
+start	CMP 	R1, R2 
 	; The condition
 	BGE 	endif
 	; Whatever the action statement may be 
@@ -892,7 +900,7 @@ Consequently, we can get rid of a branch instruction, like so:
 
 \begin{listing}{1}
 	; Compare two registers
-	start	CMP 	R1, R2 
+start	CMP 	R1, R2 
 	; Add only if the flag is less than
 	ADDLT 	R1, R1, #1 
 	; Branch back to the start
@@ -914,6 +922,9 @@ This will keep adding {\tt 1} to {\tt R0} until it reaches 0. This is often
 useful when translating for loops that count up to a number. Instead of counting
 up, you can count down using the {\tt SUBS} instruction and only iterate if the
 result isn't zero.
+
+\marginpar{Note that if the code in your while loop is being executed
+repeatedly, then it's probably worth optimising it!}
 
 \section{Addresses and Addressing}
 When a processor references memory it needs to produce an address.
@@ -1067,7 +1078,7 @@ count 	LDRB 	R0, [R1, R2]
 	STR 	R2, length
 \end{listing}
 
-\marginpar{\vspace{-6em}Here, we use {\tt R1} to store the message, {\tt R0} to
+\marginpar{Here, we use {\tt R1} to store the message, {\tt R0} to
 read each character, and {\tt R2} to keep the count.}
 
 \subsubsection{Getting the index of a character in a String}
@@ -1090,10 +1101,10 @@ until we get to the character we're looking for.
 	STR 	R0, index
 \end{listing}
 
-\marginpar{\vspace{-10em}Note how this snippet has an optimisation to use one
-less register during the looping process than the string length snippet does. It
-only uses one register to loop over the string and then works out the number of
-times it's looped after the character has been found.}
+\marginpar{Note how this snippet has an optimisation to use one less register
+during the looping process than the string length snippet does. It only uses
+one register to loop over the string and then works out the number of times
+it's looped after the character has been found.}
 
 \subsection{Bit shifting and rotations}
 
@@ -1110,12 +1121,13 @@ example:
 	\end{tabular}
 \end{center}
 
-\marginpar{Shifting to the left is like multiplying by two, and shifting to the
-right is like dividing by two.}
 
 You might have noticed that a zero is appended to whatever side the bits are
 moving away from in order to ensure that the word is still the same number of
 bits as before.
+
+\marginpar{Shifting to the left is like multiplying by two, and shifting to the
+right is like dividing by two.}
 
 Rotation operations are very similar to shift operations, except instead of
 padding the word with zeroes, the bit that was lost is appended to the other
@@ -1282,12 +1294,12 @@ The stack would now look like:
 \end{drawstack}
 \end{center}
 
+And the value of {\tt R1} would be {\tt 8}. This works for multiple registers
+too just like the {\tt PUSH} command does.
+	
 \marginpar{Note that we don't actually have to reset the memory location {\tt
 0x00000408} since it will be overwritten on any subsequent push and since the
 stack pointer is behind it, it will never be read from.}
-
-And the value of {\tt R1} would be {\tt 8}. This works for multiple registers
-too just like the {\tt PUSH} command does.
 
 \subsection{Other ways of accessing the stack}
 
@@ -1301,8 +1313,8 @@ example, take a look at this block:
 	ADD 	SP, SP, #4
 \end{listing}
 
-\marginpar{Of course, we could use post indexed addressing in order to do the
-same thing: {\tt LDR R1, [SP], \#4}}
+\marginpar{Of course, we could have used post indexed addressing in order to do
+the same thing: {\tt LDR R1, [SP], \#4}}
 
 This will load the value of the memory location addressed by the value inside
 the stack pointer into {\tt R1} and then increment the stack pointer by 4.
@@ -1435,10 +1447,6 @@ This can be achieved using a table of values where the offset in the table
 corresponds to the next address to load into the PC (i.e. the branch location).
 For example:
 
-\marginpar{\vspace{8em} The {\tt LSL} command is used to shift the bits in {\tt
-R1} left. The number of places shifted is equal to the value of {\tt R0}. This
-has the effect of adding {\tt (4*R0)} onto {\tt R1}.}
-
 \begin{listing}{1}
 ; Define a table of variables with 
 ; the locations to branch to
@@ -1465,6 +1473,10 @@ case2	; Do stuff
 default	; Do stuff
 	B end
 \end{listing}
+
+\marginpar{The {\tt LSL} command is used to shift the bits in {\tt
+R1} left. The number of places shifted is equal to the value of {\tt R0}. This
+has the effect of adding {\tt (4*R0)} onto {\tt R1}.}
 
 It's important to catch cases where the expression isn't in the table too, for
 example, if (following the previous example) the values we wanted to implement
@@ -1799,10 +1811,6 @@ The job of compilers and assemblers is to convert human readable source code
 into machine executable code (often referred to as {\it machine code}). There
 are a number of steps associated with compilation:
 
-\marginpar{Note that this process is referred to assembly when its assembly code
-that is being transformed, and compilation when it's higher level code such as
-Java, LISP or C++.}
-
 \begin{enumerate}
 
 	\item {\bf Lexical analysis} is when the source code is broken down into
@@ -1831,6 +1839,10 @@ Java, LISP or C++.}
 	programmer doing so).
 
 \end{enumerate}
+
+\marginpar{Note that this process is referred to assembly when its assembly code
+that is being transformed, and compilation when it's higher level code such as
+Java, LISP or C++.}
 
 \subsection{Interpreters}
 
