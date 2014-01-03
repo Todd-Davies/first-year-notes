@@ -2000,13 +2000,13 @@ very efficient, since only that small percentage will be compiled in detail.
 
 \section{JVM memory usage}
 
-The memory usage of a running Java program can be broadly seperated into three
+The memory usage of a running Java program can be broadly separated into three
 areas; the class area, the stack area and the heap area.
 
 The class area is a static area of memory. It contains the method code and
 class variables (both primitive types and pointers to objects).
 
-The stack area holds paramaters that are passed between methods, any local
+The stack area holds parameters that are passed between methods, any local
 variables used within the context of methods and return links.
 
 The heap area is a section of memory where all the objects used in the program
@@ -2043,11 +2043,11 @@ A heap is similar to a stack in some ways. It is an array of consecutive
 memory locations, and their is a pointer, a {\it heap pointer} pointing to the
 next free memory location in the heap.
 
-Each object in the heap is composed of three parts; a header that contins
+Each object in the heap is composed of three parts; a header that contains
 information about the object such as it's size, storage for the instance
 variables and a storage table of methods that the object contains.
 
-\subsection{Stale objects and gargage collection}
+\subsection{Stale objects and garbage collection}
 
 When a variable is no longer needed, like an instance variable inside a method
 that has finished executing, or a variable that has been overwritten by
@@ -2055,9 +2055,9 @@ another object, the actual object is still present in the stack, even though
 nothing is referencing it. These abandoned objects are referred to as {\it
 stale}.
 
-In Java programs, the repeated process of instantiateing a temporary object
-that subsequently becomes obselete can result in the size of the heap growing
-very quickly to unmanagable levels. The space taken up by referenced objects
+In Java programs, the repeated process of instantiating a temporary object
+that subsequently becomes obsolete can result in the size of the heap growing
+very quickly to unmanageable levels. The space taken up by referenced objects
 in the heap may be small, but all the stale objects are taking up a lot of
 space. Garbage collection is a technique to remedy this. It contains a number
 of steps, outlined below:
@@ -2065,10 +2065,10 @@ of steps, outlined below:
 \begin{enumerate}
 	
 	\item First, program execution is stopped so that the variables used in
-	the program and the heap don't change for the duration of the garbege
+	the program and the heap don't change for the duration of the garbage
 	collection.
 
-	\item The GC (gargage collector) then walks through the heap from top to
+	\item The GC (garbage collector) then walks through the heap from top to
 	bottom, and marks objects as {\it live} or {\it unreferenced}. This stage
 	is called {\bf marking} and can be very time consuming (especially if the
 	heap is large).
@@ -2086,4 +2086,11 @@ of steps, outlined below:
 
 \end{enumerate}
 
-\marginpar{This isn't the only way of implementing garbage collection. Other languages such as Python seek to avoid the 'stop-the-world' behaviour that the Java GC exhibits by using a technique called {\it reference counting} and reclaiming heap space as soon as objects are stale (having no references). The Java GC does aim to reduce the time it spends doing its job though; it has different levels of garbage collection major collections (that defragment and compact the heap) and minor collections (that only delete stale objects and then keep track of where the free space is for future allocation).}
+\marginpar{This isn't the only way of implementing garbage collection. Other
+languages such as Python seek to avoid the 'stop-the-world' behaviour that the
+Java GC exhibits by using a technique called {\it reference counting} and
+reclaiming heap space as soon as objects are stale (and have no references). The
+Java GC does aim to reduce the time it spends doing its job though; it has
+different levels of garbage collection; major collections (that defragment and
+compact the heap) and minor collections (that only delete stale objects and
+then keep track of where the free space is for future allocations).}
