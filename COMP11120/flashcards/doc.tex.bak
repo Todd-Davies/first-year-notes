@@ -67,7 +67,7 @@
 	The set $\mathbb{Q}$ contains?
 }{
 	The set of rational numbers.\\
-	Contains all $m/n$ for $m, n in \mathbb{Z}$
+	Contains all $m/n$ for $m, n \in \mathbb{Z}$
 }
 
 \card{
@@ -93,9 +93,6 @@
 	$Y$ includes $X$\\
 	\vspace{3mm}
     \begin{tikzpicture}[scale=0.8]
-      \begin{scope}
-	    \fill[light-gray] \thirdcircle;
-      \end{scope}
       \draw \firstcircle node[text=black,right] {$Y$};
       \draw \thirdcircle node [text=black] {$X$};
     \end{tikzpicture}
@@ -133,7 +130,7 @@
 }
 
 \card{
-	For each $a$ in $X$, $a \in X \leftrightarrow a \in Y$.\\
+	For each $a$ in $X$, $a \in X \iff a \in Y$.\\
 	How is this represented?
 }{
 	$X=Y$
@@ -141,7 +138,7 @@
 
 \card{
 	How else could we express:\\
-	$X \subseteq Y \leftrightarrow Y \subseteq X$
+	$X \subseteq Y \iff Y \subseteq X$
 }{
 	$X=Y$
 }
@@ -246,7 +243,7 @@
 \card{
 	Is $((x \times 0) + (y + z)))$ a valid expression in the formal language?
 }{
-	No, since there are two many brackets.\\
+	No, since there are too many brackets.\\
 	$((x \times 0) + (y + z))$ would be valid though!
 }
 
@@ -329,14 +326,14 @@
 	Use the distributive law on:\\
 	$X \cup (Y \cap Z)$ 
 }{
-	$(X \cap Y) \cup (X \cap Z)$
+	$(X \cup Y) \cap (X \cup Z)$
 }
 
 \card{
 	Use the distributive law on:\\
 	$X \cap (Y \cup Z)$ 
 }{
-	$(X \cup Y) \cap (X \cup Z)$
+	$(X \cap Y) \cup (X \cap Z)$
 }
 
 \card{
@@ -454,7 +451,7 @@
 % Logical equivalence laws
 
 \card{
-	Use the fact that $\cup$ is associative to re-arrange:\\
+	Use the fact that $\vee$ is associative to re-arrange:\\
 	$X \vee (Y \vee Z)$ 
 }{
 	$Y \vee (X \vee Z)$\\
@@ -463,7 +460,7 @@
 }
 
 \card{
-	Use the fact that $\cap$ is associative to re-arrange:\\
+	Use the fact that $\wedge$ is associative to re-arrange:\\
 	$X \wedge (Y \wedge Z)$ 
 }{
 	$Y \wedge (X \wedge Z)$\\
@@ -543,7 +540,7 @@
 }
 
 \card{
-	What two conditions are there for Conjunctive Normal Form?
+	What three conditions are there for Conjunctive Normal Form?
 }{
 	\begin{tabularx}{90mm}{l X}
 		1. & The formula must be in NNF already\\
@@ -557,7 +554,7 @@
 }{
 	\begin{tabularx}{90mm}{l X}
 		1. & Get rid of nested brackets using identities\\
-		2. & Use the distributive itentities to bring all the disjunctions inside the conjunctions.
+		2. & Use the distributive identities to bring all the disjunctions inside the conjunctions.
 	\end{tabularx}
 }
 
@@ -566,7 +563,63 @@
 }{
 	Each expression in the formula must have both a literal and the negation of the literal.\\
 	\vspace{3mm}
-	E.g. $(p_1 \vee p_2 \vee \neg p_1) \wedge (p_3 \vee \neg p_2 \wedge p_2)$
+	E.g. $(p_1 \vee p_2 \vee \neg p_1) \wedge (p_3 \vee \neg p_2 \vee p_2)$
+}
+
+\card{
+	What three conditions are there for Disjunctive Normal Form?
+}{
+	\begin{tabularx}{90mm}{l X}
+		1. & The formula must be in NNF already\\
+		2. & There must be no nested brackets\\
+		3. & Disjunction must be used outside of the brackets, and conjunction inside the brackets
+	\end{tabularx}
+}
+
+\card{
+	What is the DNF test for contradictions?
+}{
+	Each expression in the formula must have both a literal and the negation of the literal.\\
+	\vspace{3mm}
+	E.g. $(p_1 \wedge p_2 \wedge \neg p_1) \vee (p_3 \wedge \neg p_2 \wedge p_2)$
+}
+
+% Predicates and quantifiers
+
+\card{
+	What is the universal quantifier?
+}{
+	$\forall$
+}
+
+\card{
+	What is the existential quantifier?
+}{
+	$\exists$
+}
+
+\card{
+	What can we do to a universal quantifier with a negation such as this:\\
+	\[
+		\neg \forall x P(x)
+	\]
+}{
+	We can turn it into an existential quantifier, such as:\\
+	\[
+		\exists x \neg 	P(x)
+	\]
+}
+
+\card{
+	What can we do to an existential quantifier with a negation such as this:\\
+	\[
+		\neg \exists x P(x)
+	\]
+}{
+	We can turn it into a universal quantifier, such as:\\
+	\[
+		\forall x \neg 	P(x)
+	\]
 }
 
 % Nasty questions
@@ -574,7 +627,9 @@
 \card{
 	What is the arity of a unary symbol?
 }{
-	1
+	1\\
+	\vspace{3mm}
+	{\footnotesize Arity - the number of arguments that a function can take}
 }
 
 \card{
@@ -603,9 +658,190 @@
 }
 
 \card{
-	If $A \implies B$ is a tautology, what does that mean?
+	If $A \iff B$ is a tautology, what does that mean?
 } {
 	$A$ and $B$ are logically equivalent.
+}
+
+% ================================
+% Probability
+% ================================
+
+\card{
+	How can we show that $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$?
+}{
+	\[
+		\begin{split}
+			\mathbb{P}(A \cup B) &= \sum\limits_{i=1}^n1_{A \cup B}(\omega_i)p_i\\
+			&= \sum\limits_{i=1}^n(1_{A}(\omega_i) + 1_{B}(\omega_i))p_i\\
+			&= \sum\limits_{i=1}^n(1_{A}(\omega_i))p_i + \sum\limits_{i=1}^n(1_{A}(\omega_i))p_i\\
+			&= \mathbb{P}(A) + \mathbb{P}(B)
+		\end{split}
+	\]
+}
+
+\card{
+	How does $\mathbb{P}(A^c)$ relate to $\mathbb{P}(A)$?
+}{
+	\[
+		\mathbb{P}(A^c) = 1 - \mathbb{P}(A)
+	\]	
+}
+
+\card{
+	If $B \subseteq A$ what is the probability of the set difference between $A$ and $B$?
+}{
+	\[
+		\mathbb{P}(A \ B) = \mathbb{P}(A) - \mathbb{P}(B)
+	\]
+	Also, $\mathbb{P}(B) \geq \mathbb{P}(A)$
+}
+
+\flashcard{
+	$\mathbb{P}(A \cup B) = \blank{\mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)}$ 
+}
+
+\flashcard{
+	$\mathbb{P}(A^c \cap B) = \blank{\mathbb{P}(B) - \mathbb{P}(A \cap B)}$ 
+}
+
+\flashcard{
+	$\mathbb{P}(A \cap B^c) = \blank{\mathbb{P}(A) - \mathbb{P}(A \cap B)}$ 
+}
+
+% Probability measures
+
+\card{
+	Define a probability measure
+}{
+	A probability measure is a mapping between a collection of events and the
+	probability that each event will occur.
+}
+
+\card{
+	What condition must be satisfied for two events to be disjoint?
+}{
+	The events must have no intersection: $A \cap B = \emptyset$
+}
+
+\card{
+	What two conditions must be satisfied for a mapping to be a probability
+	measure?
+}{
+	The probability measure of the event $\Omega$ must equal $1$.
+	$\mathbb{P}(\Omega) = 1$\\
+	If $A$ and $B$ are disjoint, then
+	$\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$
+}
+
+\card{
+	How do we find the probability of an event?
+}{
+	Add up all the probability measures inside the event:
+	\[
+		\sum\limits_{i=1}^n 1_A(\omega_i)p_i
+	\]
+	Where $n$ is the number of elements inside $\Omega$.
+}
+
+\card{
+	What does an indicator function do?
+}{
+	If an element is inside a set, then the indicator function returns $1$,
+	otherwise, it retuns $0$. The notation is $1_{SET}(ELEMENT)$.
+}
+
+% More set manipulations
+
+\flashcard{
+	\[
+		\mathbb{P}(A^c \cap B) = \blank{\mathbb{P}(B) - \mathbb{P}(A \cap B)}
+	\]
+}
+
+% Equally likely outcomes
+
+\card{
+	How do we find the probability of a set in a sample space where all the
+	outcomes are equally likely?
+}{
+	\[
+		\mathbb{P}(A) = \frac{\#A}{\#\Omega}
+	\]
+}
+
+\card{
+	How do we find the binomial coefficient ${n \choose k}$?
+}{
+	\[
+		{n \choose k} = \frac{n!}{k!(n - k)!}
+	\]
+}
+
+\card{
+	How do we find the number of selections possible in a set when order is
+	important and items can be replaced?
+}{
+	\[
+		n^k
+	\]
+}
+
+\card{
+	How do we find the number of selections possible in a set when order is
+	important and items cannot be replaced?	
+}{
+	\[
+		\frac{n!}{(n-k)!}
+	\]
+}
+
+% Random variables
+
+\card{What can you do with $Var(aX + b)$?}{
+	\[
+		Var(aX + b) = a^2 Var(X)
+	\]
+}
+
+\card{How do you find the standard deviation of a random variable?} {
+	\[
+		SD(X) = \sqrt{Var(X)}
+	\]
+}
+
+\card{What is the variance of a random variable that contains one element?} {
+	0
+}
+
+\card{
+	\[
+		Var(X) = ?
+	\]
+}{
+	\[
+		Var(X) = \mathbb{E}(X - \mu)^2 = \sum\limits^{m}_{i=1}(r_i - \mu)^2\mathbb{P}(X = r_i)
+	\]
+}
+
+% General probability stuff
+\card{
+	What is the formula for a geometric series?
+}{
+	\[
+		\sum\limits_{k=0}^{\infty}x^k = \frac{1}{1-x}
+	\]
+}
+
+\card{
+	What is the formula for the chain rule?
+}{
+	\[
+		y = f(x)^n
+	\]
+	\[
+		\frac{\delta y}{\delta x} = n \cdot f(x)^{n-1} \cdot f'(x)
+	\]
 }
 
 \end{document} 

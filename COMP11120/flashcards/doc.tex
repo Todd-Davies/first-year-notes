@@ -709,6 +709,93 @@
 	$\mathbb{P}(A \cap B^c) = \blank{\mathbb{P}(A) - \mathbb{P}(A \cap B)}$ 
 }
 
+% Probability measures
+
+\card{
+	Define a probability measure
+}{
+	A probability measure is a mapping between a collection of events and the
+	probability that each event will occur.
+}
+
+\card{
+	What condition must be satisfied for two events to be disjoint?
+}{
+	The events must have no intersection: $A \cap B = \emptyset$
+}
+
+\card{
+	What two conditions must be satisfied for a mapping to be a probability
+	measure?
+}{
+	The probability measure of the event $\Omega$ must equal $1$.
+	$\mathbb{P}(\Omega) = 1$\\
+	If $A$ and $B$ are disjoint, then
+	$\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$
+}
+
+\card{
+	How do we find the probability of an event?
+}{
+	Add up all the probability measures inside the event:
+	\[
+		\sum\limits_{i=1}^n 1_A(\omega_i)p_i
+	\]
+	Where $n$ is the number of elements inside $\Omega$.
+}
+
+\card{
+	What does an indicator function do?
+}{
+	If an element is inside a set, then the indicator function returns $1$,
+	otherwise, it returns $0$. The notation is $1_{SET}(ELEMENT)$.
+}
+
+% More set manipulations
+
+\flashcard{
+	\[
+		\mathbb{P}(A^c \cap B) = \blank{\mathbb{P}(B) - \mathbb{P}(A \cap B)}
+	\]
+}
+
+% Equally likely outcomes
+
+\card{
+	How do we find the probability of a set in a sample space where all the
+	outcomes are equally likely?
+}{
+	\[
+		\mathbb{P}(A) = \frac{\#A}{\#\Omega}
+	\]
+}
+
+\card{
+	How do we find the binomial coefficient ${n \choose k}$?
+}{
+	\[
+		{n \choose k} = \frac{n!}{k!(n - k)!}
+	\]
+}
+
+\card{
+	How do we find the number of selections possible in a set when order is
+	important and items can be replaced?
+}{
+	\[
+		n^k
+	\]
+}
+
+\card{
+	How do we find the number of selections possible in a set when order is
+	important and items cannot be replaced?	
+}{
+	\[
+		\frac{n!}{(n-k)!}
+	\]
+}
+
 % Random variables
 
 \card{What can you do with $Var(aX + b)$?}{
