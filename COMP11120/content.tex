@@ -250,9 +250,6 @@ are the same.
 
 Below are the definitions of commutativity and associativity.
 
-\marginpar{ N.b. Commutativity and associativity don't always have to go
-together. An example is the average of two numbers, what is that?}
-
 \begin{enumerate}
   \item 
     $\circledast$ is {\bf commutative} if and only if
@@ -267,6 +264,9 @@ together. An example is the average of two numbers, what is that?}
     \end{dmath} 
     for all $a1,a2,a3,\in,A$
 \end{enumerate}
+
+\marginpar{ N.b. Commutativity and associativity don't always have to go
+together. An example is the average of two numbers, what is that?}
 
 Some numbers have special effects on operations in a set. Some examples are $0$
 and $1$. When $0$ is added to a number, the result is still that number, and
@@ -350,14 +350,14 @@ Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
 	}
 \end{dmath}
 
-\marginpar{ The infix notation is when an operator is placed between two
-operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it
-postfix} notations.}
-
 At this point, parse trees may seem very pointless, but this is because we're
 doing very simple arithmetic. However, when we start to define other operators
 that do unfamiliar things or don't use the {\it infix} notation,
 then using parse trees can be a big help!
+
+\marginpar{ The infix notation is when an operator is placed between two
+operands, e.g. $2 + 2$. Other notations include the {\it prefix} and {\it
+postfix} notations.}
 
 \subsection{The properties of sets}
 \label{subsec:properties_of_sets}
@@ -424,13 +424,13 @@ However, you must understand that this is only true if for each element $a$ in
 $X$ that element will also be contained in $Y$ and for each element $a$ in Y,
 that element will also be contained within $X$:
 
-\marginpar{ Sets with different descriptions can still be equal.
-Convince yourself that the set of integers where $y^3 < y$ is equal to the set
-of integers where $x < -1$}
-
 \begin{dmath}
 	\textrm{For each }a, a \in X \leftrightarrow a \in Y
 \end{dmath}
+
+\marginpar{ Sets with different descriptions can still be equal.
+Convince yourself that the set of integers where $y^3 < y$ is equal to the set
+of integers where $x < -1$}
 
 \subsubsection{Set inclusion}
 
@@ -446,12 +446,12 @@ found within the second set. In mathematical terms:
 The notation for inclusion is $\subseteq$, so in the above example, we would
 write:
 
-\marginpar{ If $X \subseteq Y$ and $Y \subseteq X$ then what else an
-we say about the relationship between $X$ and $Y$?}
-
 \begin{dmath}
 	X \subseteq Y
 \end{dmath}
+
+\marginpar{ If $X \subseteq Y$ and $Y \subseteq X$ then what else an
+we say about the relationship between $X$ and $Y$?}
 
 \subsubsection{The empty set}
 \label{subsubsec:empty_set}
@@ -461,13 +461,13 @@ $\emptyset$.
 
 Because the empty set has no members, it is a subset of all other sets:
 
-\marginpar{ This is because otherwise $x in \emptyset$ would be true
-for some $x$ where $x \not\in A$. This is impossible since there are no elements
-in the $\emptyset$.}
-
 \begin{dmath}
 	\emptyset \in A
 \end{dmath}
+
+\marginpar{ This is because otherwise $x in \emptyset$ would be true
+for some $x$ where $x \not\in A$. This is impossible since there are no elements
+in the $\emptyset$.}
 
 \subsubsection{Singleton sets}
 
@@ -578,12 +578,6 @@ notes.
 Most of these are very similar to the properties of sets that we came across in
 the boolean algebra section. Learn these:
 
-\marginpar{ We use {it inclusive} or in propositional
-logic, not {\it exclusive} or.}
-
-\marginpar{ {\it Iff} is an abbreviation for {\it 
-if and only iff}.}
-
 \begin{center}
 	\begin{tabular}{|c|c|c|}
 		\hline
@@ -597,12 +591,18 @@ if and only iff}.}
 	\end{tabular}
 \end{center}
 
+\marginpar{ We use {it inclusive} or in propositional
+logic, not {\it exclusive} or.}
+
+\marginpar{ {\it Iff} is an abbreviation for {\it 
+if and only iff}.}
+
 All of these symbols are used as infixes, and so go in between two parameters.
 An exception to this however, is negation, which is a unary symbol, and is
 placed as a prefix before it's argument.
 
 \marginpar{ If a connective takes one parameter, then it's arity is 1, if it
-takes two then it has an arity of 2 etc etc}
+takes two then it has an arity of 2 etc}
 
 \subsubsection{The truth tables of the logical connectives}
 
