@@ -1,0 +1,237 @@
+\documentclass[frontgrid]{flacards}
+\usepackage{color}
+
+% For circuit diagrams
+\usepackage{circuitikz}
+
+\definecolor{light-gray}{gray}{0.75}
+
+\newcommand{\frontcard}[1]{\textcolor{light-gray}{\colorbox{light-gray}{$#1$}}}
+\newcommand{\backcard}[1]{#1} 
+
+\newcommand{\flashcard}[1]{% create new command for cards with blanks
+    \card{% call the original \card command with twice the same argument (#1)
+        \let\blank\frontcard% but let \blank behave like \frontcard the first time
+        #1
+    }{%
+        \let\blank\backcard% and like \backcard the second time
+        #1
+    }%
+}
+
+\begin{document}
+
+\pagesetup{2}{4} 
+
+\card{
+	What is a hierarchy?
+}{
+	A hierarchy is a group of objects arranged in tiers of descending magnitude,
+	importance or complexity.
+}
+
+\card{
+	Define {\it digital}.
+}{
+	An entity that can reside in one of two states at any one time.
+}
+
+\card{
+	Define {\it analogue}.
+}{
+	An entity that can reside in an infinite number of possible states.
+}
+
+\card{
+	How many values can be represented by a binary number containing $n$ bits?
+}{
+	$2^n$
+}
+
+\card{
+	Arrange {\tt AND}, {\tt OR} and {\tt NOT} in order of operator precedence.
+}{
+	{\tt NOT}, {\tt AND}, {\tt OR}
+}
+
+\card{
+	What is the symbol for {\tt AND}? 
+}{
+	$\cdot$
+	\\
+	E.g. $A \cdot B$
+}
+
+\card{
+	What is the symbol for {\tt OR}?
+}{
+	$+$
+	\\
+	E.g. $A + B$
+}
+
+\card{
+	What is the symbol for {\tt NOT}
+}{
+	$\overline{\phantom{A}}$
+	\\
+	E.g. $\overline{A}$
+}
+
+\card{
+	What is the symbol for {\tt XOR}
+}{
+	$\oplus$
+	\\
+	E.g. $A \oplus B$
+}
+
+\card{
+	What is De Morgan's theorem commonly used for when designing digital 
+	circuits?
+}{
+	Converting gates such as {\tt AND}, {\tt OR}, {\tt XOR} etc into {\tt NAND}
+	and {\tt NOR} since they are cheap and fast.
+}
+
+\card{
+	What is the symbol for an {\tt AND} gate?	
+}{
+	\begin{circuitikz} \draw
+		(0,0) node[and port] (and) {};
+	\end{circuitikz}
+}
+
+\card{
+	What is the symbol for an {\tt OR} gate?	
+}{
+	\begin{circuitikz} \draw
+		(0,0) node[or port] (or) {};
+	\end{circuitikz}
+}
+
+\card{
+	What is the symbol for an {\tt XOR} gate?	
+}{
+	\begin{circuitikz} \draw
+		(0,0) node[xor port] (xor) {};
+	\end{circuitikz}
+}
+
+\card{
+	What is the symbol for an {\tt NOT} gate?	
+}{
+	\begin{circuitikz} \draw
+		(0,0) node[not port] (not) {};
+	\end{circuitikz}
+}
+
+\card{
+	What is the symbol for an {\tt NAND} gate?	
+}{
+	\begin{circuitikz} \draw
+		(0,0) node[nand port] (nand) {};
+	\end{circuitikz}
+}
+
+\card{
+	What is the symbol for an {\tt NOR} gate?	
+}{
+	\begin{circuitikz} \draw
+		(0,0) node[nor port] (nor) {};
+	\end{circuitikz}
+}
+
+\card{
+	What's the symbol for a n:1 multiplexer?
+}{
+	% I can't find a way to draw it in LaTeX...
+	\centering\fbox{
+		\begin{minipage}{2in}
+			\hfill\vspace{1in}
+		\end{minipage}
+	}
+}
+
+\flashcard{
+	What is the truth table for binary addition?
+	\begin{tabular}{|c c c|c c|}
+		\hline
+		$A$ & $B$ & $c_{in}$ & $S$ & $c_{out}$\\ \hline
+		0 & 0 & 0 & \blank{0} & \blank{0}\\
+		0 & 0 & 1 & \blank{1} & \blank{0}\\
+		0 & 1 & 0 & \blank{1} & \blank{0}\\
+		0 & 1 & 1 & \blank{0} & \blank{1}\\
+		1 & 0 & 0 & \blank{1} & \blank{0}\\
+		1 & 0 & 1 & \blank{0} & \blank{1}\\
+		1 & 1 & 0 & \blank{0} & \blank{1}\\
+		1 & 1 & 1 & \blank{1} & \blank{1}\\ \hline
+	\end{tabular}
+}
+
+\card{
+	How do you negate a binary number?
+}{
+	1. Invert the bits\\
+	2. Add 1
+}
+
+\card{
+	Convert binary $6$ to $-6$
+}{
+	1. Start with {\tt 0110}\\
+	2. Invert the bits - {\tt 1001}\\
+	3. Add 1 - {\tt 1010}
+}
+
+
+\card{
+	Which bit is the signed bit when using 2's complement?
+}{
+	The left most bit.
+}
+
+\card{
+	How do you subtract two binary numbers?
+}{
+	1. Invert the number you're subtracting\\
+	2. Add 1 to the inverted number\\
+	3. Add the number you're subtracting from with the inverted number.\\
+	Basically, add the original number to the 2's complement negative of what
+	you're taking away.
+}
+
+\card{
+	What is the {\it sum-of-products}?
+}{
+	When a number of {\tt AND} gates are {\tt OR}'ed together.
+}
+
+\card{
+	What is the {\it product-of-sums}?
+}{
+	When a number of {\tt OR} gates are {\tt AND}'ed together.
+}
+
+\card{
+	What is the structure of a half adder (in terms of gates)?
+}{
+	\begin{circuitikz} \draw
+	(0,2) node[and port] (and1) {}
+	(0,0) node[and port] (and2) {}
+	(2,1) node[or port] (or) {}
+	(1, -2) node[and port] (and3) {}
+	(and1.in 1) node[anchor=east] {$\overline{A}$}
+	(and1.in 2) node[anchor=east] {B}
+	(and2.in 1) node[anchor=east] {A}
+	(and2.in 2) node[anchor=east] {$\overline{B}$}
+	(and1.out) -- (or.in 1)
+	(and2.out) -- (or.in 2)
+	(or.out) node[anchor=west] {S}
+	(and3.in 1) node[anchor=east] {A}
+	(and3.in 2) node[anchor=east] {B}
+	(and3.out) node[anchor=west] {$c_{out}$};
+	\end{circuitikz}
+}
+
+\end{document} 
