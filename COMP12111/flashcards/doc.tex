@@ -4,6 +4,10 @@
 % For circuit diagrams
 \usepackage{circuitikz}
 
+% For awkward circuit diagrams
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+
 \definecolor{light-gray}{gray}{0.75}
 
 \newcommand{\frontcard}[1]{\textcolor{light-gray}{\colorbox{light-gray}{$#1$}}}
@@ -341,6 +345,80 @@
 }{
 	{\tt S} - Set\\
 	{\tt R} - Reset
+}
+
+\card{
+	What is the circuit symbol for a D-type latch?
+}{
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2,2);
+		\draw (0,1.5) -- (-1,1.5);
+		\draw (2,0.5) -- (3,0.5);
+		\draw (2,1.5) -- (3,1.5);
+		\draw (1,0) -- (1,-1);
+		\filldraw[fill=white] (2.04, 0.5) circle (1pt);
+		\node at (0.2, 1.5) {D};
+		\node at (1, 0.2) {En};
+		\node at (1.8, 1.5) {Q};
+		\node at (1.8, 0.5) {$\overline{Q}$};
+	\end{tikzpicture}
+}
+
+\card{
+	Is a D-type latch level sensitive or edge sensitive? What does that mean?
+}{
+	The D-type latch is level sensitive, meaning that it will change state 
+	whenever the input changes, this means it's {\bf asynchronous}.
+}
+
+\card{
+	What is the circuit symbol for a D-type flip flop?
+}{
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2,2);
+		\draw (0,1.5) -- (-1,1.5);
+		\draw (0,1) -- (-1,1);
+		\draw (0,0.5) -- (-1,0.5);
+		\draw (2,0.5) -- (3,0.5);
+		\draw (2,1.5) -- (3,1.5);
+		\draw (1,0) -- (1,-1);
+		\draw (1,2) -- (1,3);
+		\filldraw[fill=white] (2.04, 0.5) circle (1pt);
+		\node at (0.2, 1.5) {D};
+		\node at (1, 0.2) {CLR};
+		\node at (1, 1.8) {PRE};
+		\node at (0.2, 1) {CE};
+		\node[fill=white, draw=black, rotate=-90,regular polygon, regular polygon sides=3,inner sep=1.5pt] at (0.075, 0.5) {};
+		\node at (1.8, 1.5) {Q};
+		\node at (1.8, 0.5) {$\overline{Q}$};
+	\end{tikzpicture}
+}
+
+\card{
+	What does a D-type flip flop implement to make it synchronous?
+}{
+	It has an enable switch that can be linked to the clock so that it will
+	only change state when the device is clocked.
+}
+
+\card{
+	What are the three delays in the D-type flip flop?
+}{
+	The set-up time ($T_{SU}$), the hold time ($T_{H}$) and the
+	propagation delay ($T_{PD}$).
+}
+
+\card{
+	In order to ensure that a D-type flip flop will change state successfully, 
+	when does the input have to be constant?
+}{
+	From the beginning of the set-up time to the end of the hold time.
+}
+
+\card{
+	What is the propagation delay?
+}{
+	The time taken for the flip flop to output a change of state.
 }
 
 \end{document} 
