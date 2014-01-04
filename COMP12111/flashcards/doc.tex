@@ -234,4 +234,113 @@
 	\end{circuitikz}
 }
 
+\flashcard{
+	What is the truth table for the half adder?
+	\begin{tabular}{|c c |c c|}
+		\hline
+		$A$ & $B$ & $S$ & $c_{out}$\\ \hline
+		0 & 0 & \blank{0} & \blank{0}\\
+		0 & 1 & \blank{1} & \blank{0}\\
+		1 & 0 & \blank{1} & \blank{0}\\
+		1 & 1 & \blank{0} & \blank{1}\\ \hline
+	\end{tabular}	
+}
+
+\card{
+	Define propagation delay.
+}{
+	Propagation delay is the time taken for the output of a gate to change after
+	it's inputs have changed.
+}
+
+\flashcard{
+	Fill in the table:
+	\begin{tabular}{|c|c|}
+		\hline
+		State & Symbol \\ \hline
+		Low      & \blank{0}\\
+		High     & \blank{1}\\
+		Tristate & \blank{Z}\\
+		Unknown  & \blank{X}\\ \hline
+	\end{tabular}	
+}
+
+\card{
+	What does active high and active low mean?
+}{
+	If a signal is active high, then it is interpreted as {\tt True} when the
+	signal is high (e.g. a light is on, or the voltage is positive etc).\\
+	If a signal is active low, then it is interpreted as {\tt True} when the
+	signal is low (e.g. a light is off, or the voltage is negative etc).
+}
+
+\card{
+	What are the advantages of a hierarchy:
+}{
+	1. Encapsulation\\
+	2. Reuse of logic\\
+	3. Only have to define and test things once
+}
+
+\card{
+	What is a combinatorial circuit?
+}{
+	A circuit where the value of the output depends only on the values of the
+	input.
+}
+
+\card{
+	What is a sequential circuit?
+}{
+	A circuit where the value of the output depends on the values of the input
+	and the past history of it's inputs. A sequential circuit requires a clock
+	and memory.
+}
+
+\card{
+	What is a synchronous clock?
+}{
+	A synchronous clock is one that is effective system wide; all components in
+	the system adhere to this clock.
+}
+
+\card{
+	What is a clock edge?
+}{
+	The point on a clock signal where the signal is going from low to high 
+	(rising or positive edge) or high to low (falling or negative edge.)
+}
+
+\card{
+	Define bistable.
+}{
+	An entity that can be in one of two stable states.
+}
+
+\card{
+	What is a flip flop?
+}{
+	A bistable device that latches onto a state.
+}
+
+\card{
+	What is a register made of?
+}{
+	A series of flip flops, each containing one bit.
+}
+
+\card{
+	What is a finite state machine?
+}{
+	A digital system that holds the current state of itself and progresses to a
+	new state based on the value of the current state.
+}
+
+\card{
+	What do {\tt S} and {\tt R} stand for on a S-R flip flop?
+}{
+	{\tt S} - Set\\
+	{\tt R} - Reset
+}
+
 \end{document} 
