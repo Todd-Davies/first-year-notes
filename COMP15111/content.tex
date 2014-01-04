@@ -1107,6 +1107,7 @@ one register to loop over the string and then works out the number of times
 it's looped after the character has been found.}
 
 \subsection{Bit shifting and rotations}
+\label{subsec:bitshifting}
 
 Shift operations move all the bits in a word in one direction or another. For
 example:
@@ -2013,6 +2014,10 @@ The heap area is a section of memory where all the objects used in the program
 are stored in memory. All variables in the program that reference an object
 will point somewhere in the heap.
 
+% TODO: Research this a bit?
+\marginpar{The memory usage of the JVM is different and can be broken down into
+three other areas; code, variable and stack.}
+
 \subsection{Object instantiation}
 
 It's easy to create a variable in Java:
@@ -2094,3 +2099,33 @@ Java GC does aim to reduce the time it spends doing its job though; it has
 different levels of garbage collection; major collections (that defragment and
 compact the heap) and minor collections (that only delete stale objects and
 then keep track of where the free space is for future allocations).}
+
+\section{Implementing arrays}
+
+A primitive array is merely a set of succedent memory locations; each containing
+one item in the array. The variable containing the array will be a pointer to
+the first item in the array. Accessing a specific item in an array (termed {\it
+array indexing}) can be done in constant ($O(1)$) time, which is an important
+property of arrays. It's important to remember that the index starts from $0$
+and will need to be multiplied by the number of bytes in a word so that the
+correct memory location is requested for array indexing.
+
+Here's some sample code for array indexing:
+
+\begin{listing}{1}
+	; Implement `element = array[index];'
+	LDR R0, index ; Load the index to get from
+	                the array
+	LDR R1, array ; Load the base pointer of
+	                the array
+	MOV R2, #4
+	MUL R2, R0, R2 ; Multiply the index by 4
+	                 for 4 byte ARM words
+	LDR R3, [R1, R2] ; Load the requested array
+	                   index
+	STR element, R3 ; Save the value in memory
+\end{listing}
+
+\marginpar{Of course, we could save one instruction by using {\tt LSL} instead of
+multiplying in a separate instruction. See section~\ref{subsec:bitshifting} for
+more info.}
