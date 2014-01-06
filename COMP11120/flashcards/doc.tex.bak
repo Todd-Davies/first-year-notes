@@ -748,7 +748,7 @@
 	What does an indicator function do?
 }{
 	If an element is inside a set, then the indicator function returns $1$,
-	otherwise, it retuns $0$. The notation is $1_{SET}(ELEMENT)$.
+	otherwise, it returns $0$. The notation is $1_{SET}(ELEMENT)$.
 }
 
 % More set manipulations
@@ -793,6 +793,26 @@
 }{
 	\[
 		\frac{n!}{(n-k)!}
+	\]
+}
+
+% The power of conditioning
+
+\card{
+	What is the probability that an event $A$ will occur if we know that an 
+	event $B$ will occur?
+}{
+	\[
+		\frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+	\]
+}
+
+\card{
+	How do we represent the probability of one event $A$ occuring given that
+	another event $B$ will occur?
+}{
+	\[
+		\mathbb{P}(A|B) \left( = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)} \right)
 	\]
 }
 
