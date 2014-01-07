@@ -59,34 +59,38 @@ them are called {\it infix} operations. An example of an infix operation is
 addition. Infix operations are also referred to as {\it binary} operations since
 they have {\it two} operands.
 
+An example of other types of operations is a unary operation, which would take
+only one operand. Unary operations can be placed either before the operand
+(prefix) or after it (postfix).
+
 \paragraph{Commutativity} If an operation is commutative, the order of the
 operands doesn't matter. For example, addition is commutative since:
 
-\begin{dmath}
+\begin{dmath*}
 	a + b = b + a
-\end{dmath}
+\end{dmath*}
 
 Subtraction however, isn't commutative:
 
-\begin{dmath}
+\begin{dmath*}
 	a - b \neq b - a
-\end{dmath}
+\end{dmath*}
 
 \paragraph{Associativity}
 
 An operation is associative if inserting or changing brackets doesn't change the
 outcome of the operation. For example, multiplication is associative since:
 
-\begin{dmath}
+\begin{dmath*}
 	(a \times b) \times c = a \times (b \times c)
-\end{dmath}
+\end{dmath*}
 
 An operation may only be commutative or associative if it is commutative or
 associative for {\it all} elements of the set that the operation supports.
 
 \paragraph{Distinguished elements}
 
-A set may contain distinguished elements that have strange effects on certain
+A set may contain distinguished elements that have notable effects on certain
 operations in the set. An example is the number 1. If we multiply {\it
 something} by 1, then the result will always be the same {\it something}. The
 same goes for 0 with addition. Because of this, we refer to 1 and 0 as
@@ -94,7 +98,7 @@ distinguished elements of the set $\mathbb{Z}$.
 
 \subsubsection{Relations}
 
-Each of the sets $\mathbb{N, Q, Q, R}$ carries binary comparison relations
+Each of the sets $\mathbb{N, Z, Q, R}$ carries binary comparison relations
 $\leq$ and $<$. Different sets (such as $\mathbb{S}tring$) may have other
 relations, such as:
 
@@ -128,34 +132,36 @@ bases include:
 
 The formula for reading a number in a given base is as follows:
 
-\begin{dmath}
+\begin{dmath*}
 	\sum_{i=0}^{k}a_{i}b^{i}
-\end{dmath}
+\end{dmath*}
 
-Where the number you're trying to read takes the form $a_k, a_{k-1}, \ldots, a_2, a_1, a_0$ and $b$ is the base you're using.
+Where the number you're trying to read takes the form $a_k, a_{k-1}, \ldots,
+a_2, a_1, a_0$, $b$ is the base you're using and $i$ is the count from right
+to left of the digits in the number.
 
 \paragraph{Example 1}
 
-Lets apply the formula to the base 10 number $27385$:
+Lets apply the formula to the base 10 number {\tt 27385}:
 
-\begin{dmath}
+\begin{dmath*}
 		27385 = (5 \times 10^0) + (8 \times 10^1) + (3 \times 10^2) + (7 \times 10^3) + (2 \times 10^4)
 		      = (5 \times 1) + (8 \times 10) + (3 \times 100) + (7 \times 1000) + (2 \times 10000)
 		      = 5 + 80 + 300 + 7000 + 20000
 		      = 27385
-\end{dmath}
+\end{dmath*}
 
 \paragraph{Example 2}
 
-Lets apply the formula to the base 16 number $F00BA4$:
+Lets apply the formula to the base 16 number {\tt F00BA4}:
 
 
-\begin{dmath}
+\begin{dmath*}
 	F00BA4 = (4 \times 16^0) + (A \times 16^1) + (B \times 16^2) + (0 \times 16^3) + (0 \times 16^4) + (F \times 16^5)
 	       = (4 \times 16^0) + (10 \times 16) + (11 \times 256) + (0 \times 4096) + (0 \times 65536) + (15 \times 1048576)
 	       = 4 + 160 + 2816 + 0 + 0 + 15728640
 	       = 15731620
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Changing from base 10 to base $n$}
 
@@ -214,33 +220,33 @@ representation is $3,7,13$ or $37D$.
 
 \subsection{A structure for the integers}
 
-The set $\mathbb{Z}$ of all integers $\ldots,-3,-2,-1,0,1,2,3,\ldots$ includes
-the subset $\mathbb{N}$ of all natural numbers together with the negative
-integers. We will be using three basic binary operations on the carrier set
-$\mathbb{Z}$: addition, multiplication and subtraction.
+The set $\mathbb{Z}$ of all integers $\{\ldots,-3,-2,-1,0,1,2,3,\ldots\}$
+includes the subset $\mathbb{N}$ of all natural numbers together with the
+negative integers. We will be using three basic binary operations on the
+carrier set $\mathbb{Z}$; addition, multiplication and subtraction.
 
 The standard notation for these operations is $+$, $\times$ and $-$ and they are
 used as infix operations.
 
-Sometimes different notations are used, for example, in programming * is usually
-used, or there is a convention to write $xy$ as an abbreviation for $x \times
-y$.
+Sometimes different notations are used, for example, in many programming
+languages * is usually used for multiplication, and there is a convention to
+write $xy$ as an abbreviation for $x \times y$.
  
-Both + and x are {\bf commutative} but - is not.
+Both + and x are {\bf commutative} but - is not. This is because:
 
 \begin{enumerate}
-\item For all integers {\it x,y} both, $x + y = y + x$ and $xy = yx$
-\item There are integers {\it x,y} with $x - y \ne y - x$.
+	\item For all integers {\it x,y} both, $x + y = y + x$ and $xy = yx$
+	\item There are integers {\it x,y} with $x - y \ne y - x$.
 \end{enumerate}
 
 Commutativity ensures that for most purposes the order in which the two
 arguments are consumed is irrelevant.
 
-Both + and x are {\bf associative} but - is not.
+Both + and x are {\bf associative} but - is not:
 
 \begin{enumerate}
-\item For all integers {\it x,y,z} both $(x + y) + z = x + (y + z)$ , $(xy)z = x(yz)$.
-\item There are integers {\it x,y,z} with $(x - y) - z \ne x - (y - z)$.
+	\item For all integers {\it x,y,z} both $(x + y) + z = x + (y + z)$ , $(xy)z = x(yz)$.
+	\item There are integers {\it x,y,z} with $(x - y) - z \ne x - (y - z)$.
 \end{enumerate}
 
 Associativity ensures that for most purposes brackets are not needed to
@@ -252,27 +258,21 @@ Below are the definitions of commutativity and associativity.
 
 \begin{enumerate}
   \item 
-    $\circledast$ is {\bf commutative} if and only if
-    \begin{dmath}
+    Any operation '$\circledast$' is {\bf commutative} if and only if
+    \begin{dmath*}
 	a1 \circledast a2 = a2 \circledast a1
-    \end{dmath} 
+    \end{dmath*} 
     for all $a1,a2,\in,A$
   \item 
-    $\circledast$ is {\bf associative} if and only if
-    \begin{dmath}
+    Any operation '$\circledast$' is {\bf associative} if and only if
+    \begin{dmath*}
 	(a1 \circledast a2) \circledast a3 = a1 \circledast (a2 \circledast a3)
-    \end{dmath} 
+    \end{dmath*} 
     for all $a1,a2,a3,\in,A$
 \end{enumerate}
 
 \marginpar{ N.b. Commutativity and associativity don't always have to go
-together. An example is the average of two numbers, what is that?}
-
-Some numbers have special effects on operations in a set. Some examples are $0$
-and $1$. When $0$ is added to a number, the result is still that number, and
-when multiplying a number by $1$, the result is still that number. This means
-for the set $\mathbb{Z}$, $0$ and $1$ are neutral elements for the operations
-addition and multiplication respectively.
+together. An example of such an operation is the average of two numbers.}
 
 \subsection{The formal language}
 
@@ -285,15 +285,15 @@ since they ensure that strings can only be parsed in one way.
 Strings that contain literals that aren't neutral elements or have invalid
 bracketing are not valid in the formal language. Examples may include:
 
-\begin{dmath}
+\begin{dmath*}
 	(x + y + z)\\
-\end{dmath}
-\begin{dmath}
+\end{dmath*}
+\begin{dmath*}
 	(x + 2)\\
-\end{dmath}
-\begin{dmath}
+\end{dmath*}
+\begin{dmath*}
 	x((y
-\end{dmath}
+\end{dmath*}
 
 We can use a parse tree to show how an expression is built up from it's
 identifiers ($a, b, c\ldots$), constants ($0, 1\ldots$) and operations ($+, -,
@@ -304,7 +304,7 @@ For example, the parse tree of $(x \times (y + z))$ is:
 % See my SE question for more on these parse trees:
 % http://tex.stackexchange.com/questions/141264/drawing-parse-trees
 
-\begin{dmath}
+\begin{dmath*}
 	\infer[(\times)]{(x \times (y + z))}{
 		x
 		&
@@ -314,13 +314,13 @@ For example, the parse tree of $(x \times (y + z))$ is:
 			z
 		}
 	}
-\end{dmath}
+\end{dmath*}
 
 Often, especially with large parse trees, it's a pain to write so many
 identifiers. Because of this, it is a convention to replace identifiers with
 dots after they've been used once, like so:
 
-\begin{dmath}
+\begin{dmath*}
 	\infer[(\times)]{\parsetreedot} {
 		x
 		&
@@ -330,7 +330,7 @@ dots after they've been used once, like so:
 			z
 		}
 	}
-\end{dmath}
+\end{dmath*}
 
 In order to parse a parse tree, we must assign an appropriate value to each of
 the 'leaves' of the tree (i.e. all the identifiers) and let the values trickle
@@ -338,7 +338,7 @@ down towards the root node of the tree where the evaluated answer will appear.
 
 Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
 
-\begin{dmath}
+\begin{dmath*}
 	\infer[(\times)]{32} {
 		4
 		&
@@ -348,7 +348,7 @@ Lets use the above example again. Let $x = 4$, $y = 6$ and $z = 2$:
 			2
 		}
 	}
-\end{dmath}
+\end{dmath*}
 
 At this point, parse trees may seem very pointless, but this is because we're
 doing very simple arithmetic. However, when we start to define other operators
@@ -371,9 +371,9 @@ To indicate that an element is a member of a set, we use the $\in$ symbol. For
 example, to say that the element $true$ is a member of the set $\mathbb{B}$ool,
 we would write:
 
-\begin{dmath}
+\begin{dmath*}
 	true \in \mathbb{B}ool
-\end{dmath}
+\end{dmath*}
 
 Interestingly, we can parse this into English in many ways though. It could mean
 any of the following things:
@@ -388,25 +388,25 @@ any of the following things:
 Conversely, to indicate that an element is not a member of a set, we use the
 symbol $\notin$:
 
-\begin{dmath}
+\begin{dmath*}
 	sheep \not\in \mathbb{B}ool
-\end{dmath}
+\end{dmath*}
 
 Note that there is no concept of {\it order} or {\it repetition} in sets. This
 means that the following sets are all equal:
 
-\begin{dmath}
+\begin{dmath*}
 	\{1,2,3\}
-\end{dmath}
-\begin{dmath}
+\end{dmath*}
+\begin{dmath*}
 	\{2,3,1\}
-\end{dmath}
-\begin{dmath}
+\end{dmath*}
+\begin{dmath*}
 	\{2,3,1,2\}
-\end{dmath}
-\begin{dmath}
+\end{dmath*}
+\begin{dmath*}
 	\{3,3,3,3,3,2,1\}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Set equality}
 
@@ -416,17 +416,17 @@ are concerned, duplicate members are treated as just one member.
 The notation for set equality is very easy. To say the set $X$ is equal to the
 set $Y$, we write:
 
-\begin{dmath}
+\begin{dmath*}
 	X = Y
-\end{dmath}
+\end{dmath*}
 
 However, you must understand that this is only true if for each element $a$ in
 $X$ that element will also be contained in $Y$ and for each element $a$ in Y,
 that element will also be contained within $X$:
 
-\begin{dmath}
-	\textrm{For each }a, a \in X \leftrightarrow a \in Y
-\end{dmath}
+\begin{dmath*}
+	{\textrm{For each }a, a \in X \leftrightarrow a \in Y}
+\end{dmath*}
 
 \marginpar{ Sets with different descriptions can still be equal.
 Convince yourself that the set of integers where $y^3 < y$ is equal to the set
@@ -438,17 +438,17 @@ If one set is a subset of another set, all the members of the first set are also
 found within the second set. In mathematical terms:
 
 % TODO: Somebody else other than Todd verify this is true and then delete this
-% comment please. Peer review ftw!
-\begin{dmath}
+% comment please. Peer review!
+\begin{dmath*}
 	{\textrm{For each }a, a \in X \rightarrow a \in Y}
-\end{dmath}
+\end{dmath*}
 
 The notation for inclusion is $\subseteq$, so in the above example, we would
 write:
 
-\begin{dmath}
+\begin{dmath*}
 	X \subseteq Y
-\end{dmath}
+\end{dmath*}
 
 \marginpar{ If $X \subseteq Y$ and $Y \subseteq X$ then what else an
 we say about the relationship between $X$ and $Y$?}
@@ -461,11 +461,11 @@ $\emptyset$.
 
 Because the empty set has no members, it is a subset of all other sets:
 
-\begin{dmath}
+\begin{dmath*}
 	\emptyset \in A
-\end{dmath}
+\end{dmath*}
 
-\marginpar{ This is because otherwise $x in \emptyset$ would be true
+\marginpar{ This is because otherwise $x \in \emptyset$ would be true
 for some $x$ where $x \not\in A$. This is impossible since there are no elements
 in the $\emptyset$.}
 
@@ -473,16 +473,16 @@ in the $\emptyset$.}
 
 For any entity $a$, we can form a set consisting only of $a$:
 
-\begin{dmath}
+\begin{dmath*}
 	\{a\}
-\end{dmath}
+\end{dmath*}
 
 Be aware, a singleton set is not the same as the element contained within the
 set:
 
-\begin{dmath}
+\begin{dmath*}
 	a \neq \{a\}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Set union}
 
@@ -490,23 +490,23 @@ There are several ways of combining multiple sets together to create another
 set. One such method is set union, the symbol of which is $\cup$. The union of
 two sets is a set containing all the members of {\it both} sets. For example:
 
-\begin{dmath}
+\begin{dmath*}
 	A = \{1, 3, 5, 7, 9\}
-\end{dmath}
+\end{dmath*}
 
-\begin{dmath}
+\begin{dmath*}
  	B = \{1, 1, 2, 3, 5, 8, 13\}
-\end{dmath}
+\end{dmath*}
 
-\begin{dmath}
+\begin{dmath*}
 	A \cup B = \{1, 2, 3, 5, 7, 8, 9, 13\}
-\end{dmath}
+\end{dmath*}
 
 We could also define the union of two sets mathematically, like so:
 
-\begin{dmath}
+\begin{dmath*}
 	{x \in A \cup B \leftrightarrow x \in A \textrm{ or } x \in B}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Set intersection}
 
@@ -516,9 +516,9 @@ intersection is $\cap$.
 
 If we defined intersection mathematically, we would do so like this:
 
-\begin{dmath}
+\begin{dmath*}
 	{x \in A \cap B \leftrightarrow x \in A \textrm{ and } x \in B}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Relative complement}
 
@@ -526,21 +526,20 @@ The relative complement of two sets is all the members in the first set that
 aren't members of the second set. The symbol for the relative complement is $-$.
 Defined mathematically, we get:
 
-\begin{dmath}
+\begin{dmath*}
 	{x \in A - B} \leftrightarrow {x \in A \textrm{ and } x \notin B}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{The universal set}
 \label{subsubsec:universal_set}
 
-% TODO: Link to De Morgan's laws when we've covered it.
 The universal set contains {\it all of the possible elements}. The notation we
 use to describe the universal set is $S$. We can define the De Morgan's laws
 using the universal set:
 
-\begin{dmath}
+\begin{dmath*}
 	X' = S - X
-\end{dmath}
+\end{dmath*}
 
 \subsection{Boolean algebra of sets}
 
@@ -591,11 +590,11 @@ the boolean algebra section. Learn these:
 	\end{tabular}
 \end{center}
 
-\marginpar{ We use {it inclusive} or in propositional
+\marginpar{ We use {\it inclusive} or in propositional
 logic, not {\it exclusive} or.}
 
 \marginpar{ {\it Iff} is an abbreviation for {\it 
-if and only iff}.}
+if and only if}.}
 
 All of these symbols are used as infixes, and so go in between two parameters.
 An exception to this however, is negation, which is a unary symbol, and is
@@ -633,9 +632,9 @@ have just described in the previous section:
 In order to understand why the truth table for implication is as stated above,
 consider this example:
 
-\begin{dmath}
+\begin{dmath*}
 	{x > 3 \textrm{ implies } x > 1}
-\end{dmath}
+\end{dmath*}
 
 Now take a look at the truth table for this expression:
 
@@ -685,9 +684,9 @@ disjunction, so $p \wedge (q \wedge r)$ would become $p \wedge q \wedge r$.
 A truth valuation is a list of allocations that define the values of variables
 in an expression, where:
 
-\begin{dmath}
+\begin{dmath*}
 	\{p_1=x_1,\dots, p_n=x_n\}
-\end{dmath}
+\end{dmath*}
 
 \marginpar{An example truth valuation for the expression $p \wedge r$ might be
 $\{p=T, r=F\}$, for which the end value would be $F$.}
@@ -709,8 +708,6 @@ truth valuation is named a {\bf contradiction}. Such an example may be $p \wedge
 If an expression is not a tautology and isn't a contradiction either, then it is
 named {\bf satisfiable}.
 
-% TODO: Continue from page 24 of the logic notes
-
 \section{Probability}
 
 \subsection{Sample spaces and events}
@@ -721,9 +718,9 @@ will produce one of many outcomes.
 
 The notation we use for the sample space is $\Omega$.
 
-\begin{dmath}
+\begin{dmath*}
 	\Omega = \{\omega_1, \omega_2, \ldots, \omega_n\}
-\end{dmath}
+\end{dmath*}
 
 An {\bf event} is a set containing one ore more outcomes of an experiment. Since
 all outcomes are included in the set $\Omega$, all events are also subsets of
@@ -786,18 +783,18 @@ $B$.} The symbol for set difference is ``$\setminus$''.
 
 Mathematically, this is:
 
-\begin{dmath}
+\begin{dmath*}
 	{A \ B = \{\omega \in \Omega \textrm{ } \vert \textrm{ } \omega \in A \textrm{ and } \omega \not\in B\}}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Disjoint sets}
 
 If two sets are disjoint, then they share no common elements, that is to say
 that:
 
-\begin{dmath}
+\begin{dmath*}
 	A \cap B = \emptyset
-\end{dmath}
+\end{dmath*}
 
 This is important in probability, since if two events are disjoint, then they
 will never occur at the same time.
@@ -807,9 +804,9 @@ will never occur at the same time.
 A probability measure is a mapping between an event and the probability that the
 event will occur.
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P} : \{\textrm{\it Collection of all events}\} \rightarrow [0,1]
-\end{dmath}
+\end{dmath*}
 
 This defines $\mathbb{P}$ as a number between $0$ and $1$ (i.e. a probability).
 Since a probability measure is defined for {\it all} events that can occur, then
@@ -836,19 +833,19 @@ An indicator function will yield a value of $1$ if an element $\omega$ is inside
 a set, and a value of $0$ if the element is not inside the set. It can be
 defined as follows:
 
-\begin{dmath}
+\begin{dmath*}
 	1_A(\omega_i) = \begin{cases} 
 						1\textrm{ if }\omega_i \in A\\
 						0\textrm{ if }\omega_i \not\in A
 					\end{cases}
-\end{dmath}
+\end{dmath*}
 
 We can therefore define the probability of an event $A$ to be the sum of all the
 probabilities of the events inside $A$:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A) = \sum\limits_{i=1}^n1_A(\omega_i)p_i
-\end{dmath}
+\end{dmath*}
 
 \marginpar{Note that $n$ is the number of elements inside $A$.}
 
@@ -866,18 +863,18 @@ we need to do is find the sum of all the elements in the sample space, but
 multiply the elements by the indicator function of $A$ before we add them onto
 the sum:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A) = \sum\limits_{i=1}^{n} 1_A(\omega_i)p_i
-\end{dmath}
+\end{dmath*}
 
 However, since all the elements inside $\Omega$ are equally likely, that must
 mean that for any event $\omega_i$, it's probability must be $\frac{1}{n}$ where
 $n$ is the number of elements inside the sample space. If we take this into
 account, we can formulate the following formula:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A) = \frac{1}{n}\sum\limits_{i=1}^{n} 1_A(\omega_i)
-\end{dmath}
+\end{dmath*}
 
 
 However, we can make this even more simple; if we recognise that any element in
@@ -885,18 +882,18 @@ $A$ has the same probability of occurring as any element in $\Omega$, then it's
 easy to realise that the probability of $A$ occurring will be equal to the
 relationship between sizes of the sets $A$ and $\Omega$:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A) = \frac{\#A}{\#\Omega}
-\end{dmath}
+\end{dmath*}
 
 \subsection{Finding the binomial coefficient}
 
 The binomial coefficient is represented as $n \choose k$, both $n$ and $k$ are
 integers. It is pronounced $n$ {\it choose} $k$.
 
-\begin{dmath}
+\begin{dmath*}
 	{n \choose k} = \frac{n!}{k!(n-k)!}
-\end{dmath}
+\end{dmath*}
 
 \subsection{Choosing items}
 
@@ -909,28 +906,28 @@ choose an item twice?
 If the order is important and we can choose an item many times, then we can
 choose the following items:
 
-\begin{dmath}
+\begin{dmath*}
 	(a,a), (a,b), (a,c), (b,a), (b,b), (b,c), (c,a), (c,b), (c,c)
-\end{dmath}
+\end{dmath*}
 
 If the order is not important, then we have:
 
-\begin{dmath}
+\begin{dmath*}
 	(a,a), (a,b), (a,c), (b,b), (b,c), (c,c)
-\end{dmath}
+\end{dmath*}
 
 If the order is important, but we can't choose an item twice, we get:
 
-\begin{dmath}
+\begin{dmath*}
 	(a,b), (a,c), (b,a), (b,c), (c,a), (c,b)
-\end{dmath}
+\end{dmath*}
 
 Finally, if the order is not important and the items cannot be selected twice,
 then:
 
-\begin{dmath}
+\begin{dmath*}
 	(a,b), (a,c), (b,c)
-\end{dmath}
+\end{dmath*}
 
 In order to calculate the number of possible different selections we can make in
 these different cases, we can use this table:
@@ -950,17 +947,17 @@ It's easy to verify that these are true; since:
 
 \begin{itemize}
 	\item With replacement, order important:
-	\begin{dmath}
+	\begin{dmath*}
 		n^k = 3^2 = 9
-	\end{dmath}
+	\end{dmath*}
 	\item Without replacement, order important:
-	\begin{dmath}
+	\begin{dmath*}
 		\frac{n!}{(n - k)!} = 	\frac{3!}{(3 - 2)!} = 6
-	\end{dmath}
+	\end{dmath*}
 	\item Without replacement and order is not important:
-	\begin{dmath}
+	\begin{dmath*}
 		{n \choose k} = \frac{n!}{k(n - k)!} = \frac{3!}{2(3 - 2)!} = \frac{6}{2} = 3
-	\end{dmath}
+	\end{dmath*}
 
 \end{itemize}
 
@@ -979,9 +976,9 @@ is a probability of $\frac{1}{3}$ that the event $B$ will occur. If we know in
 advance that $B$ will occur, then the probabilities that the events outside $B$
 will occur suddenly drop to zero:
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{P}(\{1\}) = \dots = \mathbb{P}(\{4\}) = 0}
-\end{dmath}
+\end{dmath*}
 
 The probability that $B$ will occur is $1$, therefore the probability that
 either event in $B$ will occur is $\frac{1}{2}$.
@@ -997,16 +994,16 @@ To clarify the following two things have just happened:
 In a more general case, the probability that any event $A$ occurs, given that
 the event $B$ occurs is:
 
-\begin{dmath}
+\begin{dmath*}
 	\frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
-\end{dmath}
+\end{dmath*}
 
 The notation we use for conditional probability (i.e. the probability an event
 $A$ will occur given that the event definitely will $B$ occur) is:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A|B)
-\end{dmath}
+\end{dmath*}
 
 \marginpar{It's correct to say that the definition of $A$ given $B$ is a
 probability measure. The probability measure would be concentrated on the event
@@ -1019,29 +1016,29 @@ If the probability of the event $A$ does not change when we add the conditional
 that an event $B$ will certainly occur and $\mathbb{P}(B) \ge 0$, then the
 events $A$ and $B$ are independent. This could be described as:
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{P}(A) = \mathbb{P}(A|B)}
-\end{dmath}
+\end{dmath*}
 
 We can manipulate this mathematical definition of independence using the
 equations we described in the at the start of the conditionals section:
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{P}(A) = \mathbb{P}(A|B)} \iff {\mathbb{P}(A) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}} \iff {\mathbb{P}(A)\mathbb{P}(B) = \mathbb{P}(A \cap B)}
-\end{dmath}
+\end{dmath*}
 
 Henceforth, we often take the last of these equations as our definition for
 independence.
 
 Of course, it's easy to do the following too:
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{P}(A)\mathbb{P}(B) = \mathbb{P}(A \cap B)} \iff {\mathbb{P}(B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(A)}} \iff {\frac{\mathbb{P}(B \cap A)}{\mathbb{P}(A)}} \iff {\mathbb{P}(B|A)}\\	
-\end{dmath}
+\end{dmath*}
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{P}(A|B) \iff \mathbb{P}(B|A)}
-\end{dmath}
+\end{dmath*}
 
 So, an event is independent of another event if knowledge that one event occurs
 won't give you any extra information about how likely it is that the other event
@@ -1077,15 +1074,15 @@ the probability of the separate partitions, since all partitions are disjoint.
 The law of total probability splits any event $A$ up in terms of the partitions
 in the sample space:
 
-\begin{dmath}
+\begin{dmath*}
 	A = (A \cap E_i) \cup (A \cap E_2) \cup \dots \cup (A \cap E_n)
-\end{dmath}
+\end{dmath*}
 
 We can write this in terms of probabilities:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A) = \mathbb{P}(A|E_1)\mathbb{P}(E_1) + \dots + \mathbb{P}(A|E_n)\mathbb{P}(E_n)
-\end{dmath}
+\end{dmath*}
 
 \subsection{Bayes Theorem}
 
@@ -1094,9 +1091,9 @@ into $m$ partitions, then take $\mathbb{P}(E_i|A)$ and use first the definition
 of conditional probability, then the multiplicative law, then the law of total
 probability. The process is described mathematically below:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(E_i|A) = \frac{\mathbb{P}(E_i \cap A)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|E_i)\mathbb{P}(E_i)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|E_i)\mathbb{P}(E_i)}{\mathbb{P}(A|E_1)\mathbb{P}(E_1) + \dots + \mathbb{P}(A|E_m)\mathbb{P}(E_m)}
-\end{dmath}
+\end{dmath*}
 
 Bayes theorem is good if you have the probability of some event $A$ that depends
 on the condition of the event $B$ happening (i.e. you know $\mathbb{P}(A|B)$,
@@ -1106,18 +1103,18 @@ but you instead want to know $\mathbb{P}(B|A)$.
 
 The complementary law states that:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{P}(A|B) = 1 - \mathbb{P}(A^c|B)
-\end{dmath}
+\end{dmath*}
 
 \section{Random variables}
 
 A random variable is a mapping between the sample space $\Omega$ to real numbers
 ($\mathbb{R}$). A random variable is usually denoted by $X$.
 
-\begin{dmath}
+\begin{dmath*}
 	X : \Omega \rightarrow \mathbb{R}
-\end{dmath}
+\end{dmath*}
 
 This means that every outcome in the sample space corresponds to a real number.
 The range of the random variable is very intuitive; if we were throwing a dice,
@@ -1125,9 +1122,9 @@ then the range would be $\{1, 2, \dots, 6\}$.
 
 The sum of the probabilities of the random variable is always equal to $1$:
 
-\begin{dmath}
+\begin{dmath*}
 	\sum\limits_{i=1}^m\mathbb{P}(X=r_i) = 1
-\end{dmath}
+\end{dmath*}
 
 \subsection{Constructing new random variables from existing ones}
 \label{subsec:new_random_vars}
@@ -1135,9 +1132,9 @@ Creating a random variable from another random variable is fairly easy; it's
 basically a composite function. If we have a random variable $X$ and a function
 $f$ then:
 
-\begin{dmath}
+\begin{dmath*}
 	Y(\omega) = f(X(\omega)) \textrm{ for all $\omega \in \Omega$}
-\end{dmath}
+\end{dmath*}
 
 Note that the range of the new function ($Y$) may be different from the range of
 the old one ($X$).
@@ -1154,9 +1151,9 @@ always $[0,1]$.
 Mathematically, the probability mass function of a random variable $X$ is
 defined as:
 
-\begin{dmath}
+\begin{dmath*}
 	p(r_i) := \mathbb{P}(X = r_i) \textrm{ for all $i > 1$}
-\end{dmath}
+\end{dmath*}
 
 \marginpar{The sum of all the values in a {\it pmf} function is always $1$.}
 
@@ -1175,9 +1172,9 @@ that:
 However, both the {\it cdf} and the {\it pmf} share the same range. The
 definition of {\it cdf} is:
 
-\begin{dmath}
+\begin{dmath*}
 	{F(x) = \mathbb{P}(X \leq x)} \textrm{ for all $x \in \mathbb{R}$}
-\end{dmath}
+\end{dmath*}
 
 A graph of a {\it cdf} function contains all the information about the random
 variable it has mapped. We can deduce it's range, the {\it pmf} and where the
@@ -1191,55 +1188,55 @@ sequence of numbers where each number has a weight. If the numbers are numbered
 $\alpha_1 \dots \alpha_n$ and their weights are numbered $\omega_1 \dots
 \omega_n$ then the average value would be:
 
-\begin{dmath}
+\begin{dmath*}
 	\textrm{Average value: } = \frac{\omega_1\alpha_1 + \dots + \omega_n\alpha_n}{\omega_1 + \dots + \omega_n}
-\end{dmath}
+\end{dmath*}
 
 Note that the mean is represented by $\mathbb{E}$ so:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{E} = \frac{\omega_1\alpha_1 + \dots + \omega_n\alpha_n}{\omega_1 + \dots + \omega_n}
-\end{dmath}
+\end{dmath*}
 
 In this analogy, then the values for $\alpha$ would be members of the range of
 $X$ and the values of $\omega$ would be the probabilities that these values
 would occur:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{E}(X) = \frac{\mathbb{P}(X = r_1) \cdot r_1 + \dots + \mathbb{P}(X = r_n) \cdot r_n}{\mathbb{P}(X = r_1) + \dots + \mathbb{P}(X = r_n)}
-\end{dmath}
+\end{dmath*}
 
 However, since the denominator of this fraction is merely the sum of the
 probabilities of each of the elements in the range of $X$, it will always equal
 $1$. Therefore:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{E}(X) = {\mathbb{P}(X = r_1) \cdot r_1 + \dots + \mathbb{P}(X = r_n) \cdot r_n} = {\sum\limits_{i=1}^{n} r_i \mathbb{P}(X = r_i)}
-\end{dmath}
+\end{dmath*}
 
 In order to define the mean of a function of a random variable (as described in
 section~\ref{subsec:new_random_vars}), we don't need to apply the function to
 the probability of each element occurring, only to the element itself:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{E}(f(X)) = {\sum\limits_{i=1}^{n} f(r_i) \mathbb{P}(X = r_i)}
-\end{dmath}
+\end{dmath*}
 
 Of course, if the random variable $Y = f(X(r_i))$ then you can just find
 the average of $Y$ instead:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{E}(Y) = {\sum\limits_{i=1}^{n} r_i \mathbb{P}(Y = r_i)}
-\end{dmath}
+\end{dmath*}
 
 We can say two more things about the means of random variables:
 
 \begin{itemize}
 	\item If the random variable only has one element in it's range, then the mean of the random variable must be that element.
 	\item For any $a, b \in \mathbb{R}$ we have
-	\begin{dmath}
+	\begin{dmath*}
 		\mathbb{E}(aX + b) = a\mathbb{E}(X) + b
-	\end{dmath}
+	\end{dmath*}
 \end{itemize}
 
 \subsection{The variance and standard deviation of a random variable}
@@ -1255,17 +1252,17 @@ it's mean ($\mu$). We can then go through each element in the random variable
 and find how far it is from the mean of the random variable. Let $Y$ denote
 the new random variable produced:
 
-\begin{dmath}
+\begin{dmath*}
 	Y(\omega) = (X(\omega) - \mu)^2
-\end{dmath}
+\end{dmath*}
 
 In order to find the variance of the random variable, we need to find then
 average amount that the variable strays from it's mean, so we must find the
 mean of $Y$:
 
-\begin{dmath}
+\begin{dmath*}
 	Var(X) = \mathbb{E}[(X - \mu)^2]
-\end{dmath}
+\end{dmath*}
 
 So, to sum it up, the variance is a measure of how far $X$ is on average from
 it's mean $\mu$. The larger the variance is, the larger the distance on
@@ -1274,18 +1271,18 @@ average is.
 Note that when finding the variance, it's imperative that you remember to take
 into account the probability of each element $\omega$ happening.
 
-\begin{dmath}
+\begin{dmath*}
 	{Var(X) = \sum\limits_{i=1}^{m}(r_i - \mu)^2\mathbb{P}(X=r_i)}
-\end{dmath}
+\end{dmath*}
 
 \subsubsection{Standard deviation}
 
 The standard deviation of a random variable is merely just the square root of
 it's variance:
 
-\begin{dmath}
+\begin{dmath*}
 	SD(X) = \sqrt{Var(X)}
-\end{dmath}
+\end{dmath*}
 
 \section{Distributions}
 
@@ -1304,9 +1301,9 @@ a coin.
 If a random variable $X$ follows the Bernoulli distribution ($X ~ Bernoulli(p)$)
 then:
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{E}[X] = p} \textrm{ and } {Var(X) = p(1-p)}
-\end{dmath}
+\end{dmath*}
 
 \subsection{The Binomial distribution}
 
@@ -1317,9 +1314,9 @@ times.
 
 The probability of having $k$ number of successes in a row out of $n$ tries is:
 
-\begin{dmath}
+\begin{dmath*}
 	{p_x(k) = \mathbb{P}(X = k) = {n \choose k}p^k(1-p)^{n-k}}
-\end{dmath}
+\end{dmath*}
 
 The mean of a Binomial distribution is $\mathbb{E}[X] = np$ and the variance is
 $Var(X) = np(1-p)$.
@@ -1331,31 +1328,31 @@ suited to applications where $n$ is very large and $p$ is very small. It
 predicts the probability of a number of $k$ successes occurring within $n$ tries
 of an experiment.
 
-\begin{dmath}
+\begin{dmath*}
 	p_x(k) = \frac{\lambda^k}{k!}e^{-\lambda}
-\end{dmath}
+\end{dmath*}
 
 The mean and the variance both equal $\lambda$:
 
-\begin{dmath}
+\begin{dmath*}
 	{\mathbb{E}[X] = Var(X) = \lambda}
-\end{dmath}
+\end{dmath*}
 
 \subsection{The Geometric distribution}
 
 The geometric distribution finds the number of experiments you should do before
 getting your first success.
 
-\begin{dmath}
+\begin{dmath*}
 	p_x(k) = (1-p)^{k-1}p \textrm{ for all $k \in \{0, 1, \dots\}$}
-\end{dmath}
+\end{dmath*}
 
 The mean and variance of a geometric distribution are:
 
-\begin{dmath}
+\begin{dmath*}
 	\mathbb{E}[X] = \frac{1}{p}
-\end{dmath}
+\end{dmath*}
 
-\begin{dmath}
+\begin{dmath*}
 	Var(X) = \frac{1-p}{p^2}
-\end{dmath}
+\end{dmath*}
