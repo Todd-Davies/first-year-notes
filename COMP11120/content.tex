@@ -709,9 +709,161 @@ truth valuation is named a {\bf contradiction}. Such an example may be $p \wedge
 If an expression is not a tautology and isn't a contradiction either, then it is
 named {\bf satisfiable}.
 
-% TODO: Continue from page 24 of the logic notes
+\subsection{Truth tables}
+
+A truth table lists all the possible truth valuations of an expression and the
+outcome of the expression for each. In this way, it is easy to determine whether
+the expression is a tautology, satisfiable or a contradiction.
+
+It's a good idea to split an expression into several component parts inside a
+truth table so that it's easier to create. For example, take a look at the truth
+table for $x \vee (y \wedge z)$:
+
+\begin{center}
+	\begin{tabular}{|c c c|c|c|}
+		\hline
+		$x$ & $y$ & $z$ & $y \wedge z$ & $x \vee (y \wedge z)$\\ \hline
+		T & T & T & T & T\\
+		T & T & F & F & T\\
+		T & F & T & F & T\\
+		T & F & F & F & T\\
+		F & T & T & T & T\\
+		F & T & F & F & F\\
+		F & F & T & F & F\\
+		F & F & F & F & F\\ \hline
+	\end{tabular}
+\end{center}
+
+\subsection{Logical equivalence}
+
+Two expressions are said to be logically equivalent if they have the same value
+for every truth valuation. The syntax two say two expressions $A$ and $B$ are
+logically equivalent is:
+
+\begin{dmath}
+	{ A \logicEquiv B}
+\end{dmath}
+
+\subsection{Normal forms}
+
+A normal form is a specific format that we can re-arrange an expression in to so
+that it has certain attributes and is perhaps easier to manipulate or are more
+simple.
+
+\subsubsection{Negation Normal Form}
+
+Negation Normal Form (NNF) is build up of literals, conjunctions and
+disjunctions only. In order to get an expression into NNF, we have to do two
+things:
+
+\begin{enumerate}
+	\item Remove all instances of implication and bi-implication using the
+	logical identities.
+	\item Use De Morgan's laws to remove the negation of any brackets.
+\end{enumerate}
+
+An important fact about Negation Normal Form is that {\it any formula} in the
+propositional language can be rearranged so that it is in NNF.
+
+\marginpar{A literal is an atomic formula or the negation of an atomic formula
+(e.g. $p$ or $\neg p$). Since NNF is built up of literals, conjunctions and
+disjunctions, this means you can't have negations of bracketed expressions
+since a bracketed expression is not a literal.}
+
+\subsubsection{Conjunctive Normal Form}
+
+Conjunctive Normal Form (CNF) is a form where a series of expressions are
+separated by conjunctions. It is important to note that any formula in CNF is
+also in NNF, since all the rules that apply to NNF also apply to CNF. Additional
+rules for CNF are:
+
+\begin{itemize}
+	\item All the disjunctions must be inside expressions separated by
+	conjunctions.
+	\item There can be no nested brackets.
+\end{itemize}
+
+\subsubsection{Disjunctive Normal Form}
+
+Disjunctive Normal Form (DNF) is the same as CNF, but the role of the
+conjunctions is reversed with that of the disjunctions.
+
+To get any expression into CNF or DNF, it is often useful to get it into NNF
+first, This is because both forms (CNF and DNF) inherit all the rules from NNF,
+so it makes sense to get the formula into NNF first.
+
+\subsection{Testing for contradictions and tautologies using CNF and DNF}
+
+It is possible to find if an expression is a contradiction or a tautology just
+by looking at the truth table of it. In order to find if the expression is a
+tautology, you must re-arrange it into CNF, then look for a literal and the
+negation of the literal inside each bracket. If the expression exhibits this
+quality, then it is a tautology. Here's an example:
+
+\[
+	\neg p_1 \vee p_2 \vee p_3 \vee p_1
+\]
+
+An expression that is {\it not} a tautology might be:
+
+\[
+	(\neg p_1 \vee p_2 \vee p_3 \vee p_1) \wedge (p_1 \vee p_3)
+\]
+
+This would be because the second expression doesn't contain a literal and the
+negation of the same literal.
+
+Testing for contradictions is similar, but the expression must be in DNF instead
+of CNF.
+
+\subsection{Functional completeness}
+
+Functional completeness is when a languages contains sufficient symbols to
+enable it to express any conceivable expression. In the language of PL, this the
+minimum symbols for functional completeness are $\neg, \wedge, \vee$.
+
+\subsubsection{Finding a DNF equivalent of any truth table}
+
+Given any truth table, it is possible to construct the DNF equivalent of it.
+
+In order to do this, you find a DNF formula for each row that is true in the
+truth table. The formula contains each of the inputs of the truth table,
+separated by conjunctions, and negated if their input value is false. Once that
+is done, then simply combine the formulae with disjunctions. This is best
+explained using an example:
+
+\begin{center}
+	\begin{tabular}{|c c c|c|c|c|}
+		\hline
+		$x$ & $y$ & $z$ & output &\\ \hline
+		T & T & T & F&\\
+		T & T & F & T& $x \wedge y \wedge \neg z$\\
+		T & F & T & T& $x \wedge \neg y \wedge z$\\
+		T & F & F & F\\
+		F & T & T & F\\
+		F & T & F & F\\
+		F & F & T & F\\
+		F & F & F & T& $\neg x \wedge \neg y \wedge \neg z$\\\\ \hline
+	\end{tabular}
+\end{center}
+
+The DNF formula would be:
+
+\[
+	(x \wedge y \wedge \neg z) \vee (x \wedge \neg y \wedge z) \vee (\neg x \wedge \neg y \wedge \neg z)
+\]
+
+Since {\it any} truth table can be represented in this way (using only
+negations, conjunctions and disjunctions), we can say that these three operators
+are a {\bf functionally complete set of connectives}.
+
+\marginpar{In fact, we can use De Morgan's laws to re-arrange the DNF equation
+so that we only need {\it either} conjunctions or disjunctions and negations, so
+there is an element of redundancy built in.}
 
 \section{Probability}
+
+
 
 \subsection{Sample spaces and events}
 
