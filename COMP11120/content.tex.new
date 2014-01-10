@@ -864,13 +864,11 @@ there is an element of redundancy built in.}
 
 A predicate is a function that returns a boolean. Examples may be:
 
-\begin{center}
-	\begin{tabular}{c c}
-		$Animal(x)$ & $x$ is an animal\\
-		$Eats(x, y)$ & $x$ eats $y$\\
-		$Food(x)$ & $x$ is food\\
-	\end{tabular}
-\end{center}
+\begin{tabular}{c c}
+	$Animal(x)$ & $x$ is an animal\\
+	$Eats(x, y)$ & $x$ eats $y$\\
+	$Food(x)$ & $x$ is food\\
+\end{tabular}
 
 This allows us to form complicated, arbirary statements such as:
 
