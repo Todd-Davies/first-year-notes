@@ -865,7 +865,7 @@ there is an element of redundancy built in.}
 A predicate is a function that returns a boolean. Examples may be:
 
 \begin{center}
-	\begin{tabular}{c c}
+	\begin{tabular}{l l}
 		$Animal(x)$ & $x$ is an animal\\
 		$Eats(x, y)$ & $x$ eats $y$\\
 		$Food(x)$ & $x$ is food\\
@@ -877,6 +877,31 @@ This allows us to form complicated, arbirary statements such as:
 \begin{dmath}
 	{\left(Animal(x) \wedge Food(y)\right) \implies Eats(x, y)}
 \end{dmath}
+
+A quantifier is a way of specifying what a variable is, or could be. An example
+could be:
+
+\begin{dmath}
+	{\textrm{For all x, y} \left(Animal(x) \wedge Food(x)\right) \implies Eats(x, y)}
+\end{dmath}
+
+This would specify all the possible $x$'s and $y$'s for the expression. There
+are two such quantifiers, the {\bf universal quantifier ($\forall$)} and the
+{\bf existential quantifier($\exists$)}.
+
+The universal quantifier specifies all elements, which in English, usually
+translates to {\it for all}. The existential quantifier specifies at least one
+element, usually translated to something like {\it there exists}, or {\it for
+some}.
+
+Quantifiers can greatly change the meaning of a statement:
+
+\begin{tabularx}{\textwidth}{l X}
+	$\forall x, y \left(Animal(x) \wedge Food(y)\right) \implies Eats(x, y)$ & All animals will eat all foods.\\
+	$\exists x, y \left(Animal(x) \wedge Food(y)\right) \implies Eats(x, y)$ & There is an animal that will eat some specific item of food.\\
+\end{tabularx}
+
+\subsubsection{The negation of quantified statements.}
 
 \section{Probability}
 
