@@ -839,6 +839,51 @@
 	\]
 }
 
+\card{
+	What is the condition for the law of total probability to be true?
+}{
+	The events must be mutually disjoint. (They often form a partition of the
+	sample space)
+}
+
+\card{
+	What is the formula for the law of total probability?
+}{
+	\[
+		\mathbb{P}(A) = \mathbb{P}(A | E_1)\mathbb{P}(E_1) + \dots + \mathbb{P}(A | E_n)\mathbb{P}(E_n)
+	\]
+}
+
+\card{
+	Describe the law of total probability in English.
+}{
+	Take a partition of a sample space consisting of the events $E_1$ to $E_n$. For any event $A$, the probability of $A$ is equal to the sum of the probability of $A$ choose $E_m$ multiplied by the probability of $E_m$ for each $m$ from $1$ to $n$.
+}
+
+\card{
+	What is the definition of conditional probability?
+}{
+	\[
+		\mathbb{P}(E_i | A) = \frac{\mathbb{P}(E_i \cap A)}{\mathbb{P}(A)}
+	\]
+}
+
+\card{
+	What is the definition of the multiplicative law?
+}{
+	\[
+		\mathbb{P}(E_i \cap A) = \mathbb{P}(A | E_i)\mathbb{P}(E_i)
+	\]
+}
+
+\card{
+	Define Bayes' theorem.
+}{
+	\[
+		\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}
+	\]
+}
+
 % Random variables
 
 \card{What can you do with $Var(aX + b)$?}{
