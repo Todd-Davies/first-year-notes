@@ -892,6 +892,68 @@
 	A mapping from the sample space to real numbers.
 }
 
+\card{
+	In order to construct a new random variable from an old one, what do you do?
+}{
+	Apply a function to the old random variable:
+	\[
+		Y(\omega) = f(X(\omega))
+	\]
+}
+
+\card{
+	Define the pmf function.
+}{
+	\[
+		p(r_i) := \mathbb{P}(X = r_i)
+	\]
+}
+
+\card{
+	Define the cdf function.
+}{
+	\[
+		F(x) = \mathbb{P}(X \leq x)
+	\]
+}
+
+\card{
+	What's the difference between a cdf and a pmf?
+}{
+	The cdf is cumulative, and shows the total probability of the outcomes up to and including the outcome it takes. The pmf shows only the probability of that outcome.
+}
+
+\card{
+	What does an open dot mean on a cmf graph? What does a filled dot mean?
+}{
+	An open circle shows where a value is {\bf not}. A filled dot shows what the value is at that point on the graph.
+}
+
+\card{
+	How do we find the average value of a random variable?
+}{
+	\[
+		\mathbb{E}(X) = \mathbb{P}(X = r_1)r_1 + \dots + \mathbb{P}(X = r_n)r_n
+	\]
+}
+
+\card{
+	How do we find the mean of a random variable that has been constructed from another random variable using a function $f$?
+}{
+	\[
+		\mathbb{E}(X) = \mathbb{P}(X = r_1)f(r_1) + \dots + \mathbb{P}(X = r_n)f(r_n)
+	\]	
+}
+
+\card{
+	If we take the mean of a random variable in the form $\mathbb{E}(aX + b)$, then how can we re-arrange that?
+}{
+	\[
+		a\mathbb{E}(X) + b
+	\]
+}
+
+
 \card{What can you do with $Var(aX + b)$?}{
 	\[
 		Var(aX + b) = a^2 Var(X)
@@ -915,6 +977,78 @@
 }{
 	\[
 		Var(X) = \mathbb{E}(X - \mu)^2 = \sum\limits^{m}_{i=1}(r_i - \mu)^2\mathbb{P}(X = r_i)
+	\]
+}
+
+% Distributions
+
+\card{
+	How many outcomes does the Bernoulli distribution have, what's it's range and it's pmf?
+}{
+	The Bernoulli distribution has two outcomes. It's range is $R = \{0, 1\}$ and it's pmf is given by $p_x(1)=p, p_x(0)=1-p$.
+}
+
+\card{
+	What is the mean and the variance of a function that has the Bernoulli distribution?
+}{
+	\[
+		\mathbb{E}(X) = p
+	\]
+	\[
+		Var(X) = p(1-p)
+	\]
+}
+
+\card{
+	What is the range of the binomial distribution? What is it's pmf?
+}{
+	The range is $R = \{0, 1, \dots, n\}$.
+	The pmf is:
+	\[
+		p_x(k) = {n \choose k}p^k(1-p)^{n-k}
+	\]
+}
+
+\card{
+	What is the notation to say that a random variable $X$ has a specific distribution?
+}{
+	\[
+		X ~ Distribution(n_1, n_2, \dots, n_i)
+	\]
+}
+
+\card{
+	What is the pmf of a Poisson distribution?
+}{
+	\[
+		p_x(k) = \frac{\lambda^k}{k!}e^{-\lambda}
+	\]
+}
+
+\card{
+	What is the mean and variance of a Poisson distribution?
+}{
+	\[
+		\mathbb{E}(X) = Var(X) = \lambda
+	\]
+}
+
+\card{
+	What is the pmf of the geometric distribution?
+}{
+	\[
+		p_x(k) = (1-p)^{k-1}p
+	\]
+}
+
+\card{
+	What is the mean and the variance of the geometric distribution?
+}{
+	\[
+		\mathbb{E}(X) = \frac{1}{p}
+	\]
+	\[
+		Var(X) = \frac{1-p}{p^2}
 	\]
 }
 
