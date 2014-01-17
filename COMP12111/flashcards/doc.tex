@@ -388,7 +388,8 @@
 		\node at (1, 0.2) {CLR};
 		\node at (1, 1.8) {PRE};
 		\node at (0.2, 1) {CE};
-		\node[fill=white, draw=black, rotate=-90,regular polygon, regular polygon sides=3,inner sep=1.5pt] at (0.075, 0.5) {};
+		\node[fill=white, draw=black, rotate=-90,regular polygon, regular 
+			  polygon sides=3,inner sep=1.5pt] at (0.075, 0.5) {};
 		\node at (1.8, 1.5) {Q};
 		\node at (1.8, 0.5) {$\overline{Q}$};
 	\end{tikzpicture}
@@ -426,5 +427,54 @@
 }{
 	The time taken for a signal to change state.
 }
+
+% Second book of Paul's notes (pink)
+
+\card{
+	What does RTL mean?
+}{
+	Register Transfer Layer
+}
+
+\card{
+	Order the following in terms of their level of abstraction from lowest to
+	highest:\\
+	$\cdot$ Logic Gate Level\\
+	$\cdot$ Transistor Level\\
+	$\cdot$ Register Transfer Level
+}{
+	$1$ Transistor Level\\
+	$2$ Logic Gate Level\\
+	$3$ Register Transfer Level
+}
+
+\card{
+	What does the CE pin do on a register?
+}{
+	CE stands for clock enable, and when it is low, the register will ignore 
+	clock cycles.
+}
+
+\card{
+	What are registers made up of?
+}{
+	Lots of flip flops.
+}
+
+\card{
+	Define the datapath.
+}{
+	The datapath is the path of registers and logical functions that the data 
+	flows through.
+}
+
+\card{
+	What does the control block do at the Register Transfer Level?
+}{
+	The control block controls the operation of the datapath. It sends control 
+	signals to the datapath so that the data does indeed, take the right path.
+}
+
+
 
 \end{document} 
