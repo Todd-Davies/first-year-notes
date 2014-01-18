@@ -202,14 +202,60 @@
 	{\tt EQU} allows us to name a literal. You can then refer to the literal 
 	(still with a hash before it) by name in your code which is easy to read.
 	\vspace{1em}\\
-	{\tt <alias> EQU #<value>}
+	{\tt <alias> EQU \#<value>}
+}
+
+\card{
+	What are the four status flags provided by the ARM architecture?
+}{
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & Negative\\
+		- & Zero\\
+		- & Carry\\
+		- & Overflow\\
+	\end{tabularx}
+}
+
+\card{
+	How can you combine a CMP instruction with another instruction?
+}{
+	Append {\tt S} to an instruction. E.g.:\\
+	{\tt SUBS R0, R1, R2}\\
+	If the result in {\tt R0} was negative, then the negative flag would be set
+	etc etc.
+}
+
+\card{
+	What does {\tt RSB} do?
+}{
+	Reverse subtract. {\tt RSB R1, R0, \#0}:\\
+	{\tt R1 = 0 - R0 = -R0}
+}
+
+\card{
+	What does {\tt MLA} do?
+}{
+	Multiply and add. {\tt MLA R0, R1, R2, R3}:\\
+	{\tt R0 = (R0 * R1) + R2}
+}
+
+\flashcard{
+	\begin{tabularx}{0.4\textwidth}{l X}
+		Condition code & Meaning (for cmp or subs)\\ \hline
+		eq & \blank{Equal}\\
+		ne & \blank{Not equal}\\
+		ge & \blank{Signed greater than or equal}\\
+		le & \blank{Signed less than or equal}\\
+		lt & \blank{Signed less than}\\
+		gt & \blank{Signed greater than}\\
+	\end{tabularx}
 }
 
 % -------------------
-% Methods of indexing
+% Methods of addressing
 % -------------------
 \card{
-	In the following instruction, what method of indexing is used, what will
+	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1}?
 	\\\vspace{2em}
 	{\tt LDR	R0, [R1]}
@@ -223,7 +269,7 @@
 }
 
 \card{
-	In the following instruction, what method of indexing is used, what will
+	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1}?
 	\\\vspace{2em}
 	{\tt LDR	R0, [R1, \#4]}
@@ -237,7 +283,7 @@
 }
 
 \card{
-	In the following instruction, what method of indexing is used, what will
+	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1}?
 	\\\vspace{2em}
 	{\tt LDR	R0, [R1, \#4]!}
@@ -251,7 +297,7 @@
 }
 
 \card{
-	In the following instruction, what method of indexing is used, what will
+	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1}?
 	\\\vspace{2em}
 	{\tt LDR	R0, [R1], \#4}
@@ -265,7 +311,7 @@
 }
 
 \card{
-	In the following instruction, what method of indexing is used, what will
+	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1} and {\tt R2}?
 	\\\vspace{2em}
 	{\tt LDR	R0, [R1, R2]}
@@ -279,7 +325,7 @@
 }
 
 \card{
-	In the following instruction, what method of indexing is used, what will
+	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1} and {\tt R2}?
 	\\\vspace{2em}
 	{\tt LDR	R0, [R1, R2, LSL, \#2]}
@@ -291,5 +337,75 @@
 	\\\vspace{2em}
 	{\tt R1} and {\tt R2} will stay the same.
 }
+
+% ---------------
+% Strings
+% ---------------
+
+\card{
+	How do you load a String into a register?
+}{
+	\begin{tabularx}{0.5\textwidth}{X}
+		{\tt msg DEFB "Hello"}\\
+		{\tt ALIGN}\\
+		{\tt ADRL R0, msg}\\
+		{\tt SVC 3}
+	\end{tabularx}
+}
+
+\card{
+	What does the {\tt ADRL} instruction do?	
+}{
+	It is a psudo instruction that loads a program relative address into the
+	register. It is compiled into two {\tt ADD} instructions.
+}
+
+\card{
+	How do you find the length of a string defined by the alias {\tt message}?
+}{
+	\begin{tabularx}{0.5\textwidth}{X}
+		{\tt 	ADRL R1, message}\\
+		{\tt 	MOV R2, \#0}\\
+		{\tt count LDRB R0, [R1, R2]}\\
+		{\tt 	CMP R0, \#0}\\
+		{\tt 	ADDNE R2, R2, \#1}\\
+		{\tt 	BNE count}\\
+		{\tt 	STR R2, length}
+	\end{tabularx}
+}
+
+\card{
+	What are the four ARM bit shifting/rotation instructions?
+}{
+	\begin{tabularx}{0.4\textwidth}{l X}
+		{\bf Mnemonic} & {\bf Meaning} \\
+
+		{\tt LSL} & Logical shift left \\
+
+		{\tt LSR} & Logical shift right \\
+
+		{\tt ASR} & Arithmetic shift right\\
+
+		{\tt ROR} & Rotate Right
+	\end{tabularx}
+}
+
+\card{
+	What is the syntax of a shifting or rotation operation in ARM?
+}{
+	{\tt INSTRUCTION destination operand (\#)shift}
+}
+
+\card{
+	How can {\tt LSL} be used to load words from a table/array in memory?
+}{
+	{\tt LDR R0, [R1, R2, LSL #2]
+}
+
+% --------
+% Stacks
+% --------
+
+
 
 \end{document} 
