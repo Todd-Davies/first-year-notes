@@ -716,7 +716,7 @@ registers:
 \begin{minipage}[t]{0.5\textwidth}
 	\begin{listing}{1}
 	; (a + 5) * b
-	LDR	R0, 5
+	LDR	R0, five
 	LDR	R1, a
 	ADD	R0, R0, R1
 	LDR	R1, b
@@ -1189,7 +1189,7 @@ so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 
 %TODO: Reference STFMD (or whatever it's called)
 
-A stack is a data structure that is used by ARM assembly (an in a variety of
+A stack is a data structure that is used by ARM assembly (and in a variety of
 other computing applications) to help maintain the state of a program.
 
 The only operations that can be performed on a Stack are {\tt push} and {\tt

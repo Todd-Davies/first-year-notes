@@ -7,6 +7,7 @@
 % For awkward circuit diagrams
 \usepackage{tikz}
 \usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -475,6 +476,51 @@
 	signals to the datapath so that the data does indeed, take the right path.
 }
 
+\card{
+	What data flows between the datapath and the control block?
+}{
+	The control block gives the datapath control inputs.\\
+	The datapath gives control outputs to the control block.
+}
 
+\card{
+	For a finite state machine with $n$ states, how many flip flops are needed 
+	in the register?
+}{
+	At least $\log_2{n}$
+}
+
+\card{
+	What is this an example of:\\
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+		\node[main node] (1) {1};
+		\node[main node] (2) [below left of=1] {2};
+		\node[main node] (3) [below right of=2] {3};
+		\node[main node] (4) [below right of=1] {4};
+
+		\path[every node/.style={font=\sffamily\small}]
+		(1) edge [bend right] node[left] {} (2)
+		(2) edge [bend right] node[left] {} (3)
+		(3) edge [bend right] node[right] {} (4)
+		(4) edge [bend right] node[right] {} (1);
+	\end{tikzpicture}
+}{
+	A state transition diagram.
+}
+
+\card{
+	What is the synchronous paradigm?
+}{
+	When all state changes in a system happen at once (usually at the same time
+	as a clock transition).
+}
+
+\card{
+	What is the formula to subtract $A$ from $B$ using 2's complement?
+}{
+	$A - B = A + \overline{B} + 1$
+}
 
 \end{document} 
