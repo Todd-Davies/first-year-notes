@@ -239,15 +239,17 @@
 	{\tt R0 = (R0 * R1) + R2}
 }
 
+% Look at my decoy \phantoms mwahaha!
+
 \flashcard{
 	\begin{tabularx}{0.4\textwidth}{l X}
 		Condition code & Meaning (for cmp or subs)\\ \hline
-		eq & \blank{Equal}\\
-		ne & \blank{Not equal}\\
+		eq & \blank{Equal \phantom{1234567891011121314}}\\
+		ne & \blank{Not equal \phantom{123456789101112}}\\
 		ge & \blank{Signed greater than or equal}\\
-		le & \blank{Signed less than or equal}\\
-		lt & \blank{Signed less than}\\
-		gt & \blank{Signed greater than}\\
+		le & \blank{Signed less than or equal \phantom{12}}\\
+		lt & \blank{Signed less than \phantom{123456}}\\
+		gt & \blank{Signed greater than \phantom{1234}}\\
 	\end{tabularx}
 }
 
@@ -258,7 +260,7 @@
 	In the following instruction, what method of addressing is used, what will
 	{\tt R0} contain and what will happen to {\tt R1}?
 	\\\vspace{2em}
-	{\tt LDR	R0, [R1]}
+	{\tt LDR R0, [R1]}
 }{
 	This is called {\bf register-indirect addressing}.
 	\\\vspace{2em}
