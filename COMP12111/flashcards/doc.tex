@@ -775,4 +775,145 @@
 	If the always block has a clock as an input, then it will be sequential.
 }
 
+% ==================
+% Second half of the course
+% ==================
+
+\card{
+	State the Amdahl Case rule.
+}{
+	A balanced computer needs one begabyte of main memory per one begabit per
+	second of IO per million instructions per second of CPU performance.
+}
+
+\card{
+	What are the two types of locality?
+}{
+	Temporal (if a location is used, then it is likley to be used again soon).\\
+	Spatial (if a location is used, then locations around it are likely to be 
+	used).
+}
+
+\card{
+	Describe two characteristics of digital signals that make them useful.
+}{
+	\begin{tabularx}{0.48\textwidth}{X}
+	 - They are composed of two widely seperated states with no intermediate
+	 levels.\\
+	  - Noise can be eliminated easily because of the seperation of these
+	  states.
+	\end{tabularx}
+}
+
+\card{
+	Define latency.
+}{
+	The time taken for a signal to get from its start to its destination.
+	Measured in seconds.
+}
+
+\card{
+	Define bandwitdh.
+}{
+	The amount of data that can go through a connection per unit time. Measured
+	in bits per second.
+}
+
+\card{
+	What is clock skew?
+}{
+	When the wire carrying the clock signal has a different latency to those
+	carrying the data signals, so the clock appears to be out of sync with the
+	data. It can be mitigated by using a phase shift.
+}
+
+\card{
+	How is information encoded using Manchester encoding?
+}{
+	A '1' is encoded as a rising edge, and a '0' is encoded as a falling edge in
+	time with the clock tick.
+}
+
+\card{
+	How is information encoded using non return to zero (NRZI) encoding?
+}{
+	Any change on a click tick is intrepreted as a 0, and no change is
+	intrepreted as a 1. Bit stuffing is used to encode a zero (i.e. a change in
+	the signal) if there are six consecutive 1's. This enables the clock signal
+	to be extracted from the main signal.
+}
+
+\card{
+	What are the characteristics of an asynchronous serial communication?
+}{
+	There is no clock signal transmitted. Both parties agree on the length of
+	data packets and an approximate frequency of transmission. Every few bytes,
+	they need to re-synchronise their timing to ensure that their clocks do not
+	deviate too far apart.
+}
+
+\card{
+	Describe strobing.
+}{
+	A seperate wire will carry a strobe signal. This signal will go high when
+	data is in a bus ready to be transmitted. When the data has been read, the
+	signal will go low indicating the transfer has finished.
+}
+
+\card{
+	Describe handshaking.
+}{
+	Handshaking requires two seperate wires; a request line and an acknowledge
+	line. When data is to be sent, the requst line goes high, and when the
+	reciever recognises that, it will set the acknowledge linme high. The data
+	is then transferred, and the request line will go low when the transfer has
+	finished, to which the reciever will reply by setting the acknowledge line
+	low.
+}
+
+\card{
+	What is Time Domain Multiplexing?
+}{
+	TDM is when a connection with high bandwidth is split into many small
+	timeframes so that many 'virtual' connections can be established over it.
+}
+
+\flashcard{
+	What is the truth table for look ahead carry?\\
+	\begin{tabular}{|c c|c|}
+		\hline
+		{\bf A} & {\bf B} & {\bf Cout}\\ \hline
+		0 & 0 & \blank{\phantom{0}0\phantom{m}}\\
+		0 & 1 & \blank{Cin}\\
+		1 & 0 & \blank{Cin}\\
+		1 & 1 & \blank{\phantom{0}1\phantom{m}}\\
+		\hline
+	\end{tabular}
+}
+
+\card{
+	How do you work out the maximum clock frequency of a processor knowing only
+	it's critical path?
+}{
+	\[
+		frequency = \frac{1}{time} = \frac{1}{\textrm{\it cricical path}}
+	\]
+}
+
+\card{
+	What are the three main buses used in computers?
+}{
+	\begin{tabular}{l}
+		- Address bus\\
+		- Data bus\\
+		- Control bus\\
+	\end{tabular}
+}
+
+\card{
+	Is the bandwidth of a memory cache higher or lower than that of the RAM?
+}{
+	Higher - it's faster.
+}
+
 \end{document} 
