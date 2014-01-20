@@ -401,13 +401,23 @@
 \card{
 	How can {\tt LSL} be used to load words from a table/array in memory?
 }{
-	{\tt LDR R0, [R1, R2, LSL #2]
+	{\tt LDR R0, [R1, R2, LSL \#2]}
 }
 
 % --------
 % Stacks
 % --------
 
+\card{
+	What is the command to push something to the stack?
+}{
+	{\tt PUSH <register/literal>}
+}
 
+\card{
+	What is the command to pop something off the stack?
+}{
+	{\tt POP <register/literal>}
+}
 
 \end{document} 
