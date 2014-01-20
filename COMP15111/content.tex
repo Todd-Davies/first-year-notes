@@ -1192,13 +1192,15 @@ so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 A stack is a data structure that is used by ARM assembly (and in a variety of
 other computing applications) to help maintain the state of a program.
 
-The only operations that can be performed on a Stack are {\tt push} and {\tt
+%TODO: Add anecdote about the stack being like a stack of plates
+
+The only operations that can be performed on a stack are {\tt push} and {\tt
 pop}. The former adds an item onto the stack and the latter removes the last
 item from the stack. Because these are the only two operations, a Stack is a
 type of {\it Last In First Out} data structure.
 
-is usually initialised using the {\tt DEFS} command to reserve a block of space
-in memory. This means that the stack will be a fixed size.
+The stack is usually initialised using the {\tt DEFS} command to reserve a block
+of space in memory. This means that the stack will be a fixed size.
 
 In ARM assembly, one register is reserved as the Stack Pointer (SP). This keeps
 track of the memory location that addresses the last item in the stack.
@@ -1222,6 +1224,7 @@ Lets initialise a stack of five memory locations:
 \end{drawstack}
 \end{center}
 
+%TODO: Check this statement:
 The stack pointer will currently be pointed at {\tt 0x00000420}, so the next
 stackable memory location will be {\tt 0x00000416}.
 
@@ -1239,7 +1242,7 @@ If we want to {\it push} an item onto the stack, we need to do two things:
 The ARM command for a stack push is {\tt PUSH}. An example might be:
 
 \begin{verbatim}
-	PUSH 	\#20
+	PUSH 	#20
 \end{verbatim}
 
 Or if you wanted to push one or more registers:
@@ -1335,6 +1338,8 @@ In order to do the same thing for pushing to the stack we can do:
 It is important that when a program branches from one method to another, the
 values stored in the registers are not overwritten for when the program branches
 back to the original method.
+
+%TODO: Caller saved and callee saved registers...
 
 This problem is resolved by pushing the values stored in the registers onto the
 stack before a branch is made, and then poping them off the stack once the
