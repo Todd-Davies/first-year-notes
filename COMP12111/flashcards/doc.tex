@@ -1,6 +1,12 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{color}
 
+% For tables with line breaks
+\usepackage{tabularx}
+
+% For pictures
+\usepackage{graphicx}
+
 % For circuit diagrams
 \usepackage{circuitikz}
 
@@ -573,6 +579,200 @@
 	What is the formula to subtract $A$ from $B$ using 2's complement?
 }{
 	$A - B = A + \overline{B} + 1$
+}
+
+\card{
+	Name the advantages and disadvantages of a FPGA chip.
+}{
+	\begin{tabularx}{0.48\textwidth}{X}
+		{\bf Advantages}\\
+		$\cdot$ Don't have to create an actual silicon chip to test hardware designs.\\
+		$\cdot$ Far faster than a software hosted simulation.\\
+		{\bf Disadvantages}\\
+		$\cdot$ Slower operation than a custom chip.\\
+		$\cdot$ Requires more power than a custom chip.\\
+		$\cdot$ It has a lower capacity than a custom chip (fewer gates can be fit on to
+		it).
+	\end{tabularx}
+}
+
+\card{
+	How do you cause a delay of $300ns$ in a Verilog stimulus file? Can you use
+	the same command in Verilog files describing hardware?
+}{
+	{\tt \#300}\\
+	You can't use that command in normal Verilog files since there is no way
+	for the synthesiser to reliably create a delay of $300ns$ in hardware.
+}
+
+\card{
+	How do you stop a simulation running in a Verilog stimulus file?
+}{
+	{\tt \$stop}
+}
+
+\card{
+	Give some advantages and disadvantages of using a Hardware Description
+	Language (HDL).
+}{
+	\begin{tabularx}{0.48\textwidth}{X}
+		{\bf Advantages}\\
+		$\cdot$ Is able to express some functions very easily in little code
+		(e.g. addition or comparison)\\
+		$\cdot$ Will synthesise the gates for you, so you don't have to code the
+		logic at the gate level.
+		$\cdot$ The code will be easy to read if it's well structured.
+		{\bf Disadvantages}\\
+		$\cdot$ An inefficient circuit could be synthesised.\\
+	\end{tabularx}
+}
+
+\card{
+	How do you define a module in Verilog?
+}{
+	\begin{tabular}{l}
+		{\tt module <name> (input <input\_1>, \dots, <input\_n>,}\\
+		{\tt \phantom{module <name> } output <output\_1>, \dots, <output\_n>);}\\
+		{\tt \phantom{  }  //content}\\
+		{\tt endmodule}
+	\end{tabular}
+}
+
+\card{
+	Is Verilog case sensitive?
+}{
+	Yes
+}
+
+\card{
+	How are numbers formatted in Verilog?
+}{
+	{\tt <bits>'<base><number>}\\
+	e.g. {\tt 4'b1010}, {\tt 8'd255}, {\tt 8'hFF}
+}
+
+\card{
+	How do you find the complement of a variable in Verilog?
+}{
+	variable = {\raise.17ex\hbox{$\scriptstyle\sim$}}variable
+}
+
+\card{
+	What is required if you want to put more than one statement in a Verilog
+	block?
+}{
+	\begin{tabular}{l}
+		{\tt begin}\\
+		{\tt \phantom{  } statement\_1}\\
+		{\tt \phantom{  } \dots}\\
+		{\tt \phantom{  } statement\_n}\\
+		{\tt end}
+	\end{tabular}	
+}
+
+\card{
+	What are the three forms of assignment in Verilog?
+}{
+	\begin{tabular}{l l}
+		{\bf Name} & {\bf Example}\\
+		Continuous & {\tt assign varname = value}\\
+		Blocking & {\tt varname = value}\\
+		Non-blocking & {\tt varname <= value}\\
+	\end{tabular}
+}
+
+\card{
+	What will Verilog blocks containing continuous assignments synthesise into?
+}{
+	Combinatorial logic.
+}
+
+\card{
+	What is the syntax for an in-line conditional statement in Verilog?
+}{
+	{\tt (cond) ? if\_true : if\_false}
+}
+
+\card{
+	What types of assignment can go in a always block?
+}{
+	Either blocking or non-blocking assignments (but not both!).
+}
+
+\card{
+	What is the syntax for an always block?
+}{
+	\begin{tabular}{l}
+		{\tt always @ (sensitivity\_list)}\\
+		{\tt begin}\\
+		{\tt \phantom{  } \dots}\\
+		{\tt end}
+	\end{tabular}	
+}
+
+\flashcard{
+	Ensure all inputs on the \blank{Right hand side} of statements in an always
+	block are in \blank{the sensitivity list}.
+}
+
+\card{
+	What is the syntax for a Verilog case statement?
+}{
+	\begin{tabular}{l}
+		{\tt always @ (sel, w, x)}\\
+		{\tt begin}\\
+		{\tt \phantom{  } case(sel)}\\
+		{\tt \phantom{    } 0: q = w;}\\
+		{\tt \phantom{    } 1: q = x;}\\
+		{\tt \phantom{    } default: q = 0;}\\
+		{\tt \phantom{  } endcase}\\
+		{\tt end}
+	\end{tabular}
+}
+
+\card{
+	How do you define what edge of a signal an always block should be triggered
+	on?
+}{
+	{\tt always @ (posedge clock)}\\
+	or\\
+	{\tt always @ (negedge clock)}
+}
+
+\flashcard{
+	Non-blocking assignments happen \blank{simultaneously}.
+}
+
+\card{
+	In order to produce a FSM in Verilog, what do you write?
+}{
+	\begin{tabular}{l}
+		{\tt always @ (posedge clock)}\\
+		{\tt begin}\\
+		{\tt \phantom{  }if (reset == 1) state <= 0;}\\
+		{\tt \phantom{  }else}\\
+		{\tt \phantom{    } case(state)}\\
+		{\tt \phantom{      } 0: state = 1;}\\
+		{\tt \phantom{      } 1: state = 2;}\\
+		{\tt \phantom{      } 2: state = 0;}\\
+		{\tt \phantom{      } default: state = 0;}\\
+		{\tt \phantom{    } endcase}\\
+		{\tt end}
+	\end{tabular}
+}
+
+\card{
+	What does a diagram of a general FSM look like?
+}{
+	\includegraphics[scale=0.4]{fsm.png}
+}
+
+\card{
+	What differentiates between an always block that will be synthesised into a
+	sequential circuit and one that will be synthesised into a combinatorial
+	circuit?
+}{
+	If the always block has a clock as an input, then it will be sequential.
 }
 
 \end{document} 
