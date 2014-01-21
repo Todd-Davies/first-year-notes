@@ -864,9 +864,9 @@
 	Describe handshaking.
 }{
 	Handshaking requires two seperate wires; a request line and an acknowledge
-	line. When data is to be sent, the requst line goes high, and when the
-	reciever recognises that, it will set the acknowledge linme high. The data
-	is then transferred, and the request line will go low when the transfer has
+	line. When data is to be sent, the requst line goes high and the data
+	is then started to be transfered. The acknowledge line goes high while the 
+	data is being sent and the request line will go low when the transfer has
 	finished, to which the reciever will reply by setting the acknowledge line
 	low.
 }
