@@ -59,6 +59,12 @@
 }
 
 \card{
+	How many registers does an ARM 32-bit processor have?
+}{
+	16
+}
+
+\card{
 	What is the {\it one-address} style of instruction?
 }{
 	Where only one memory address may be used in any one instruction. The other
@@ -95,6 +101,13 @@
 	What is the instruction to sum two numbers?
 }{
 	{\tt ADD <destination\_register> <operand\_register1> <operand\_register2>}
+}
+
+\card{
+	Can the {\tt MUL} command use literals? How else can you multiply literals?
+}{
+	No, it can't use literals, but you can load a literal into a register with
+	{\tt MOV} and then multiply the register!
 }
 
 \card{
@@ -367,6 +380,14 @@
 		{\tt ADRL R0, msg}\\
 		{\tt SVC 3}
 	\end{tabularx}
+}
+
+\card{
+	What does the ADR command do?
+}{
+	A psudo instruction that loads a program relative address into a register.
+	Unlike {\tt ADRL} it only compiles to one instruction (so it's faster), but
+	it has a smaller range of addressable addresses.
 }
 
 \card{
@@ -668,6 +689,20 @@
 	What does {\tt SVC} stand for?
 }{
 	SuperVisor Call.
+}
+
+\card{
+	What are the five SVC commands for? Where does it store or get it's data
+	from?
+}{
+	\begin{tabular}{l l}
+	0 & Output a character\\
+	1 & Input a character\\
+	2 & Stop execution\\
+	3 & Output a string\\
+	4 & Output an interger
+	\end{tabular}\\
+	{\tt R0}
 }
 
 \card{
