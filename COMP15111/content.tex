@@ -1303,6 +1303,10 @@ so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 
 \section{Stacks}
 
+{\footnotesize Note, this section contains some known inaccuracies, including but not
+nececarrily exclusively about the positioning of the stack pointer in relation
+to the stack. {\bf Verify this information before you use it.}}
+
 %TODO: Reference STFMD (or whatever it's called)
 
 A stack is a data structure that is used by ARM assembly (and in a variety of
@@ -1665,7 +1669,7 @@ compare it to zero or one.
 
 \subsubsection{Logical operators in ARM}
 
-ARM assembly implements four logical operators:
+ARM assembly implements five logical operators:
 
 \begin{itemize}
 
@@ -1778,7 +1782,7 @@ must have been met.
 
 \subsection{Interrupts}
 
-Unlike the polling method, and interrupt is initiated by the peripheral rather
+Unlike the polling method, an interrupt is initiated by the peripheral rather
 than the CPU. It follows the following steps:
 
 \begin{enumerate}
@@ -2143,18 +2147,18 @@ three other areas; code, variable and stack.}
 
 It's easy to create a variable in Java:
 
-\begin{listing}{1}
+\begin{verbatim}
 	String myString;
-\end{listing}
+\end{verbatim}
 
 This will create a pointer named {\tt myString}. At the moment, since no
 object has been instantiated the pointer will have the value of {\tt null}.
 However, we can use the Java reserved word {\tt new} to instantiate a new
 object and point the variable at that:
 
-\begin{listing}{1}
+\begin{verbatim}
 	myString = new String("I <3 COMP15111");
-\end{listing}
+\end{verbatim}
 
 When this line is run, a new {\it String} object will be instantiated, and
 stored in memory locations inside the heap. A pointer to the String object

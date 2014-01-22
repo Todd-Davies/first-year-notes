@@ -2,6 +2,8 @@
 \usepackage{tabularx}
 \usepackage{color}
 
+\geometry{landscape}
+\geometry{margin=0cm}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -20,7 +22,19 @@
 
 \begin{document}
 
-\pagesetup{2}{4} 
+\pagesetup{3}{4} 
+
+\card{
+	Convert $0xF0$ to decimal.
+}{
+	240
+}
+
+\card{
+	Convert 18 to binary using 2's complement.
+}{
+	010010
+}
 
 \card{
 	Where do the values that are fed into an operand come from when an
@@ -34,7 +48,7 @@
 \card{
 	Why are registers faster than memory?
 }{
-	\begin{tabularx}{0.5\textwidth}{l X}
+	\begin{tabularx}{0.32\textwidth}{l X}
 		- & Implemented using a flip flop or some other very fast volatile
 		storage (rather than smaller, cheaper SRAM).\\
 		- & Situated inside the processor, so there's less distance for the
@@ -242,7 +256,7 @@
 % Look at my decoy \phantoms mwahaha!
 
 \flashcard{
-	\begin{tabularx}{0.4\textwidth}{l X}
+	\begin{tabularx}{0.32\textwidth}{l X}
 		Condition code & Meaning (for cmp or subs)\\ \hline
 		eq & \blank{Equal \phantom{1234567891011121314}}\\
 		ne & \blank{Not equal \phantom{123456789101112}}\\
@@ -434,6 +448,14 @@
 	{\tt STR R1, [SP, \#-4]!}
 }
 
+\card{
+	How do you push or pop multiple elements from the stack without using the
+	{\tt PUSH} or {\tt POP} commands?
+}{
+	{\tt STMFD SP!, {R0, R1}}\\
+	{\tt LDMFD SP!, {R0, R1}}
+}
+
 %------------
 % Methods
 %------------
@@ -441,7 +463,7 @@
 \card{
 	What does the {\tt BL} command do?
 }{
-	\begin{tabularx}{0.48\textwidth}{X}
+	\begin{tabularx}{0.32\textwidth}{X}
 		- Moves the current value of the program counter (PC) into the link
 		register (LR).\\
 		- Branch to the label defined in the instruction by moving the memory
@@ -462,7 +484,7 @@
 }{
 	It should {\tt PUSH} the value of the registers to the stack and then
 	{\tt POP} them again after:
-	\begin{tabularx}{0.48\textwidth}{X}
+	\begin{tabularx}{0.32\textwidth}{X}
 		{\tt methodname}\\
 		{\tt PUSH \{registers\_used\}}\\
 		{\tt ; Do stuff}\\
@@ -501,7 +523,7 @@
 \card{
 	How do you convert a Java switch statement into ARM Assembly?
 }{
-	\begin{tabularx}{0.48\textwidth}{X}
+	\begin{tabularx}{0.32\textwidth}{X}
 	1. Create a table with the values triggered by the case statement as the
 	index of the table.\\
 	2. Load the address of the table into a register ({\tt ADR R1, table})\\
@@ -512,4 +534,330 @@
 	5. Make sure you branch to the end of the case statement after each method.
 	\end{tabularx}
 }
+
+\card{
+	What are the ARM comparison operators for unsigned integers?
+}{
+	\begin{tabular}{l l}
+		{\tt HI} & Higher \\
+		{\tt HS} & Higher or same\\
+		{\tt LO} & Lower\\
+		{\tt LS} & Lower or same\\
+	\end{tabular}
+}
+
+\card{
+	How is a boolean represented in ARM assembly?
+}{
+	As an 8-bit set of values that is either {\tt 00000000} or {\tt 00000001}.
+}
+
+\card{
+	How do you test if an ARM boolean is true or false?
+}{
+	{\tt CMP R1, \#0}\\
+	If it's equal, then it's false.
+}
+
+\card{
+	What are the logical operators that ARM has?
+}{
+	\begin{tabular}{l l}
+		Logical AND & {\tt AND}\\
+		Logical OR & {\tt ORR}\\
+		Logical XOR & {\tt EOR}\\
+		Bit clear & {\tt BIC}\\
+		Logical NOT & {\tt MVN}
+	\end{tabular}
+}
+
+\card{
+	What is the syntax of an ARM logical operation such as {\tt EOR}?
+}{
+	{\tt EOR <reg\_1>, <reg\_2>}
+}
+
+\flashcard{
+	Fill in the truth table:
+	\begin{tabular}{|l l|c|}
+		\hline
+		{\tt A} & {\tt B} & {\tt BIC A, B}\\ \hline
+		0 & 0 & \blank{0}\\
+		0 & 1 & \blank{0}\\
+		1 & 0 & \blank{1}\\
+		1 & 1 & \blank{0}\\ \hline
+	\end{tabular}
+}
+
+\card{
+	What are the two methods of interfacing with peripherals?
+}{
+	\begin{tabular}{l}
+	- Polling\\
+	- Interrupts
+	\end{tabular}
+}
+
+\card{
+	When the CPU is polling a peripheral, what does the poll actually do?
+}{
+	\begin{tabularx}{0.32\textwidth}{X}
+	- Read the status register\\
+	- Use the {\tt TST} command to check the value of the status register
+	against a bit pattern\\
+	- If the test passes, then run a method to handle what to do next.
+	\end{tabularx}
+}
+
+\card{
+	Define 'memory mapped register'
+}{
+	A memory location that appears to be an actual memory location, but is
+	actually situated inside a peripheral (so it is mapped to a different
+	address).
+}
+
+\card{
+	What does {\tt TST} do?
+}{
+	It performs a bitwise {\tt AND} on it's operands and then compares it to
+	zero, setting the comparison flags as it does so.
+}
+
+\card{
+	What is the syntax for the {\tt TST} instruction?
+}{
+	{\tt TST <register>, <pattern>}
+}
+
+\card{
+	What happens when an interrupt occurs?
+}{
+	\begin{tabularx}{0.32\textwidth}{X}
+		1. Stop the program execution (like a {\tt BL})\\
+		2. Save important registers by stacking them (including the CSPR)\\
+		3. Run the interrupt handler\\
+		4. Restore the saved registers from the stack\\
+		5. Copy the LR into the PC (and add 4) so the next instruction is
+		exected.
+	\end{tabularx}\\
+	{\tiny Remember you can use {\tt STMFD} and {\tt LDMFD} to efficiently
+	manage the stack}
+}
+
+\card{
+	Write some sample code for checking a status register against a pattern.
+}{
+	\begin{tabular}{l}
+		{\tt ADR R1, status\_reg}\\
+		{\tt LDR R0, [R1]}\\
+		{\tt TST R0, 0x40}\\
+		{\tt BEQ correct}\\
+		{\tt B incorrect}
+	\end{tabular}
+}
+
+\card{
+	What is an interrupt vector table?
+}{
+	A table of pointers to various methods for handeling different peripherals.
+	It's implemented in the same way as a case statement is.
+}
+
+\card{
+	What does {\tt SVC} stand for?
+}{
+	SuperVisor Call.
+}
+
+\card{
+	How do we get the parameter from {\tt SVC X}?
+}{
+	\begin{tabularx}{0.32\textwidth}{X}
+		- Load the {\tt SVC X} instruction into a register with 
+		{\tt LDR R0, [LR, \#-4]}\\
+		- Clear the top 8 bits ({\tt BIC R0, R0, 0xFF000000})\\
+		- Logic shift right by 8 places to get the parameter
+		({\tt LSR R1, R0, \#8}).	
+	\end{tabularx}
+}
+
+\card{
+	What is direct memory access?
+}{
+	A hardware chip on the motherboard that allowd peripherals to write diretly
+	to memory rather than going through the CPU first.
+}
+
+\card{
+	List advantages and disadvantages of DMA.
+}{
+	\begin{tabularx}{0.32\textwidth}{r@{\hskip 0in}X r@{\hskip 0in}X}
+	& {\bf Advantages} & & {\bf Disadvantages}\\
+	\hline
+	$\cdot$ & The load on the CPU is lessened. & $\cdot$ & The load on the
+	memory and the peripheral is the same as before.\\
+	& & $\cdot$ & The motherboard will be more comlplicated with the extra
+	hardware.
+	\end{tabularx}
+}
+
+%-----------
+% Operating systems
+%-----------
+
+\card{
+	What does the kernel do?
+}{
+	It abstracts the implementation of the hardware from the running programs.
+	It also protects programs from eachother by letting them only access memory
+	locations that have been assigned to them.
+}
+
+\card{
+	What is a kernel mode?
+}{
+	A kernel mode conveys privaleges to a program. The default (user) mode only
+	allows memory locations within the allocated space to be accessed. Other
+	modes convey different privilages, e.g. the privelaged mode which allows any
+	address to be accessed.
+}
+
+%----------
+% Methods of running code
+%----------
+
+\card{
+	What are the five steps of compilation?
+}{
+	\begin{tabular}{l}
+	1. Lexical analysis\\
+	2. Syntaxic analysis\\
+	3. Semantic analysis\\
+	4. Code generation\\
+	5. Optimisation
+	\end{tabular}
+}
+
+\card{
+	What are the pros and cons of an interpreted language?
+}{
+	\begin{tabularx}{0.32\textwidth}{r@{\hskip 0in}X r@{\hskip 0in}X}
+	& {\bf Advantages} & & {\bf Disadvantages}\\
+	\hline
+	$\cdot$ & Simple to implement & $\cdot$ & Slow.\\
+	$\cdot$ & Portable code & $\cdot$ & Hard to simulate a real computer on
+	them.\\
+	$\cdot$ & Increased security (since applications can be sandboxed). & &\\
+	$\cdot$ & Ease of debugging since the state is within the interpreter & &\\
+	\end{tabularx}
+}
+
+\card{
+	Why does Java use zero address and one address instructions?
+}{
+	So that the bytecode is very small in size and can be quickly transferred
+	over the internet.
+}
+
+\flashcard{
+	Code that is written using zero or one address instructions is called a
+	\blank{stack machine}.
+}
+
+\card{
+	What would a zero address {\tt ADD} instruction do?
+}{
+	\begin{tabular}{l}
+	- Pop the two top values off the stack.\\
+	- Add them together.\\
+	- Push the result onto the stack again.
+	\end{tabular}
+}
+
+\card{
+	How would $x = (a + b) * c$ by represented in a stack machine?
+}{
+	\begin{tabular}{l}
+	{\tt PUSH a}\\
+	{\tt PUSH b}\\
+	{\tt ADD}\\
+	{\tt PUSH c}\\
+	{\tt MUL}\\
+	{\tt POP x}\\
+	\end{tabular}
+}
+
+\card{
+	What does Dynamic Class Loading do?
+}{
+	Only loads java classes just before they are executed to minimise memory
+	useage and improve loading times of programs.
+}
+
+\card{
+	What does the JIT compiler do?
+}{
+	It compiles classes into machine code in real time as they are loaded. It
+	uses {\bf dynamic compilation} to refine it's compilation so that code that
+	is run multiple times is optimised more than code that is run only once.
+}
+
+\card{
+	What are the three areas of memory usage in Java programs?
+}{
+	The class area (containing method code and class variables), stack area
+	(containing the stack, which includes method parameters, local variables and
+	return pointers) and heap area (containing the objects used by the program).
+}
+
+\card{
+	Where do Java objects reside in memory?
+}{
+	The heap.
+}
+
+\card{
+	Where does the heap pointer point to?
+}{
+	The next free memory location in the heap.
+}
+
+\card{
+	What are the three parts that each item in the heap is composed of?
+}{
+	A header (containing information about the object such as it's size),
+	storage for instance variables and a table of method parameters that the
+	object contains.
+}
+
+\card{
+	What is a stale object?
+}{
+	An object in the heap that is no longer referenced by any pointer.
+}
+
+\card{
+	What are the stages of garbage collection?
+}{
+	\begin{tabularx}{0.32\textwidth}{X}
+	- Stop the program execution\\
+	- Walk through the heap and mark objects as live or unreferenced.\\
+	- Delete unreferenced objects in the heap.\\
+	- Compact the heap by moving the live objects together (remembering to
+	update the pointers to the moved objects).\\
+	\end{tabularx}
+}
+
+\card{
+	How do you do array access in ARM?
+}{
+	\begin{tabularx}{0.32\textwidth}{X}
+	{\tt LDR R0, index}\\
+	{\tt LDR R1, basePointer}\\
+	{\tt LDR R2, [R1, R0, LSL \#2]}\\
+	{\tt STR R2, element}
+	\end{tabularx}
+}
+
 \end{document}
