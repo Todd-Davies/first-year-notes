@@ -420,4 +420,96 @@
 	{\tt POP <register/literal>}
 }
 
-\end{document} 
+\card{
+	What is a different way of accessing the top value of the stack rather than
+	using {\tt POP}?
+}{
+	{\tt LDR R1, [SP], \#4}
+}
+
+\card{
+	What is a different way of adding a new element to the stack rather than
+	using the {\tt PUSH} command?
+}{
+	{\tt STR R1, [SP, \#-4]!}
+}
+
+%------------
+% Methods
+%------------
+
+\card{
+	What does the {\tt BL} command do?
+}{
+	\begin{tabularx}{0.48\textwidth}{X}
+		- Moves the current value of the program counter (PC) into the link
+		register (LR).\\
+		- Branch to the label defined in the instruction by moving the memory
+		address of that instruction into the PC.
+	\end{tabularx}
+}
+
+\card{
+	After a method called using the {\tt BL} command has finished executing, 
+	what command does it use to tell the processor go back to what it was doing?
+}{
+	{\tt MOV PC, LR}
+}
+
+\card{
+	If a method is using registers as temporary stores, what should it do before
+	and after it executes? What instructions should it use to do this?
+}{
+	It should {\tt PUSH} the value of the registers to the stack and then
+	{\tt POP} them again after:
+	\begin{tabularx}{0.48\textwidth}{X}
+		{\tt methodname}\\
+		{\tt PUSH \{registers\_used\}}\\
+		{\tt ; Do stuff}\\
+		{\tt POP \{registers\_used\}}\\
+		{\tt MOV PC, LR}
+	\end{tabularx}
+}
+
+\card{
+	How do you pass a parameter to a variable?
+}{
+	Either put it in a register (this is the stupid way), or put it on the stack
+	(this is a good way since you can pass lots of paramaters like this.)
+}
+
+\card{
+	How should a method access stacked parameters?
+}{
+	Just read the stack using the {\tt STR} command and add an offset depending
+	on what parameter you want. E.g:\\
+	{\tt LDR R0, [SP, \#12]}
+}
+
+\card{
+	What is a stack frame?
+}{
+	A stack frame is a set of values on the stack that relate to a single
+	method. They may contain saved registers, temporary values used by the
+	method, a pointer to the parent method etc.
+}
+
+%---------
+% Switch statements
+%---------
+
+\card{
+	How do you convert a Java switch statement into ARM Assembly?
+}{
+	\begin{tabularx}{0.48\textwidth}{X}
+	1. Create a table with the values triggered by the case statement as the
+	index of the table.\\
+	2. Load the address of the table into a register ({\tt ADR R1, table})\\
+	3. Get the value of the case variable in a register (we'll use {\tt R0}).\\
+	3. Use the {\tt LDR} command to load the correct method to call
+	({\tt LDR PC, [R1, R0, LSL, \#2]})\\
+	4. Make sure you've got a default case\\
+	5. Make sure you branch to the end of the case statement after each method.
+	\end{tabularx}
+}
+\end{document}
