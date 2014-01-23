@@ -575,11 +575,11 @@ In the word {\tt 0x12345678} there are four bytes:
 	\item {\tt 0x78}
 \end{itemize}
 
-In little endian, the first byte would be {\tt 0x12} since bits are read from
-left to right in little endian.
+In big endian, the first byte would be {\tt 0x12} since bits are read from
+right to left in little endian.
 
-In big endian, the first byte would by {\tt 0x78} since bits are read from right
-to left in big endian.
+In big endian, the first byte would be {\tt 0x78} since bits are read from left
+to right in big endian.
 
 This is important when we deciding what the most and least significant bits in a
 word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little
@@ -1304,7 +1304,7 @@ so if {\tt R0} was {\tt 2} then the output in {\tt R2} would be {\tt 6}.
 \section{Stacks}
 
 {\footnotesize Note, this section contains some known inaccuracies, including but not
-nececarrily exclusively about the positioning of the stack pointer in relation
+necessarily exclusively about the positioning of the stack pointer in relation
 to the stack. {\bf Verify this information before you use it.}}
 
 %TODO: Reference STFMD (or whatever it's called)
@@ -1433,7 +1433,7 @@ accessing memory can also be used to access and manipulate the stack. For
 example, take a look at this block:
 
 \begin{listing}{1}
-	LDR 	R1, SP
+	LDR 	R1, [SP]
 	ADD 	SP, SP, #4
 \end{listing}
 
@@ -1448,7 +1448,7 @@ In order to do the same thing for pushing to the stack we can do:
 
 \begin{listing}{1}
 	SUB 	SP, SP, #4
-	STR 	R1, SP
+	STR 	R1, [SP]
 \end{listing}
 
 \marginpar{Which is equal to {\tt STR R1, [SP, \#-4]!}}
@@ -1543,19 +1543,48 @@ fourth parameter was to be loaded, then the instruction would be {\tt LDR R0
 
 \subsection{Stack frames}
 
-A stack frame is a set of stacked values that are related to a particular method
-call. They usually have a format that is specific to the method being called.
-For example:
+A stack frame is a set of memory locations on the stack that relate to one
+method call. They are often formatted in a way such as:
 
 \begin{center}
 \begin{drawstack}
-	\cell{Method variables}	\cellptr{{\tt SP}}
-	\cell{Callee saved registers}
-	\cell{LR}
-	\cell{Parameters}
-	\cell{Caller saved registers}
+	\cell{Method variables}	\cellptr{(SP)}
+	\cell{Link register}
+	\cell{Method parameters}
 \end{drawstack}
 \end{center}
+
+In order to access method variables from inside the method, you just do:
+
+\begin{verbatim}
+	LDR	R0, [SP, #offset*4]
+\end{verbatim}
+
+To access method parameters, you do the same, using the offset of whatever
+method parameter you want to get.
+
+To call a method, setting method parameters, you need to add them to the stack
+and then BL to the method:
+
+\begin{verbatim}
+	LDR R0, param_1
+	STR R0, [SP, #-4]
+	...
+	LDR R0, param_n
+	STR R0, [SP, #n*-4]
+	BL methodName
+\end{verbatim}
+
+To return to the parent method, remember to add the number of words used in the
+stack frame to the stack pointer. For example, if we used four parameters,
+didn't bother with stacking the Link Register and didn't stack any method
+variables, then we'd just need to remove four words (twenty bytes) from the
+stack pointer:
+
+\begin{verbatim}
+	ADD	SP, SP, #20
+	MOV PC, LR
+\end{verbatim}
 
 \section{Switch statements}
 \label{sec:switch}
@@ -1621,6 +1650,7 @@ The above would go before the table lookup would occur.
 \section{Types of values}
 
 \subsection{Signed and unsigned integers}
+\label{subsection:signed_unsigned_integers}
 
 Lets assume that integers only have 8 bits, and so can hold $2^8$ ($256$)
 different values. If we use a signed integer, the most significant bit would
@@ -2254,3 +2284,26 @@ Here's some sample code for array indexing:
 \marginpar{Of course, we could save one instruction by using {\tt LSL} instead of
 multiplying in a separate instruction. See section~\ref{subsec:bitshifting} for
 more info.}
+
+\subsection{Checking bounds}
+
+You should check the bounds of an array before each array access (load or
+store). If the index is out of bounds, then you should branch to an error
+handling method.
+
+This is sample code for loading an element at an index ({\tt index}) of an array
+with a length of {\tt length} and a base pointer of {\tt basePointer}:
+
+\begin{listing}{1}
+	LDR R0, length
+	LDR R1, index
+	CMP R1, R0
+	BHI outOfBounds
+	LDR R2, basePointer
+	LDR R0, [R2, R1, LSL #2]
+\end{listing}
+
+\marginpar{The {\tt HI} condition code is used to treat the numbers in the
+registers as unsigned. This way, if the index is negative, then the MSB will be
+{\tt 1} and it will certainly be bigger than the {\tt length}. See
+section~\ref{subsection:signed_unsigned_integers} for more info.}
