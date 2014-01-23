@@ -523,7 +523,7 @@
 \card{
 	How should a method access stacked parameters?
 }{
-	Just read the stack using the {\tt STR} command and add an offset depending
+	Just read the stack using the {\tt LDR} command and add an offset depending
 	on what parameter you want. E.g:\\
 	{\tt LDR R0, [SP, \#12]}
 }
@@ -672,7 +672,7 @@
 		{\tt ADR R1, status\_reg}\\
 		{\tt LDR R0, [R1]}\\
 		{\tt TST R0, 0x40}\\
-		{\tt BEQ correct}\\
+		{\tt BNE correct}\\
 		{\tt B incorrect}
 	\end{tabular}
 }

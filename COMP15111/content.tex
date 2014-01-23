@@ -1951,6 +1951,18 @@ from each other, so that one program cannot access another programs memory
 space. This is an important security feature, and it is important that the
 kernel cannot be bypassed.
 
+The kernel contains three {\it managers} for controlling different resources:
+
+\begin{itemize}
+	\item {\bf Process manager} - manages the CPU time between different
+	processes to facilitate multitasking.
+	\item {\bf Memory manager} - assigns blocks of memory to different processes
+	and ensures that each process can only access the memory that it tries to
+	access.
+	\item {\bf Peripheral manager} - allows the CPU to interface with
+	peripherals by providing device drivers for each kind of peripheral.
+\end{itemize}
+
 \subsubsection{Kernel modes}
 
 Most kernels have multiple different processing {\it modes} that will allow
