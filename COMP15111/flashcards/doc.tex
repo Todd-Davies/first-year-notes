@@ -25,7 +25,7 @@
 \pagesetup{3}{4} 
 
 \card{
-	Convert $0xF0$ to decimal.
+	Convert {\tt 0xF0} to decimal.
 }{
 	240
 }
@@ -88,19 +88,19 @@
 \card{
 	What is the instruction to load a value at a memory address into a register?
 }{
-	{\tt LDR <register> <memory\_address\_alias>}
+	{\tt LDR <register>, <memory\_address\_alias>}
 }
 
 \card{
 	What is the instruction to store a value in a register to a memory address?
 }{
-	{\tt STR <register> <memory\_address\_alias>}
+	{\tt STR <register>, <memory\_address\_alias>}
 }
 
 \card{
 	What is the instruction to sum two numbers?
 }{
-	{\tt ADD <destination\_register> <operand\_register1> <operand\_register2>}
+	{\tt ADD <destination\_reg>, <operand\_1>, <operand\_2>}
 }
 
 \card{
@@ -113,7 +113,7 @@
 \card{
 	What is the instruction to branch upon a condition?
 }{
-	{\tt B <condition> <branch\_name>}
+	{\tt B <condition>, <branch\_name>}
 }
 
 \card{
@@ -142,7 +142,7 @@
 }
 
 \card{
-	What's the syntax of {\it DEFS}?
+	What's the syntax of {\tt DEFS}?
 }{
 	{\tt <alias> DEFS <number\_of\_bytes>, <value\_of\_bytes>}
 }
@@ -152,7 +152,7 @@
 }{
 	Stores the lowest eight bits of a register into memory.
 	\vspace{1em}\\
-	{\tt STRB <register> <memory\_alias>}
+	{\tt STRB <register>, <memory\_alias>}
 }
 
 \card{
@@ -161,7 +161,7 @@
 	Loads the lowest eight bits of a specific memory address into a register. 
 	The other bits in the register are set to zero.
 	\vspace{1em}\\
-	{\tt LDRB <register> <memory\_alias>}
+	{\tt LDRB <register>, <memory\_alias>}
 }
 
 \flashcard{When using Little Endian, bytes are read from \blank{left} to \blank{right}.}
@@ -173,17 +173,17 @@
 \card{
 	What command should be used to load a literal into a {\it register}
 }{
-	{\tt LDR <register> =<literal>}
+	{\tt LDR <register>, =<literal>}
 	\vspace{1em}\\
-	Note, this is a pseudo instruction, that is converted to either {\tt MOV
-	<register> \#<literal>} or it will define a constant and load that in from
-	memory.
+	{\small Note, this is a pseudo instruction, that is converted to either
+	{\tt MOV <register> \#<literal>} or it will define a constant and load that
+	in from	memory.}
 }
 
 \card{
 	How do you load an address into a register so you can use it as a pointer?
 }{
-	{\tt ADR <register>, <alias>}
+	{\tt ADR <register>, <alias>}\\
 	Now the {\tt <register>} will hold the memory location (and is therefore a
 	pointer to) the alias.
 }
@@ -372,7 +372,7 @@
 % ---------------
 
 \card{
-	How do you load a String into a register?
+	How do you load a {\tt String} into a register?
 }{
 	\begin{tabularx}{0.5\textwidth}{X}
 		{\tt msg DEFB "Hello"}\\
@@ -383,7 +383,7 @@
 }
 
 \card{
-	What does the ADR command do?
+	What does the {\tt ADR} command do?
 }{
 	A psudo instruction that loads a program relative address into a register.
 	Unlike {\tt ADRL} it only compiles to one instruction (so it's faster), but
@@ -430,7 +430,7 @@
 \card{
 	What is the syntax of a shifting or rotation operation in ARM?
 }{
-	{\tt INSTRUCTION destination operand (\#)shift}
+	{\tt INSTRUCTION destination, operand, (\#)shift}
 }
 
 \card{
@@ -599,7 +599,7 @@
 }
 
 \flashcard{
-	Fill in the truth table:
+	Fill in the truth table:\\
 	\begin{tabular}{|l l|c|}
 		\hline
 		{\tt A} & {\tt B} & {\tt BIC A, B}\\ \hline
