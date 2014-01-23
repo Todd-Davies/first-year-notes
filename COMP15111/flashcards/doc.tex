@@ -3,7 +3,6 @@
 \usepackage{color}
 
 \geometry{landscape}
-\geometry{margin=0cm}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -518,7 +517,7 @@
 	How do you pass a parameter to a variable?
 }{
 	Either put it in a register (this is the stupid way), or put it on the stack
-	(this is a good way since you can pass lots of paramaters like this.)
+	(this is a good way since you can pass lots of parameters like this.)
 }
 
 \card{
@@ -660,7 +659,7 @@
 		3. Run the interrupt handler\\
 		4. Restore the saved registers from the stack\\
 		5. Copy the LR into the PC (and add 4) so the next instruction is
-		exected.
+		executed.
 	\end{tabularx}\\
 	{\tiny Remember you can use {\tt STMFD} and {\tt LDMFD} to efficiently
 	manage the stack}
@@ -681,7 +680,7 @@
 \card{
 	What is an interrupt vector table?
 }{
-	A table of pointers to various methods for handeling different peripherals.
+	A table of pointers to various methods for handling different peripherals.
 	It's implemented in the same way as a case statement is.
 }
 
@@ -700,7 +699,7 @@
 	1 & Input a character\\
 	2 & Stop execution\\
 	3 & Output a string\\
-	4 & Output an interger
+	4 & Output an integer
 	\end{tabular}\\
 	{\tt R0}
 }
@@ -720,7 +719,7 @@
 \card{
 	What is direct memory access?
 }{
-	A hardware chip on the motherboard that allowd peripherals to write diretly
+	A hardware chip on the motherboard that allows peripherals to write directly
 	to memory rather than going through the CPU first.
 }
 
@@ -732,7 +731,7 @@
 	\hline
 	$\cdot$ & The load on the CPU is lessened. & $\cdot$ & The load on the
 	memory and the peripheral is the same as before.\\
-	& & $\cdot$ & The motherboard will be more comlplicated with the extra
+	& & $\cdot$ & The motherboard will be more complicated with the extra
 	hardware.
 	\end{tabularx}
 }
@@ -745,16 +744,16 @@
 	What does the kernel do?
 }{
 	It abstracts the implementation of the hardware from the running programs.
-	It also protects programs from eachother by letting them only access memory
+	It also protects programs from each other by letting them only access memory
 	locations that have been assigned to them.
 }
 
 \card{
 	What is a kernel mode?
 }{
-	A kernel mode conveys privaleges to a program. The default (user) mode only
+	A kernel mode conveys privileges to a program. The default (user) mode only
 	allows memory locations within the allocated space to be accessed. Other
-	modes convey different privilages, e.g. the privelaged mode which allows any
+	modes convey different privileges, e.g. the privileged mode which allows any
 	address to be accessed.
 }
 
@@ -792,7 +791,7 @@
 	Why does Java use zero address and one address instructions?
 }{
 	So that the bytecode is very small in size and can be quickly transferred
-	over the internet.
+	over the Internet.
 }
 
 \flashcard{
