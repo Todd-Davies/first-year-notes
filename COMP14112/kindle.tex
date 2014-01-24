@@ -1,0 +1,52 @@
+\documentclass[a5paper]{article}
+% Lets us set the author and title of the compiled pdf file
+\usepackage[pdftex]{hyperref}
+
+% Lets make the text nice and big
+\usepackage[14pt]{extsizes}
+
+% Make a box around would-be margin paragraphs
+\usepackage{tcolorbox}
+
+% Make the borders really small
+\usepackage[left=1cm,
+			top=1cm,
+			right=1cm,
+			bottom=1cm,
+			marginparwidth=0mm,
+			marginparsep=0mm]{geometry}
+
+% Import the packages for the notes
+\input{packages.tex}
+
+% Set the tab size in verbatim to 1
+\def\verbatimtabsize{1\relax}
+
+% Make margin paragrahs inline
+\renewcommand{\marginpar}[1]{
+\begin{tcolorbox}[colback=white!5,colframe=white!40!black,title=Note:]
+#1
+\end{tcolorbox}}
+
+\begin{document}
+
+% No page numbers!
+\pagenumbering{gobble}
+
+% Get the author, the title etc
+\input{meta.tex}
+
+\maketitle
+
+% Get the course info
+\courseinfo
+\newpage
+
+% Table of contents
+\tableofcontents
+\newpage
+
+% Get the content of the file
+\input{content.tex}
+
+\end{document}
