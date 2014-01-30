@@ -3,3 +3,112 @@
 	pdftitle = {\Title},
 	pdfauthor = {\Author}
 }
+
+\section{Terminology}
+
+In order to talk about Strings in any meaningful way, we must first define
+terminology that we can use to describe exactly what we mean. What follows is a
+list of the terminology used throughout the course:
+
+\begin{itemize}
+	\item A {\bf symbol} is basically a letter. They are the basic component of
+	all the data we use in the course. Examples include: {\it a, A, (, \$, 7}.
+	\item An {\bf alphabet} is a collection of symbols that we can think of as a
+	set. Example alphabets may include binary ({\it 0, 1}), latin letters ({\it
+	a,\dots,z,A,\dots,Z}) etc.
+	\item A {\bf String} is a collection of symbols grouped together, sometimes
+	called a word. Examples include {\it ababa} and {\it 100101}.
+	\item The {\it empty word} is a String consisting of no symbols. It is
+	denoted by the letter $\epsilon$.
+	\item {\bf Concentration} an operation that takes two Strings and combines
+	them to create one longer String. For example concentrating {\it t} and {\it
+	he} would create {\it the}. We can use the power notation to concentrate a
+	String with itself any number of times. For example, ${ho}^3$ would give us
+	$hohoho$.
+	\item A {\bf language} is a collection of Strings that can be thought of as
+	a set. Examples of languages couls be $\{\emptyset\}$, $\{\epsilon\}$,
+	$\{hot,hotter,hottest\}$ or $\{a^n | n \in \mathbb{N}\}$.
+\end{itemize}
+
+We also have notation for describing generic instances of such entities:
+
+\begin{center}
+	\begin{tabular}{l l}
+		{\bf Entity} & {\bf Generic notation}\\
+		Symbol & $x, y, z$\\
+		Alphabet & $\Sigma$\\
+		String & $s, t, u$\\
+		Language & $\mathcal{L}$\\
+	\end{tabular}
+\end{center}
+
+\paragraph{Languages as sets} Since languages are thought of as sets, we can
+perform all the usual set operations on them (see my {\tt COMP11120} notes for
+more information on these operations). Languages can be concentrated as
+described above, however, an interesting case is when a languages is subject to
+concatenation zero times ($\mathcal{L}^0$), since this would return the empty
+word $\epsilon$.
+
+Sometimes, we may want to define any finite number of concatenations of a
+language, and this is known as the {\bf Kleene star}. The notation is
+$(\mathcal{L})^*$.
+
+\marginpar{{\it Kleene} is pronounced like {\it genie}.}
+
+\section{Describing languages}
+
+\subsection{Describing languages through patterns}
+
+A pattern describes a generic form that a set of Strings can take. If any String
+from the set is compared with the pattern then it will match the pattern. Any
+String from outside the set will not match the pattern.
+
+For example, the pattern $(ab)^*$ would match Strings such as $\epsilon$, $ab$,
+$abab$, $abab \dots ab$.
+
+\marginpar{$\epsilon$ is matched here since it satisfies the pattern $(ab)^0$.
+This comes about because, the Kleene star matches all concatenations of a
+String.}
+
+\subsection{Regular expressions}
+
+The terms {\it pattern} and {\it regular expression} are pretty much synonomous.
+The operators allowed in a regular expression are:
+
+\begin{center}
+	\begin{tabular}{>{\bfseries} l l}
+		Empty pattern & The character $\emptyset$ is a pattern.\\
+		Empty word & The character $\epsilon$ is a pattern.\\
+		Letters & Every letter in $\Sigma$ is a pattern.\\
+		\rowcolor{Gray}
+		Concatenation & If $x$ and $y$ are patterns, then so is $(xy)$.\\
+		\rowcolor{Gray}
+		Alternative & If $x$ and $y$ are patterns, then so is $(x|y)$.\\
+		\rowcolor{Gray}
+		Kleene Star & If $x$ is a pattern, then so is $(x^*)$.
+	\end{tabular}
+\end{center}
+
+\marginpar{If we were to analyse a pattern in a recursive fasion, then in order
+to end our analysis, we would eventually have to find one of a selection of
+{\it base cases}.The highlighted rows here represent {\it step cases} (that is
+to say that at least another level of recursion is needed to finish our
+analysis), while the un-highlighted lines are base cases.}
+
+\subsubsection{Discarding brackets}
+
+Just like in high-school mathematics, brackets can be discarded when unnecessary. For example, the pattern $((0|1)^*0)$ is equivalent to $(0|1)^*0$, and $(2|(1|0))$ is the same as $(2|1|0)$.
+
+\subsubsection{Matching a regular expression}
+
+As was implied above, we can define a regular expression by recursively
+applying more operators to a `base case' until we have the desired pattern.
+
+The following patterns match the following words:
+
+\begin{center}
+	\begin{tabular}{>{\bfseries} l l}
+		Empty word & The empty word only matches the pattern $\epsilon$.\\
+		% Carry on from page 17
+	\end{tabular}
+\end{center}
