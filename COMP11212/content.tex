@@ -16,8 +16,9 @@ list of the terminology used throughout the course:
 	\item An {\bf alphabet} is a collection of symbols that we can think of as a
 	set. Example alphabets may include binary ({\it 0, 1}), latin letters ({\it
 	a,\dots,z,A,\dots,Z}) etc.
-	\item A {\bf String} is a collection of symbols grouped together, sometimes
-	called a word. Examples include {\it ababa} and {\it 100101}.
+	\item A {\bf String} is a collection of symbols from an anlphabet grouped
+	together, sometimes	called a word. Examples include {\it ababa} and
+	{\it 100101}.
 	\item The {\it empty word} is a String consisting of no symbols. It is
 	denoted by the letter $\epsilon$.
 	\item {\bf Concentration} an operation that takes two Strings and combines
@@ -45,13 +46,14 @@ We also have notation for describing generic instances of such entities:
 \paragraph{Languages as sets} Since languages are thought of as sets, we can
 perform all the usual set operations on them (see my {\tt COMP11120} notes for
 more information on these operations). Languages can be concentrated as
-described above, however, an interesting case is when a languages is subject to
-concatenation zero times ($\mathcal{L}^0$), since this would return the empty
-word $\epsilon$.
+described above.
 
 Sometimes, we may want to define any finite number of concatenations of a
 language, and this is known as the {\bf Kleene star}. The notation is
 $(\mathcal{L})^*$.
+
+An interesting case of this is when a languages is subject to concatenation zero
+times ($\mathcal{L}^0$), since this would return the empty word $\epsilon$.
 
 \marginpar{{\it Kleene} is pronounced like {\it genie}.}
 
