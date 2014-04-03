@@ -1,12 +1,11 @@
 #!/bin/bash
+cd ..
 aspell -t check content.tex
 aspell -t check meta.tex
-directories=(automata);
-for dir in "${directories[@]%*/}"; do
-  cd $dir;
-  for i in `ls *.tex`; do
-    pdflatex $i;
-  done;
+cd automata
+for i in `ls *.tex`
+do
+  pdflatex $i;
 done;
 cd ..
 pdflatex notes.tex
