@@ -1,0 +1,44 @@
+\documentclass[dvipsnames]{minimal}
+
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\author{Todd Davies}
+\date{\today}
+
+\begin{document}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw](z){}
+  child{
+    node[circle,draw]{}
+    child[missing]
+    child[missing]
+  }
+  child{
+    node[circle,draw]{}
+    child{
+        node[circle,draw]{}
+        child[missing]
+        child[missing]
+      }
+    child{
+      node[circle,draw]{}
+      child{
+        node[circle,draw]{}
+        child[missing]
+        child[missing]
+      }
+      child{
+        node[circle,draw]{}
+        child[missing]
+        child[missing]
+      }
+    }
+  };
+\end{tikzpicture}
+\end{center}
+
+\end{document}
