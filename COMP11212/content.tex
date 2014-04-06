@@ -1,7 +1,7 @@
 % Set the author and title of the compiled pdf
 \hypersetup{
-	pdftitle = {\Title},
-	pdfauthor = {\Author}
+  pdftitle = {\Title},
+  pdfauthor = {\Author}
 }
 
 \section{Terminology}
@@ -11,36 +11,36 @@ terminology that we can use to describe exactly what we mean. What follows is a
 list of the terminology used throughout the course:
 
 \begin{itemize}
-	\item A {\bf symbol} is basically a letter. They are the basic component of
-	all the data we use in the course. Examples include: {\it a, A, (, \$, 7}.
-	\item An {\bf alphabet} is a collection of symbols that we can think of as a
-	set. Example alphabets may include binary ({\it 0, 1}), Latin letters ({\it
-	a,\dots,z,A,\dots,Z}) etc.
-	\item A {\bf String} is a collection of symbols from an alphabet grouped
-	together, sometimes	called a word. Examples include {\it ababa} and
-	{\it 100101}.
-	\item The {\it empty word} is a String consisting of no symbols. It is
-	denoted by the letter $\epsilon$.
-	\item {\bf Concentration} an operation that takes two Strings and combines
-	them to create one longer String. For example concentrating {\it t} and {\it
-	he} would create {\it the}. We can use the power notation to concentrate a
-	String with itself any number of times. For example, ${ho}^3$ would give us
-	$hohoho$.
-	\item A {\bf language} is a collection of Strings that can be thought of as
-	a set. Examples of languages could be $\{\emptyset\}$, $\{\epsilon\}$,
-	$\{hot,hotter,hottest\}$ or $\{a^n | n \in \mathbb{N}\}$.
+  \item A {\bf symbol} is basically a letter. They are the basic component of
+  all the data we use in the course. Examples include: {\it a, A, (, \$, 7}.
+  \item An {\bf alphabet} is a collection of symbols that we can think of as a
+  set. Example alphabets may include binary ({\it 0, 1}), Latin letters ({\it
+  a,\dots,z,A,\dots,Z}) etc.
+  \item A {\bf String} is a collection of symbols from an alphabet grouped
+  together, sometimes called a word. Examples include {\it ababa} and
+  {\it 100101}.
+  \item The {\it empty word} is a String consisting of no symbols. It is
+  denoted by the letter $\epsilon$.
+  \item {\bf Concentration} an operation that takes two Strings and combines
+  them to create one longer String. For example concentrating {\it t} and {\it
+  he} would create {\it the}. We can use the power notation to concentrate a
+  String with itself any number of times. For example, ${ho}^3$ would give us
+  $hohoho$.
+  \item A {\bf language} is a collection of Strings that can be thought of as
+  a set. Examples of languages could be $\{\emptyset\}$, $\{\epsilon\}$,
+  $\{hot,hotter,hottest\}$ or $\{a^n | n \in \mathbb{N}\}$.
 \end{itemize}
 
 We also have notation for describing generic instances of such entities:
 
 \begin{center}
-	\begin{tabular}{l l}
-		{\bf Entity} & {\bf Generic notation}\\
-		Symbol & $x, y, z$\\
-		Alphabet & $\Sigma$\\
-		String & $s, t, u$\\
-		Language & $\mathcal{L}$\\
-	\end{tabular}
+  \begin{tabular}{l l}
+    {\bf Entity} & {\bf Generic notation}\\
+    Symbol & $x, y, z$\\
+    Alphabet & $\Sigma$\\
+    String & $s, t, u$\\
+    Language & $\mathcal{L}$\\
+  \end{tabular}
 \end{center}
 
 \paragraph{Languages as sets} Since languages are thought of as sets, we can
@@ -78,17 +78,17 @@ The terms {\it pattern} and {\it regular expression} are pretty much synonymous.
 The operators allowed in a regular expression are:
 
 \begin{center}
-	\begin{tabular}{>{\bfseries} l l}
-		Empty pattern & The character $\emptyset$ is a pattern.\\
-		Empty word & The character $\epsilon$ is a pattern.\\
-		Letters & Every letter in $\Sigma$ is a pattern.\\
-		\rowcolor{Gray}
-		Concatenation & If $x$ and $y$ are patterns, then so is $(xy)$.\\
-		\rowcolor{Gray}
-		Alternative & If $x$ and $y$ are patterns, then so is $(x|y)$.\\
-		\rowcolor{Gray}
-		Kleene Star & If $x$ is a pattern, then so is $(x^*)$.
-	\end{tabular}
+  \begin{tabular}{>{\bfseries} l l}
+    Empty pattern & The character $\emptyset$ is a pattern.\\
+    Empty word & The character $\epsilon$ is a pattern.\\
+    Letters & Every letter in $\Sigma$ is a pattern.\\
+    \rowcolor{Gray}
+    Concatenation & If $x$ and $y$ are patterns, then so is $(xy)$.\\
+    \rowcolor{Gray}
+    Alternative & If $x$ and $y$ are patterns, then so is $(x|y)$.\\
+    \rowcolor{Gray}
+    Kleene Star & If $x$ is a pattern, then so is $(x^*)$.
+  \end{tabular}
 \end{center}
 
 \marginpar{If we were to analyse a pattern in a recursive fashion, then in order
@@ -99,7 +99,9 @@ while the un-highlighted lines are base cases.}
 
 \subsubsection{Discarding brackets}
 
-Just like in high-school mathematics, brackets can be discarded when unnecessary. For example, the pattern $((0|1)^*0)$ is equivalent to $(0|1)^*0$, and $(2|(1|0))$ is the same as $(2|1|0)$.
+Just like in high-school mathematics, brackets can be discarded when
+unnecessary. For example, the pattern $((0|1)^*0)$ is equivalent to $(0|1)^*0$,
+and $(2|(1|0))$ is the same as $(2|1|0)$.
 
 \subsubsection{Matching a regular expression}
 
@@ -109,19 +111,19 @@ applying more operators to a `base case' until we have the desired pattern.
 The following patterns match the following words:
 
 \begin{center}
-	\begin{tabularx}{\textwidth}{>{\bfseries} l X}
-		Empty word 		& The empty word only matches the pattern $\epsilon$.\\
-		Base case 		& A pattern $x$ will match a character $x$ where $x$ is
-						  a member of $\Sigma$\\
-		Concatenation 	& If $p_1$ is a pattern and $p_2$ is a pattern, then
-						  $p_1p_2$ will match any word matched by $p_1$
-						  prepended to and word matched by $p_2$\\
-		Alternative 	& $(p_1|p_2)$ will match a word from either $p_1$ or 
-						  $p_2$.\\
-		Kleene star 	& The pattern $(p^*)$ will match any number of words
-						  that are matched by $p$ concatenated with each other.
-						  It also matches the empty word.\\
-	\end{tabularx}
+  \begin{tabularx}{\textwidth}{>{\bfseries} l X}
+    Empty word    & The empty word only matches the pattern $\epsilon$.\\
+    Base case     & A pattern $x$ will match a character $x$ where $x$ is
+              a member of $\Sigma$\\
+    Concatenation   & If $p_1$ is a pattern and $p_2$ is a pattern, then
+              $p_1p_2$ will match any word matched by $p_1$
+              prepended to and word matched by $p_2$\\
+    Alternative   & $(p_1|p_2)$ will match a word from either $p_1$ or 
+              $p_2$.\\
+    Kleene star   & The pattern $(p^*)$ will match any number of words
+              that are matched by $p$ concatenated with each other.
+              It also matches the empty word.\\
+  \end{tabularx}
 \end{center}
 
 \subsection*{Languages described by regular expressions}
@@ -130,26 +132,26 @@ A language $\mathcal{L}$ described by a regular expression $p$ is one made up of
 every word $s$ that is matched by $p$:
 
 \[
-	\mathcal{L}(p) - \{s \in \Sigma^* | s~matches~p\}
+  \mathcal{L}(p) - \{s \in \Sigma^* | s~matches~p\}
 \]
 
 Obviously, we can describe the same language using different patterns, for
 example:
 
 \[
-	\mathcal{L}((1|1)(0|0)) = \mathcal{L}(10)
+  \mathcal{L}((1|1)(0|0)) = \mathcal{L}(10)
 \]
 
 We can find out the exact language defined by a pattern in the following manner:
 
 \[
-	\begin{split}
-		\mathcal{L}((0|1)(1)^*) &= \mathcal{L}(0|1) \cdot \mathcal{L}(1^*)\\
-								&= \mathcal{L}(0) \cup \mathcal{L}(1) \cdot \mathcal{L}(1^*)\\
-								&= \mathcal{L}(0) \cup \mathcal{L}(1) \cdot \mathcal{L}(1)^*\\
-								&= \{0\} \cup \{1\} \cdot \mathcal{L}(1)^*\\
-								&= \{0\} \cup \{1\} \cdot \{1\}^*\\
-	\end{split}
+  \begin{split}
+    \mathcal{L}((0|1)(1)^*) &= \mathcal{L}(0|1) \cdot \mathcal{L}(1^*)\\
+                &= \mathcal{L}(0) \cup \mathcal{L}(1) \cdot \mathcal{L}(1^*)\\
+                &= \mathcal{L}(0) \cup \mathcal{L}(1) \cdot \mathcal{L}(1)^*\\
+                &= \{0\} \cup \{1\} \cdot \mathcal{L}(1)^*\\
+                &= \{0\} \cup \{1\} \cdot \{1\}^*\\
+  \end{split}
 \]
 
 \subsubsection*{Regular languages}
@@ -163,12 +165,12 @@ It is often useful to be able to describe languages using pictures. These are
 called finite state automata (FSA's). Every FSA must have the following things:
 
 \begin{itemize}
-	\item One or more states.
-	\item Arrows between states with labels directing the required conditions to
-		  traverse the arrow.
-	\item A start state (indicated by an arrow with it's tail free).
-	\item One or more accepting states. If we end up here after traversing the
-		  automation, then it will match our word.
+  \item One or more states.
+  \item Arrows between states with labels directing the required conditions to
+      traverse the arrow.
+  \item A start state (indicated by an arrow with it's tail free).
+  \item One or more accepting states. If we end up here after traversing the
+      automation, then it will match our word.
 \end{itemize}
 
 \subsection*{Example automata}
@@ -176,7 +178,7 @@ called finite state automata (FSA's). Every FSA must have the following things:
 Here is an automata that will match the pattern $0(0|1)0$:
 
 \begin{center}
-	\includegraphics{automata/1.pdf}
+  \includegraphics{automata/1.pdf}
 \end{center}
 
 If we wanted to, we could include all the {\it dump states} in the automata.
@@ -184,7 +186,7 @@ Dump states are states that once entered into, it is impossible to reach an
 accepting state. The same automata with a dump state in would look like:
 
 \begin{center}
-	\includegraphics{automata/2.pdf}
+  \includegraphics{automata/2.pdf}
 \end{center}
 
 \subsection*{Formalising the automata}
@@ -196,7 +198,7 @@ which takes an input state $s_{in} \in Q$, and a character $c \in \Sigma$, and
 returns another state $s_{out} \in Q$.
 
 \[
-	\delta:\{(s_{in},c)| s_{in} \in Q, c \in \Sigma\} \rightarrow Q
+  \delta:\{(s_{in},c)| s_{in} \in Q, c \in \Sigma\} \rightarrow Q
 \]
 
 \marginpar{When an automata is defined like this, it can be seen as a {\it finite
@@ -213,9 +215,67 @@ Here is an example of a deterministic and a non-deterministic automata that will
 accept the language of words defined by the pattern $(0|1)^*(11)$:
 
 \begin{center}
-	\includegraphics{automata/3.pdf}
+  \includegraphics{automata/3.pdf}
 \end{center}
 
 \begin{center}
-	\includegraphics{automata/4.pdf}
+  \includegraphics{automata/4.pdf}
+\end{center}
+
+\section*{Algorithm one}
+
+Algorithm one is a method for converting an NFA to a DFA. In order to do this,
+algorithm one walks through an NFA, in a recursive manner, finding all the
+possible collections of states that can be reached from each state.
+Unfortunately, this behaviour is hard to describe in a general and abstract
+manner, so it's probably easiest to just do an example.
+
+\subsection*{Algorithm one example}
+
+We'll do Exercise 19 in Andrea's notes, which is to convert the following NFA
+into a DFA:
+
+\begin{center}
+  \includegraphics{automata/5.pdf}
+\end{center}
+
+In order to apply algorithm one to this automata, we first need to write down
+the start state:
+
+\begin{center}
+  \includegraphics{automata/6.pdf}
+\end{center}
+
+From the state $0$, we can go to the state $1$ or the state $2$ with an $a$
+transition, therefore algorithm one dictates that we have to create a new state
+in our DFA called $12$ that is linked to the state $0$ with an $a$ transition.
+Since $2$ is an accepting state in the NFA, then our new state must also be an
+accepting state.
+
+\begin{center}
+  \includegraphics{automata/7.pdf}
+\end{center}
+
+Now, we've dealt with the $0$ state, we must concern us with where we can go
+from the state $12$. Since this represents both the state $1$ and the state $2$
+in the NFA, we must consider the transitions we can do from either of them. From
+state $1$ in the NFA, we can go to either state $0$, $1$ or $2$ with a $b$
+transition. Concequently, we should make a new state in our DFA for this:
+
+\begin{center}
+  \includegraphics{automata/8.pdf}
+\end{center}
+
+From the state $0$, $1$ and $2$, we can go anywhere with a $b$, so we should
+make a transition in our DFA for that:
+
+\begin{center}
+  \includegraphics{automata/9.pdf}
+\end{center}
+
+From the states $0$, $1$ or $2$ in the NFA, we can go to the states $1$ or $2$
+with an $a$ transition:
+
+\begin{center}
+  \includegraphics{automata/10.pdf}
 \end{center}
