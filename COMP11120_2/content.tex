@@ -1,0 +1,138 @@
+% Set the author and title of the compiled pdf
+\hypersetup{
+	pdftitle = {\Title},
+	pdfauthor = {\Author}
+}
+
+\section*{Functions}
+
+A mathematical function is a relation between a set of inputs and a set of
+outputs. Each input is related to exactly one output, and the same input will
+{\it always} result in the same output.
+
+\subsection*{Simple functions}
+
+Functions can be split into three components; a source, a target and the
+behaviour of the function.
+
+The source and target of a function are both sets, and are denoted as $S$ and
+$T$ respectively in the following notation:
+
+\[
+	f:S \rightarrow T
+\]
+
+In order to find the value of a function $f$ for a specific input $x$, the
+notation is:
+
+\[
+	f(x)
+\]
+
+Describing the behaviour of a function requires another notation:
+
+\[
+	x \longmapsto \dots x \dots
+\]
+
+Concequently, to completely describe a function by defining it's source, target
+and behaviour, we must write something like:
+
+\[
+	\begin{split}
+	f:S &\rightarrow T\\
+	x &\longmapsto \dots x \dots
+	\end{split}
+\]
+
+An example of this may be a function that finds the absolute value of integers:
+
+\[
+	\begin{split}
+	abs:\mathbb{Z} &\rightarrow \mathbb{N}\\
+	x &\longmapsto |x|
+	\end{split}	
+\]
+
+\subsection*{Equality of functions}
+
+Two functions are said to be equal to each other if the following conditions are
+met:
+
+\begin{itemize}
+	\item The source set is the same
+	\item The target set is the same
+	\item The behavior of the functions is the same (so for every $x \in S$, 
+		  where $S$ is the source set, both functions give the same output $y$
+		  when given $x$ as the input, where $y \in T$ and $T$ is the target
+		  set).
+\end{itemize}
+
+\subsection*{Identity functions}
+
+For any set $S$, there is a function such that:
+
+\[
+	\begin{split}
+	f:S \rightarrow S\\
+	x \longmapsto x
+	\end{split}
+\]	
+
+This is described as the identity function of $S$, and is often denoted by $1_S$
+or $id_S$
+
+\subsection*{Injectivity, Surjectivity and Bijectivity}
+
+The terms {\it injective}, {\it surjective} and {\it bijective} are used to
+describe which elements in a functions source set are mapped to which elements
+it's target set:
+
+\begin{description}
+	\item {\bf Injective}\\
+		For each $x \in S$ there is at most one $y \in T$ such that $f(x) = y$.
+	\item {\bf Surjective}\\
+		For each $x \in S$ there is at least one $y \in T$ such that $f(x) = y$.
+	\item {\bf Bijective}\\
+		For each $x \in S$ there is only one $y \in T$ such that $f(x) = y$.
+\end{description}
+
+Note that if an function is injective and surjective, then it must also be
+bijective.
+
+\subsubsection*{Permutation of sets}
+
+A function is said to be a permutation of a set if the source and target of the
+function is the same set and the function is bijective. Applying the function
+effectively re-arranges the members of the set.
+
+\aubsection*{Function composition}
+
+Two functions can be composted when the source set of one function is the same
+as the target set of another. For example:
+
+\[
+	\begin{split}
+		f:S \rightarrow T\\
+		g:T \rightarrow U
+	\end{split}
+\]
+
+Here, we can compose a new function made up of $f$ and $g$:
+
+\[
+	h = g \circ f
+\]
+
+Or in other words:
+
+\[
+	h(x) = g(f(x))
+\]
+
+When we're invoking composition on more than two functions, it is an associative
+operation. For this reason, we often omit brackets and the circle operator:
+
+\[
+	(f \circ (g \circ h)) = fgh
+\]	
