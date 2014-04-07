@@ -1,0 +1,90 @@
+\documentclass[frontgrid]{flacards}
+\usepackage{color}
+
+\definecolor{light-gray}{gray}{0.75}
+
+\newcommand{\frontcard}[1]{\textcolor{light-gray}{\colorbox{light-gray}{$#1$}}}
+\newcommand{\backcard}[1]{#1} 
+
+\newcommand{\flashcard}[1]{% create new command for cards with blanks
+    \card{% call the original \card command with twice the same argument (#1)
+        \let\blank\frontcard% but let \blank behave like \frontcard the first time
+        #1
+    }{%
+        \let\blank\backcard% and like \backcard the second time
+        #1
+    }%
+}
+
+\begin{document}
+
+\pagesetup{2}{4} 
+
+%===============================================================================
+% Robot localisation - probability revision
+%===============================================================================
+
+\card{
+	If a collection of events are {\bf mutually exclusive}, then the probability of the conjunction of those events is...
+}{
+	$0$
+}
+
+\card{
+	If a collection of events are {\bf jointly exhaustive}, then the probability of the disjunction of those events is...
+}{
+	$1$
+}
+
+\card{
+	When does a collection of events form a {\bf partition}?
+}{
+	When the events are both mutually exclusive and jointly exhaustive.
+}
+
+%===============================================================================
+% Robot localisation - robot questions
+%===============================================================================
+
+\card{
+	Name some types of actuator that might be found on a robot.
+}{
+	\begin{tabular}{ll}
+		- & Stepper motors\\
+		- & DC motors\\
+		- & Artificial muscles\\
+		- & Hydraulic controls\\
+	\end{tabular}
+}
+
+\card{
+	Name some types of sensors that might be found on a robot.
+}{
+	\begin{tabular}{ll}
+		- & Camera\\
+		- & Bumpers\\
+		- & Range finders (infra red, sonar, laser)\\
+		- & Light detectors\\
+	\end{tabular}
+}
+
+\card{
+	Name two things that may cause the robot to incorrectly percieve its location.
+}{
+	\begin{tabular}{ll}
+		- & The sensors are noisy\\
+		- & The robot may sometimes move a greater or lesser distance than it intended\\
+	\end{tabular}
+}
+
+%===============================================================================
+% Robot localisation - the problem
+%===============================================================================
+
+\card{
+	What is a pose?
+}{
+	A collection of three integers, representing the $x$ position, the $y$ position and the angle of rotation of the robot.
+}
+
+\end{document} 
