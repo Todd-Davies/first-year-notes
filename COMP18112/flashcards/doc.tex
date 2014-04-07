@@ -1,0 +1,126 @@
+\documentclass[frontgrid]{flacards}
+\usepackage{color}
+
+\definecolor{light-gray}{gray}{0.75}
+
+\newcommand{\frontcard}[1]{\textcolor{light-gray}{\colorbox{light-gray}{$#1$}}}
+\newcommand{\backcard}[1]{#1} 
+
+\newcommand{\flashcard}[1]{% create new command for cards with blanks
+    \card{% call the original \card command with twice the same argument (#1)
+        \let\blank\frontcard% but let \blank behave like \frontcard the first time
+        #1
+    }{%
+        \let\blank\backcard% and like \backcard the second time
+        #1
+    }%
+}
+
+\begin{document}
+
+\pagesetup{2}{4} 
+
+%===============================================================================
+% Lecture III - Transparency
+%===============================================================================
+
+\card{
+	On a graph diagram of a distributed system, what is represented by the nodes on the graph?
+}{
+	The physical nodes of the network (individual systems). Each can host multiple processes and resources.
+}
+
+\card{
+	Name some properties of edges that connect the nodes in a graph of a distributed system.
+}{
+	The type of connection (wired/wifi/mobile data etc).\\
+
+	The bandwidth.
+
+	The latency.
+}
+
+\card{
+	Why is it that even though connections between nodes can be implemented in different ways (such as wifi or ethenet), they can be treated as the same?
+}{
+	The implementation details of each connection is abstracted away by many layers of protocols.
+}
+
+\card{
+	Name the eight axioms of distributed systems.
+}{
+	\begin{tabular}{ll}
+		$\cdot$ & Latency is greater than zero.\\
+		$\cdot$ & Bandwidth is less than infinate.\\
+		$\cdot$ & Transport cost is greater than zero.\\
+		$\cdot$ & There is more than administrator.\\
+		$\cdot$ & The network topology can and will change.\\
+		$\cdot$ & The network is not homogenous (the nodes and edges differ).\\
+		$\cdot$ & The network is not secure.\\
+		$\cdot$ & The network is not reliable.\\
+	\end{tabular}
+}
+
+\card{
+	Why is transparency desirable in a distributed system?
+}{
+	It allows us to design systems as though the distributed axioms were false.
+}
+
+\card{
+	What is transparency of location? How can we achieve it?
+}{
+	An attempt to hide the need to know of where a specific resource is physically located.\\
+	Use DNS servers to map host names to IP addresses.
+}
+
+\card{
+	What is transparency of migration? How can we achieve it?
+}{
+	When a host moves location in the network, we shouldn't need to the details of the move.\\
+	The DNS architecture implements this, though if a resource keeps moving, then the route through the network and therefore the latency of the connection to the host is hard to predict.
+}
+
+\card{
+	What is transparency of relocation? How is it achieved?
+}{
+	Transparency of relocation is when parts of the system move while they are being accessed. This is hard to mitigate, and is often a problem with mobile phone communications.
+}
+
+\card{
+	What is transparency of replication. How is it achieved?
+}{
+	When there is more than one physical resource that does the same job, which one do we use? It is hard to achieve.
+}
+
+\card{
+	What is transparency of access? How is it achieved?
+}{
+	Transparency of access is the ability to not care about how a node is implemented. This is often achieved using protocols and API's and middleware.1
+}
+
+\card{
+	What is transparency of concurrency?
+}{
+	Different users shouldn't need to know that others are using the same resource and may be competing for its time. Atomic operations and enforcing consistency are ways to achieve this, but this can force users to wait on each other (deadlock, livelock etc).
+}
+
+\card{
+	What is deadlock?
+}{
+	When two different processes are unable to progress since each is waiting for information from the other.
+}
+
+\card{
+	What is livelock?
+}{
+	When two processes change with respect to one another so that neither can make progress.
+}
+
+\card{
+	What is transparency of failiure? How is it achieved?
+}{
+	Users should not know that a specific node has failed or has recently had downtime. Hard to ensure, since sometimes slow connections are indistinguishable from failed nodes.
+}
+
+\end{document} 
