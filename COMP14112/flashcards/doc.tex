@@ -1,5 +1,6 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{color}
+\usepackage{tabularx}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -71,10 +72,10 @@
 \card{
 	Name two things that may cause the robot to incorrectly percieve its location.
 }{
-	\begin{tabular}{ll}
+	\begin{tabularx}{0.5\textwidth}{lX}
 		- & The sensors are noisy\\
 		- & The robot may sometimes move a greater or lesser distance than it intended\\
-	\end{tabular}
+	\end{tabularx}
 }
 
 %===============================================================================
@@ -85,6 +86,63 @@
 	What is a pose?
 }{
 	A collection of three integers, representing the $x$ position, the $y$ position and the angle of rotation of the robot.
+}
+
+\card{
+	Describe baysian updating.
+}{
+	If an agent recieves new information in the form of an Event $E$, then the agent should update it's degrees of belief by conditionalising it's probability distribution on $E$.
+}
+
+\card{
+	If an agent recieves two events $E_1$ and $E_2$, and conditionalises on them both, does the order in which it conditionalises it's probability distribution on the events mattter?
+}{
+	Nope.
+}
+
+\card{
+	State the formula for total probability.
+}{
+	We can find out the probability of the event $E$ if we have the conditional probabilities of it with another set of events $E_0, E_1, \dots, E_n$ that form a partition on the sample space:
+
+	\[
+		p(E) = p(E|E_0)p(E_0) + p(E|E_1)p(E_1) + \dots + p(E|E_n)p(E_n)
+	\]
+}
+
+\card{
+	What is the formula for Bayes theorem?
+}{
+	\[
+		p(E) = \frac{p(F|E)p(E)}{P(F)}
+	\]
+}
+
+\card{
+	What is the partition version of the formula for Bayes theorem?\\
+	Where:\\
+	\begin{tabular}{ll}
+	- & $E$ is an event.\\
+	- & $E_0 \dots E_n$ are events that form a partition over $\Omega$.
+	\end{tabular}
+}{
+	\[
+		p(E) = \frac{p(E|E_i)p(E_i)}{p(E|E_0)p(E_0) + \dots + p(E|E_n)p(E_n)}
+	\]
+}
+
+\card{
+	What's the difference between a cumulative distribution function and a probability mass function?
+}{
+	The cdf is cumulative, and shows the total probability of the outcomes up to and including the outcome it takes. The pmf shows only the probability of that outcome.
+}
+
+\card{
+	What is the definition of conditional probability?
+}{
+	\[
+		p(F|E) = \frac{p(F \wedge E)}{p(E)}
+	\]
 }
 
 \end{document} 
