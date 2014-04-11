@@ -1,0 +1,29 @@
+\documentclass[dvipsnames]{minimal}
+
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\usetikzlibrary{arrows}
+
+\author{Todd Davies}
+\date{\today}
+
+\begin{document}
+
+\begin{center}
+\begin{tikzpicture}[scale=1,>=stealth',auto,node distance=1.5cm]
+
+  \node[draw=none] (a)  {$bob$};
+  \node[draw=none] (c) [below of=a] {$bill$};
+  \node[draw=none] (d) [below right of=c] {$ben$};
+  \node[draw=none] (b) [below left of=c] {$bilbo$};
+
+  \path[->] (a) edge node {} (c);
+  \path[->] (c) edge node {} (d);
+  \path[->] (c) edge node {} (b);
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}
