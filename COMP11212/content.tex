@@ -126,7 +126,7 @@ The following patterns match the following words:
   \end{tabularx}
 \end{center}
 
-\subsection*{Languages described by regular expressions}
+\subsection{Languages described by regular expressions}
 
 A language $\mathcal{L}$ described by a regular expression $p$ is one made up of
 every word $s$ that is matched by $p$:
@@ -154,12 +154,12 @@ We can find out the exact language defined by a pattern in the following manner:
   \end{split}
 \]
 
-\subsubsection*{Regular languages}
+\subsubsection{Regular languages}
 
 We say that a language is regular if we can describe the language by defining a
 regular expression.
 
-\section*{Finite State Automata}
+\section{Finite State Automata}
 
 It is often useful to be able to describe languages using pictures. These are
 called finite state automata (FSA's). Every FSA must have the following things:
@@ -173,7 +173,7 @@ called finite state automata (FSA's). Every FSA must have the following things:
       automation, then it will match our word.
 \end{itemize}
 
-\subsection*{Example automata}
+\subsection{Example automata}
 
 Here is an automata that will match the pattern $0(0|1)0$:
 
@@ -189,7 +189,7 @@ accepting state. The same automata with a dump state in would look like:
   \includegraphics{automata/2.pdf}
 \end{center}
 
-\subsection*{Formalising the automata}
+\subsection{Formalising the automata}
 
 If we wanted to, we could define the set $Q$ as the set of states in an
 automata, and the set $F$ as the set of the accepting states, where $F \subset
@@ -204,7 +204,7 @@ returns another state $s_{out} \in Q$.
 \marginpar{When an automata is defined like this, it can be seen as a {\it finite
 state machine}}
 
-\subsection*{Deterministic and non-deterministic automata}
+\subsection{Deterministic and non-deterministic automata}
 
 An automata is said to be deterministic if there is only one path through it for
 every word in $\mathcal{L}$, however, if there are multiple possible routes
@@ -222,7 +222,7 @@ accept the language of words defined by the pattern $(0|1)^*(11)$:
   \includegraphics{automata/4.pdf}
 \end{center}
 
-\section*{Algorithm one}
+\section{Algorithm one}
 
 Algorithm one is a method for converting an NFA to a DFA. In order to do this,
 algorithm one walks through an NFA, in a recursive manner, finding all the
@@ -230,7 +230,7 @@ possible collections of states that can be reached from each state.
 Unfortunately, this behaviour is hard to describe in a general and abstract
 manner, so it's probably easiest to just do an example.
 
-\subsection*{Algorithm one example}
+\subsection{Algorithm one example}
 
 We'll do Exercise 19 in Andrea's notes, which is to convert the following NFA
 into a DFA:
@@ -279,3 +279,86 @@ with an $a$ transition:
 \begin{center}
   \includegraphics{automata/10.pdf}
 \end{center}
+
+\marginpar{If you want a formal definition of algorithm one, take a look at page
+33 of Andrea's notes. although it's well explained, I don't think it's worth
+including here, since the formal definition won't be very useful in the exam.}
+
+\subsection{Algorithm two}
+
+Algorithm two takes a DFA and converts it into a regular expression. If you want
+to convert an NFA into a regular expression, then you must first convert it into
+a DFA using algorithm one.
+
+\subsubsection{Numbering states}
+
+Algorithm two relies on us having named all the states in the DFA before we
+attempt to apply the algorithm. Although in theory, the algorithm will work with
+any state numbering, it is easiest to apply when the states are ordered in {\it
+reverse order of complexity}. That is to say that the states with the fewest
+connections will have the lowest number.
+
+\marginpar{The numbering of the states isn't vital. If you get one or two the
+wrong way round, then it probably won't make the algorithm too complicated.
+Also, whether the algorithm is an acceptance state has no bearing on its
+number.}
+
+\subsubsection{Applying algorithm two}
+
+First of all, we must determine which states a word from the language
+$\mathcal{L}$ accepted by the automation must start and end in. In order to do
+this, we must find the start states and all of the possible end states:
+
+\[
+	\mathcal{L} = \lang{start}{accepting_0}{} \cup
+		\lang{start}{accepting_1}{} \cup \dots \cup \lang{start}{accepting_n}{}
+\]
+
+If the automation we were looking at was something like this:
+
+
+\begin{center}
+  \includegraphics{automata/11.pdf}
+\end{center}
+
+Then the language described by the automation would be:
+
+\[
+	\mathcal{L} = \lang{0}{0}{} \cup \lang{0}{2}{}
+\]
+
+We must now break down this expression into its component parts, $\lang{0}{0}{}$
+and $\lang{0}{2}{}$ and evaluate them individualy.
+
+\[
+	\begin{split}
+		\lang{0}{0}{\leq 2} &= \lang{0}{0}{\leq 1} \cup \left( \lang{0}{2}{\leq 1} \cdot {\lang{2}{2}{\leq 1}}^{*} \cdot \lang{2}{0}{\leq 1} \right)\\
+		\lang{0}{0}{\leq 1} &= \epsilon\\
+		\lang{0}{2}{\leq 1} &= \lang{0}{2}{\leq 0} \cup \left( \lang{0}{1}{\leq 0} \cdot {\lang{1}{1}{\leq 0}}^{*} \cdot \lang{1}{2}{\leq 0} \right)\\
+							&= \emptyset \cup \left( a \cdot \epsilon^*  \cdot b \right)\\
+							&= ab\\
+		\lang{2}{2}{\leq 1} &= \lang{2}{2}{\leq 0} \cup \left( \lang{2}{1}{\leq 0} \cdot {\lang{1}{1}{\leq 0}}^{*} \cdot \lang{1}{2}{\leq 0} \right)^*\\
+							&= \epsilon \cup \left( ca \cdot \epsilon^* \cdot b \right)^*\\
+							&= \epsilon | (cab)^*\\
+		\lang{2}{0}{\leq 1} &= c\\
+		\lang{0}{0}{\leq 2} &= \epsilon | ab(cab)^*c\\\\
+		\lang{0}{2}{\leq 2} &= \lang{0}{2}{\leq 1} \cdot {\lang{2}{2}{\leq 1}}^*\\
+							&= \{ab\} \cdot \{(cab)^*\}\\
+							&= ab(cab)^*\\
+	\end{split}
+\]
+
+We can now just concatenate the two languages we found and simplify the
+resulting regular expression:
+
+\[
+	\begin{split}
+		\mathcal{L} &= \epsilon | ab(cab)^*c \cup ab(cab)^*\\
+					&= \epsilon | ab(cab)^* (c|\epsilon)
+	\end{split}
+\]
+
+\section{Algorithm three}
+
+The role of algorithm three is to construct a non-deterministic finite automata
+from a regular expression.
