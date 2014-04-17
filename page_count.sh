@@ -1,1 +1,9 @@
-total=0; for i in $(find `pwd` -name notes.pdf); do total=$(echo $(exiftool $i | awk "/Page Count/ {print}" | tail -c 3) + $total | bc); done; echo "Page count: " $total
+total=0;
+for i in $(find ./ -name notes.pdf);
+  do
+  nextCount=$(exiftool $i | awk "/Page Count/ {print}" | tail -c 3)
+  total=$(echo $nextCount + $total | bc);
+  echo $i: $nextCount;
+  done;
+echo "Total page count: " $total;
+
