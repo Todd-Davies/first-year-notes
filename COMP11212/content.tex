@@ -362,3 +362,97 @@ resulting regular expression:
 
 The role of algorithm three is to construct a non-deterministic finite automata
 from a regular expression.
+
+Algorithm three recursively analyses the regular expression into small chunks of
+NFA and then makes use of {\it epsilon transitions} to link these parts
+together. 
+
+\marginpar{An epsilon transition is a transition between states in the NFA that
+does not require a letter from the word to be traversed. This allows you to join
+NFA's together.}
+
+There are a number of general cases in algorithm three, where a regular
+expression of a particular form will create an NFA with a certain structure:
+
+\begin{description}
+	\item {\bf The empty pattern $\emptyset$}:\\
+		A regular expression that accepts no words will produce an NFA like
+		this:
+		\begin{center}
+		  \includegraphics{automata/12.pdf}
+		\end{center}
+	\item {\bf The $\epsilon$ pattern}:\\
+		A regular expression that the empty word will produce an NFA like this:
+		\begin{center}
+		  \includegraphics{automata/13.pdf}
+		\end{center}
+	\item {\bf A pattern accepting a word $x, x \in \Sigma$}:\\
+		\begin{center}
+		  \includegraphics{automata/14.pdf}
+		\end{center}
+\end{description}
+
+In order to produce a meaningful NFA, we must also handle cases where regular
+expressions implement concatenation, alternatives and the kleene star:
+
+\begin{description}
+	\item {\bf Concatenation}:\\
+		In order to create an NFA that will recognise the same language as a
+		pattern that uses concatenation (e.g. $xy$), we must first create two
+		NFA's to accept each half of the concetenation, lets call these $X$ and
+		$Y$. In order to connect them, we must change all the accepting states
+		in $X$ to non-accepting states and make an $\epsilon$ transition from
+		them to the start state of $Y$.
+
+		For example:
+
+		\begin{tabular}{lcr}
+			\includegraphics{automata/15.pdf}
+			&
+			Concatenated with
+			&
+			\includegraphics{automata/16.pdf}
+		\end{tabular}
+
+		Goes to:
+
+		\begin{center}
+		  \includegraphics{automata/17.pdf}
+		\end{center}
+	\item {\bf Alternative}:\\
+		To create an NFA that implements an alternative such as $x|y$, then we
+		must make a new NFA that has a start state that connects to the other
+		NFA's that will accept $x$ and $y$ with $\epsilon$ transitions:
+
+		For example:
+
+		\begin{center}
+		  \includegraphics{automata/18.pdf}
+		\end{center}
+
+		Combine to make:
+
+		\begin{center}
+		  \includegraphics{automata/19.pdf}
+		\end{center}
+
+	\item {\bf Kleene star}:\\
+
+		To implement a Kleene star with an NFA, you simply create an epsilon
+		transition from each accepting state in the NFA to the start state, and
+		make sure that the start state is an accepting state.
+
+		For example:
+
+		\begin{center}
+		  \includegraphics{automata/20.pdf}
+		\end{center}
+
+		Goes to:
+
+		\begin{center}
+		  \includegraphics{automata/21.pdf}
+		\end{center}
+
+
+\end{description}
