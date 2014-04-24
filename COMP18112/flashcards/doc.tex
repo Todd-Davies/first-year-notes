@@ -1,5 +1,6 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{color}
+\usepackage{tabularx}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -138,6 +139,143 @@
 	What is transparency of failiure? How is it achieved?
 }{
 	Users should not know that a specific node has failed or has recently had downtime. Hard to ensure, since sometimes slow connections are indistinguishable from failed nodes.
+}
+
+%===========================================================================
+% Steve's stuff
+%===========================================================================
+
+\card{
+	What is the function of the {\tt HEAD} HTTP verb?
+}{
+	Provides metadata about a resource. Just like a {\tt GET} request, except
+	the body of the request is not returned. Used to let clients know if cached
+	data has changed.
+}
+
+\card{
+	What is the function of the {\tt GET} HTTP verb?
+}{
+	Gets a resource from the server.	
+}
+
+\card{
+	What is the function of the {\tt POST} HTTP verb?
+}{
+	Submits data to the server. The state of the server may change as a result
+	of a {\tt POST} request.
+}
+
+\card{
+	What is the function of the {\tt OPTIONS} HTTP verb?
+}{
+	Returns the list of commands supported by the server.
+}
+
+\card{
+	What does the 'store and forward' model mean?
+}{
+	When a message needs to be transmitted along a network, but not all the
+	nodes along the path may be active at the same time. Concequently, the
+	message is stored by each node until it has been confirmed to have been
+	recieved by the next node.
+}
+
+\card{
+	What is the SMTP protocol?
+}{
+	The Simple Mail Transfer Protocol is a method for sending email. It is a
+	stateful, connection based protocol, so a connection to the server must be
+	opened before the message can be transferred, and then closed again after.
+}
+
+\card{
+	Describe 'reduction to absurdity'.
+}{
+	This is a type of argument where an idea is shown to be false by showing
+	that an absurd result can be obtained by the acceptance of the idea.
+}
+
+\card{
+	With a Lamport clock, how is the clock of $A$ affected if $B$ sends $A$ a
+	message?
+}{
+	\begin{tabular}{l}
+		{\tt if LCy < (LCx + 1):}\\
+		\hspace{2em}{\tt LCy = LCx + 1}
+	\end{tabular}
+}
+
+\card{
+	Describe the purpose of a mutex.
+}{
+	A mutex ensures that two processes do not enter into a critical section of
+	their execution at the same time and therefore prevents race conditions and
+	enables the safe sharing of resources.
+}
+
+\card{
+	What is a critical section?
+}{
+	A critical section is a sequence of actions that should execute in an atomic
+	matter. That is to say that if the critical section does not succeed, then
+	the state of the system should be exactly the same as when the critical
+	section started.
+}
+
+\card{
+	Describe the two-phase commit.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1 & A coordinator node wishes all of the nodes to perform an action.\\
+		2 & It sends a request to all of the other nodes.\\
+		3 & The other nodes attempt to perform the action, and reply with
+			{\tt commit} or {\tt abort} depending on whether they to performed
+			the action.\\
+		4a& If any one of the nodes replied {\tt abort}, then the coordinator
+			node will reply {\tt global\_abort} and all the nodes will roll back
+			their state to that of the start of the transaction.\\
+		4b& If all the nodes replied {\tt commit}, then the coordinator node
+			will send {\tt global\_commit} and the nodes will retain their
+			current	state.\\
+	\end{tabularx}
+}
+
+\card{
+	Describe the bully algorithm.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1 & A node wants to be a coordinator, so it sends a message to all the
+			other nodes with it's number.\\
+		2 & All the other nodes will only reply if they have a higher number. If
+			they do, they will start another election.\\
+		3 & The process continues until a node recieves no replies, and is
+			therefore the coordinator, at which point, it will inform all the
+			other nodes of this.\\
+	\end{tabularx}
+}
+
+\card{
+	Describe Cristian's algorithm?
+}{
+	In order to syncronize the clocks of two systems, one system $S$ will send
+	it's time to another system $C$. After recieving the request from $S$, $C$
+	will then reply with it's own clock time. When $S$ recieves this, then it
+	will set its clock to be the time that $C$ sent added to the round trip time
+	(discernable from $C$'s reply) divided by two.
+}
+
+\card{
+	Describe the Berkly algorithm.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1 & A master node is chosen.\\
+		2 & The master polls the other nodes for the time.\\
+		3 & The master observes the round trip time for each state, and
+			estimates the time of each client.\\
+		4 & The master then averages out the clock times and sends each node a
+			message containing the difference that it is from the average.
+	\end{tabularx}
 }
 
 \end{document} 
