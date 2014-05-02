@@ -1,0 +1,80 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage[parfill]{parskip}
+\usepackage{enumerate}
+\usepackage{amsmath,amssymb}
+
+\pagestyle{fancyplain}
+
+\author{Todd Davies}
+\title{COMP14112 exam 2012}
+\date{\today}
+
+\begin{document}
+
+\rhead{COMP14112 exam 2012}
+\lhead{\today}
+
+\maketitle
+
+\begin{enumerate}
+  
+  \item
+
+  \begin{enumerate}[(a)]
+    \item {\bf In the robot localization problem, why is it impossible to
+           determine the exact pose that the robot holds? Due to this
+           impossibility, how is the location of the robot
+           represented?}\\
+      
+      The robot's sensors are noisy, and when the robot moves, there is no
+      garentee that it moves by the amount that was intended. Because of
+      this, there is always some degree of uncertainty in the data
+      regarding the robot, and therefore no absolute conclusions can be
+      drawn.
+
+      Because of this, the robots position is represented as a probability
+      matrix, where each pose has a probability assigned to it to indicate
+      how likely it is that the robot is occupying that position. The sum
+      of the probability of all the pose's is 1.
+
+    \item {\bf Use the definition of probability distribution to prove that
+           $\mathbb{P}(E \vee F) = \mathbb{P}(E) +
+           \mathbb{P}(F \wedge E^C)$ where $E^C$ is the complement of
+           $E$.}\\
+
+      \[
+        \begin{split}
+         \mathbb{P}(E \vee F) &= \mathbb{P}(E) + \mathbb{P}(F) - \mathbb{P}(E \wedge F)\\
+         \mathbb{P}(F) &= \mathbb{P}(F \wedge E) + \mathbb{P}(F \wedge E^C)\\\\
+         \mathbb{P}(E) + \mathbb{P}(F) - \mathbb{P}(E \wedge F) &= \mathbb{P}(E) + \mathbb{P}(F \wedge E^C)\\
+         \mathbb{P}(F) - \mathbb{P}(E \wedge F) &=\mathbb{P}(F \wedge E^C)\\
+         \mathbb{P}(F) &=\mathbb{P}(F \wedge E^C) + \mathbb{P}(E \wedge F)\\
+         \mathbb{P}(F) &=\mathbb{P}(F)\\
+        \end{split}
+      \]
+
+    \item {\bf In the robot localization problem, suppose that the 1st
+               observation received from a sensor is $o_1$ and the second
+               observation is $o_2$ , and the probabilities of all poses are
+               updated every time when an observation is received. Are the final
+               probabilities obtained the same as the probabilities obtained by
+               using $o_2$ updating first and $o_1$ second? Please justify your
+               answer.}
+
+    \item {\bf Let a single robot be at a point object located at some position
+               in a square arena with a 2×2 square grid, in which there is one
+               obstacle occupying position (1, 1). Now answer the following
+               questions:}
+
+      \begin{enumerate}[(i)]
+        \item $\frac{1}{(2 \cdot 2) - 1} = \frac{1}{3}$
+      \end{enumerate}
+
+  \end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}

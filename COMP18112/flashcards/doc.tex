@@ -1,0 +1,281 @@
+\documentclass[frontgrid]{flacards}
+\usepackage{color}
+\usepackage{tabularx}
+
+\definecolor{light-gray}{gray}{0.75}
+
+\newcommand{\frontcard}[1]{\textcolor{light-gray}{\colorbox{light-gray}{$#1$}}}
+\newcommand{\backcard}[1]{#1} 
+
+\newcommand{\flashcard}[1]{% create new command for cards with blanks
+    \card{% call the original \card command with twice the same argument (#1)
+        \let\blank\frontcard% but let \blank behave like \frontcard the first time
+        #1
+    }{%
+        \let\blank\backcard% and like \backcard the second time
+        #1
+    }%
+}
+
+\begin{document}
+
+\pagesetup{2}{4} 
+
+%===============================================================================
+% Lecture II - Axioms and fallacies of distributed computing
+%===============================================================================
+
+\card{
+	Define bandwidth.
+}{
+	Bandwidth measures the maximum amount of data that can be communicated
+	within a certain amount of time.
+}
+
+\card{
+	Define throughput.
+}{
+	Throughput measures the actual rate at which messages are communicated.
+}
+
+%===============================================================================
+% Lecture III - Transparency
+%===============================================================================
+
+\card{
+	On a graph diagram of a distributed system, what is represented by the nodes on the graph?
+}{
+	The physical nodes of the network (individual systems). Each can host multiple processes and resources.
+}
+
+\card{
+	Name some properties of edges that connect the nodes in a graph of a distributed system.
+}{
+	The type of connection (wired/wifi/mobile data etc).\\
+
+	The bandwidth.
+
+	The latency.
+}
+
+\card{
+	Why is it that even though connections between nodes can be implemented in different ways (such as wifi or ethenet), they can be treated as the same?
+}{
+	The implementation details of each connection is abstracted away by many layers of protocols.
+}
+
+\card{
+	Name the eight axioms of distributed systems.
+}{
+	\begin{tabular}{ll}
+		$\cdot$ & Latency is greater than zero.\\
+		$\cdot$ & Bandwidth is less than infinate.\\
+		$\cdot$ & Transport cost is greater than zero.\\
+		$\cdot$ & There is more than administrator.\\
+		$\cdot$ & The network topology can and will change.\\
+		$\cdot$ & The network is not homogenous (the nodes and edges differ).\\
+		$\cdot$ & The network is not secure.\\
+		$\cdot$ & The network is not reliable.\\
+	\end{tabular}
+}
+
+\card{
+	Why is transparency desirable in a distributed system?
+}{
+	It allows us to design systems as though the distributed axioms were false.
+}
+
+\card{
+	What is transparency of location? How can we achieve it?
+}{
+	An attempt to hide the need to know of where a specific resource is physically located.\\
+	Use DNS servers to map host names to IP addresses.
+}
+
+\card{
+	What is transparency of migration? How can we achieve it?
+}{
+	When a host moves location in the network, we shouldn't need to the details of the move.\\
+	The DNS architecture implements this, though if a resource keeps moving, then the route through the network and therefore the latency of the connection to the host is hard to predict.
+}
+
+\card{
+	What is transparency of relocation? How is it achieved?
+}{
+	Transparency of relocation is when parts of the system move while they are being accessed. This is hard to mitigate, and is often a problem with mobile phone communications.
+}
+
+\card{
+	What is transparency of replication. How is it achieved?
+}{
+	When there is more than one physical resource that does the same job, which one do we use? It is hard to achieve.
+}
+
+\card{
+	What is transparency of access? How is it achieved?
+}{
+	Transparency of access is the ability to not care about how a node is implemented. This is often achieved using protocols and API's and middleware.1
+}
+
+\card{
+	What is transparency of concurrency?
+}{
+	Different users shouldn't need to know that others are using the same resource and may be competing for its time. Atomic operations and enforcing consistency are ways to achieve this, but this can force users to wait on each other (deadlock, livelock etc).
+}
+
+\card{
+	What is deadlock?
+}{
+	When two different processes are unable to progress since each is waiting for information from the other.
+}
+
+\card{
+	What is livelock?
+}{
+	When two processes change with respect to one another so that neither can make progress.
+}
+
+\card{
+	What is transparency of failiure? How is it achieved?
+}{
+	Users should not know that a specific node has failed or has recently had downtime. Hard to ensure, since sometimes slow connections are indistinguishable from failed nodes.
+}
+
+%===========================================================================
+% Steve's stuff
+%===========================================================================
+
+\card{
+	What is the function of the {\tt HEAD} HTTP verb?
+}{
+	Provides metadata about a resource. Just like a {\tt GET} request, except
+	the body of the request is not returned. Used to let clients know if cached
+	data has changed.
+}
+
+\card{
+	What is the function of the {\tt GET} HTTP verb?
+}{
+	Gets a resource from the server.	
+}
+
+\card{
+	What is the function of the {\tt POST} HTTP verb?
+}{
+	Submits data to the server. The state of the server may change as a result
+	of a {\tt POST} request.
+}
+
+\card{
+	What is the function of the {\tt OPTIONS} HTTP verb?
+}{
+	Returns the list of commands supported by the server.
+}
+
+\card{
+	What does the 'store and forward' model mean?
+}{
+	When a message needs to be transmitted along a network, but not all the
+	nodes along the path may be active at the same time. Concequently, the
+	message is stored by each node until it has been confirmed to have been
+	recieved by the next node.
+}
+
+\card{
+	What is the SMTP protocol?
+}{
+	The Simple Mail Transfer Protocol is a method for sending email. It is a
+	stateful, connection based protocol, so a connection to the server must be
+	opened before the message can be transferred, and then closed again after.
+}
+
+\card{
+	Describe 'reduction to absurdity'.
+}{
+	This is a type of argument where an idea is shown to be false by showing
+	that an absurd result can be obtained by the acceptance of the idea.
+}
+
+\card{
+	With a Lamport clock, how is the clock of $A$ affected if $B$ sends $A$ a
+	message?
+}{
+	\begin{tabular}{l}
+		{\tt if LCy < (LCx + 1):}\\
+		\hspace{2em}{\tt LCy = LCx + 1}
+	\end{tabular}
+}
+
+\card{
+	Describe the purpose of a mutex.
+}{
+	A mutex ensures that two processes do not enter into a critical section of
+	their execution at the same time and therefore prevents race conditions and
+	enables the safe sharing of resources.
+}
+
+\card{
+	What is a critical section?
+}{
+	A critical section is a sequence of actions that should execute in an atomic
+	matter. That is to say that if the critical section does not succeed, then
+	the state of the system should be exactly the same as when the critical
+	section started.
+}
+
+\card{
+	Describe the two-phase commit.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1 & A coordinator node wishes all of the nodes to perform an action.\\
+		2 & It sends a request to all of the other nodes.\\
+		3 & The other nodes attempt to perform the action, and reply with
+			{\tt commit} or {\tt abort} depending on whether they to performed
+			the action.\\
+		4a& If any one of the nodes replied {\tt abort}, then the coordinator
+			node will reply {\tt global\_abort} and all the nodes will roll back
+			their state to that of the start of the transaction.\\
+		4b& If all the nodes replied {\tt commit}, then the coordinator node
+			will send {\tt global\_commit} and the nodes will retain their
+			current	state.\\
+	\end{tabularx}
+}
+
+\card{
+	Describe the bully algorithm.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1 & A node wants to be a coordinator, so it sends a message to all the
+			other nodes with it's number.\\
+		2 & All the other nodes will only reply if they have a higher number. If
+			they do, they will start another election.\\
+		3 & The process continues until a node recieves no replies, and is
+			therefore the coordinator, at which point, it will inform all the
+			other nodes of this.\\
+	\end{tabularx}
+}
+
+\card{
+	Describe Cristian's algorithm?
+}{
+	In order to syncronize the clocks of two systems, one system $S$ will send
+	it's time to another system $C$. After recieving the request from $S$, $C$
+	will then reply with it's own clock time. When $S$ recieves this, then it
+	will set its clock to be the time that $C$ sent added to the round trip time
+	(discernable from $C$'s reply) divided by two.
+}
+
+\card{
+	Describe the Berkly algorithm.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1 & A master node is chosen.\\
+		2 & The master polls the other nodes for the time.\\
+		3 & The master observes the round trip time for each state, and
+			estimates the time of each client.\\
+		4 & The master then averages out the clock times and sends each node a
+			message containing the difference that it is from the average.
+	\end{tabularx}
+}
+
+\end{document} 

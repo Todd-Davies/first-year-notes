@@ -1,7 +1,7 @@
 #!/bin/bash
 aspell -t check content.tex
 aspell -t check meta.tex
-directories=(automata);
+directories=(digraphs);
 for dir in "${directories[@]%*/}"; do
   cd $dir;
   for i in `ls *.tex`; do

@@ -1,0 +1,22 @@
+\documentclass[dvipsnames]{minimal}
+
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\usetikzlibrary{arrows, automata}
+
+\author{Todd Davies}
+\date{\today}
+
+\begin{document}
+
+\begin{center}
+\begin{center}\begin{tikzpicture}[transform shape,>=stealth',shorten >=1pt,auto,node distance=2cm]
+  \node[initial,state]                (0)                {};
+
+  \path[->]          (0) edge [loop right]  node        {$\Sigma$} (0);
+\end{tikzpicture}\end{center}
+\end{center}
+
+\end{document}
