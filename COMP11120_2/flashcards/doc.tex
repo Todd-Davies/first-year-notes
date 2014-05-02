@@ -1,5 +1,6 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{color}
+\usepackage{amsmath}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -7,19 +8,290 @@
 \newcommand{\backcard}[1]{#1} 
 
 \newcommand{\flashcard}[1]{% create new command for cards with blanks
-    \card{% call the original \card command with twice the same argument (#1)
-        \let\blank\frontcard% but let \blank behave like \frontcard the first time
-        #1
-    }{%
-        \let\blank\backcard% and like \backcard the second time
-        #1
-    }%
+  \card{% call the original \card command with twice the same argument (#1)
+    \let\blank\frontcard% but let \blank behave like \frontcard the first time
+    #1
+  }{%
+    \let\blank\backcard% and like \backcard the second time
+    #1
+  }%
 }
 
 \begin{document}
 
-\pagesetup{2}{4} 
+\pagesetup{2}{4}
 
-\flashcard{I am \blank{18}}
+%===============================================================================
+% Matrices basics
+%===============================================================================
+
+\card{
+  How do you add two matrices together? What are the conditions for matrix
+  addition?
+}{
+  In order for you to be able to add two matrices together, they must both
+  have the same dimensions. Then, just add value of each position in one
+  matrix to the corresponding position in the other matrix.
+
+  \[
+    (A + B)_{ij} = A_{ij} + B_{ij}
+  \]
+}
+
+\card{
+  How can a matrix be scaled?
+}{
+  Just multiply each cell in the matrix by the scaling factor.
+}
+
+\card{
+  How is matrix subtraction performed? What are the conditions?
+}{
+  In order to subtract one matrix from another, just scale the first one by a
+  factor of $-1$ and add them together. As with addition, the matrices must
+  have the same dimensions.
+
+  \[
+    (A - B)_{ij} = (A + (-1)B)_{ij}
+  \]
+}
+
+\card{
+  What is the condition for matrix multiplication?
+}{
+  The number of columns in the first matrix must equal the number of rows in
+  the second.
+}
+
+\card{
+  How do we determine the value of the cell $i,j$ when multiplying a matrix
+  $A$ by another matrix $B$?
+}{
+  It depends on the values in the $i$'th row of $A$ and the $j$'th column of
+  $B$.
+  \[
+    C_{ij} = \sum^{n}_{k=1} A_{ik}B_{kj}
+  \]
+}
+
+\card{
+  What is the identity matrix?
+}{
+  
+  A square matrix where every cell is set to zero, except from those on the
+  diagonal from the top left to the bottom right, where they are set to one.
+  For example:
+  \[
+    \left(
+      \begin{array}{ccc}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & 1\\
+      \end{array}
+    \right)
+  \]
+}
+
+%\card{
+% How do you find the inverse of a matrix?
+%}{
+% In order to find the inverse of a matrix, you scale it be $-1$ and then
+% multiply it by itself:
+% \[
+%   A^{-1} = A(-1)A
+% \]
+%}
+
+\card{
+  How do you work out the transpose of a matrix? What is the notation?
+}{
+  To work out the transpose of a matrix, you simply rotate everything
+  clockwise by $90^{\circ}$. E.g.:
+  \[
+    \begin{split}
+    A &= \left(
+        \begin{array}{cc}
+          1 & 3\\
+          0 & 5\\
+          8 & 7\\
+        \end{array}
+      \right)\\
+    A^T &= \left(
+        \begin{array}{ccc}
+          1 & 0 & 8\\
+          3 & 5 & 7\\
+        \end{array}
+      \right)
+    \end{split}
+  \]
+}
+
+\card{
+  What is a symmetric matrix?
+}{
+  A matrix $M$ is symmetric when $M = M^T$. This means it is symmetric along
+  the main diagonal.\\\vspace{1em}
+  Alternately, you could say that $M_{ij} = M_{ji}$.
+}
+
+\card{
+  Define the zero matrix.
+}{
+  A matrix where all of the cells have a value of zero.
+
+  \[
+    \left(
+      \begin{array}{ccc}
+        0 & 0 & 0\\
+        0 & 0 & 0\\
+        0 & 0 & 0\\
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  Define the term {\bf commuting matrices}.
+}{
+  A pair of matrices $A,B$ where $AB = BA$
+}
+
+\card{
+  Is matrix multiplication associative?
+}{
+  Yes.
+  \[
+    A(BC) = (AB)C
+  \]
+}
+
+\card{
+  Is matrix multiplication a distributive operation?
+}{
+  Yes.
+  \[
+    \begin{split}
+      A(B + C) = AB + AC\\
+      (B + C)A = BA + CA
+    \end{split}
+  \]
+}
+
+\card{
+  Does the following hold between the two matrices $A$ and $B$:
+  \[
+    (AB^T) = A^TB^T
+  \]
+}{
+  Yes.
+}
+
+\card{
+  Does the following matrix represent a point or a vector?
+  \[
+    \left[
+      \begin{array}{c}
+        4\\
+        2\\
+        3\\
+        1
+      \end{array}
+    \right]
+  \]
+}{
+  The point $(4,2,3)$.
+}
+
+\card{
+  Does the following matrix represent a point or a vector?
+  \[
+    \left[
+      \begin{array}{c}
+        4\\
+        2\\
+        3\\
+        0
+      \end{array}
+    \right]
+  \]
+}{
+  The vector $4i + 2j + 3k$.
+}
+
+%===============================================================================
+% Affine transformations and matrices
+%===============================================================================
+
+\card{
+  What cells are the same for all affine transformation matrices?
+}{
+  The bottom three/four.
+  \[
+    \left(
+      \begin{array}{cccc}
+        a_{11} & a_{12} & a_{13} & b{1}\\
+        a_{21} & a_{22} & a_{23} & b{2}\\
+        a_{31} & a_{32} & a_{33} & b{3}\\
+        0      & 0      & 0      & 1
+      \end{array}
+    \right)
+    ~and~
+    \left(
+      \begin{array}{ccc}
+        a_{11} & a_{12} & b{1}\\
+        a_{21} & a_{22} & b{2}\\
+        0      & 0      & 1
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  What is the matrix that will perform an affine translation?
+}{
+  \[
+    \left(
+      \begin{array}{cccc}
+        1 & 0 & 0 & x\\
+        0 & 1 & 0 & y\\
+        0 & 0 & 1 & z\\
+        0 & 0 & 0 & 1\\
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  What is the matrix that will perform an affine scaling?
+}{
+  \[
+    \left(
+      \begin{array}{cccc}
+        x & 0 & 0 & 0\\
+        0 & y & 0 & 0\\
+        0 & 0 & z & 0\\
+        0 & 0 & 0 & 1\\
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  How is it possible to combine two or more affine transformation matrices?
+}{
+  Multiply them together in the reverse order for which they are to be applied.
+}
+
+\card{
+  How do you do transformation matrix powers?
+}{
+  You apply the matrix $n$ times, where $n$ is the power.
+}
+
+\card{
+  What is the identity transformation?
+}{
+  A transformation that does nothing.
+}
 
 \end{document} 
