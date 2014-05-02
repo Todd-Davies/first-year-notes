@@ -1,0 +1,47 @@
+%---------------------------------------------------------------------------
+%
+% Time-stamp: <2000-08-26 10:08:50 sutner> 
+%
+% File:  environ.sty
+%
+%        See ksmac-comp.sty for out-of-date conventions.
+%
+%        Uses theorem.sty. 
+%        
+%---------------------------------------------------------------------------
+
+\typeout{ -------- ks environ loaded (2000.08.26) ---------  }
+
+\usepackage{theorem}
+
+%---------------------------------------------------------------------------
+%  standard environments
+%---------------------------------------------------------------------------
+
+% \theoremstyle      plain, break, change, margin, marginbreak, changebreak
+% \theorembodyfont   \upshape, \itshape, \slshape, \scshape 
+
+\theoremstyle{plain}
+\theorembodyfont{\slshape}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+
+
+\theoremstyle{margin}
+\newtheorem{Theorem}{Theorem}[section]
+
+
+\theoremstyle{plain}
+
+\theorembodyfont{\upshape}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{example}{Example}[section]
+
+
+%---------------------------------------------------------------------------
+%  eof
+

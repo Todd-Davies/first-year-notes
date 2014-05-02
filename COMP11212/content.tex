@@ -26,7 +26,7 @@ list of the terminology used throughout the course:
 	String with itself any number of times. For example, ${ho}^3$ would give us
 	$hohoho$.
 	\item A {\bf language} is a collection of Strings that can be thought of as
-	a set. Examples of languages couls be $\{\emptyset\}$, $\{\epsilon\}$,
+	a set. Examples of languages could be $\{\emptyset\}$, $\{\epsilon\}$,
 	$\{hot,hotter,hottest\}$ or $\{a^n | n \in \mathbb{N}\}$.
 \end{itemize}
 
@@ -72,7 +72,7 @@ String.}
 
 \subsection{Regular expressions}
 
-The terms {\it pattern} and {\it regular expression} are pretty much synonomous.
+The terms {\it pattern} and {\it regular expression} are pretty much synonymous.
 The operators allowed in a regular expression are:
 
 \begin{center}
@@ -89,7 +89,7 @@ The operators allowed in a regular expression are:
 	\end{tabular}
 \end{center}
 
-\marginpar{If we were to analyse a pattern in a recursive fasion, then in order
+\marginpar{If we were to analyse a pattern in a recursive fashion, then in order
 to end our analysis, we would eventually have to find one of a selection of
 {\it base cases}.The highlighted rows here represent {\it step cases} (that is
 to say that at least another level of recursion is needed to finish our
@@ -97,7 +97,9 @@ analysis), while the un-highlighted lines are base cases.}
 
 \subsubsection{Discarding brackets}
 
-Just like in high-school mathematics, brackets can be discarded when unnecessary. For example, the pattern $((0|1)^*0)$ is equivalent to $(0|1)^*0$, and $(2|(1|0))$ is the same as $(2|1|0)$.
+Just like in high-school mathematics, brackets can be discarded when
+unnecessary. For example, the pattern $((0|1)^*0)$ is equivalent to $(0|1)^*0$,
+and $(2|(1|0))$ is the same as $(2|1|0)$.
 
 \subsubsection{Matching a regular expression}
 
@@ -109,6 +111,13 @@ The following patterns match the following words:
 \begin{center}
 	\begin{tabular}{>{\bfseries} l l}
 		Empty word & The empty word only matches the pattern $\epsilon$.\\
-		% Carry on from page 17
+		Base case & A literal inside a pattern will match a word that is the
+					same as the literal.\\
+		Concatenation & If two words are next to eachother in a pattern, then
+						they will be matched as the concatenation of them
+						both.\\
+		Alternative & $(s_1|s_2)$ will match $s_1$ or $s_2$.\\
+		Kleene star & $(s)^*$ will match any number of consecutive instances of
+					  $s$.
 	\end{tabular}
 \end{center}
