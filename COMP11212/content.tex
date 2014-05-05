@@ -260,7 +260,7 @@ Now, we've dealt with the $0$ state, we must concern us with where we can go
 from the state $12$. Since this represents both the state $1$ and the state $2$
 in the NFA, we must consider the transitions we can do from either of them. From
 state $1$ in the NFA, we can go to either state $0$, $1$ or $2$ with a $b$
-transition. Concequently, we should make a new state in our DFA for this:
+transition. Consequently, we should make a new state in our DFA for this:
 
 \begin{center}
   \includegraphics{automata/8.pdf}
@@ -284,13 +284,13 @@ with an $a$ transition:
 33 of Andrea's notes. although it's well explained, I don't think it's worth
 including here, since the formal definition won't be very useful in the exam.}
 
-\subsection{Algorithm two}
+\section{Algorithm two}
 
 Algorithm two takes a DFA and converts it into a regular expression. If you want
 to convert an NFA into a regular expression, then you must first convert it into
 a DFA using algorithm one.
 
-\subsubsection{Numbering states}
+\subsection{Numbering states}
 
 Algorithm two relies on us having named all the states in the DFA before we
 attempt to apply the algorithm. Although in theory, the algorithm will work with
@@ -303,15 +303,15 @@ wrong way round, then it probably won't make the algorithm too complicated.
 Also, whether the algorithm is an acceptance state has no bearing on its
 number.}
 
-\subsubsection{Applying algorithm two}
+\subsection{Applying algorithm two}
 
 First of all, we must determine which states a word from the language
 $\mathcal{L}$ accepted by the automation must start and end in. In order to do
 this, we must find the start states and all of the possible end states:
 
 \[
-	\mathcal{L} = \lang{start}{accepting_0}{} \cup
-		\lang{start}{accepting_1}{} \cup \dots \cup \lang{start}{accepting_n}{}
+  \mathcal{L} = \lang{start}{accepting_0}{} \cup
+    \lang{start}{accepting_1}{} \cup \dots \cup \lang{start}{accepting_n}{}
 \]
 
 If the automation we were looking at was something like this:
@@ -324,38 +324,38 @@ If the automation we were looking at was something like this:
 Then the language described by the automation would be:
 
 \[
-	\mathcal{L} = \lang{0}{0}{} \cup \lang{0}{2}{}
+  \mathcal{L} = \lang{0}{0}{} \cup \lang{0}{2}{}
 \]
 
 We must now break down this expression into its component parts, $\lang{0}{0}{}$
-and $\lang{0}{2}{}$ and evaluate them individualy.
+and $\lang{0}{2}{}$ and evaluate them individually.
 
 \[
-	\begin{split}
-		\lang{0}{0}{\leq 2} &= \lang{0}{0}{\leq 1} \cup \left( \lang{0}{2}{\leq 1} \cdot {\lang{2}{2}{\leq 1}}^{*} \cdot \lang{2}{0}{\leq 1} \right)\\
-		\lang{0}{0}{\leq 1} &= \epsilon\\
-		\lang{0}{2}{\leq 1} &= \lang{0}{2}{\leq 0} \cup \left( \lang{0}{1}{\leq 0} \cdot {\lang{1}{1}{\leq 0}}^{*} \cdot \lang{1}{2}{\leq 0} \right)\\
-							&= \emptyset \cup \left( a \cdot \epsilon^*  \cdot b \right)\\
-							&= ab\\
-		\lang{2}{2}{\leq 1} &= \lang{2}{2}{\leq 0} \cup \left( \lang{2}{1}{\leq 0} \cdot {\lang{1}{1}{\leq 0}}^{*} \cdot \lang{1}{2}{\leq 0} \right)^*\\
-							&= \epsilon \cup \left( ca \cdot \epsilon^* \cdot b \right)^*\\
-							&= \epsilon | (cab)^*\\
-		\lang{2}{0}{\leq 1} &= c\\
-		\lang{0}{0}{\leq 2} &= \epsilon | ab(cab)^*c\\\\
-		\lang{0}{2}{\leq 2} &= \lang{0}{2}{\leq 1} \cdot {\lang{2}{2}{\leq 1}}^*\\
-							&= \{ab\} \cdot \{(cab)^*\}\\
-							&= ab(cab)^*\\
-	\end{split}
+  \begin{split}
+    \lang{0}{0}{\leq 2} &= \lang{0}{0}{\leq 1} \cup \left( \lang{0}{2}{\leq 1} \cdot {\lang{2}{2}{\leq 1}}^{*} \cdot \lang{2}{0}{\leq 1} \right)\\
+    \lang{0}{0}{\leq 1} &= \epsilon\\
+    \lang{0}{2}{\leq 1} &= \lang{0}{2}{\leq 0} \cup \left( \lang{0}{1}{\leq 0} \cdot {\lang{1}{1}{\leq 0}}^{*} \cdot \lang{1}{2}{\leq 0} \right)\\
+              &= \emptyset \cup \left( a \cdot \epsilon^*  \cdot b \right)\\
+              &= ab\\
+    \lang{2}{2}{\leq 1} &= \lang{2}{2}{\leq 0} \cup \left( \lang{2}{1}{\leq 0} \cdot {\lang{1}{1}{\leq 0}}^{*} \cdot \lang{1}{2}{\leq 0} \right)^*\\
+              &= \epsilon \cup \left( ca \cdot \epsilon^* \cdot b \right)^*\\
+              &= \epsilon | (cab)^*\\
+    \lang{2}{0}{\leq 1} &= c\\
+    \lang{0}{0}{\leq 2} &= \epsilon | ab(cab)^*c\\\\
+    \lang{0}{2}{\leq 2} &= \lang{0}{2}{\leq 1} \cdot {\lang{2}{2}{\leq 1}}^*\\
+              &= \{ab\} \cdot \{(cab)^*\}\\
+              &= ab(cab)^*\\
+  \end{split}
 \]
 
 We can now just concatenate the two languages we found and simplify the
 resulting regular expression:
 
 \[
-	\begin{split}
-		\mathcal{L} &= \epsilon | ab(cab)^*c \cup ab(cab)^*\\
-					&= \epsilon | ab(cab)^* (c|\epsilon)
-	\end{split}
+  \begin{split}
+    \mathcal{L} &= \epsilon | ab(cab)^*c \cup ab(cab)^*\\
+          &= \epsilon | ab(cab)^* (c|\epsilon)
+  \end{split}
 \]
 
 \section{Algorithm three}
@@ -375,84 +375,134 @@ There are a number of general cases in algorithm three, where a regular
 expression of a particular form will create an NFA with a certain structure:
 
 \begin{description}
-	\item {\bf The empty pattern $\emptyset$}:\\
-		A regular expression that accepts no words will produce an NFA like
-		this:
-		\begin{center}
-		  \includegraphics{automata/12.pdf}
-		\end{center}
-	\item {\bf The $\epsilon$ pattern}:\\
-		A regular expression that the empty word will produce an NFA like this:
-		\begin{center}
-		  \includegraphics{automata/13.pdf}
-		\end{center}
-	\item {\bf A pattern accepting a word $x, x \in \Sigma$}:\\
-		\begin{center}
-		  \includegraphics{automata/14.pdf}
-		\end{center}
+  \item {\bf The empty pattern $\emptyset$}:\\
+    A regular expression that accepts no words will produce an NFA like
+    this:
+    \begin{center}
+      \includegraphics{automata/12.pdf}
+    \end{center}
+  \item {\bf The $\epsilon$ pattern}:\\
+    A regular expression that the empty word will produce an NFA like this:
+    \begin{center}
+      \includegraphics{automata/13.pdf}
+    \end{center}
+  \item {\bf A pattern accepting a word $x, x \in \Sigma$}:\\
+    \begin{center}
+      \includegraphics{automata/14.pdf}
+    \end{center}
 \end{description}
 
 In order to produce a meaningful NFA, we must also handle cases where regular
 expressions implement concatenation, alternatives and the kleene star:
 
 \begin{description}
-	\item {\bf Concatenation}:\\
-		In order to create an NFA that will recognise the same language as a
-		pattern that uses concatenation (e.g. $xy$), we must first create two
-		NFA's to accept each half of the concetenation, lets call these $X$ and
-		$Y$. In order to connect them, we must change all the accepting states
-		in $X$ to non-accepting states and make an $\epsilon$ transition from
-		them to the start state of $Y$.
+  \item {\bf Concatenation}:\\
+    In order to create an NFA that will recognise the same language as a
+    pattern that uses concatenation (e.g. $xy$), we must first create two
+    NFA's to accept each half of the concatenation, lets call these $X$ and
+    $Y$. In order to connect them, we must change all the accepting states
+    in $X$ to non-accepting states and make an $\epsilon$ transition from
+    them to the start state of $Y$.
 
-		For example:
+    For example:
 
-		\begin{tabular}{lcr}
-			\includegraphics{automata/15.pdf}
-			&
-			Concatenated with
-			&
-			\includegraphics{automata/16.pdf}
-		\end{tabular}
+    \begin{tabular}{lcr}
+      \includegraphics{automata/15.pdf}
+      &
+      Concatenated with
+      &
+      \includegraphics{automata/16.pdf}
+    \end{tabular}
 
-		Goes to:
+    Goes to:
 
-		\begin{center}
-		  \includegraphics{automata/17.pdf}
-		\end{center}
-	\item {\bf Alternative}:\\
-		To create an NFA that implements an alternative such as $x|y$, then we
-		must make a new NFA that has a start state that connects to the other
-		NFA's that will accept $x$ and $y$ with $\epsilon$ transitions:
+    \begin{center}
+      \includegraphics{automata/17.pdf}
+    \end{center}
+  \item {\bf Alternative}:\\
+    To create an NFA that implements an alternative such as $x|y$, then we
+    must make a new NFA that has a start state that connects to the other
+    NFA's that will accept $x$ and $y$ with $\epsilon$ transitions:
 
-		For example:
+    For example:
 
-		\begin{center}
-		  \includegraphics{automata/18.pdf}
-		\end{center}
+    \begin{center}
+      \includegraphics{automata/18.pdf}
+    \end{center}
 
-		Combine to make:
+    Combine to make:
 
-		\begin{center}
-		  \includegraphics{automata/19.pdf}
-		\end{center}
+    \begin{center}
+      \includegraphics{automata/19.pdf}
+    \end{center}
 
-	\item {\bf Kleene star}:\\
+  \item {\bf Kleene star}:\\
 
-		To implement a Kleene star with an NFA, you simply create an epsilon
-		transition from each accepting state in the NFA to the start state, and
-		make sure that the start state is an accepting state.
+    To implement a Kleene star with an NFA, you simply create an epsilon
+    transition from each accepting state in the NFA to the start state, and
+    make sure that the start state is an accepting state.
 
-		For example:
+    For example:
 
-		\begin{center}
-		  \includegraphics{automata/20.pdf}
-		\end{center}
+    \begin{center}
+      \includegraphics{automata/20.pdf}
+    \end{center}
 
-		Goes to:
+    Goes to:
 
-		\begin{center}
-		  \includegraphics{automata/21.pdf}
-		\end{center}
+    \begin{center}
+      \includegraphics{automata/21.pdf}
+    \end{center}
 
 
 \end{description}
+
+\section{Algorithm four}
+
+The purpose of algorithm four is to convert an NFA into a DFA. In order to do
+this, you start with an NFA and then create a new automation with the same
+states as the NFA, but with no transitions:
+
+\begin{center}
+  \includegraphics{automata/22.pdf}
+\end{center}
+
+\begin{center}
+  \includegraphics{automata/23.pdf}
+\end{center}
+
+We then look at each non-accepting state, and if we can reach it using {\it
+only} epsilon transitions from an accepting state, then we convert that non-
+accepting state to an accepting state.
+
+\begin{center}
+  \includegraphics{automata/24.pdf}
+\end{center}
+
+Then we copy all of the transitions with a letter (not $\epsilon$) to the new
+automation.
+
+\begin{center}
+  \includegraphics{automata/25.pdf}
+\end{center}
+
+Then we look at all the transitions where an actual letter is involved, and see
+if there are epsilon transitions leading to the start state for that transition,
+in which case we can link the state where the epsilon transition started to the
+end state of the letter transition.
+
+\begin{center}
+  \includegraphics{automata/26.pdf}
+\end{center}
+
+Then we can take out the states that have no input transitions:
+
+\begin{center}
+  \includegraphics{automata/27.pdf}
+\end{center}
+
+\marginpar{You can see that this automata accepts all the words matching the
+pattern $(a|b)^*$, which obviously could be represented by a different, more
+concise DFA. However, the goal of algorithm four isn't to produce efficient an
+efficient DFA, only to get rid of the epsilon transitions while still
+maintaining the same set of accepted words.}
