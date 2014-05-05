@@ -1,6 +1,7 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{color}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb}
+\usepackage{tabularx}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -20,6 +21,17 @@
 \begin{document}
 
 \pagesetup{2}{4}
+
+%===============================================================================
+% Sets of axes
+%===============================================================================
+
+\flashcard{
+  In a right handed axes, your \blank{thumb} should point in the direction of
+  the \blank{x} axis, your \blank{fore finger} should point in the direction of 
+  the \blank{y} axis, and your \blank{middle finger} should point in the
+  direction of the \blank{z} axis.
+}
 
 %===============================================================================
 % Matrices basics
@@ -292,6 +304,246 @@
   What is the identity transformation?
 }{
   A transformation that does nothing.
+}
+
+\card{
+  What do you get if you multiply a matrix and the inverse of the same matrix
+  together?
+}{
+  The identity matrix.
+}
+
+\card{
+  What is the general formula for a matrix to scale by $\beta_{xyz}$ times about
+  a point $(p,q,r)$?
+}{
+  \[
+    \left(
+      \begin{array}{cccc}
+        \beta_x & 0       & 0       & p(1-\beta_x)\\
+        0       & \beta_y & 0       & q(1-\beta_y)\\
+        0       & 0       & \beta_z & r(1-\beta_z)\\
+        0       & 0       &  0      & 1\\
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  How do you rotate about a point in 2D space?
+}{
+  \begin{tabular}{l c}
+    1 & Translate the point to the origin\\
+    2 & Rotate through $\theta$ as appropriate\\
+    3 & Translate the origin back to the point to rotate around\\
+  \end{tabular}
+}
+
+\card{
+  What is a matrix to rotate about the origin in 2D space?
+}{
+  \[
+    \left(
+      \begin{array}{ccc}
+        \cos\theta & -\sin\theta & 0\\
+        \sin\theta & \cos\theta  & 0\\
+        0          & 0           & 1\\
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  What is the formula for a 3D rotation about the $x$ axis?
+}{
+  \[
+    \left(
+      \begin{array}{cccc}
+        1 & 0          & 0           & 0\\
+        0 & \cos\theta & -\sin\theta & 0\\
+        0 & \sin\theta & \cos\theta  & 0\\
+        0 & 0          & 0           & 1
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  What is the formula for a 3D rotation about the $y$ axis?
+}{
+  \[
+    \left(
+      \begin{array}{cccc}
+        \cos\theta  & 0 & \sin\theta  & 0\\
+        0           & 1 & 0           & 0\\
+        -\sin\theta & 0 & \cos\theta  & 0\\
+        0           & 0 & 0           & 1
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  What is the formula for a 3D rotation about the $z$ axis?
+}{
+  \[
+    \left(
+      \begin{array}{cccc}
+        \cos\theta  & -\sin\theta & 0 & 0\\
+        \sin\theta  & \cos\theta  & 0 & 0\\
+        0           & 0           & 1 & 0\\
+        0           & 0           & 0 & 1
+      \end{array}
+    \right)
+  \]
+}
+
+\card{
+  How do you undo rotations?
+}{
+  Just do the same rotation as before except rotate through $-\theta$ instead of
+  $\theta$. Make sure you're rotating about the same point or axis.
+}
+
+\card{
+  What is the general method for rotating around a line $L$ in three dimensions?
+}{
+  \begin{tabularx}{0.5\textwidth}{l X}
+    1 & Translate $L$ so that it goes through the origin.\\
+    2 & Rotate around the $x$ axis so that the line lies in the x-y plane and
+        $z=0$\\
+    3 & Rotate around the $z$ axis to make the line lie on the $x$ axis.\\
+    4 & Perform the rotation of $\theta^{\circ}$ on the $x$ axis.\\
+    5 & Reverse step 3\\
+    6 & Reverse step 2\\
+    7 & Reverse step 1\\
+  \end{tabularx}
+}
+
+\card{
+  What is the matrix to reflect points along a line $ax + by = f$?
+}{
+  \[
+    \left[
+      \begin{array}{ccc}
+        1 - \frac{2a^2}{a^2 + b^2} & -\frac{2ab}{a^2 + b^2}     & \frac{2af}{a^2 + b^2}\\
+        -\frac{2ab}{a^2 + b^2}     & 1 - \frac{2b^2}{a^2 + b^2} & \frac{2bf}{a^2 + b^2}\\
+        0                          & 0                          & 1\\
+      \end{array}
+    \right]
+  \]
+}
+
+\card{
+  How is a reflection undone?
+}{
+  Just re-apply the reflection. An interesting property of any reflection matrix
+  $R$, is that $R^2 = I$, where $I$ is the identity matrix.
+}
+
+\card{
+  What is the formula for a 3D reflection along the line $ax + by + cz = f$?
+}{
+  \[
+    \left[
+      \begin{array}{cccc}
+        1 - 2\frac{a^2}{a^2 + b^2 + c^2} & - 2\frac{ab}{a^2 + b^2 + c^2}    & - 2\frac{ac}{a^2 + b^2 + c^2}    & 2\frac{af}{a^2 + b^2 + c^2}\\
+        - 2\frac{ab}{a^2 + b^2 + c^2}    & 1 - 2\frac{b^2}{a^2 + b^2 + c^2} & - 2\frac{bc}{a^2 + b^2 + c^2}    & 2\frac{bf}{a^2 + b^2 + c^2}\\
+        - 2\frac{ac}{a^2 + b^2 + c^2}    & - 2\frac{bc}{a^2 + b^2 + c^2}    & 1 - 2\frac{c^2}{a^2 + b^2 + c^2} & 2\frac{cf}{a^2 + b^2 + c^2}\\
+        0 & 0 & 0 & 1\\
+      \end{array}
+    \right]
+  \]
+}
+
+\card{
+  What is the formula for projecting a 3D point onto the plane
+  $ax + by + cz = f$?
+}{
+  \[
+    \left[
+      \begin{array}{cccc}
+        1 - \frac{a^2}{a^2 + b^2 + c^2} & - \frac{ab}{a^2 + b^2 + c^2}    & - \frac{ac}{a^2 + b^2 + c^2}    & \frac{af}{a^2 + b^2 + c^2}\\
+        - \frac{ab}{a^2 + b^2 + c^2}    & 1 - \frac{b^2}{a^2 + b^2 + c^2} & - \frac{bc}{a^2 + b^2 + c^2}    & \frac{bf}{a^2 + b^2 + c^2}\\
+        - \frac{ac}{a^2 + b^2 + c^2}    & - \frac{bc}{a^2 + b^2 + c^2}    & 1 - \frac{c^2}{a^2 + b^2 + c^2} & \frac{cf}{a^2 + b^2 + c^2}\\
+        0 & 0 & 0 & 1\\
+      \end{array}
+    \right]
+  \]
+}
+
+\card{
+  Why is it impossible to reverse a projection?
+}{
+  Projection matrices are examples of singular matrices, and therefore don't
+  have an inverse. If you think about it, multiple points could be mapped onto
+  the same point in the plane anyway, so undoing a projection wouldn't make
+  sense.
+}
+
+\flashcard{
+  The determinant is defined only for \blank{square} matrices.
+}
+
+\card{
+  What is the formula to find the determinant of a matrix $M$ where $n>2$?
+}{
+  \[
+    det~M = \sum^n_{j=1}(-1)^{j+1} \cdot M_{1j} \cdot det~\overline{M}_{1j}
+  \]
+}
+
+\card{
+  How do you find $\overline{M_{ij}}$?
+}{
+  If $M$ is an $n \times n$ matrix, then $M_{ij}$ is the $(n - 1) \times (n -
+  1)$ matrix obtained from $M$ by throwing away the $i$th row and $j$th column.
+}
+
+\card{
+  How is the determinant defined for a $2 \times 2$ matrix such as:\\
+  \[
+    \left(
+      \begin{array}{cc}
+        a & b\\
+        c & d\\
+      \end{array}
+    \right)
+  \]
+}{
+  \[
+    ad - bc
+  \]
+}
+
+\card{
+  How can you find the determinant of a matrix in row echerlon form?
+}{
+  Multiply the cells along the main diagonal together.
+}
+
+\card{
+  In order to get a matrix into row echerlon form so that you can find the
+  determinant, you can do what two operations? What are their effects?
+}{
+  \begin{tabularx}{0.4\textwidth}{l X}
+    - & You can swap rows, but doing so negates the determinant.\\
+    - & You can multiply one row by another, this does not affect the
+        determinant.\\
+  \end{tabularx}
+}
+
+\card{
+  What does the determinant of a matrix signify in a geometric sense?
+}{
+  The area scale factor for 2D transformations and the volume scale factor for
+  3D ones.
+}
+
+\card{
+  When is a square matrix singular?
+}{
+  If and only if its determinant if zero.
 }
 
 \end{document} 
