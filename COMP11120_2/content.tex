@@ -344,3 +344,133 @@ we cover in this course are as follows:
 \end{description}
 
 \subsection{Equivalence relation}
+
+A relation is said to be an equivalence relation if it is reflexive, symmetric
+and transitive. The idea is that if $R$ is an equivalence relation, then if
+$aRb$, then in some sense, $a$ and $b$ are the same.
+
+An equivalence relation splits a set into a number of partitions. Each partition
+is made up of elements of the set that are equivalent to each other. An {\it
+equivalence class} is a subset of elements in the set that are equivalent to
+eachother as previously described. The notation for an equivelence class is
+$[a]_R$, where all the elements in that equivalence class will be related to
+$a$ under the relation $R$.
+
+\marginpar{Sometimes the subscript $R$ is missed off the notation for
+equivalence classes if the relation in question is clear from the context; i.e.
+you could write $[a]$ instead of $[a]_R$.}
+
+If we were to take the set of natural numbers $\mathbb{N}$ and define the $R$ so
+that $aRb$ if $a$ and $b$ are both even or both odd. This would mean that
+$\mathbb{N}$ would be split into two equivalence classes, that would form a
+partition, for example, $\mathbb{N} = [2] \cup [7]$.
+
+Mathematically, these are the principles of equivalence relations and
+equivalence classes:
+
+\begin{itemize}
+	\item $a \in [a]$
+	\item $b,c \in [a]_R \implies bRc$
+	\item For any $a,b$ either $[a] = [b]$ or $[a] \cap [b] = \emptyset$
+\end{itemize}
+
+\subsection{Operations on Relations}
+
+Just like sets, you can perform operations such as union and intersection on
+relations. They are easily defined in a mathematical sense:
+
+\begin{description}
+	\item {\bf Union}\\
+		In order to create a new relation $Z$ that is the union of the two
+		relations $X$ and $Y$, you would do:
+		\[
+			Z = X \cup Y = \{(a,b) \in Z | (a,b) \in X \vee (a,b) \in Y\}
+		\]
+
+		An example might be if you take the union of the `{\it is father of}'
+		relation and the `{\it is mother of}' relation, then you'll get an `{\it
+		is parent of}' relation.
+
+	\item {\bf Intersection}\\
+		Similar to the union, except you use an {\tt and} operator instead of an
+		{\tt or}:
+		\[
+			Z = X \cap Y = \{(a,b) \in Z | (a,b) \in X \wedge (a,b) \in Y\}
+		\]
+
+		An example might be if you take the intersection of the relation `{\it
+		person resides in Ali G}' and `{\it doesn't go to Manchester
+		University}', you'd get a relation describing lots of rather suspicious
+		looking Man Met students.
+
+	\item {\bf Complement}\\
+		To find the complement of a relation, you just define another relation
+		based on the pairs not defined in the first one:
+		\[
+			Z = X^c = \{(a,b) \in Z | (a,b) \not\in X\}
+		\]
+
+		A complement operation would have the effect of transforming the
+		relation `{\it are married}' to `{\it not married}'.
+
+	\item {\bf Inverse}\\
+		The inverse of a relation is where the direction of all the arrows on
+		the digraph are reversed:
+		\[
+			Z = X^{-1} = \{(a,b) \in Z | (b,a) \in X\}
+		\]
+
+		Inversing the relation `{\it is older than}' would yield an `{\it is
+		younger than}' relation.
+
+\end{description}
+
+\subsection{Relational composition}
+
+If one relation ($R_1$) is defined from $A$ to $B$ and another ($R_2$) from $B$
+to $C$, then it is possible to define a third relation that is composed of the
+first two that is defined from $A$ to $C$. This is relational composition:
+
+\[
+	R_2 \circ R_1 = \{(a,c) \in A \times C | \exists b \in B, (a,b) \in R_1 \wedge (b,c) \in R_2 \}
+\]
+
+\marginpar{Note the order of the operands here}
+
+\subsection{P Closures}
+
+In terms of relations, a $P$ Closure is constructed when you add the minimum
+number of pairs to a relation in order to give the relation the specific
+property $P$. For example, the transistive closure of a relation $R$ is a new
+relation based on $R$, but with all the extra pairs (which could be no extras)
+required to make the relation transitive.
+
+If $P$ is reflexive, symmetric or transitive, then a closure can {\it always} be
+constructed.
+
+\subsection{Ordered sets}
+
+A {\it partial order} is a transitive, anti-symmetric and reflexive relation. A
+partially ordered set (aka {\it poset}) is a set together with a partial order.
+One example of this the the set of integers $\mathbb{Z}$, which when taken
+together with the operator `$\geq$' becomes a partially ordered set, since any
+integer in the set can be compared to any other integer in the set.
+
+A partial order that can compare {\it any element} is referred to as a total
+order.
+
+\subsubsection{Maximal and minimal elements}
+
+A minimal element $m$ of a poset $X$ with a partial ordering \guilsinglleft~
+is one where:
+
+\[
+	\forall a \in X, m~\textrm{\guilsinglleft}~a
+\]
+
+A maximal element is similar:
+
+
+\[
+	\forall a \in X, a~\textrm{\guilsinglleft}~m
+\]
