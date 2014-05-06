@@ -459,9 +459,9 @@ expressions implement concatenation, alternatives and the kleene star:
 
 \section{Algorithm four}
 
-The purpose of algorithm four is to convert an NFA into a DFA. In order to do
-this, you start with an NFA and then create a new automation with the same
-states as the NFA, but with no transitions:
+The purpose of algorithm four is to convert an NFA into another NFA without any
+epsilon transitions. In order to do this, you start with an NFA and then create
+a new automation with the same states as the NFA, but with no transitions:
 
 \begin{center}
   \includegraphics{automata/22.pdf}
@@ -503,6 +503,79 @@ Then we can take out the states that have no input transitions:
 
 \marginpar{You can see that this automata accepts all the words matching the
 pattern $(a|b)^*$, which obviously could be represented by a different, more
-concise DFA. However, the goal of algorithm four isn't to produce efficient an
-efficient DFA, only to get rid of the epsilon transitions while still
+concise NFA. However, the goal of algorithm four isn't to produce efficient an
+efficient NFA, only to get rid of the epsilon transitions while still
 maintaining the same set of accepted words.}
+
+\section{Combining automata}
+
+If you regard automata as a set of all the words that they accept, then it is
+logical that you would be able to perform set operations on them. For some
+operations, this is easy. For example, combining two automata to create a new
+automata that accepts the union of their individually accepted languages is
+easy; just create a new start state and have epsilon transitions going from it
+to each of the seperate automata.
+
+Concatenation automata is easy too, just have an epsilon transition going from
+the accepting states of the first automata to the start state of the second one.
+
+However, not all operations are so straight forward. What if we want to find the
+intersection of two automata?
+
+\subsection{The product of two automata}
+
+In order to produce an automata that accepts words that are only accepted in
+both of two other automata (i.e. their intersection), then we must apply an
+algorithm to find the product of the two automata.
+
+Say if we wanted to combine these two automata, which accept words that have
+even numbers of $a$'s and odd numbers of $b$'s respectively:
+
+\begin{center}
+  \includegraphics{automata/28.pdf}
+\end{center}
+
+\begin{center}
+  \includegraphics{automata/29.pdf}
+\end{center}
+
+We first need to decide what states our new automata will need. This can be
+found by finding the powerset of the states of the two `parent' automata;
+$\{0,1\} \times \{0,1\} = \{00,01,10,11\}$.
+
+Now we need to decide the start state for the automata, which is going to be the
+state that is the start state in both the parent automata, in our case $00$.
+
+\marginpar{Since there is only one start state in every automata, there can only
+be one state in the powerset of the parent automata states that is made of two
+start states.}
+
+We then need to decide the accepting states, which are just the states in the
+powerset that are composed of two accepting states, in our case, this is just
+$01$.
+
+At the moment, our automata might look like this:
+
+\begin{center}
+  \includegraphics{automata/30.pdf}
+\end{center}
+
+Now we need to decide where the state transitions need to go. In order to do
+this, we need to put a transition $(a,b) \rightarrow (c,d)$ if and only if,
+there is a transition from $a \rightarrow c$ in the first parent automation, and
+another one from $b \rightarrow d$ in the second parent automation. Henceforth:
+
+\begin{center}
+  \includegraphics{automata/31.pdf}
+\end{center}
+
+This automata will now accept all the languages that are accepted by both its
+parent automata.
+
+\subsection{Finding the complement of an automata}
+
+In order to find an automata that will accept all the words not accepted by
+another automata, and reject all the ones that are, we must first find the DFA
+of the automata, and the we can simply swap the accepting states with the non-
+accepting states in order to find an automata that accepts the complement of the
+language previously accepted.

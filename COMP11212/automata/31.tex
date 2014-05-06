@@ -1,0 +1,33 @@
+\documentclass[dvipsnames]{minimal}
+
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\usetikzlibrary{arrows, automata}
+
+\author{Todd Davies}
+\date{\today}
+
+\begin{document}
+
+\begin{center}\begin{tikzpicture}[transform shape,>=stealth',shorten >=1pt,auto,node distance=2cm]
+	\node[state, initial]   (00)           				{00};
+	\node[state, accepting] (01)   [right of=00]        {01};
+	\node[state]   			(10)   [below of=00]       	{10};
+	\node[state]			(11)   [below of=01]        {11};
+
+	\path[->]          (00)  edge      [bend right]   node {$b$} (01);
+	\path[->]          (00)  edge      [bend right]   node {$a$} (10);
+
+	\path[->]          (01)  edge      [bend right]   node {$a$} (11);
+	\path[->]          (01)  edge      [bend right]   node {$b$} (00);
+
+	\path[->]          (10)  edge      [bend right]   node {$b$} (11);
+	\path[->]          (10)  edge      [bend right]   node {$a$} (00);
+
+	\path[->]          (11)  edge      [bend right]   node {$a$} (01);
+	\path[->]          (11)  edge      [bend right]   node {$b$} (10);
+\end{tikzpicture}\end{center}
+
+\end{document}
