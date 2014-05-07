@@ -625,3 +625,16 @@ to apply Algorithm One from section~\ref{sec:algorithm_one} first.
 Simluations, on the other hand, work for both NFA's and DFA's.
 
 %TODO: Work out how on earth to do simulations.
+
+\section{The limitations of regular languages}
+
+One limitation of regular languages is that they cannot count beyond any pre-
+defined number. For example, I could create a DFA to find if a string is of
+length $5$, but I couldn't create an automation to count how long a string is.
+What if the string was infinate, a DFA is finite, and therefore I could never
+make enough states.
+
+This may seem like only a minor inconvinience, but what if we want an automaton
+to see if there are the same number of 1's and 0's in an automation? We can
+define a language that will produce these words - $\mathcal{L} = \{0^n1^n|n \in
+\mathbb{N}\}$, but we can't produce an automaton that will accept that language.
