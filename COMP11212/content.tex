@@ -223,6 +223,7 @@ accept the language of words defined by the pattern $(0|1)^*(11)$:
 \end{center}
 
 \section{Algorithm one}
+\label{sec:algorithm_one}
 
 Algorithm one is a method for converting an NFA to a DFA. In order to do this,
 algorithm one walks through an NFA, in a recursive manner, finding all the
@@ -514,7 +515,7 @@ logical that you would be able to perform set operations on them. For some
 operations, this is easy. For example, combining two automata to create a new
 automata that accepts the union of their individually accepted languages is
 easy; just create a new start state and have epsilon transitions going from it
-to each of the seperate automata.
+to each of the separate automata.
 
 Concatenation automata is easy too, just have an epsilon transition going from
 the accepting states of the first automata to the start state of the second one.
@@ -523,6 +524,7 @@ However, not all operations are so straight forward. What if we want to find the
 intersection of two automata?
 
 \subsection{The product of two automata}
+\label{sub:product_of_automata}
 
 In order to produce an automata that accepts words that are only accepted in
 both of two other automata (i.e. their intersection), then we must apply an
@@ -573,9 +575,53 @@ This automata will now accept all the languages that are accepted by both its
 parent automata.
 
 \subsection{Finding the complement of an automata}
+\label{sub:complement_of_automata}
 
 In order to find an automata that will accept all the words not accepted by
 another automata, and reject all the ones that are, we must first find the DFA
 of the automata, and the we can simply swap the accepting states with the non-
 accepting states in order to find an automata that accepts the complement of the
 language previously accepted.
+
+\subsection{The Equivalence of Automata}
+
+It is obvious that one can create a number of distinct automata that will
+recognise the same language. However, if there are two different automata, how
+do we decide, with any element of certainty that they do in fact accept exactly
+the same language?
+
+In fact, there are three different ways of doing so; minimization,
+complementation and intersection and simlulations.
+
+\subsubsection{Minimization}
+
+There is an algorithm that when given a Deterministic Finite Automaton, will
+minimize the number of states in the DFA, so that it is efficient as possible. If
+we apply the algorithm to two different DFA's, and get the same result, then we
+will know that they accept the same language.
+
+However, this algorithm is non-trivial and is not required to be known for this
+course.\footnote{But you can read more about it here:
+\url{http://en.wikipedia.org/wiki/DFA_minimization}}
+
+\subsubsection{Complementation and Intersection}
+
+In subsection~\ref{sub:complement_of_automata}, we saw how it is possible to
+find the complement of an automata. If we can do this, to one DFA, we can then
+apply what we learnt in subsection~\ref{sub:product_of_automata} to find the
+intersection of the two automata.
+
+In Andrea's notes, this is not the preferred way of finding homogeneous
+automata, since finding the product of the two automata takes a long time. I
+disagreed, until I tried to apply the product algorithm on two of my own
+automata, and promptly changed my mind.
+
+\subsubsection{Simlulations}
+
+Both `minimization' and `complementation and intersection' only work on DFA's,
+which is annoying, since if you wanted to use them on an NFA first, you'd have
+to apply Algorithm One from section~\ref{sec:algorithm_one} first.
+
+Simluations, on the other hand, work for both NFA's and DFA's.
+
+%TODO: Work out how on earth to do simulations.

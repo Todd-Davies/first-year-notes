@@ -10,6 +10,8 @@ for dir in "${directories[@]%*/}"; do
 done;
 cd ..
 pdflatex notes.tex
+pdflatex notes.tex
+pdflatex kindle.tex
 pdflatex kindle.tex
 # In case the Author field isn't set
 exiftool notes.pdf -Author="Todd Davies"
