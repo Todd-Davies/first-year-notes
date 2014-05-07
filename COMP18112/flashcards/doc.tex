@@ -39,7 +39,7 @@
 }
 
 %===============================================================================
-% Lecture III - Transparency
+% Lecture III/IV - Transparency
 %===============================================================================
 
 \card{
@@ -114,7 +114,7 @@
 \card{
 	What is transparency of access? How is it achieved?
 }{
-	Transparency of access is the ability to not care about how a node is implemented. This is often achieved using protocols and API's and middleware.1
+	Transparency of access is the ability to not care about how a node is implemented. This is often achieved using protocols and API's and middleware.
 }
 
 \card{
@@ -136,9 +136,65 @@
 }
 
 \card{
-	What is transparency of failiure? How is it achieved?
+	What is transparency of failure? How is it achieved?
 }{
 	Users should not know that a specific node has failed or has recently had downtime. Hard to ensure, since sometimes slow connections are indistinguishable from failed nodes.
+}
+
+%===========================================================================
+% Lecture IV - Systems Software Evolution
+%===========================================================================
+
+\card{
+	Define systems software.
+}{
+	The underlying level of software which allows applications to perform their
+	tasks efficiently. Examples include device drivers and the operating system.
+}
+
+\card{
+	Describe the start of the mainframe era.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Hardware was vastly more expensive than people.\\
+		- & Only single user programs.\\
+		- & Programs had to be written every time they were to be run.\\
+	\end{tabularx}
+}
+
+\card{
+	What advances were made during the mainframe era?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & The ability to store programs was developed.\\
+		- & Batch processing, where jobs would be written to a queue to be
+			executed. Lost the ability to debug.\\
+		- & Use interrupt handlers and buffers to allow the CPU and IO to work
+			in parallel.\\
+		- & Multiprogramming so that one proram has the CPU and another has the
+			IO to enable full resource utalization.
+	\end{tabularx}
+}
+
+\card{
+	What is the danger of multiprogramming?
+}{
+	One program could potentially have access to data in other programs, which
+	could present security/compatability concerns. Memory protection is used so
+	that programs can only read and write stuff they own.
+}
+
+\card{
+	What three things can help multiprogramming be effective?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Fairness policies that impose limits on how much resources jobs 
+			should use\\
+		- & Shedulers that aim to minimise the time it takes to complete jobs,
+			by reducing their response and turnaround time.\\
+		- & Preemtive sheduling will temporarily stop jobs if they are hogging
+			resources.\\
+	\end{tabularx}
 }
 
 %===========================================================================
