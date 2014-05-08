@@ -142,7 +142,7 @@
 }
 
 %===========================================================================
-% Lecture IV - Systems Software Evolution
+% Lecture VIII - Systems Software Evolution
 %===========================================================================
 
 \card{
@@ -197,9 +197,94 @@
 	\end{tabularx}
 }
 
-%===========================================================================
+\card{
+	How does the scheduler make decisions about programs?
+}{
+	Give them priority levels.
+}
+
+%===============================================================================
+% Lecture IX - Systems Software Evolution: From PCs to Smartphones
+%===============================================================================
+
+\card{
+	In the beginning of the PC era, what was a typical PC like?
+}{
+	Everything was cut back with just a single user in mind; no timesharing,
+	multiprogramming or protection in the OS, few resources such as memory and
+	CPU power etc.
+}
+
+\card{
+	What happens to the price of PC's during the PC era?
+}{
+	Price falls due to comoditization and competition.
+}
+
+\card{
+	How does the usage of PC's change during the PC era?
+}{
+	They become used for more simple tasks such as word processing, rather than
+	number crunching and enterprise processing.
+}
+
+\card{
+	What does WIMP stand for and when was it introduced?
+}{
+	Windows, Icons, Menus, Pointer\\ \vspace{1em}
+	The WIMP system became common during the PC era.
+}
+
+\card{
+	What drove an increase in security focus during the PC era?
+}{
+	The fact that sharing data over networks was becoming increasingly common,
+	which exposed security risks. Authentication and authorization methods were
+	therefore developed.
+}
+
+\card{
+	What are the four standard layers of the network protocol stack?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		{\bf Name} & {\bf Example}\\
+		Application Layer & {\tt HTTP}, {\tt POP}, {\tt SSL}\\
+		Transport Layer & {\tt TCP}, {\tt UDP}\\
+		Internet Layer & {\tt IP}, {\tt ICMP}, {\tt IGMP}\\
+		Link Layer & {\tt ARP}, {\tt Ethernet}, {\tt DSL}, {\tt ISDN}\\
+	\end{tabularx}
+}
+
+\card{
+	When did middleware start to become widely used?
+}{
+	At the beginning of the web era. API's are used to provide a generic
+	interface between the OS and programming languages so that system calls are
+	no longer needed. The OS must support middleware rather than implementing
+	functions itself.
+}
+
+\card{
+	In the device era, CPU cycles, storage space and power is all limited. How
+	is this overcome?
+}{
+	Make use of connectivity to servers to offload computation somewhere else.
+	This is called the cloud.
+}
+
+\card{
+	Since there are millions of requests sent to data centres in the device era,
+	how is the demand handled?
+}{
+	Elasticlly scalable architecures made up of comodity hardware are developed
+	along with middleware such as hadoop and map reduce in order to allow for
+	massively parallel computation.
+}
+
+
+%===============================================================================
 % Steve's stuff
-%===========================================================================
+%===============================================================================
 
 \card{
 	What is the function of the {\tt HEAD} HTTP verb?
