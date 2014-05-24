@@ -1,0 +1,26 @@
+# Implements
+# φ^{-1} = N → NxN
+# Which is the inverse pair function in while
+
+n := 0;
+m := k;
+r := 0;
+while (r = 0 ∧ 0 ≤ m ∧ ¬(m = 0)) do
+(
+    r := m;
+	d := 0;
+	while 2 ≤ r do
+	(
+	  r := r - 2;
+	  d := d + 1;
+	);
+	if r = 0 then
+	(
+		m := d;
+		n := n + 1;
+	)
+	else
+	(
+		skip;
+	);
+)
