@@ -15,9 +15,9 @@
 \begin{tikzpicture}
     
     \node (S) {S}
-        child { node {a} }
         child {
             node {A} 
+            child { node {a} }
             child {
                 node {B}
                 child{ node{b} }
@@ -34,8 +34,8 @@
                 }
                 child{ node{b} }
             }
-        }
-		child { node {a}};
+            child { node {a}}
+        };
 \end{tikzpicture}
 \end{center}
 
