@@ -1,0 +1,42 @@
+\documentclass[dvipsnames]{minimal}
+
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\usetikzlibrary{arrows, automata, positioning}
+
+\author{Todd Davies}
+\date{\today}
+
+\begin{document}
+
+\begin{center}
+\begin{tikzpicture}
+    
+    \node (S) {S}
+        child { node {a} }
+        child {
+            node {A} 
+            child {
+                node {B}
+                child{ node{b} }
+                child {
+                    node {B}
+                    child{ node{b} }
+                    child {
+                        node {C}
+                        child{ node{c} }
+                        child{ node{$\epsilon$} }
+                        child{ node{c} }
+                    }
+                    child{ node{b} }
+                }
+                child{ node{b} }
+            }
+        }
+		child { node {a}};
+\end{tikzpicture}
+\end{center}
+
+\end{document}
