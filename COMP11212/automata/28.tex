@@ -16,10 +16,10 @@
 	\node[state]      	   (1)   [right of=0]        {1};
 
 	\path[->]          (0)  edge      [loop above]    node {$b$} (0);
-	\path[->]          (1)  edge      [loop above]    node {$a$} (1);
+	\path[->]          (1)  edge      [loop above]    node {$b$} (1);
 
 	\path[->]          (0)  edge      [bend right]   node {$a$} (1);
-	\path[->]          (1)  edge      [bend right]   node {$b$} (0);
+	\path[->]          (1)  edge      [bend right]   node {$a$} (0);
 \end{tikzpicture}\end{center}
 
 \end{document}
