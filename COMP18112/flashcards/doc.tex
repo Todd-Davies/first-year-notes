@@ -1,6 +1,8 @@
 \documentclass[frontgrid]{flacards}
 \usepackage{color}
 \usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{amsmath}
 
 \definecolor{light-gray}{gray}{0.75}
 
@@ -59,7 +61,7 @@
 }
 
 \card{
-	Why is it that even though connections between nodes can be implemented in different ways (such as wifi or ethenet), they can be treated as the same?
+	Why is it that even though connections between nodes can be implemented in different ways (such as wifi or Ethernet), they can be treated as the same?
 }{
 	The implementation details of each connection is abstracted away by many layers of protocols.
 }
@@ -69,11 +71,11 @@
 }{
 	\begin{tabular}{ll}
 		$\cdot$ & Latency is greater than zero.\\
-		$\cdot$ & Bandwidth is less than infinate.\\
+		$\cdot$ & Bandwidth is less than infinite.\\
 		$\cdot$ & Transport cost is greater than zero.\\
 		$\cdot$ & There is more than administrator.\\
 		$\cdot$ & The network topology can and will change.\\
-		$\cdot$ & The network is not homogenous (the nodes and edges differ).\\
+		$\cdot$ & The network is not homogeneous (the nodes and edges differ).\\
 		$\cdot$ & The network is not secure.\\
 		$\cdot$ & The network is not reliable.\\
 	\end{tabular}
@@ -171,8 +173,8 @@
 			executed. Lost the ability to debug.\\
 		- & Use interrupt handlers and buffers to allow the CPU and IO to work
 			in parallel.\\
-		- & Multiprogramming so that one proram has the CPU and another has the
-			IO to enable full resource utalization.
+		- & Multiprogramming so that one program has the CPU and another has the
+			IO to enable full resource utilisation.
 	\end{tabularx}
 }
 
@@ -180,7 +182,7 @@
 	What is the danger of multiprogramming?
 }{
 	One program could potentially have access to data in other programs, which
-	could present security/compatability concerns. Memory protection is used so
+	could present security/compatibility concerns. Memory protection is used so
 	that programs can only read and write stuff they own.
 }
 
@@ -190,9 +192,9 @@
 	\begin{tabularx}{0.5\textwidth}{lX}
 		- & Fairness policies that impose limits on how much resources jobs 
 			should use\\
-		- & Shedulers that aim to minimise the time it takes to complete jobs,
+		- & Schedulers that aim to minimise the time it takes to complete jobs,
 			by reducing their response and turnaround time.\\
-		- & Preemtive sheduling will temporarily stop jobs if they are hogging
+		- & Preemptive scheduling will temporarily stop jobs if they are hogging
 			resources.\\
 	\end{tabularx}
 }
@@ -218,7 +220,7 @@
 \card{
 	What happens to the price of PC's during the PC era?
 }{
-	Price falls due to comoditization and competition.
+	Price falls due to commoditization and competition.
 }
 
 \card{
@@ -239,7 +241,7 @@
 	What drove an increase in security focus during the PC era?
 }{
 	The fact that sharing data over networks was becoming increasingly common,
-	which exposed security risks. Authentication and authorization methods were
+	which exposed security risks. Authentication and authorisation methods were
 	therefore developed.
 }
 
@@ -276,11 +278,387 @@
 	Since there are millions of requests sent to data centres in the device era,
 	how is the demand handled?
 }{
-	Elasticlly scalable architecures made up of comodity hardware are developed
+	Elastically scalable architectures made up of commodity hardware are developed
 	along with middleware such as hadoop and map reduce in order to allow for
 	massively parallel computation.
 }
 
+%===============================================================================
+% Lecture X - Distributed Systems: Contrasted with Centralized Ones
+%===============================================================================
+
+\card{
+	What is the aim of the operating system with regard to resource management?
+}{
+	To make the most efficient use of the available resources as possible.
+}
+
+\card{
+	How is memory access controlled by the operating system?
+}{
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & The OS assigns a {\bf unique identity} to each process.\\
+		- & Each process is then assigned an {\bf address space}\\
+		- & The OS ensures each process $P$ has a single address space $A$ that
+		    is exclusive to that process.
+	\end{tabularx}
+}
+
+\card{
+	Why is it important that a process only have access to isolated areas of
+	memory?
+}{
+	So that processes cannot interfere with each others memory, because of a
+	bug or malicious intent.
+}
+
+\card{
+	Each process executes in a sequential manner, what is a disadvantage of
+	this?
+}{
+	If there was some task that took ages to do, say an API request over a slow
+	network connection, then it might be sensible to execute other tasks (maybe
+	preparing data for another API request) while the current task is executing
+	(i.e. make the tasks concurrent). Due to the sequential nature of processes,
+	this is not done.
+}
+
+\card{
+	What is a {\bf scheduling policy} with regard to operating systems?
+}{
+	A method of granting each process a time during which it is executed,
+	enabling multiple processes to execute in a concurrent fashion, even though
+	there may be only one physical set of resources.
+}
+
+\card{
+	Describe forking.
+}{
+	When a process forks (through an OS system call) the following happens:
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & A child process is created\\
+		- & It is given a copy of the parent process's address space, though
+		    each address space is distinct.\\
+		- & This causes two copies of the process to be active concurrently.
+	\end{tabularx}
+}
+
+\card{
+	Describe threading.
+}{
+	When a new thread is created in a process:
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & A new child process is created\\
+		- & The address space is shared between the child and the parent.\\
+		- & The parent and child processes are less isolated, and can therefore
+		    interact together easier, however, this can be dangerous and a
+		    source of bugs.\\
+		- & Since the no memory is copied, threading is less expensive than
+		    forking.
+	\end{tabularx}
+}
+
+\card{
+	When there are many independent, self-sufficient, autonomous, heterogeneous
+	machines working together with spatial separation, what is required to
+	facilitate effective working?
+}{
+	Message exchange over a network, best facilitated with a middleware API to
+	abstract away some complexity.
+}
+
+%===============================================================================
+% Lecture XI - Distributed Systems: Interconnecting them
+%===============================================================================
+
+\flashcard{
+	A significantly long interconnect (i.e. a \blank{full blown network}) is not
+	\blank{cost-neutral}.
+}
+
+\card{
+	Describe an SISD architecture.
+}{
+	A single instruction/program, single dataset architecture. An example of
+	this is an older, single core PC, where there is only data space (the main
+	memory) and there is cost neutral access to it.
+}
+
+\card{
+	Describe an SIMD architecture.
+}{
+	A single instruction/program, multiple dataset architecture. This could be
+	used to describe a computer with a GPU that is applying {\bf the same}
+	transformation to many pixels at once. Access to data is {\bf not} cost
+	neutral since the data is being shared amongst different instances of a
+	program/instruction.
+}
+
+\card{
+	Describe a MISD architecture.
+}{
+	A multiple program/instruction, single dataset architecture. Though not as
+	useful as other architectures, a sample MISD use case is in safety critical
+	systems where two independent processors could compute the same function on
+	the same data and check their results against each other.
+}
+
+\card{
+	Describe a MIMD architecture.
+}{
+	A multiple instruction/program, multiple dataset architecture. Here, a
+	form of interconnect will bind together several self sufficient autonomous
+	components. The interconnect isn't cost neutral, but the gain in
+	functionality is great. This architecture is widely used in applications
+	such as clouds, clusters, and even multi-core PC's.
+}
+
+\card{
+	Describe the advantages of a MIMD architecture.
+}{
+	A MIMD architecture allows you to scale out instead of up. An architecture
+	that lets you scale out is one where you can add more hardware (such as
+	servers/hard drives) as opposed to upgrading existing hardware which is
+	scaling up (i.e. increasing the RAM in a server).
+}
+
+\card{
+	What architecture is this:
+	\includegraphics[scale=0.4]{images/SISD}
+}{
+	SISD
+}
+
+\card{
+	What architecture is this:
+	\includegraphics[scale=0.4]{images/SIMD}
+}{
+	SIMD
+}
+
+\card{
+	What architecture is this:
+	\includegraphics[scale=0.4]{images/MISD}
+}{
+	MISD
+}
+
+\card{
+	What architecture is this:
+	\includegraphics[scale=0.4]{images/MIMD}
+}{
+	MIMD
+}
+
+\flashcard{
+	MIMD architectures (aka \blank{shared-nothing} architectures) often
+	communicate over a \blank{network} such as \blank{the Internet} that exists
+	\blank{separately} to the architecture itself.
+}
+
+\card{
+	What does vBNS stand for?
+}{
+	Very high performance Backbone Network Service.
+}
+
+\card{
+	What does OC stand for? What does OC-n mean?
+}{
+	OC stands for Optical Carrier.\\\vspace{1em}
+	OC-n = $n \times 54.84 \textrm{Mbit/s}$
+}
+
+\card{
+	What is the network protocol stack?
+}{
+	Layers of protocols that talk to each other to facilitate network
+	connectivity.
+}
+
+\card{
+	What are the five layers of the protocol stack?
+}{
+	\[
+		\begin{split}
+			\textrm{Application} &\leftrightarrow \textrm{Transport}\\
+								 &\leftrightarrow \textrm{Internet}\\
+								 &\leftrightarrow \textrm{Link}\\
+								 &\leftrightarrow \textrm{Physical}
+		\end{split}
+	\]
+}
+
+\card{
+	Describe the job of the application layer.
+}{
+	To take care of specific application needs such as sending emails or HTTP
+	requests.
+}
+
+\card{
+	Describe the job of the transport layer.
+}{
+	To make sure that there is a logical channel for messages to flow through.
+	E.g. TCP
+}
+
+\card{
+	Describe the job of the Internet layer.
+}{
+	To make sure packets sent over the network reach their intended destination.
+	E.g. IP
+}
+
+\card{
+	What is the job of the link layer?
+}{
+	Making sure that there is a physical channel to pass data through. E.g. MAC
+}
+
+\card{
+	What is the job of the physical layer?
+}{
+	To physically pass messages between networked components. Deals with all
+	the physics etc. E.g. Wifi
+}
+
+\card{
+	What is the hourglass model?
+}{
+	Very varied application layers at the top of the network stack (emails,
+	streaming video etc), as simple protocols as possible in the middle of the
+	stack, and very varied physical devices at the bottom (bluetooth, wifi,
+	optical fibre etc).
+}
+
+\card{
+	What is a packet switched network?
+}{
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & A network of networks formed by interconnecting routers.\\
+		- & The message is divided into packets before transmission.\\
+		- & The packets are reconstituted into the original message at
+			reception.\\
+		- & Packets may take varied routes while in transit, and be grouped with
+			unrelated packages from other messages.\\ 
+	\end{tabularx}
+}
+
+\card{
+	What is the job of a router in a packet switched network?
+}{
+	To examine the header data in each packet and send the packet on to another
+	router in the network that is closer to the packet's destination, while
+	accounting for how saturated datapaths are in order to find an efficient
+	route.
+}
+
+\card{
+	What are some differences between TCP and UDP?
+}{
+	\begin{tabularx}{0.5\textwidth}{l X}
+		- & TCP is connection oriented, UDP isn't.\\
+		- & TCP is reliable and ensures that messages arrive at their
+				destination, intact and in the right order. If the messages do
+				not arrive, then it will be known. UDP only provides a
+				corruption guarantee.\\
+		- & UDP is more lightweight than TCP and is better for quick
+			communication where the occasional loss or out of order packet isn't
+			a problem.
+	\end{tabularx}
+}
+
+\card{
+	What is packet encapsulation?
+}{
+	Each layer of the networking stack wraps messages in a packet that contains
+	information about the packet. By the time the packet has descended to the
+	physical layer, then it may have many layers of headers and metadata.
+}
+
+\card{
+	Why does packet encapsulation enable flexibility?
+}{
+	It doesn't matter about what information the packet is carrying, at each
+	layer of the network stack, the callee layer has multiple choices of what
+	protocol to use for the next level on the stack, and simply chooses the most
+	convenient/suitable one.
+}
+
+
+%===============================================================================
+% Lecture XII - Distributed systems - Architectural Paradigms
+%===============================================================================
+
+\card{
+	What does IPC stand for?
+}{
+	Inter-Process Communication
+}
+
+\flashcard{
+	A successful communication between processes must consist of one process
+	being \blank{ready to send} coinciding with another process being
+	\blank{ready to receive}. This is non trivial with \blank{independent
+	timelines}.
+}
+
+\card{
+	Describe Direct Message Exchange as a Distributed Architecture.
+}{
+	In order to communicate, the sending process must be in a position to send
+	and the receiving process must be in a position to receive messages. Upon
+	receiving a message, a process may interpret it and then respond.
+}
+
+\card{
+	What is asymmetric DME?
+}{
+	Direct Message Exchange	where processes are assigned special roles such as a
+	client or server in order to simplify the process. All the server has to do
+	is wait for messages and all the client has to do is send messages.
+}
+
+\card{
+	What is a symmetric DME?
+}{
+	Direct Message Exchange	where no special roles are assigned to processes,
+	also known as a peer-to-peer architecture. Event synchronisation is less 
+	simple with a symmetric DME than with an asymmetric one.
+}
+
+\card{
+	What is a MME architecture?
+}{
+	A Mediated Message Exchange architecture is one where inter process
+	communication goes through a central middleware component (often referred
+	to as message orientated middleware). Allows for event synchronisation to be
+	decoupled in time since the middleware is always avalible.
+}
+
+\flashcard{
+	If a message in a MME architecture goes to more than one destination it is
+	described as being a \blank{public subscribe system}, if messages only go
+	to one destination, then the system is described as being \blank{point to
+	point}.
+}
+
+\card{
+	What is RPC?
+}{
+	A remote procedure call is similar to a message, though the data is passed
+	as parameters to a method. It is often facilitated by middleware such as
+	{\tt CORBA}. When OOP principles are involved, RPC is called {\bf Remote
+	Method Invocation (RMI)}.
+}
+
+\card{
+	Why is middleware such as MME, RPC and RMI beneficial?
+}{
+	They raise the level of abstraction at which we can build and engineer
+	distributed systems.
+}
 
 %===============================================================================
 % Steve's stuff
@@ -317,9 +695,9 @@
 	What does the 'store and forward' model mean?
 }{
 	When a message needs to be transmitted along a network, but not all the
-	nodes along the path may be active at the same time. Concequently, the
+	nodes along the path may be active at the same time. Consequently, the
 	message is stored by each node until it has been confirmed to have been
-	recieved by the next node.
+	received by the next node.
 }
 
 \card{
@@ -332,7 +710,7 @@
 
 \card{
 	Describe 'reduction to absurdity'.
-}{
+}{Manchester University: a place where you get a score of 29/30 and yet still 78.7%
 	This is a type of argument where an idea is shown to be false by showing
 	that an absurd result can be obtained by the acceptance of the idea.
 }
@@ -390,7 +768,7 @@
 			other nodes with it's number.\\
 		2 & All the other nodes will only reply if they have a higher number. If
 			they do, they will start another election.\\
-		3 & The process continues until a node recieves no replies, and is
+		3 & The process continues until a node receives no replies, and is
 			therefore the coordinator, at which point, it will inform all the
 			other nodes of this.\\
 	\end{tabularx}
@@ -399,11 +777,11 @@
 \card{
 	Describe Cristian's algorithm?
 }{
-	In order to syncronize the clocks of two systems, one system $S$ will send
-	it's time to another system $C$. After recieving the request from $S$, $C$
-	will then reply with it's own clock time. When $S$ recieves this, then it
+	In order to synchronise the clocks of two systems, one system $S$ will send
+	it's time to another system $C$. After receiving the request from $S$, $C$
+	will then reply with it's own clock time. When $S$ receives this, then it
 	will set its clock to be the time that $C$ sent added to the round trip time
-	(discernable from $C$'s reply) divided by two.
+	(discernible from $C$'s reply) divided by two.
 }
 
 \card{
