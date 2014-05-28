@@ -661,6 +661,225 @@
 }
 
 %===============================================================================
+% Lecture XIII - Distributed Systems: Synchronization and Blocking Primitives
+%===============================================================================
+
+% This lecture is crap
+
+%===============================================================================
+% Lecture XIV - Distributed Systems: Socket-Level Client-Server Systems
+%===============================================================================
+
+\card{
+	What is a protocol?
+}{
+	A set of rules for inter process communication that stipulates the precise
+	sequence of events that must be enacted by the communicating processes for
+	them to successfully communicate.
+}
+
+\flashcard{
+	The operating system provides an \blank{API (application programming
+	interface)} for IPC.
+}
+
+\card{
+	Name two important OS services relied on by an API for IPC in the OS.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Keeping network buffers.\\
+		- & Providing synchronisation mechanisms.
+	\end{tabularx}
+}
+
+\flashcard{
+	Sockets are \blank{an additional layer on} the network stack provided by 
+	the operating system to abstract away the details of \blank{low level IPC}.
+	In this manner, communicating processes \blank{read and write} to each
+	others sockets in an \blank{I/O} style manner.
+}
+
+\card{
+	What the lifecycle of a client side socket?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1. & The socket is created for a given transport protocol (E.g. TCP) and
+		     Internet protocol (E.g. IPv6)\\
+		2. & A connection is then opened with the desired IP/port combination.\\
+		3. & The client then sends a request through the socket and waits for a
+		     response (through the same socket).\\
+		4. & The server then replies with a response, which may come in
+		     chunks.\\
+		5. & Once the response has been received, the socket is closed and
+		     discarded.
+	\end{tabularx}
+}
+
+\card{
+	How is a server side socket {\bf set up}?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1. & The socket is created for a given transport protocol (E.g. UDP) and
+		     Internet protocol (E.g. IPv4)\\
+		2. & Set the options for the socket, such as whether it is reusable.\\
+		3. & Bind the socket to the address and port to listen on.\\
+		4. & Start listening for connections, set the maximum number of
+		     connections to leave in a queue if there is a significant load.\\
+	\end{tabularx}
+}
+
+\card{
+	How are connections handled in a server side socket?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		1. & The socket waits to accept a connection.\\
+		2. & When a connection is accepted, a new socket is created with the IP
+		     address and port of the connecting client in it.\\
+		3. & The server process then handles the new connection as appropriate,
+		     e.g. by spawning a thread and passing the socket to that thread.\\
+		4. & The server process can then continue in its loop (back to stage
+		     1).\\
+	\end{tabularx}\\
+	\vspace{1em}
+	Note that spawned sockets and their handlers need to be closed
+	properly after the client has disconnected.
+}
+
+%===============================================================================
+% Lecture XXII - Massive Distribution for Performance
+%===============================================================================
+
+\card{
+	When is the benefit most useful from massively parallelising a task?
+}{
+	When the data can be partitioned and multiple computers can work on the data
+	independently then the performance benefits are most significant.
+}
+
+\card{
+	When a task is divided into parts for execution on many machines, what
+	challenges are presented in doing this?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & What if we have more workers than tasks, or more tasks than
+		    workers?\\
+		- & How do we know if all the workers have finished?\\
+		- & How do we aggregate the results of the workers?
+	\end{tabularx}
+}
+
+\flashcard{
+	Operations that seem \blank{atomic} may actually \blank{compile down into
+	several different steps} further down the software stack. This can cause
+	problems if seemingly atomic operations are running concurrently, since they
+	could \blank{interleave} further down the stack and interfere with each
+	other.
+}
+
+\card{
+	What is a synchronisation primitive?
+}{
+	A language construct that provides access to a shared variable with a
+	OS/hardware guaranteed atomicity. Used to enforce execution sequences.
+}
+
+\card{
+	What is a barrier?
+}{
+	A synchronisation primitive that forces multiple processes to wait at the
+	barrier until they have all reached the barrier. For this to be efficient,
+	all the processes must reach the barrier more or less at the same time.
+}
+
+\card{
+	When can an expression be split into multiple parts?
+}{
+	When independent branches of the expression do not have any shared state,
+	they can be executed in any order or parallelized.
+}
+
+\card{
+	We can split the following expression into {\tt x + y} and {\tt a + b} to be
+	parallelized. What is the blocking point?\\
+	\vspace{1em}
+	{\tt c = (a+b) * (x+y)}
+}{
+	The assignment to {\tt c}.
+}
+
+\flashcard{
+	When designing tasks for parallelized computation, the goal is to identify
+	and eliminate as many \blank{synchronisation points} as possible and
+	eliminate them, so that the \blank{independent tasks} can be carried out on
+	different machines as \blank{efficiently} as possible.
+}
+
+\card{
+	How does map reduce make it easier to make tasks independent?
+}{
+	By limiting the expressiveness of the computation of the tasks so they can be
+	more easily parallelized.
+}
+
+\card{
+	Why are functional programs easy to parallelize?
+}{
+	Since pure functions are side effect free, meaning that two functions used
+	in the same expression are guaranteed not to share state and so can be
+	parallelized safely.
+}
+
+\flashcard{
+	The {\tt map} function takes \blank{a collection {\tt [i\_1, ..., i\_n]}}
+	and \blank{a function {\tt f}} and returns \blank{the collection
+	{\tt [f(i\_1), ..., f(i\_n)]}}
+}
+
+\card{
+	Why is {\tt map} parallelizable?
+}{
+	Since the function applying to the collection can be applied to each item in
+	the collection independently, and is side effect free.
+}
+
+\flashcard{
+	{\tt Reduce} takes a \blank{binary associative function {\tt f(x,y)}} and
+	\blank{a collection {\tt [i\_1, ..., i\_n]}}, and returns\\
+	\blank{f(i\_n,f(...,f(i\_0, i\_1))...)}
+}
+
+\card{
+	How can {\tt reduce} be parallelized?
+}{
+	Have different parts of the list run in different tasks and then apply the
+	function to the result of tasks to combine them together again at the end.
+}
+
+\card{
+	How is the map and the reduce stage synchronised with each other in Hadoop
+	and other map-reduce engines?
+}{
+	With a barrier.
+}
+
+\card{
+	What useful features do map-reduce engines such as Hadoop implement?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Load balancing\\
+		- & Fault tolerance\\
+		- & Splitting, spawning and merging of tasks
+	\end{tabularx}
+}
+
+\card{
+	Just look over this one. Make sure you understand how the map-reduce
+	architecture works.
+}{
+	\includegraphics[scale=0.25]{images/map-reduce}
+}
+
+%===============================================================================
 % Steve's stuff
 %===============================================================================
 
