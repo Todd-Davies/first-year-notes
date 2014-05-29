@@ -880,6 +880,137 @@
 }
 
 %===============================================================================
+% Lecture XXIII - Services over the Web 
+%===============================================================================
+
+\flashcard{
+	If you have a network built of identical worker nodes, each working on a
+	partition of some dataset, then the computation is \blank{not inherently
+	distributed}, and could be refered to as a form of \blank{divide-and-
+	conoquer} strategy. However, if you have a network built of heterogenous
+	workers that are operating on data that are not partitions of a single
+	dataset, then you have \blank{an inherently distributed} computation, which
+	is a case of \blank{unite-and-conquer}.
+}
+
+\flashcard{
+	A distributed system working within one company is referred to as an
+	\blank{enterprise application integration} (EAI) system.
+}
+
+\flashcard{
+	A distributed system spanning multiple companies is referred to as an
+	\blank{buisiness to buisiness integration} (B2B) system.
+}
+
+\card{
+	What is an RIA?
+}{
+	A Rich Internet Application (e.g. Gmail)
+}
+
+\card{
+	What is a web mashup?
+}{
+	A lightweight web application that combines processing and data resources
+	from different sources into a single application.
+}
+
+\flashcard{
+	The {\tt WS-*} view is a family of standards that all start with
+	`{\tt WS-}'. It is an example of a \blank{Service Oriented Architecture}
+	(SOA), and interactions are defined by a \blank{higher up} protocol called
+	\blank{SOAP}. {\tt WS-*} interactions sit on top of other protocols such as
+	{\tt HTTP} or {\tt SMTP}.
+}
+
+\card{
+	What does REST stand for?
+}{
+	REpresentational State Transfer.
+}
+
+\card{
+	How does REST operate?
+}{
+	The sender places a payload into a request such as {\tt HTTP Post}, which is
+	then sent to a reciever. The reciever will then respond via the same method
+	with the response (if any).
+}
+
+\flashcard{
+	In a RESTful service, interactions between components are \blank{operations
+	on resources}, and the service is seen as a \blank{Resource Oriented
+	Architecture} (\blank{ROA}).
+}
+
+\card{
+	What (according to the lecture slides) features do SOAP API's offer to
+	justify them being more heavyweight?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Security, authemtication and authorization\\
+		- & Robust addressing and reliable messaging\\
+		- & Transactional semantics (fault tolerance features)\\
+	\end{tabularx}
+	\\
+	\vspace{1em}
+	The above are very useful in EAI and B2B contexts.
+}
+
+\card{
+	This is the {\it real difference} between REST and SOAP API's.
+}{
+	\includegraphics[scale=0.4]{images/rest-vs-soap}
+}
+
+%===============================================================================
+% Lecture XXIV - The Web as a Massive Distributed Database
+%===============================================================================
+
+\flashcard{
+	In the Web of Data view, the web is \blank{a massive distributed database}.
+}
+
+\card{
+	Why is the data exposed by API's often hard to use with processing
+	algorithms?
+}{
+	Even though the data might be able to be parsed (i.e. if it's in JSON), the
+	semantics of the data are still unclear since different API's follow
+	different specifications and therefore it is hard to extract useful,
+	unambigous data.
+}
+
+\flashcard{
+	The Web of Data (WoD) is a \blank{graph}, similar to a relational database,
+	but with no predefined \blank{schema}. The \blank{edges} between
+	\blank{nodes} define relationships in the data.
+}
+
+\card{
+	What does RDF stand for? What is it?
+}{
+	Resource Description Language. There are various implementations of RDF,
+	such as XML, turtle format, N-triples format etc.
+}
+
+\flashcard{
+	In the WoD, we have \blank{linked} data where resources are URI-assigned
+	nodes, linked by \blank{explicitly declared relationships}.
+}
+
+\card{
+	What does OWL mean?
+}{
+	Web Ontology Language
+}
+
+
+
+
+
+%===============================================================================
 % Steve's stuff
 %===============================================================================
 
