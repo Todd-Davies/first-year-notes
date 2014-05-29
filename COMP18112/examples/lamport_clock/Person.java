@@ -62,16 +62,16 @@ public class Person extends LamportClock<Person.MessagePair>
       this.name = name;
     }
 
-        public Person build()
-        {
-          return new Person(this);
-        }
+    public Person build()
+    {
+      return new Person(this);
+    }
 
-        @Override
-        protected PersonBuilder self()
-        {
-          return this;
-        }
+    @Override
+    protected PersonBuilder self()
+    {
+      return this;
+    }
   }
 
   /**
