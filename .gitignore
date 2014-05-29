@@ -26,3 +26,4 @@
 *.tex.bak
 *.pdf_original
 *.new
+*.class
