@@ -1,0 +1,3 @@
+[submodule "COMP18112/examples/lamport_clock"]
+	path = COMP18112/examples/lamport_clock
+	url = git@github.com:Todd-Davies/LamportClockExample.git
