@@ -1006,13 +1006,97 @@
 	Web Ontology Language
 }
 
+\card{
+	Describe the {\bf follow your nose} approach to querying the web of data.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Select and connect to an initial seed URI.\\
+		- & Send it your declarative query.\\
+		- & Iterate through the triples in the result and decide whether to 
+		    hyperlink the triple.\\
+		- & Now you can do more queries if needed to expand your results set.
+	\end{tabularx}
+}
 
-
+\card{
+	What is data source federation?
+}{
+	Middleware that emulates one virtual database from many physical (local)
+	data sources. It does this by constructing many smaller queries on it's
+	local data sets based on a global query that it has been given and then 
+	compiling the results together as a response. This removes the need for
+	decision making such as in the follow your nose approach to traversing the
+	WoD.
+}
 
 
 %===============================================================================
 % Steve's stuff
 %===============================================================================
+
+\flashcard{
+	MAC addresses are made up of a \blank{24 bit OUI} number purchased by 
+	manufacturers from the \blank{IEEE}, and another \blank{24 bit NIC} number
+	issued by \blank{the manufacturer}. In this way, the \blank{manufacturer}
+	needs to ensure only that the second number	needs to be unique.
+}
+
+\card{
+	MAC address stands for? Why is it silly to call a MAC address an `address'?
+}{
+	Media Access Control\\
+	\vspace{1em}
+	An address contains information about the whereabouts of an entity. A MAC
+	address is really just a Unique Identifier.
+}
+
+\flashcard{
+	An IP (\blank{Internet Protocol}) address serves two purposes; as a
+	\blank{unique identifier} and as an indication of \blank{where a device is
+	on a network}. The \blank{IANA} (\blank{Internet Assigned Numbers
+	Authority}) assigns blocks of addresses to regional authorities, meaning
+	that IP addresses do have some \blank{geographical} relationship.
+}
+
+\card{
+	What does DNS stand for?
+}{
+	Domain Name Server.
+}
+
+\flashcard{
+	When a DNS server is given a \blank{domain name} to translate into an
+	\blank{IP} address, it looks to see if it already has the answer in its
+	cache and returns it if so. Otherwise, it will \blank{propogate the request
+	up} the heirachy until it does find an answer.
+}
+
+\card{
+	How does the DNS system control how caching is used?
+}{
+	Each DNS record has a TTL (Time To Live), which dictates how long the server
+	should retain the record in its cache before replacing it from higher up the
+	heirachy. TTL values can be from seconds up to 68 years, or never.
+}
+
+\card{
+	What does {\tt HTTP} stand for?
+}{
+	HyperText Transfer Protocol
+}
+
+\flashcard{
+	The web is a \blank{stateless} protocol in order to save the resources that 
+	would be required if a \blank{connection} was to be left open for the
+	duration of a session.
+}
+
+\card{
+	If {\tt HTTP} is a stateless protocol, then how is state retained on the
+	web?
+}{
+	The web server retains the state, not the {\tt HTTP} protocol.
+}
 
 \card{
 	What is the function of the {\tt HEAD} HTTP verb?
@@ -1054,13 +1138,50 @@
 	What is the SMTP protocol?
 }{
 	The Simple Mail Transfer Protocol is a method for sending email. It is a
-	stateful, connection based protocol, so a connection to the server must be
-	opened before the message can be transferred, and then closed again after.
+	text-based, stateful, connection based protocol, so a connection to the
+	server must be opened before the message can be transferred, and then
+	closed again after.
+}
+
+\card{
+	What is the POP protocol?
+}{
+	The Post Office Protocol. Lets you read and delete emails from a server. If 
+	a message is not deleted, then it will stay unread for the next time (though
+	a client may choose just not to download it next time). Like SMTP, POP is
+	text based, stateful and connection based.
+}
+
+\card{
+	What is IMAP?
+}{
+	The Internet Message Access Protocol is an email protocol that lets you see
+	the head of a message rather than just having to download the whole thing.
+	This means you can more easily cache emails on a client and then download
+	any changes that have occured. It also lets users have multiple inboxes,
+	server side searching and it deals with attachments better than POP.
+}
+
+\card{
+	What are the four Coffman conditions?
+}{
+	\begin{tabularx}{0.5\textwidth}{>{\bfseries}l X}
+		Mutual Exclusion & There must be at least one resource that cannot be
+						   shared.\\
+		Hold and Wait &    A process is currently holding on (or more)
+						   resource(s), and is waiting for another resource 
+						   currently held by another process.\\
+		No preemption &    Nothing can force a process to give up a resource
+						   unless it does so willingly.\\
+		Circular wait &    There must be a cycle of depedencies so that
+		                   processes are waiting for each other to relinquish
+		                   resource control before they themselves do.
+	\end{tabularx}
 }
 
 \card{
 	Describe 'reduction to absurdity'.
-}{Manchester University: a place where you get a score of 29/30 and yet still 78.7%
+}{
 	This is a type of argument where an idea is shown to be false by showing
 	that an absurd result can be obtained by the acceptance of the idea.
 }
@@ -1145,6 +1266,16 @@
 		4 & The master then averages out the clock times and sends each node a
 			message containing the difference that it is from the average.
 	\end{tabularx}
+}
+
+%===============================================================================
+% Misc
+%===============================================================================
+
+\card{
+	When answering questions, Alvaro wants us to...
+}{
+	Describe, explain, jusify, contrast
 }
 
 \end{document} 
