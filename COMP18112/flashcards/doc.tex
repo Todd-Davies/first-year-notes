@@ -907,8 +907,8 @@
 \flashcard{
 	If you have a network built of identical worker nodes, each working on a
 	partition of some dataset, then the computation is \blank{not inherently
-	distributed}, and could be refered to as a form of \blank{divide-and-
-	conoquer} strategy. However, if you have a network built of heterogenous
+	distributed}, and could be referred to as a form of \blank{divide-and-
+	conquer} strategy. However, if you have a network built of heterogeneous
 	workers that are operating on data that are not partitions of a single
 	dataset, then you have \blank{an inherently distributed} computation, which
 	is a case of \blank{unite-and-conquer}.
@@ -921,7 +921,7 @@
 
 \flashcard{
 	A distributed system spanning multiple companies is referred to as an
-	\blank{buisiness to buisiness integration} (B2B) system.
+	\blank{business to business integration} (B2B) system.
 }
 
 \card{
@@ -955,7 +955,7 @@
 	How does REST operate?
 }{
 	The sender places a payload into a request such as {\tt HTTP Post}, which is
-	then sent to a reciever. The reciever will then respond via the same method
+	then sent to a receiver. The receiver will then respond via the same method
 	with the response (if any).
 }
 
@@ -970,7 +970,7 @@
 	justify them being more heavyweight?
 }{
 	\begin{tabularx}{0.5\textwidth}{lX}
-		- & Security, authemtication and authorization\\
+		- & Security, authentication and authorisation\\
 		- & Robust addressing and reliable messaging\\
 		- & Transactional semantics (fault tolerance features)\\
 	\end{tabularx}
@@ -1000,7 +1000,7 @@
 	Even though the data might be able to be parsed (i.e. if it's in JSON), the
 	semantics of the data are still unclear since different API's follow
 	different specifications and therefore it is hard to extract useful,
-	unambigous data.
+	unambiguous data.
 }
 
 \flashcard{
@@ -1088,8 +1088,8 @@
 \flashcard{
 	When a DNS server is given a \blank{domain name} to translate into an
 	\blank{IP} address, it looks to see if it already has the answer in its
-	cache and returns it if so. Otherwise, it will \blank{propogate the request
-	up} the heirachy until it does find an answer.
+	cache and returns it if so. Otherwise, it will \blank{propagate the request
+	up} the hierarchy until it does find an answer.
 }
 
 \card{
@@ -1097,7 +1097,7 @@
 }{
 	Each DNS record has a TTL (Time To Live), which dictates how long the server
 	should retain the record in its cache before replacing it from higher up the
-	heirachy. TTL values can be from seconds up to 68 years, or never.
+	hierarchy. TTL values can be from seconds up to 68 years, or never.
 }
 
 \card{
@@ -1179,7 +1179,7 @@
 	The Internet Message Access Protocol is an email protocol that lets you see
 	the head of a message rather than just having to download the whole thing.
 	This means you can more easily cache emails on a client and then download
-	any changes that have occured. It also lets users have multiple inboxes,
+	any changes that have occurred. It also lets users have multiple inboxes,
 	server side searching and it deals with attachments better than POP.
 }
 
@@ -1194,7 +1194,7 @@
 						   currently held by another process.\\
 		No preemption &    Nothing can force a process to give up a resource
 						   unless it does so willingly.\\
-		Circular wait &    There must be a cycle of depedencies so that
+		Circular wait &    There must be a cycle of dependencies so that
 		                   processes are waiting for each other to relinquish
 		                   resource control before they themselves do.
 	\end{tabularx}
@@ -1242,7 +1242,7 @@
 	Give an example of `reduction to absurdity'.
 }{
 	\begin{tabularx}{0.5\textwidth}{lX}
-		- & Assume that a succesful coordinated action occurs as a result of
+		- & Assume that a successful coordinated action occurs as a result of
 		    messages being passed with communicating parties.\\
 		- & Assume the last message in the sequence is lost.\\
 		- & If the action still succeeds, then the last message was
@@ -1345,7 +1345,7 @@
 \card{
 	How was Napster's distributed architecture organised?
 }{
-	Napster had a centeral server which acted as a file directory/search engine
+	Napster had a central server which acted as a file directory/search engine
 	that enabled peers to connect to each other and exchange files.
 }
 
@@ -1368,7 +1368,7 @@
 	\begin{tabularx}{0.5\textwidth}{lX}
 		- & There were two types of nodes; normal and supernodes.\\
 		- & Nodes would be promoted to supernodes if they had sufficient uptime
-		    and bandwitdh (though they could demote themselves if they didn't
+		    and bandwidth (though they could demote themselves if they didn't
 		    want to be a supernode).\\
 		- & Supernodes would take on higher level tasks for the child nodes,
 		    such as indexing files and sharing data with other supernodes.\\
@@ -1439,7 +1439,7 @@
 }
 
 \card{
-	In a disitributed hash table, how many keys is each node responsible for if
+	In a distributed hash table, how many keys is each node responsible for if
 	there are $N$ nodes and $K$ keys?
 }{
 	$\frac{K}{N}$
@@ -1448,7 +1448,7 @@
 \flashcard{
 	In Chord, a \blank{finger table} is created so that queries don't have to
 	go all the way around the ring. The $i^{\textrm{th}}$ entry of a nodes
-	finger table constains the address of the successor
+	finger table contains the address of the successor
 	$(n + 2^{i-1} ) mod 2^m$.
 }
 
@@ -1458,7 +1458,7 @@
 	\begin{tabular}{ll}
 		- & Rendering engine\\
 		- & Physics engine\\
-		- & Netowkring layer\\
+		- & Networking layer\\
 		- & Behaviour module\\
 	\end{tabular}
 }
@@ -1468,7 +1468,7 @@
 }{
 	The speed of the gameplay was limited to the speed of the slowest connected
 	computer over the network that was being played on. The P2P architecture
-	also meant there was no saved state if all the players discontected.
+	also meant there was no saved state if all the players disconnected.
 }
 
 \card{
@@ -1476,7 +1476,7 @@
 }{
 	There was a server (dedicated or participant) that had the full game state,
 	which allowed clients to perform at their own rates, and games to persist if
-	clients left. Client side prediction was utalised to reduce network load.
+	clients left. Client side prediction was utilised to reduce network load.
 }
 
 \card{
@@ -1503,7 +1503,7 @@
 \card{
 	When answering questions, Alvaro wants us to...
 }{
-	Describe, explain, jusify, contrast
+	Describe, explain, justify, contrast
 }
 
 \end{document} 
