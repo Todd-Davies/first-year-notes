@@ -45,13 +45,16 @@
 %===============================================================================
 
 \card{
-	On a graph diagram of a distributed system, what is represented by the nodes on the graph?
+	On a graph diagram of a distributed system, what is represented by the nodes
+	on the graph?
 }{
-	The physical nodes of the network (individual systems). Each can host multiple processes and resources.
+	The physical nodes of the network (individual systems). Each can host
+	multiple processes and resources.
 }
 
 \card{
-	Name some properties of edges that connect the nodes in a graph of a distributed system.
+	Name some properties of edges that connect the nodes in a graph of a
+	distributed system.
 }{
 	The type of connection (wired/wifi/mobile data etc).\\
 
@@ -61,9 +64,11 @@
 }
 
 \card{
-	Why is it that even though connections between nodes can be implemented in different ways (such as wifi or Ethernet), they can be treated as the same?
+	Why is it that even though connections between nodes can be implemented in
+	different ways (such as wifi or Ethernet), they can be treated as the same?
 }{
-	The implementation details of each connection is abstracted away by many layers of protocols.
+	The implementation details of each connection is abstracted away by many
+	layers of protocols.
 }
 
 \card{
@@ -73,7 +78,7 @@
 		$\cdot$ & Latency is greater than zero.\\
 		$\cdot$ & Bandwidth is less than infinite.\\
 		$\cdot$ & Transport cost is greater than zero.\\
-		$\cdot$ & There is more than administrator.\\
+		$\cdot$ & There is more than one administrator.\\
 		$\cdot$ & The network topology can and will change.\\
 		$\cdot$ & The network is not homogeneous (the nodes and edges differ).\\
 		$\cdot$ & The network is not secure.\\
@@ -90,57 +95,73 @@
 \card{
 	What is transparency of location? How can we achieve it?
 }{
-	An attempt to hide the need to know of where a specific resource is physically located.\\
+	An attempt to hide the need to know of where a specific resource is
+	physically located.\\
 	Use DNS servers to map host names to IP addresses.
 }
 
 \card{
 	What is transparency of migration? How can we achieve it?
 }{
-	When a host moves location in the network, we shouldn't need to the details of the move.\\
-	The DNS architecture implements this, though if a resource keeps moving, then the route through the network and therefore the latency of the connection to the host is hard to predict.
+	When a host moves location in the network, we shouldn't need to the details
+	of the move.\\
+	The DNS architecture implements this, though if a resource keeps moving,
+	then the route through the network and therefore the latency of the
+	connection to the host is hard to predict.
 }
 
 \card{
 	What is transparency of relocation? How is it achieved?
 }{
-	Transparency of relocation is when parts of the system move while they are being accessed. This is hard to mitigate, and is often a problem with mobile phone communications.
+	Transparency of relocation is when parts of the system move while they are
+	being accessed. This is hard to mitigate, and is often a problem with mobile
+	phone communications.
 }
 
 \card{
 	What is transparency of replication. How is it achieved?
 }{
-	When there is more than one physical resource that does the same job, which one do we use? It is hard to achieve.
+	When there is more than one physical resource that does the same job, which
+	one do we use? It is hard to achieve.
 }
 
 \card{
 	What is transparency of access? How is it achieved?
 }{
-	Transparency of access is the ability to not care about how a node is implemented. This is often achieved using protocols and API's and middleware.
+	Transparency of access is the ability to not care about how a node is
+	implemented. This is often achieved using protocols and API's and
+	middleware.
 }
 
 \card{
 	What is transparency of concurrency?
 }{
-	Different users shouldn't need to know that others are using the same resource and may be competing for its time. Atomic operations and enforcing consistency are ways to achieve this, but this can force users to wait on each other (deadlock, livelock etc).
+	Different users shouldn't need to know that others are using the same
+	resource and may be competing for its time. Atomic operations and enforcing
+	consistency are ways to achieve this, but this can force users to wait on
+	each other (deadlock, livelock etc).
 }
 
 \card{
 	What is deadlock?
 }{
-	When two different processes are unable to progress since each is waiting for information from the other.
+	When two different processes are unable to progress since each is waiting
+	for information from the other.
 }
 
 \card{
 	What is livelock?
 }{
-	When two processes change with respect to one another so that neither can make progress.
+	When two processes change with respect to one another so that neither can
+	make progress.
 }
 
 \card{
 	What is transparency of failure? How is it achieved?
 }{
-	Users should not know that a specific node has failed or has recently had downtime. Hard to ensure, since sometimes slow connections are indistinguishable from failed nodes.
+	Users should not know that a specific node has failed or has recently had
+	downtime. Hard to ensure, since sometimes slow connections are
+	indistinguishable from failed nodes.
 }
 
 %===========================================================================
@@ -353,7 +374,7 @@
 		- & The parent and child processes are less isolated, and can therefore
 		    interact together easier, however, this can be dangerous and a
 		    source of bugs.\\
-		- & Since the no memory is copied, threading is less expensive than
+		- & Since no memory is copied, threading is less expensive than
 		    forking.
 	\end{tabularx}
 }
@@ -1180,10 +1201,55 @@
 }
 
 \card{
-	Describe 'reduction to absurdity'.
+	What is deadlock?
+}{
+	A deadlock is a situation in which two or more competing actions are each
+	waiting for the other to finish, and thus neither ever does.
+}
+
+\card{
+	What is livelock?
+}{
+	Livelock is similar to deadlock except that the states of the system 
+	constantly change with regard to each other, but they never actually
+	progress.
+}
+
+\card{
+	What is resource starvation?
+}{
+	 Starvation is where a process is perpetually denied necessary resources.
+	 Without those resources, the program can never finish its task.
+}
+
+\card{
+	What is the difference between thin and thick clients?
+}{
+	A thin (or dumb) client will do little processing, and merely just echo or
+	display whatever the server tells it to. A thick client on the other hand 
+	will have functionality built into it that is able to work independently of
+	the server.
+}
+
+\card{
+	Describe `reduction to absurdity'.
 }{
 	This is a type of argument where an idea is shown to be false by showing
 	that an absurd result can be obtained by the acceptance of the idea.
+}
+
+\card{
+	Give an example of `reduction to absurdity'.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Assume that a succesful coordinated action occurs as a result of
+		    messages being passed with communicating parties.\\
+		- & Assume the last message in the sequence is lost.\\
+		- & If the action still succeeds, then the last message was
+		    unimportant.\\
+		- & Repeat until no messages are exchanged.\\
+		- & Our initial assumption was clearly wrong!
+	\end{tabularx}
 }
 
 \card{
@@ -1266,6 +1332,168 @@
 		4 & The master then averages out the clock times and sends each node a
 			message containing the difference that it is from the average.
 	\end{tabularx}
+}
+
+\card{
+	What is an overlay network?
+}{
+	A virtual network that is superimposed onto an existing network. Nodes in
+	an overlay network can be thought of as connected by virtual links that may
+	be composed of many actual physical links in the real network.
+}
+
+\card{
+	How was Napster's distributed architecture organised?
+}{
+	Napster had a centeral server which acted as a file directory/search engine
+	that enabled peers to connect to each other and exchange files.
+}
+
+\card{
+	How was Gnutella's network organised?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & To join, you have to have the IP address of a node in the network.\\
+		- & Queries for files are `flooded' around the network, with peers
+		    asking their neighbours if they don't have the file.\\
+		- & This was inefficient, since if the peers didn't have the file, then
+		    the request would go around the whole network before failing.\\
+	\end{tabularx}
+}
+
+
+\card{
+	How was KaZaa's network organised?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & There were two types of nodes; normal and supernodes.\\
+		- & Nodes would be promoted to supernodes if they had sufficient uptime
+		    and bandwitdh (though they could demote themselves if they didn't
+		    want to be a supernode).\\
+		- & Supernodes would take on higher level tasks for the child nodes,
+		    such as indexing files and sharing data with other supernodes.\\
+		- & Supernodes improved querying substantially, since failed queries
+		    needed only to go around the supernodes, not all of the nodes.\\
+	\end{tabularx}
+}
+
+\card{
+	Why has BitTorrent been immune to successful prosecution?
+}{
+	The BitTorrent protocol doesn't know about the contents of files, only their
+	hash code. This means you can't search for torrents based only on the files
+	themselves (though you can use a third party indexing service such as 
+	pirate bay). Also, the protocol is completely distributed, so BitTorrent
+	can be argued to be just an efficient file sharing mechanism rather than a
+	copyrighting infringing mechanism.
+}
+
+\card{
+	How does BitTorrent get people to seed content?
+}{
+	If a client limits its upload speed, then the protocol will throttle the
+	download speed to the client accordingly with a `more you give, more you
+	get' philosophy.
+}
+
+\card{
+	How does BitTorrent work?
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & Files are split into blocks, by default {\tt 256Kb}.\\
+		- & A torrent file is created which contains metadata about the file,
+			and a link to a tracker server which will tracks active clients.\\
+		- & A client will contact the tracker for a swarm of other clients
+			downloading the file, these other clients are called the peer set.\\
+		- & If the number of peers in the set drops below 20, then more will be
+			requested from the server.
+	\end{tabularx}
+}
+
+\card{
+	Describe BitTorrent's choke/unchoke policy.
+}{
+	\begin{tabularx}{0.5\textwidth}{lX}
+		- & A peer serves the 4 best connected peers in its peer set at any one
+		    time.\\
+		- & Every ten seconds, the worst of the four is choked if there is a
+		    better peer\\
+		- & Every thirty seconds, a random peer from the set is unchoked in the
+		    hope that it offers good speeds.
+	\end{tabularx}
+}
+
+\flashcard{
+	A hash function maps a \blank{key (the thing you’re searching for)} to a
+	\blank{number}, which then allows you to quickly index into a table to find
+	the result you want.
+}
+
+\card{
+	In a ring based hash table, if there are more buckets than nodes, then how
+	can we assign all the buckets to at least one node?
+}{
+	Make nodes responsible for all the buckets below them in the ring until the
+	next node.\\
+	\includegraphics[scale=0.2]{images/ring}
+}
+
+\card{
+	In a disitributed hash table, how many keys is each node responsible for if
+	there are $N$ nodes and $K$ keys?
+}{
+	$\frac{K}{N}$
+}
+
+\flashcard{
+	In Chord, a \blank{finger table} is created so that queries don't have to
+	go all the way around the ring. The $i^{\textrm{th}}$ entry of a nodes
+	finger table constains the address of the successor
+	$(n + 2^{i-1} ) mod 2^m$.
+}
+
+\card{
+	What are the four components of a game engine?
+}{
+	\begin{tabular}{ll}
+		- & Rendering engine\\
+		- & Physics engine\\
+		- & Netowkring layer\\
+		- & Behaviour module\\
+	\end{tabular}
+}
+
+\card{
+	What were some of the limitations of Doom's gameplay?
+}{
+	The speed of the gameplay was limited to the speed of the slowest connected
+	computer over the network that was being played on. The P2P architecture
+	also meant there was no saved state if all the players discontected.
+}
+
+\card{
+	How did Quake implement online gameplay?
+}{
+	There was a server (dedicated or participant) that had the full game state,
+	which allowed clients to perform at their own rates, and games to persist if
+	clients left. Client side prediction was utalised to reduce network load.
+}
+
+\card{
+	What is client side prediction?
+}{
+	Sending information to change the state of a client rather than sending the
+	whole new state in order to save bandwidth. E.g. Sending a trajectory
+	instead of sending a position ten times per second.
+}
+
+\card{
+	Why is the Unreal game engine so good?
+}{
+	It allows developers to `tear off' aspects of the game to be processed
+	entirely on the client side, and thus saving bandwidth and server CPU
+	cycles. Such aspects may be animations such as explosions or characters
+	dying.
 }
 
 %===============================================================================
