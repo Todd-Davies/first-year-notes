@@ -74,7 +74,7 @@
 \card{
 	Name the eight axioms of distributed systems.
 }{
-	\begin{tabular}{ll}
+	\begin{tabularx}{0.5\textwidth}{lX}
 		$\cdot$ & Latency is greater than zero.\\
 		$\cdot$ & Bandwidth is less than infinite.\\
 		$\cdot$ & Transport cost is greater than zero.\\
@@ -83,7 +83,7 @@
 		$\cdot$ & The network is not homogeneous (the nodes and edges differ).\\
 		$\cdot$ & The network is not secure.\\
 		$\cdot$ & The network is not reliable.\\
-	\end{tabular}
+	\end{tabularx}
 }
 
 \card{
@@ -103,8 +103,8 @@
 \card{
 	What is transparency of migration? How can we achieve it?
 }{
-	When a host moves location in the network, we shouldn't need to the details
-	of the move.\\
+	When a host moves location in the network, we shouldn't need to know the
+	details	of the move.\\
 	The DNS architecture implements this, though if a resource keeps moving,
 	then the route through the network and therefore the latency of the
 	connection to the host is hard to predict.
@@ -982,7 +982,7 @@
 \card{
 	This is the {\it real difference} between REST and SOAP API's.
 }{
-	\includegraphics[scale=0.4]{images/rest-vs-soap}
+	\includegraphics[scale=0.3]{images/rest-vs-soap}
 }
 
 %===============================================================================
@@ -1189,7 +1189,7 @@
 	\begin{tabularx}{0.5\textwidth}{>{\bfseries}l X}
 		Mutual Exclusion & There must be at least one resource that cannot be
 						   shared.\\
-		Hold and Wait &    A process is currently holding on (or more)
+		Hold and Wait &    A process is currently holding one (or more)
 						   resource(s), and is waiting for another resource 
 						   currently held by another process.\\
 		No preemption &    Nothing can force a process to give up a resource
