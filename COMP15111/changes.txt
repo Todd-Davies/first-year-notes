@@ -1,0 +1,10 @@
+1- little endians are read from right to left
+2- no comma in between LSL and literal #2
+3- fixed the interrupt handler table :)
+4- fixed typos here and there.
+
+5- should "Process manager - manages the CPU time between different processes to facilitate multitasking." instead of facilitate, fake or simulate? As it is not a real multi-processing?  
+
+6- added the other definition to compilers steps. and clarified that code optimization is a compiler and not an assembler job 
+
+7- accessing arrays: load base address is clearer than load base pointer IMO.
