@@ -575,7 +575,7 @@ In the word {\tt 0x12345678} there are four bytes:
 	\item {\tt 0x78}
 \end{itemize}
 
-In big endian, the first byte would be {\tt 0x12} since bits are read from
+In little endian, the first byte would be {\tt 0x12} since bits are read from
 right to left in little endian.
 
 In big endian, the first byte would be {\tt 0x78} since bits are read from left
@@ -1614,7 +1614,7 @@ swtable	DEFW	case0
 	ADR 	R1, swtable
 ; Load the value of R1 into the PC.
 ; Offset the value in R1 by (R0*4)
-	LDR 	PC, [R1, R0, LSL, #2]
+	LDR 	PC, [R1, R0, LSL #2]
 
 case0	; Do stuff
 	B end
@@ -1859,11 +1859,12 @@ interrupt
 	ADR   R1, data_reg
 	LDRB  R0, [R1]
 	; Store the data_reg info
-	LDR   R1, data
-	STR   R0, [R1]
+	STR 	R0, locationInMemory
+
 	; Acknowledge the transfer
-	LDR   R1, acknowledge
-	STR   #1, R1
+	ADR   R1, acknowledge
+	MOV   R1, #1
+	STR 	R0, [R1]
 	; Step 4 - restore the
 	; registers
 	LDMFD SP!, {R0, R1}
@@ -1892,7 +1893,7 @@ How then, does the interrupt handler know what parameter was used then? Well,
 these are the processes that go on when an {\tt SVC} call happens:
 
 \begin{enumerate}
-	\item Branch an link to the interrupt handler, save registers using 
+	\item Branch and link to the interrupt handler, save registers using 
 	{\tt STMFD SP, {R0-R2, LR}}.
 
 	\item Load the link register into a register and take off {\tt \#4}. This
@@ -1981,17 +1982,17 @@ are a number of steps associated with compilation:
 
 \begin{enumerate}
 
-	\item {\bf Lexical analysis} is when the source code is broken down into
+	\item {\bf Lexical analysis (Word)} is when the source code is broken down into
 	tokens (groups of one or more characters that represent something, like a
 	parameter, punctuation, operands etc). This is where comments are filtered
 	out of the source code; they are not included in the tokens.
 
-	\item {\bf Syntaxic analysis} checks that the tokens are formed so that
+	\item {\bf Syntaxic analysis (Structure)} checks that the tokens are formed so that
 	together, they form structures in the correct syntax for the language of
 	the code. This means checking that method calls have the right number of
 	parameters, semicolons are in the correct place, etc.
 
-	\item {\bf Semantic analysis} makes sure that the code makes sense; it'll
+	\item {\bf Semantic analysis (Meaning)} makes sure that the code makes sense; it'll
 	check the types of variables, check that programmer defined names and
 	definitions are legal and so on.
 
@@ -2001,7 +2002,7 @@ are a number of steps associated with compilation:
 	such as bytecode for Java or machine code if Assembly languages are being
 	assembled.
 
-	\item {\bf Optimisation} is an important part of compilation. Only higher
+	\item {\bf Optimisation (compiler step only)} is an important part of compilation. Only higher
 	level languages have any optimisation built into their compilation process
 	though; most assemblers don't do it (since they rely on the human
 	programmer doing so).
@@ -2283,7 +2284,7 @@ Here's some sample code for array indexing:
 	; Implement `element = array[index];'
 	LDR R0, index ; Load the index to get from
 	                the array
-	LDR R1, array ; Load the base pointer of
+	LDR R1, array ; Load the base address of
 	                the array
 	MOV R2, #4
 	MUL R2, R0, R2 ; Multiply the index by 4
