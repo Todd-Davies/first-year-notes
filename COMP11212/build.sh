@@ -6,10 +6,11 @@ for dir in "${directories[@]}"
 do
   cd $dir;
   for i in `ls *.tex`; do
-    pdflatex $i;
+    pdflatex $i &
   done;
   cd ..
 done;
+wait;
 pdflatex notes.tex
 pdflatex notes.tex
 pdflatex kindle.tex
