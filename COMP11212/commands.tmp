@@ -1,0 +1,2 @@
+pdflatex -shell-escape "\input{kindle.tex}"
+pdflatex -shell-escape "\input{notes.tex}"

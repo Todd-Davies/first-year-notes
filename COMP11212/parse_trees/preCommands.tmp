@@ -1,0 +1,1 @@
+cd parse_trees && pdflatex 1.tex && cd ..
