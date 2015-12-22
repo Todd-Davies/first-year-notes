@@ -10,6 +10,10 @@ fi
 compileall=
 remote=
 fastArgs=""
+logFile=output.log
+subl=0
+
+errors=0
 
 function usage
 {
@@ -18,6 +22,7 @@ function usage
   echo "  -r Compile on a remote server"
   echo "  -f Compile quickly (maybe taking shortcuts along the way)"
   echo "  -s Compile serially (no parallel compilation)"
+  echo "  -b/--sublime Make it play with sublime's Ctrl+b"
 }
 
 while [ "$1" != "" ]; do
@@ -29,6 +34,8 @@ while [ "$1" != "" ]; do
         -f | --fast )           fastArgs="\def\fastCompile{1} "
                                 ;;
         -s | --serial )         parallelCompile=0
+                                ;;
+        -b | --sublime )        subl=1
                                 ;;
         -h | --help )           usage
                                 exit
@@ -54,14 +61,20 @@ function remoteCompile
 function parallelCompile()
 {
   numCmd=`wc -l $1 | awk '{ print $1 }'`;
-  cat $1 | parallel bash -c "{} >> $logFile && echo done" | pv -p -l -s $numCmd -N "$2" > /dev/null;
+  if [ $subl -eq 1 ]; then
+    cat $1 | parallel bash -c "{} >> $logFile"; if [ $? -eq 1 ]; then errors=1; fi;
+  else
+    cat $1 | parallel --eta bash -c "{} >> $logFile"; if [ $? -eq 1 ]; then errors=1; fi;
+  fi
 }
 
 # Spell check all the things!
 # TODO(td): Implement optional whitelist for spellchecking
-for i in `ls *.tex`; do
-    aspell -t check $i;
-done;
+if [ $subl -eq 0 ]; then
+  for i in `ls *.tex`; do
+      aspell -t check $i;
+  done;
+fi
 
 if [ -s $preCompileCommands ]; then
   rm $preCompileCommands
@@ -102,6 +115,16 @@ else
     fi
     bash $commands;
   fi
-  # In case the Author field isn't set
-  #exiftool notes.pdf -Author='$authorName' >> $logFile;
+  if [ $errors = 0 ]; then
+    # In case the Author field isn't set
+    exiftool notes.pdf -Author='$authorName' >> $logFile;
+  fi
+fi
+
+if [ $parallelCompile = 1 ]; then
+  if [ -s $logFile ]; then
+    if [ $errors = 1 ]; then
+      cat $logFile;
+    fi
+  fi
 fi
