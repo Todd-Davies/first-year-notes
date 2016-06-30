@@ -460,53 +460,62 @@ expressions implement concatenation, alternatives and the kleene star:
 
 \section{Algorithm four}
 
-The purpose of algorithm four is to convert an NFA into another NFA without any
-epsilon transitions. In order to do this, you start with an NFA and then create
-a new automation with the same states as the NFA, but with no transitions:
+\textbf{NOTE: My description of algorithm four was \textit{wrong} and
+  has been deprecated.}
 
-\begin{center}
-  \includegraphics{automata/22.pdf}
-\end{center}
+Don't worry, just look in the course notes instead. Then once you've
+done that, you can submit a pull request to my notes and get listed as
+a contributor :)
 
-\begin{center}
-  \includegraphics{automata/23.pdf}
-\end{center}
+\url{https://github.com/Todd-Davies/first-year-notes/}
 
-We then look at each non-accepting state, and if we can reach it using {\it
-only} epsilon transitions from an accepting state, then we convert that
-non-accepting state to an accepting state.
+% The purpose of algorithm four is to convert an NFA into another NFA without any
+% epsilon transitions. In order to do this, you start with an NFA and then create
+% a new automation with the same states as the NFA, but with no transitions:
 
-\begin{center}
-  \includegraphics{automata/24.pdf}
-\end{center}
+% \begin{center}
+%   \includegraphics{automata/22.pdf}
+% \end{center}
 
-Then we copy all of the transitions with a letter (not $\epsilon$) to the new
-automation.
+% \begin{center}
+%   \includegraphics{automata/23.pdf}
+% \end{center}
 
-\begin{center}
-  \includegraphics{automata/25.pdf}
-\end{center}
+% We then look at each non-accepting state, and if we can reach it using {\it
+% only} epsilon transitions from an accepting state, then we convert that
+% non-accepting state to an accepting state.
 
-Then we look at all the transitions where an actual letter is involved, and see
-if there are epsilon transitions leading to the start state for that transition,
-in which case we can link the state where the epsilon transition started to the
-end state of the letter transition.
+% \begin{center}
+%   \includegraphics{automata/24.pdf}
+% \end{center}
 
-\begin{center}
-  \includegraphics{automata/26.pdf}
-\end{center}
+% Then we copy all of the transitions with a letter (not $\epsilon$) to the new
+% automation.
 
-Then we can take out the states that have no input transitions:
+% \begin{center}
+%   \includegraphics{automata/25.pdf}
+% \end{center}
 
-\begin{center}
-  \includegraphics{automata/27.pdf}
-\end{center}
+% Then we look at all the transitions where an actual letter is involved, and see
+% if there are epsilon transitions leading to the start state for that transition,
+% in which case we can link the state where the epsilon transition started to the
+% end state of the letter transition.
 
-\marginpar{You can see that this automata accepts all the words matching the
-pattern $(a|b)^*$, which obviously could be represented by a different, more
-concise NFA. However, the goal of algorithm four isn't to produce efficient an
-efficient NFA, only to get rid of the epsilon transitions while still
-maintaining the same set of accepted words.}
+% \begin{center}
+%   \includegraphics{automata/26.pdf}
+% \end{center}
+
+% Then we can take out the states that have no input transitions:
+
+% \begin{center}
+%   \includegraphics{automata/27.pdf}
+% \end{center}
+
+% \marginpar{You can see that this automata accepts all the words matching the
+% pattern $(a|b)^*$, which obviously could be represented by a different, more
+% concise NFA. However, the goal of algorithm four isn't to produce efficient an
+% efficient NFA, only to get rid of the epsilon transitions while still
+% maintaining the same set of accepted words.}
 
 \section{Combining automata}
 
