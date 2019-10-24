@@ -563,9 +563,8 @@ registers. The commands are detailed in full below:
 
 \subsection{Endianness}
 
-Endianness is a property of a memory location that defines the order of the
-bits. There are two types of endianness, {\bf little endian} and {\bf big
-endian}.
+Endianness defines how bytes should be ordered in multi-byte values.
+There are two types of endianness: {\bf little endian} and {\bf big endian}.
 
 In the word {\tt 0x12345678} there are four bytes:
 \begin{itemize}
@@ -575,20 +574,19 @@ In the word {\tt 0x12345678} there are four bytes:
 	\item {\tt 0x78}
 \end{itemize}
 
-In little endian, the first byte would be {\tt 0x12} since bits are read from
-right to left in little endian.
+In little endian, the first byte would be {\tt 0x78} since bytes are read from
+right to left.
 
-In big endian, the first byte would be {\tt 0x78} since bits are read from left
-to right in big endian.
+In big endian, the first byte would be {\tt 0x12} since bytes are read from left
+to right.
 
-This is important when we deciding what the most and least significant bits in a
-word are. For example, in this instance the {\it lsb} is {\tt 0x12} in little
-endian, but {\tt 0x78} in big endian.
+Although it does not matter which endianness is chosen, it must be kept
+consistent across all read and writes of a location in memory. Otherwise, the
+read value will differ from the written value e.g. {\tt 0x12345678} may be
+written as {\tt 0x12 0x34 0x56 0x78} (big endian) and then it may later be
+interpreted as {\tt 0x78563412} (little endian).
 
 In this course, little endian is used, though ARM can use either.
-
-\marginpar{N.b. The least significant bit is the smallest address. It is the one
-that has a value of {\tt 1} and thus determines if the number is odd or even.}
 
 \subsection{Addressing memory}
 
