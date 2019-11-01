@@ -1,6 +1,0 @@
-cd diagrams && pdflatex content.tex && cd ..
-cd diagrams && pdflatex course_info.tex && cd ..
-cd diagrams && pdflatex kindle.tex && cd ..
-cd diagrams && pdflatex meta.tex && cd ..
-cd diagrams && pdflatex notes.tex && cd ..
-cd diagrams && pdflatex packages.tex && cd ..
