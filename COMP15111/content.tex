@@ -653,7 +653,7 @@ usually be able to find a way to implement them. Some examples are given below:
 \subsection{Supervisor calls}
 
 Supervisor calls are functions implemented by the operating system, not ARM
-itself. The parameter of an {\tt SVC} call defines it's exact
+itself. The parameter of an {\tt SVC} call defines its exact
 operation.
 
 \marginpar{{\tt SWI} is the old (yet still occasionally used) command for
@@ -1782,7 +1782,7 @@ loop
 
 \subsubsection{The {\tt TST} instruction}
 
-TST performs a bitwise {\tt AND} on it's operands (a register and a literal test
+TST performs a bitwise {\tt AND} on its operands (a register and a literal test
 pattern). It then updates the flags for a subsequent conditional instruction. If
 the result of the AND was zero, then subsequent {\tt EQ} conditional
 instructions will execute - i.e. it compares the result of the AND operation to
@@ -2059,7 +2059,7 @@ security, including the ability to execute code inside a sandbox if it is
 suspected to be malicious or untrustworthy.
 
 \marginpar{A sandbox is a virtual environment that is able to separate a piece
-of running code from it's environment. For example, code running inside a
+of running code from its environment. For example, code running inside a
 sandbox might not be able to access the clipboard, hard drive or the Internet.}
 
 One of the beautiful things about compiling code to an abstract assembly
@@ -2215,7 +2215,7 @@ memory locations, and their is a pointer, a {\it heap pointer} pointing to the
 next free memory location in the heap.
 
 Each object in the heap is composed of three parts; a header that contains
-information about the object such as it's size, storage for the instance
+information about the object such as its size, storage for the instance
 variables and a storage table of methods that the object contains.
 
 \subsection{Stale objects and garbage collection}
