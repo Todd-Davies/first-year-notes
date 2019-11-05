@@ -239,7 +239,7 @@ There are three buses used by the CPU:
 \section{Processor design - the MU0}
 
 The MU0 is a very simple design of processor. So simple in fact, that it can be
-described within the scope of these notes. However, despite it's simplicity, it
+described within the scope of these notes. However, despite its simplicity, it
 is a complete processor and is capable of running complete programs.
 % TODO: Check this
 \marginpar{Since there are 4 bits for the operation inside an MU0 instruction,
@@ -828,7 +828,7 @@ where programs stored in memory are separated from the data they store.
 Most computers will implement memory as Random Access Memory (RAM). This is
 where any location in the memory can be loaded from or stored to at any time.
 
-The MU0 has a 12 bit address bus for it's random access memory, and therefore is
+The MU0 has a 12 bit address bus for its random access memory, and therefore is
 able to address $2^12$ different memory locations of one word each. This is
 equivalent to $4,000$ words or $8kB$.
 
@@ -1027,7 +1027,7 @@ is what gives rise to the name {\it Dynamic} RAM.
 \section{Input Output and Communications}
 
 There's no point having a blazingly fast CPU and memory unless you have methods
-of interfacing with it so that you can both give it data and receive it's
+of interfacing with it so that you can both give it data and receive its
 output. This is the principle behind Input Output (I/O).
 
 The maximum speed that information can travel at is equal to the speed at which
@@ -1059,7 +1059,7 @@ essential for the signals to be interpreted correctly.
 
 \subsubsection{Latency}
 
-Latency is the time it takes for a signal to get from it's start to it's
+Latency is the time it takes for a signal to get from its start to its
 destination. The longer a journey is, then the higher the latency is, and the
 slower the signal can travel through the medium, the higher the latency will
 get. Latency is measured in seconds.
@@ -1129,7 +1129,7 @@ doing a phase shift, so that the signals are mapped onto each other again.
 It is possible to remove the need for an extra clock signal by encoding the
 clock signal into the data itself. The principle is that the receiving end will
 assume that there is always going to be a signal transition at a predictable
-time, and then it can use it's knowledge of the approximate bit rate to
+time, and then it can use its knowledge of the approximate bit rate to
 regenerate the clock. This is what happens in Ethernet.
 
 \marginpar{Note that we'll still need a ground wire between the sender and

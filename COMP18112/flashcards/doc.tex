@@ -1048,7 +1048,7 @@
 	What is data source federation?
 }{
 	Middleware that emulates one virtual database from many physical (local)
-	data sources. It does this by constructing many smaller queries on it's
+	data sources. It does this by constructing many smaller queries on its
 	local data sets based on a global query that it has been given and then 
 	compiling the results together as a response. This removes the need for
 	decision making such as in the follow your nose approach to traversing the
@@ -1307,7 +1307,7 @@
 }{
 	\begin{tabularx}{0.5\textwidth}{lX}
 		1 & A node wants to be a coordinator, so it sends a message to all the
-			other nodes with it's number.\\
+			other nodes with its number.\\
 		2 & All the other nodes will only reply if they have a higher number. If
 			they do, they will start another election.\\
 		3 & The process continues until a node receives no replies, and is
@@ -1320,8 +1320,8 @@
 	Describe Cristian's algorithm?
 }{
 	In order to synchronise the clocks of two systems, one system $S$ will send
-	it's time to another system $C$. After receiving the request from $S$, $C$
-	will then reply with it's own clock time. When $S$ receives this, then it
+	its time to another system $C$. After receiving the request from $S$, $C$
+	will then reply with its own clock time. When $S$ receives this, then it
 	will set its clock to be the time that $C$ sent added to the round trip time
 	(discernible from $C$'s reply) divided by two.
 }
